@@ -40,8 +40,8 @@ export TF_CPP_MIN_LOG_LEVEL=1
 export DOTS=${HOME}/repos/dots
 
 # Find and source configs.
-source ${DOTS}/bash/bash_aliases
-source ${DOTS}/bash/prompt_colors
+source ${DOTS}/shell/bash_aliases
+source ${DOTS}/shell/prompt_colors
 source ${XDG_CONFIG_HOME}/fzf/fzfrc
 source ${XDG_CONFIG_HOME}/lf/pretty_lf.sh
 
