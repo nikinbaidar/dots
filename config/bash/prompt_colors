@@ -1,0 +1,49 @@
+#!/bin/bash
+: '
+Vars denoting escape sequences that can be used to color the prompt. 
+
+1. r = Red
+2. g = Green
+3. p = Purple
+4. b = Blue
+5. y = Yellow
+6. c = Cyan
+7. w = White
+
+8. F = Foreground
+'
+
+# Normal Colors
+
+r="\e[00;31m"
+g="\e[00;32m"
+p="\e[00;33m"
+b="\e[00;34m"
+y="\e[00;35m"
+c="\e[00;36m"
+w="\e[00;37m"
+
+# Bold Colors
+
+_r="\e[01;31m"
+_g="\e[01;32m"
+_p="\e[01;33m"
+_b="\e[01;34m"
+_y="\e[01;35m"
+_c="\e[01;36m"
+_w="\e[01;37m"
+
+# Prompt Colors
+
+R="\[${_r}\]"
+G="\[${_g}\]"
+Y="\[${_y}\]"
+B="\[${_b}\]"
+P="\[${_p}\]"
+C="\[${_c}\]"
+W="\[${_w}\]"
+
+
+# Additional Colors
+
+F="\[${w}\]"

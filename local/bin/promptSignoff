@@ -1,0 +1,9 @@
+#! /bin/bash
+
+answer=$(echo -e "yes\nno" | dmenu -i -p \
+    "Are you sure you want to sign off?")
+
+if [ $answer = yes ]
+then
+    pkill -u $USER
+fi

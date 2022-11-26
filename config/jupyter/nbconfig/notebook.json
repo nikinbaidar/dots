@@ -1,0 +1,30 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "ruler/main": true,
+    "init_cell/main": true,
+    "vim_binding/vim_binding.": true,
+    "vim_binding/vim_binding": true,
+    "codefolding/main": true
+  },
+  "CodeCell": {
+    "cm_config": {
+      "lineNumbers": true,
+      "cursorBlinkRate": 0,
+      "rulers": [
+        80
+      ]
+    }
+  },
+  "keys": {
+    "command": {
+      "bind": {
+        "f2": "jupyter-notebook:show-command-palette",
+        "ctrl-shift-e": "jupyter-notebook:edit-command-mode-keyboard-shortcuts",
+        "ctrl-shift-i": "jupyter-notebook:interrupt-kernel",
+        "ctrl-shift-c": "jupyter-notebook:shutdown-kernel"
+      }
+    }
+  }
+}

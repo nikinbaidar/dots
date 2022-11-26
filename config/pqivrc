@@ -1,0 +1,31 @@
+[options]
+fullscreen=1
+hide-info-box=1
+auto-montage-mode=0
+lazy-load=1
+end-of-files-action=wrap
+sort-key=MTIME
+
+[keybindings]
+d { command(rm .) }
+j { set_scale_level_relative(0.9) }
+k { set_scale_level_relative(1.1) }
+n { goto_file_relative(+1) }
+p { goto_file_relative(-1) }
+<Escape> { goto_file_relative(0) }
+l { flip_horizontally() }
+r { rotate_right() }
+s { command(feh --no-fehbg --bg-fill .) }
+
+<Mouse-Scroll-1>  { set_scale_level_relative(1.1) }
+<Mouse-Scroll-2>  { set_scale_level_relative(0.9) }
+
+@MONTAGE {
+    h { montage_mode_shift_x(-1) }
+    j { montage_mode_shift_y(1) }
+    k { montage_mode_shift_y(-1) }
+    l { montage_mode_shift_x(1) }
+    <Mouse-Scroll-1>  { montage_mode_shift_y_rows(-1) }
+    <Mouse-Scroll-2>  { montage_mode_shift_y_rows(1) }
+
+}

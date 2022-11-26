@@ -1,0 +1,33 @@
+#! /bin/bash
+
+rm --force \
+  ./*.aux  \
+  ./*.bcf  \
+  ./*.bbl  \
+  ./*.blg  \
+  ./*.log  \
+  ./*.out  \
+  ./*.lof  \
+  ./*.toc  \
+  ./*.run.nlo  \
+  ./*.run.xml  \
+  ./*.tex.bbl  \
+  ./*.tex.blg  \
+  ./*.nav \
+  ./*.snm \
+  ./*.lot
+
+rm --force \
+  ../*.aux  \
+  ../*.lof  \
+  ../*.log  \
+  ../*.out  \
+  ../*.toc  \
+  ../*.run.nlo  \
+  ../*.run.xml  \
+  ../*.tex.bbl  \
+  ../*.tex.blg  \
+  ../*.nav \
+  ../*.snm \
+  ../*.lot
+

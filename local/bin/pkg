@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ "${1}" = "-i" ]] ; then
+  pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+elif [[ "${1}" = "-a" ]] ; then
+  pacman -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
+elif [[ "${1}" = "-r" ]] ; then
+  pacman -Qq  | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns
+elif [[ "${1}" = "-c" ]] ; then
+  pacman -Q | wc -l
+
+elif [[ "${1}" = "-e" ]] ; then
+  pacman -Qe  | fzf --multi --preview 'pacman -Qi {1}'
+fi

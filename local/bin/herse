@@ -1,0 +1,5 @@
+#!/bin/bash
+jupyter notebook --no-browser --notebook-dir="$HOME/projects" &> \
+  /tmp/jupyterlogs &
+sleep 1
+firefox --private-window "localhost:8888/"

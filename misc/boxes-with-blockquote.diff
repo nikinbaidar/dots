@@ -1,0 +1,39 @@
+--- boxes-config	2022-08-26 20:19:32.756526602 +0545
++++ boxes-config-mine	2022-08-26 20:19:14.196527147 +0545
+@@ -418,6 +418,36 @@
+ 
+ # ============================================================================
+ 
++
++BOX blockquote	
++
++author   "Nikin Baidar"
++designer "(public domain)"
++created  "August 26, 2022 (Friday, 20:10h)"
++tags     "simple, programming, markdown"
++
++sample
++    > Blockquotes in markdown
++    >
++    >
++    >
++ends
++
++shapes {
++    w (">") 
++}
++
++padding { left 1 }
++
++elastic (w)
++
++END blockquote	
++
++
++# ============================================================================
++# ============================================================================
++
++
+ BOX shell
+ 
+ author   "Thomas Jensen"

@@ -1,0 +1,108 @@
+/*This file contains any manual css for this page that needs to override the global styles.
+This is only required when different pages style the same element differently. This is just
+a hack to deal with our current css styles and no new styling should be added in this file.*/
+
+#ipython-main-app {
+    position: relative;
+}
+#jupyter-main-app {
+    position: relative;
+}
+
+#site{
+  background-color: #fff;
+}
+
+/* Notebook styling */
+#notebook { 
+    margin: 0px !important;
+    padding: 0px !important;
+}
+#notebook-container {
+    padding: 0px !important;
+}
+
+/* Make the notebook cells take almost all available width */
+.container {
+    width:100% !important;
+    color: black !important;
+}
+
+/* Cell output */
+div.cell {
+    width:100% !important;
+    margin: 2px !important;
+    padding: 2px !important;
+    
+}
+
+/*this is for the area to the left of the editor or input area*/
+
+div.run_this_cell {
+    width: auto !important;
+    padding: 0px !important;  
+}
+
+div.prompt {
+    min-width: auto;
+    background-color: white;
+}
+
+div.input_prompt { 
+    padding-right: 2px !important;
+    margin-right: -4px !important;
+    text-align: center !important;
+    width: 0px !important;
+    font-size: 0px !important;
+}
+div.output_area {
+    font-family: "Source Code Pro" !important;
+    font-size: 0.9em !important;
+    padding-left: 50px !important;
+}
+
+/* Syntax highlighting */
+.cm-s-ipython { 
+  font-family: "Source Code Pro" !important;
+  font-size: 10pt !important;
+}
+
+.cm-s-ipython span.cm-builtin {
+  color: #f00 !important;
+ }
+
+.cm-s-ipython span.cm-string {
+  color: #238901 !important;
+ }
+
+.cm-s-ipython span.cm-operator {
+  color: #5f5f87
+}
+
+.cm-s-ipython span.cm-variable {
+ color: #1e1e1e;
+}
+
+.cm-s-ipython .CodeMirror-cursor {
+ border-left: 2px solid #0fff0f !important;
+}
+
+.cm-s-ipython span.cm-property {
+  color: #f0f !important;
+}
+
+.cm-s-ipython span.cm-comment {
+ color: #626262;
+}
+
+.cm-s-ipython span.cm-attribute {
+ color: #303030;
+}
+
+html {
+  filter: invert(1) hue-rotate(90deg)
+}
+
+img, picture, video {
+  filter: invert(1) hue-rotate(90deg) 
+}

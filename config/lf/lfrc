@@ -1,0 +1,74 @@
+##################
+# Basic Settings #
+##################
+
+set number
+set relativenumber
+set ignorecase true
+set icons true
+set drawbox true
+set hidden true
+set preview false
+set ratios 1:3:4  
+
+
+####################
+# Custom Functions #
+####################
+
+cmd open ${{
+    case $(file --mime-type $f -b) in
+        text/*) $EDITOR $fx;;
+        *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
+map <enter> open
+
+
+cmd mkdir ${{
+    mkdir "${@}"
+}}
+
+
+cmd touch ${{
+    touch "${@}"
+}}
+
+
+cmd q quit
+
+
+cmd setwallpaper ${{
+    cb "$f" 
+}} 
+
+
+##############################
+# Key Mapping and Unmappings #
+##############################
+
+map <space> :echo Key map not found. Let's calm down, escape, and try again.
+
+map <c-c> cmd-interrupt
+map <esc> cmd-escape
+map <c-z> $ kill -STOP $PPID
+map s :toggle; down
+map S :toggle; up
+map u :clear; unselect
+map i invert
+map D delete
+map t $$SHELL
+
+# Quick navigations to Frequent Paths
+map gh cd ~
+
+map gc :{{
+    set hidden
+    cd ~/.config
+}}
+
+map gb cd ~/books
+map gd cd ~/downloads
+map gp cd ~/projects
+map gs cd ~/pics/screenshots
+map gn cd ~/notes

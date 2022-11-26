@@ -1,0 +1,22 @@
+PS1 (">> ");
+
+edit mode sync;
+edit home .;
+EDITOR('$EDITOR');
+EDITOR('$EDITOR > /dev/tty 2>&1 < /dev/tty %s');
+
+% addpath ("/home/nikin/Documents/Common-Projects/octave");
+
+pkg prefix ~/.config/octave/octave-packages ...
+    ~/.config/octave/package-dependencies;
+
+%% SPM12: Maybe wrap this inside a function later.
+function [] = load_spm(spm_path="/home/nikin/repos/spm")
+  cwd = pwd;
+  % spm_path = "/home/nikin/repos/spm";
+  cd (fullfile (spm_path, "spm12-r7771", "src"));
+  system ("make PLATFORM=octave > /dev/null");
+  system ("make PLATFORM=octave install > /dev/null");
+  addpath (fullfile (spm_path, "spm12-r7771"));
+  cd (cwd);
+end

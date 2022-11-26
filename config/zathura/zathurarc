@@ -1,0 +1,38 @@
+#                __  __
+#   ____  ____ _/ /_/ /_  __  ___________ ___________
+#  /_  / / __ `/ __/ __ \/ / / / ___/ __ `/ ___/ ___/
+#   / /_/ /_/ / /_/ / / / /_/ / /  / /_/ / /  / /__
+#  /___/\__,_/\__/_/ /_/\__,_/_/   \__,_/_/   \___/
+
+# Mappings
+unmap a
+unmap s
+unmap q
+
+map x quit
+
+
+map b set first-page-column\ 1:1
+map B set first-page-column\ 1:2
+
+set guioptions none
+set statusbar-home-tilde true
+
+set window-title-basename true
+set window-title-home-tilde true
+set window-title-page true
+
+# Colors
+
+set notification-fg none
+set notification-bg none
+
+set recolor true
+set recolor-keephue true 
+set recolor-reverse-video true
+set recolor-darkcolor  "#ecf0c1" # Foreground Color
+set recolor-lightcolor "#0f111b" # Background Color
+
+set selection-clipboard clipboard
+
+set default-bg "#1c1c1c"

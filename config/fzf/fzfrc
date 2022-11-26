@@ -1,0 +1,8 @@
+#! /bin/bash
+
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
+
+export FZF_DEFAULT_COMMAND="find ${HOME} /tmp -maxdepth 10 2> /dev/null"
+export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+export FZF_DEFAULT_OPTS="--height=70% --reverse"

@@ -1,0 +1,51 @@
+#! /bin/bash
+#
+# ░█▀▄░█▀█░█▀▀░█░█░░░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
+# ░█▀▄░█▀█░▀▀█░█▀█░░░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
+# ░▀▀░░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
+
+# Alias Definitions
+alias ls="ls --color=always --group-directories-first"
+alias grep="grep --color=always"
+alias less="less --RAW-CONTROL-CHARS"
+alias octave="octave --silent"
+alias R="R --silent"
+alias pqiv="pqiv 2> /dev/null"
+alias zathura="zathura --fork"
+## Works with .pptx and .docx FIXED DEPRECIATION
+alias convert2pdf="soffice --headless --convert-to pdf"
+alias sxiv="feh 2> /dev/null &"
+
+# Function Definitions
+function weather() {
+  curl wttr.in/${1}
+}
+
+
+function update() {
+    function git_commit() {
+        if [ $# -eq 3 ]
+        then
+            git commit -m "${2}"
+        else [ $# -eq 1 ]
+            git commit -m "added $(basename ${1}) to ${branch}"
+        fi
+    }
+
+    # main()
+    # Variable Declarations
+    repo=${!#}
+    pushd ${repo}
+    branch=$(git branch | awk ' /\*/ {print $2} ')
+    git add --all
+    git_commit "$@"
+    git push -u origin ${branch} --verbose
+    popd 
+}
+
+
+function def() {
+	sdcv -n --utf8-output --color "$@" 2>&1 | \
+	fold --width=$(tput cols) | \
+	less --quit-if-one-screen -RX
+}

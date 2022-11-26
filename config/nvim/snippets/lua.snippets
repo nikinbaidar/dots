@@ -1,0 +1,13 @@
+snippet snipnew
+	${1:FILETYPE} = { 
+		snippet({ trig = "${2:TRIGGER}" }, {
+			${3:STATEMENTS}
+		}), 
+		${4}
+	}, 
+	${5}
+
+snippet snip
+	snippet({ trig = "${1:TRIGGER}" }, {
+		${2:STATEMENTS}
+	}), ${3}

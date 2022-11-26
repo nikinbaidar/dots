@@ -1,0 +1,9 @@
+#!/bin/bash
+
+xclip -o > confidential
+qrencode --type utf8  < confidential
+rm confidential
+echo | xclip
+
+sleep 8
+clear

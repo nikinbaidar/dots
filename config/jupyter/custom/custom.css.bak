@@ -1,0 +1,133 @@
+/*This file contains any manual css for this page that needs to override the global styles.
+This is only required when different pages style the same element differently. This is just
+a hack to deal with our current css styles and no new styling should be added in this file.*/
+
+#ipython-main-app {
+    position: relative;
+}
+#jupyter-main-app {
+    position: relative;
+}
+
+/* Notebook styling */
+
+body, p, div.rendered_html { 
+    color: white;
+    background-color: black;
+    font-family: 'PT Serif', Georgia, Times, 'Times New Roman', serif;
+    font-size: 11pt;
+}
+
+body { background-color: #000000 !important; }
+
+/* the following controls aspects which are around the cells */
+div#notebook { 
+    background-color: #000 !important;
+    box-shadow: inset 20px 36px 20px -35px black !important;
+    margin: 1px !important;
+    padding: 1px !important;
+}
+#notebook-container {
+    padding: 2px !important;
+}
+
+
+/* Make the notebook cells take almost all available width */
+.container {
+    width:99.5% !important;
+    /*margin:.5% !important;*/
+    /*color: #93a1a1 !important;*/
+    color: white !important;
+    background-color: #000 !important;
+}
+
+
+
+/* Cell output */
+
+.rendered_html pre, .rendered_html code {
+    color: inherit !important;
+    background-color: inherit !important;
+}
+
+.rendered_html table, .rendered_html td, .rendered_html th {
+    border: 1px solid #586e75 !important;
+}
+
+div.cell {
+    width:100% !important;
+    margin: 5px !important;
+    /* margin-left:2px !important; */
+    /* margin-right:2px !important; */
+    padding: 2px !important;
+    /* the following overrides the background color of the input area */
+    /* background-color: yellow !important;  */
+    /* border-color: black !important; */
+    
+}
+
+/* Prevent the edit cell highlight box from getting clipped;  * important so that it also works when cell is in edit mode*/
+div.cell.selected {
+    border-left-width: 5px !important;
+    border-right-width: 1px !important;
+    border-top-width: 2px !important;
+    border-bottom-width: 2px !important;
+    border-color: red !important;
+}
+/*this is for the area to the left of the editor or input area*/
+
+div.run_this_cell {
+    width: auto !important;
+    padding: 0 !important;  
+    padding-top: 5px !important;
+    padding-left: 5px !important;
+    font-weight: bold !important;
+    font: 2em sans-serif;
+}
+
+div.input_area { 
+    border-color: green !important; 
+}
+
+.prompt { 
+    line-height: 1em !important;
+}
+div.prompt {
+    min-width: auto;
+    background-color: white;
+}
+
+div.input_prompt { 
+    color: #268bd2 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border: 1px solid #ff9900 !important;
+    background-color: greenyellow;
+    padding-right: 0px !important;
+    text-align: center !important;
+    width: auto !important;
+    font-size: 10px !important;
+}
+div.output_area {
+    color: #000000 !important;
+    background-color: #e2e2ff !important;
+    font-size: 0.9em !important;
+}
+
+
+/* Syntax highlighting */
+.cm-s-ipython span.cm-comment { 
+    /*color: #6c71c4 !important;*/
+    color: midnightblue !important;
+    color: rgb(100, 100, 170) !important;
+    font-style: italic !important;
+}
+
+.cm-s-ipython span.cm-string { 
+    color: rgb(100, 20, 29) !important;
+}
+
+.cm-s-ipython { 
+  font-family: "Source Code Pro" !important;
+  font-size: 10pt !important;
+}

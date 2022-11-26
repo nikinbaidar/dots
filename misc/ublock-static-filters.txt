@@ -1,0 +1,1174 @@
+! 2022-03-27 https://stackoverflow.com
+stackoverflow.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+
+! 2021-06-13 https://askubuntu.com
+askubuntu.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-13 https://unix.stackexchange.com
+unix.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-13 https://vi.stackexchange.com
+vi.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-13 https://stackoverflow.com
+
+! 2021-06-14 https://superuser.com
+superuser.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-14 https://www.pnas.org
+www.pnas.org##.info.popup-content
+
+! 2021-06-16 https://www.ge.com
+www.ge.com##.evidon-banner-message
+www.ge.com###_evidon_banner
+
+! 2021-06-24 https://www.medicalnewstoday.com
+www.medicalnewstoday.com##.css-on84ts
+
+! 2021-06-24 https://www.psychiatry.org
+www.psychiatry.org##.popup--closeable.popupInline
+
+! 2021-06-24 https://bmcpsychiatry.biomedcentral.com
+bmcpsychiatry.biomedcentral.com###onetrust-banner-sdk > .ot-sdk-container
+
+! 2021-06-25 https://www.mendeley.com
+www.mendeley.com##.ot-buttons-fw.ot-wo-title.top.otFlat
+
+! 2021-06-25 https://ourworldindata.org
+ourworldindata.org##.open.cookie-notice
+
+! 2021-06-27 https://www.nature.com
+www.nature.com##.vertical-align-content.bottom.otFlat
+
+! 2021-06-28 https://tex.stackexchange.com
+tex.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-30 https://meta.stackexchange.com
+meta.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-07-12 https://journals.lww.com
+journals.lww.com##.cookie-jar
+
+! 2021-07-15 https://www.slideshare.net
+www.slideshare.net###scribd-ad-exit-backdrop
+www.slideshare.net##.modal-content > .content
+www.slideshare.net##.scribd-ad-modal-wrapper > .modal-content
+www.slideshare.net##.scribd-ad-modal-wrapper > .modal-title
+
+! 2021-07-15 https://bitbanged.com
+bitbanged.com##.cc-bottom.cc-theme-classic.cc-type-info.cc-banner.cc-window
+
+
+! 2021-07-19 https://graphicdesign.stackexchange.com
+graphicdesign.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-07-20 https://www.ringcentral.co.uk
+www.ringcentral.co.uk##.vertical-align-content.ot-wo-title.default.otCenterRounded
+www.ringcentral.co.uk##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2021-07-21 https://www.accessengineeringlibrary.com
+www.accessengineeringlibrary.com##.page-wrapper.eu-cookie-compliance-toolbar
+
+! 2021-07-22 https://books.google.com.np
+books.google.com.np###menu_scroll_wrapper
+books.google.com.np##.overflow-scrolling
+
+! 2021-07-26 https://www.electronics-tutorials.ws
+www.electronics-tutorials.ws##.col-md-12.col-sm-12.col-xs-12 > [href="/register"]
+www.electronics-tutorials.ws##.cookieinfo
+
+! 2021-07-27 https://www.power-and-beyond.com
+www.power-and-beyond.com##.inf-cookie-consent-small
+
+! 2021-07-28 https://www.engineeringbooks.me
+www.engineeringbooks.me###g207
+
+! 2021-07-28 https://www.transtutors.com
+www.transtutors.com###pnlLoadingBar > div
+
+! 2021-07-31 https://mega.nz
+mega.nz##.ps-theme-default.ps-container.big-pad.scrollable-block
+mega.nz##.active.step1.content-block > .bottom-buttons
+mega.nz##.fm-dialog-overlay
+mega.nz##div.table-cell.bottom-page:nth-of-type(3)
+||sg.static.mega.co.nz/4/images/mega/bottom-page/start_img1-3a@2x.png?v=eae8cb9fec820457$image
+
+! 2021-08-02 https://www.cell.com
+www.cell.com##.ot-buttons-fw.vertical-align-content.ot-wo-title.bottom.otFlat
+www.cell.com##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2021-08-02 https://www.scientificamerican.com
+www.scientificamerican.com##.vertical-align-content.bottom.otFlat
+
+! 2021-08-02 https://www.liebertpub.com
+www.liebertpub.com###band-cookies
+
+! 2021-08-02 https://elifesciences.org
+elifesciences.org##.opt-in-message-bar__button_wrapper
+elifesciences.org##.opt-in-message-bar
+
+! 2021-08-10 https://www.annalsthoracicsurgery.org
+www.annalsthoracicsurgery.org##.vertical-align-content.ot-wo-title.bottom.otFlat
+www.annalsthoracicsurgery.org##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2021-08-10 https://www.growthengineering.co.uk
+www.growthengineering.co.uk##.elementor-section-height-default.elementor-section-boxed.elementor-section-content-middle.elementor-element-38ef4b66.elementor-element.elementor-top-section.elementor-section
+
+! 2021-08-11 https://vim.fandom.com
+vim.fandom.com##.global-navigation
+vim.fandom.com##.wds-banner-notification__text
+
+! 2021-08-12 https://usersnap.com
+usersnap.com##.glowCookies__show.glowCookies__left.glowCookies__border.glowCookies__banner__3.glowCookies__banner
+
+! 2021-08-12 https://vim.fandom.com
+vim.fandom.com##.wikia-bar-anon.wikia-bar
+vim.fandom.com##.wds-banner-notification__close
+vim.fandom.com##.confirm.wds-success.wds-banner-notification
+vim.fandom.com##.sticky-toc-toggle.page-side-tool
+
+! 2021-08-14 https://teachmeanatomy.info
+teachmeanatomy.info###cookie-law-info-bar
+
+! 2021-08-14 https://www.healthline.com
+www.healthline.com##.css-1kj8h1t
+
+! 2021-08-15 https://vim.fandom.com
+vim.fandom.com##.page-side-edit.page-side-tool
+vim.fandom.com##.is-visible.fandom-sticky-header
+
+! 2021-08-15 https://www.arcolinuxd.com
+www.arcolinuxd.com##.cookie-notice-container
+
+! 2021-08-16 https://99designs.com
+99designs.com##.fullscreen-main__body
+99designs.com##.fullscreen-main
+99designs.com##.icon-button--circled.icon-button
+99designs.com##.fullscreen-overlay__content
+
+! 2021-08-18 https://www.tecmint.com
+www.tecmint.com##.grid-parent.grid-container.inside-top-bar
+
+! 2021-08-18 https://softwareengineering.stackexchange.com
+softwareengineering.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-08-25 https://www.bluematador.com
+www.bluematador.com##.leadin-content-body
+www.bluematador.com##.leadinModal-overlay
+
+! 2021-09-07 https://www.geeksforgeeks.org
+www.geeksforgeeks.org##.login-modal-div > .modal-content
+www.geeksforgeeks.org##.login-modal-div
+
+! 2021-09-08 https://owl.purdue.edu
+owl.purdue.edu###cookieconsent\:desc
+owl.purdue.edu##.cc-color-override-1527206165.cc-bottom.cc-theme-block.cc-type-info.cc-banner.cc-window
+
+! 2021-09-13 https://novoresume.com
+novoresume.com###popup-cookie-policy-small
+
+! 2021-10-01 https://bitly.com
+bitly.com###wow-modal-window-10
+
+! 2021-10-08 https://gogambar.wordpress.com
+gogambar.wordpress.com##.ads-active.hide-on-button
+
+! 2021-12-08 https://link.springer.com
+link.springer.com###onetrust-banner-sdk > .ot-sdk-container
+
+! 2022-01-26 https://titanwolf.org
+titanwolf.org##.in.fade.modal
+titanwolf.org##.in.fade.modal-backdrop
+
+! 2022-01-26 https://www.geeksforgeeks.org
+www.geeksforgeeks.org##.skiptranslate.goog-te-banner-frame
+www.geeksforgeeks.org##.lightbox-target
+www.geeksforgeeks.org##.show-consent.hide-consent.cookie-consent
+
+! 2022-01-29 https://www.section.io
+www.section.io##.t-consentPrompt.termly-styles-bottom-c884b6.termly-styles-termly-banner-1ae7a5.termly-styles-root-808b10
+
+! 2022-02-01 https://duckduckgo.com
+duckduckgo.com##.ddgsi-horn.ddgsi
+duckduckgo.com##.social.header__label.header--aside__social.header--aside__item > .js-hl-button.header__clickable > .js-popout.popout-trig
+duckduckgo.com##.js-side-menu-open.header__button--menu
+
+! 2022-02-01 https://duckduckgo.com
+duckduckgo.com##.js-dropdown-button.dropdown__button.zcm__link
+
+! 2022-02-01 https://duckduckgo.com
+duckduckgo.com##.js-header-aside.header--aside
+
+! 2022-02-01 https://www.google.com
+www.google.com##.uU7dJb
+www.google.com##.SSwjIe.KxwPGc
+www.google.com##.qarstb.o3j99
+www.google.com##.gb_Dd.gb_Ra.gb_Pd
+www.google.com###result-stats
+www.google.com###slim_appbar
+www.google.com##.oIk2Cb
+www.google.com###xjs
+www.google.com##.mSAqxd.TrMVnc.f6F9Be
+www.google.com###fbarcnt
+
+
+
+! 2022-02-01 https://mail.google.com
+mail.google.com##div.gb_tc:nth-of-type(1)
+mail.google.com##.YI
+||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWboaaIvNgDW3skuyOvcqSvc8gXu0Y64srp2ySM09EkmKhn8buRxVGeKbYh6s1wvALIW5iXK4GerK64a6rqjcNAmafbtdw%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
+mail.google.com##.YV
+||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWboaaIvNgDW3skuyOvcqSvc8gXu0Y64srp2ySM09EkmKhn8buRxVGeKbYh6s1wvALIW5iXK4GerK64a6rqjcNAmafbtdw%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
+mail.google.com##.Y5.YN.aiJ.YM > div
+mail.google.com##.aeQ
+||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWYHZuJcQMJBov_SQiQ-UJ_KirkXbJqXnVMsSJRsumCT3tXxhGI3qCiH2b78bGlxJZgjjmXqzUw75tXFuLlMi1jyICzSzA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
+||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWbaz9Ah_7GOvpDBt_CE8QXpry-7AZXkeqSQZ7tsZP_x8t7rH-A6xiKkiWQ8agXbWLpcnLEbwJUGu024G4tVY3I4umL0zA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
+||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWbaz9Ah_7GOvpDBt_CE8QXpry-7AZXkeqSQZ7tsZP_x8t7rH-A6xiKkiWQ8agXbWLpcnLEbwJUGu024G4tVY3I4umL0zA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
+mail.google.com##.Y5.YN.aiJ.YM
+mail.google.com##.brC-aMv-auO.brC-aT5-aOt-Jw
+mail.google.com##.nn.bAw.nH
+mail.google.com##.nn.vxm5ce.nH
+mail.google.com##.YX.aZ6.akc
+mail.google.com##.t6.gb_2c.gb_le.gb_ne
+mail.google.com##.FH
+mail.google.com##.gb_Oe > path
+||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
+||www.gstatic.com/images/icons/material/system/1x/arrow_drop_down_white_20dp.png$image
+||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
+||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
+mail.google.com###itamenu
+
+
+! 2022-02-01 https://mail.google.com
+mail.google.com##.ahF
+mail.google.com###gbwa > .gb_sf > .gb_A
+mail.google.com##.pfiaof.l2
+mail.google.com##.aHS-aHP.bzz.TN
+
+
+serverfault.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+
+! 2022-02-02 https://meet.google.com
+meet.google.com##.AkYcJb.dQO5xd
+meet.google.com##.keOrX.HDnnrf.XhPA0b.LjDxcd.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.VfPpkd-LgbsSe > .VfPpkd-RLmnJb
+
+! 2022-02-02 https://www.geeksforgeeks.org
+||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
+||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
+||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
+www.geeksforgeeks.org##.tooltip.article--viewer_improve
+www.geeksforgeeks.org##.btn-success.btn
+
+! 2022-02-02 https://www.youtube.com
+
+
+! 2022-02-01 https://serverfault.com
+! 2022-02-03 https://www.mi.com
+||i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-7-pro/index-03.jpg$image
+www.mi.com##.truste-consent-track-class
+
+
+! 2022-02-03 https://play.typeracer.com
+play.typeracer.com##.createAccountPrompt
+||data.typeracer.com/pit/featured_universes_sidebar?theme=redesign$subdocument
+play.typeracer.com##.newEastWidget
+play.typeracer.com##.statsView
+play.typeracer.com##.footer-menu
+play.typeracer.com##.profilePicContainer > .user_profile_pic
+play.typeracer.com##.createAcct.promptBtn
+play.typeracer.com##.signIn.promptBtn
+play.typeracer.com##.signUpPrompt.stat
+play.typeracer.com##.userHeader
+play.typeracer.com##.navigation > div
+play.typeracer.com##.navControls > tbody > tr > td > .gwt-Anchor
+||play.typeracer.com/com.typeracer.redesign.Redesign/clear.cache.gif$image
+play.typeracer.com##.ScoreMenuButton > tbody > tr
+play.typeracer.com##.textInfoAuthor
+play.typeracer.com##.textInfoContributor
+play.typeracer.com##.textInfoHeader
+play.typeracer.com##.gwt-TabBarItem > .gwt-HTML
+play.typeracer.com##.TextStatsView > div > .gwt-TabPanel > tbody > tr > td > .gwt-TabPanelBottom
+play.typeracer.com##.SignUpPromptPopup.trPopupDialog.DialogBox
+
+! 2022-02-03 https://www.youtube.com
+
+
+! 2022-02-03 https://www.dropbox.com
+||consent.dropbox.com/?hide_gdpr=false&is_ccpa_enabled=true&gpc_signal=undefined&origin=https%253A%252F%252Fwww.dropbox.com$subdocument
+
+! 2022-02-03 https://webapps.stackexchange.com
+webapps.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2022-02-04 https://bitly.com
+||docrdsfx76ssb.cloudfront.net/static/1642780665/pages/wp-content/uploads/2020/05/illo-desktop-1440x651-1.jpg$image
+bitly.com##.cards-block
+||docrdsfx76ssb.cloudfront.net/static/1642780665/pages/wp-content/uploads/2020/05/illo-desktop-1440x651-1.jpg$image
+bitly.com##.text-center.scroll-for-more
+
+
+
+! 2022-02-04 https://www.manutd.com
+www.manutd.com##.custom-popup
+www.manutd.com##.cookie-informative-message
+
+! 2022-02-04 https://www.mathworks.com
+www.mathworks.com##.modal-lg.modal-dialog > .modal-content > .modal-body
+www.mathworks.com##.modal-lg.modal-dialog > .modal-content > .modal-header
+www.mathworks.com###country-unselected
+www.mathworks.com##.in.fade.modal-backdrop
+
+! 2022-02-04 https://www.howtogeek.com
+www.howtogeek.com##.webpush_wrap
+
+! 2022-02-07 https://www.wired.com
+www.wired.com##.paywall-bar__expanded
+www.wired.com##.journey-template--paywall-bar.paywall-bar--expanded.paywall-bar-failsafe
+
+! 2022-02-10 https://genius.com
+||genius.com/songs/109096/apple_music_player?react=1$subdocument
+genius.com##.dOBKSd.SongHeaderVariantdesktop__Container-sc-12tszai-0.hfRKjb.SongPageGriddesktop__TwoColumn-sc-1px5b71-1
+genius.com##.hhAiQB.StickyNavdesktop__Container-sc-60o25r-0
+||genius.com/songs/109096/apple_music_player?react=1$subdocument
+
+! 2022-02-11 https://www.facebook.com
+www.facebook.com##.hlyrhctz.poy2od1o.sf74r906.r54jmrld.r6i6mz7r.f0zqjlou.e5ffyxfx.fk4cgndu > div > .fg8d9fp7 > .k4urcfbm.l9j0dhe7.j83agx80 > .kmp5kqmu.stjgntxs.ni8dbmo4.k4urcfbm.nwvqtn77.fbipl8qg.m5lcvass.io0zqebd.hybvsw6c.du4w35lb.l9j0dhe7.rq0escxv > .a8nywdso.qt6c0cv9.rz4wbd8a.jb3vyjys.hcukyx3x.oygrvhab.cxmmr5t8.kvgmc6g5.r7d6kgcz.e9989ue4.esr5mh6w.qu0x051f
+www.facebook.com##.discj3wi.ihqw7lf3.dati1w0a.hv4rvrfc.btwxx1t3.owycx6da.aovydwv3.i1fnvgqd.pfnyh3mw.j83agx80.du4w35lb.l9j0dhe7.rq0escxv
+
+! 2022-02-11 https://docs.google.com
+docs.google.com##.companion-app-switcher-container
+docs.google.com##.docs-material.docs-companion-app-switcher-container
+
+
+! 2022-02-12 https://www.premierleague.com
+www.premierleague.com##._90RzEeyM6H7IvIh291DTv
+www.premierleague.com##._3_H6MsAd1grAO7T3v2WdhQ._1Qu7MokjMuBXLOM2oKVLhZ.tcf-cmp
+www.premierleague.com##.t1.sidebarContainer
+
+! 2022-02-12 https://www.wallpaperflare.com
+||c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-*.jpg$image
+||c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-*.jpg$image
+||c4.wallpaperflare.com/wallpaper/16/671/726/lionel-messi-football-barcelona-hd-wallpaper-*.jpg$image
+
+! 2022-02-12 https://stats.stackexchange.com
+stats.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2022-02-12 https://www.desmos.com
+www.desmos.com##.dcg-action-zoomin
+www.desmos.com##.dcg-hovered.dcg-btn-flat-gray-group.dcg-btn-flat-gray.dcg-zoominout-pillbox
+
+! 2022-02-12 https://math.stackexchange.com
+math.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2022-02-14 https://bitly.com
+bitly.com##.sitebanner--container
+
+! 2022-02-17 https://www.dev2qa.com
+www.dev2qa.com##kbd
+www.dev2qa.com##span > div > span > div
+www.dev2qa.com##span > div > span
+
+! 2022-02-19 https://blog.tinned-software.net
+blog.tinned-software.net##.cc-color-override-1332973529.cc-bottom.cc-theme-classic.cc-type-false.cc-banner.cc-window
+
+! 2022-02-27 https://wall.alphacoders.com
+||images4.alphacoders.com/129/thumbbig-12968.jpg$image
+wall.alphacoders.com###cookie_consent
+
+! 2022-03-02 https://docs.google.com
+docs.google.com##.docs-titlebar-occluding.docs-titlebar-buttons
+
+! 2022-03-03 https://ai.stackexchange.com
+ai.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2022-03-05 https://www.javatpoint.com
+www.javatpoint.com###myBtn
+
+
+
+
+! 2022-03-08 https://www.thelancet.com
+www.thelancet.com##.ot-buttons-fw.ot-wo-title.bottom.otFlat
+www.thelancet.com##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2022-03-08 https://interestingengineering.com
+interestingengineering.com##.newsletter-container.text-center.modal-body
+interestingengineering.com###cookie-warning
+
+! 2022-03-10 https://www.grammarly.com
+||static.grammarly.com/assets/files/7c2fd678cb8b2f2929149fdf7f724b44/ukraine_swoosh.png$image
+||static.grammarly.com/assets/files/7c2fd678cb8b2f2929149fdf7f724b44/ukraine_swoosh.png$image
+||static.grammarly.com/assets/files/7c2fd678cb8b2f2929149fdf7f724b44/ukraine_swoosh.png$image
+
+
+! 2022-03-12 https://www.tutorialspoint.com
+www.tutorialspoint.com###privacy-banner
+||www.tutorialspoint.com/market/public/assets/images/top-banner.jpg?v=1.6$image
+||www.tutorialspoint.com/market/public/assets/images/top-banner.jpg?v=1.6$image
+
+! 2022-03-13 https://mp3cut.net
+||mp3cut.net/static/i/browsers/firefox.svg$image
+
+! 2022-03-24 https://www.geeksforgeeks.org
+www.geeksforgeeks.org##.darkMode-wrap
+
+! 2022-03-24 https://www.fifa.com
+www.fifa.com##.ot-sdk-container > .ot-sdk-row
+www.fifa.com##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2022-03-24 https://duckduckgo.com
+duckduckgo.com##.js-search-button.search__button
+duckduckgo.com##.js-search-clear.search__clear
+
+
+! 2022-03-26 https://datascience.stackexchange.com
+datascience.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+
+tyle-scope
+
+! 2022-03-27 https://www.skysports.com
+||cdn.privacy-mgmt.com/index.html?message_id=613643&consentUUID=8f3c025a-f32b-47d3-8979-fc2c7904e412&requestUUID=4847182d-f421-4729-b4a9-4cc3edd276a6&preload_message=true$subdocument
+
+! 2022-03-31 https://www.geeksforgeeks.org
+www.geeksforgeeks.org##.show.shell-container
+
+! 2022-03-31 https://ubuntu.com
+ubuntu.com##.p-modal__dialog
+ubuntu.com##.p-modal
+
+
+! 2022-04-01 https://stackoverflow.co
+stackoverflow.co##.vertical-align-content.ot-bottom-left.otFloatingRoundedCorner
+stackoverflow.com##.af-bar__shown.js-smol-bar.f\:outline-ring.c-pointer.z-nav-fixed.flex__center.bg-black.btr-md.py12.px16.mr32.ml-auto.l100.b0.ps-sticky.af-bar--smol.af-bar
+
+! 2022-04-03 https://www.google.com
+www.google.com##.gb_d
+www.google.com##.gb_Ve > path
+
+! 2022-04-03 https://docs.google.com
+docs.google.com##.left-sidebar-container-animation.docs-ui-unprintable.left-sidebar-container
+
+! 2022-04-04 https://photo.stackexchange.com
+photo.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2022-04-05 https://dsp.stackexchange.com
+dsp.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+
+
+! 2022-04-09 https://colab.research.google.com
+colab.research.google.com##.vertical.layout.colab-left-pane-nib
+colab.research.google.com###toolbar-add-code
+colab.research.google.com###toolbar-add-text
+colab.research.google.com###cell-SwnEJi-QqteF > .main-content > .codecell-input-output > .monaco-vim-statusbar
+
+! 2022-04-09 https://duckduckgo.com
+duckduckgo.com##.badge-link__content
+duckduckgo.com##.content-info__items-wrap
+
+! 2022-04-09 https://colab.research.google.com
+colab.research.google.com##.notebook-content > .add-cell
+
+! 2022-04-10 https://colab.research.google.com
+colab.research.google.com##colab-status-bar
+
+! 2022-04-10 https://www.kaggle.com
+www.kaggle.com##.ixnnOa.sc-EhTUr > .dHFIQf.sc-bdnxRM
+
+! 2022-04-12 https://www.kaggle.com
+www.kaggle.com##.etvFir.sc-dwxYdI > .dHFIQf.sc-bdnxRM
+
+
+
+
+! 2022-04-13 https://teams.microsoft.com
+teams.microsoft.com##.popover-content
+teams.microsoft.com##.teams-title
+teams.microsoft.com##.spacer
+teams.microsoft.com##.app-bar-button.new-flyout
+teams.microsoft.com##li > .popup-button.app-bar-link.ts-sym
+teams.microsoft.com##.icons-waffle.app-svg > .icons-default-fill > path
+teams.microsoft.com##.me-profile-flex.me-profile.ts-sym
+teams.microsoft.com###settings-menu-button > ng-include > .app-bar-extra-icons-fill-colors.icons-more.app-svg
+
+! 2022-04-14 https://portswigger.net
+portswigger.net##.pin-to-bottom.academy-account-status.is-twobtns.widgetcontainer-box
+
+! 2022-04-14 https://huntdatascience.wordpress.com
+huntdatascience.wordpress.com##.marketing-bar-link
+huntdatascience.wordpress.com##.noskim.marketing-bar
+huntdatascience.wordpress.com##.ads-active.hide-on-button
+
+! 2022-04-14 https://christinarebuffet.com
+christinarebuffet.com##.sg-popup-content.sgpb-theme-3-content.sgpb-content-27601.sgpb-content
+christinarebuffet.com##.sgpb-popup-overlay.sgpb-popup-overlay-27601.sgpb-theme-3-overlay
+
+! 2022-04-14 https://colab.research.google.com
+colab.research.google.com###cell-mtzoAaazGJGx > .main-content > .codecell-input-output > .output > .output-content > .output-info > .output-icon-selected.clear_outputs_enabled.output-icon > .collaborator-img-selected.collaborator
+
+! 2022-04-16 https://paperheartdesign.com
+paperheartdesign.com##.copy-layer-background.group-copy.sqs-slice-group
+||images.squarespace-cdn.com/content/v1/5720ede5555986b16f146642/1581219272561-00QZ00V7RWYOAFPM6YBU/Lock+Screens+Pop+Up+Image.jpg?format=750w$image
+||images.squarespace-cdn.com/content/v1/5720ede5555986b16f146642/1581219272561-00QZ00V7RWYOAFPM6YBU/Lock+Screens+Pop+Up+Image.jpg?format=750w$image
+||images.squarespace-cdn.com/content/v1/5720ede5555986b16f146642/1581219272561-00QZ00V7RWYOAFPM6YBU/Lock+Screens+Pop+Up+Image.jpg?format=750w$image
+paperheartdesign.com##.OPT_IN.BUTTON.BOTTOM.LIGHT.BAR.sqs-cookie-banner-v2
+||images.squarespace-cdn.com/content/v1/5720ede5555986b16f146642/1581219272561-00QZ00V7RWYOAFPM6YBU/Lock+Screens+Pop+Up+Image.jpg?format=750w$image
+paperheartdesign.com###yui_3_17_2_1_1650088703177_1319
+paperheartdesign.com##.sqs-slide-animation-ready.sqs-slide-ready.yui3-overlaycentercard03-content.yui3-overlaycentercard03.yui3-widget.sqs-slide
+paperheartdesign.com##.clear.Footer-inner
+
+! 2022-04-16 https://colab.research.google.com
+colab.research.google.com##.left-pane-content-title
+colab.research.google.com##.colab-left-pane-move
+colab.research.google.com##.colab-left-pane-close
+colab.research.google.com##.toc-add-section
+
+! 2022-04-16 https://www.pinterest.com
+www.pinterest.com##.Hsu.iyn.zI7.rDA.ojN.jar._he.RDc.KO4 > .Hsu.iyn.zI7.wc1.JME > .Hsu.iyn.zI7.qJc.VxL.Shl.INd.C9q > .YbY.wsz.lnZ.yQo.adn.HEm > .BG7.qrs.czT.yQo.adn.kVc.rYa > .YbY.OGJ.mQ8.gjz._O1.INd.x8f
+www.pinterest.com##.Hsu.iyn.zI7.rDA.ojN.jar._he.RDc.KO4
+
+
+! 2022-04-17 http://localhost:8888
+localhost##.p-BoxPanel-child.lm-BoxPanel-child.f14byud0.p-Widget.lm-Widget
+
+! 2022-04-17 https://duckduckgo.com
+||external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.MAyW_Wvn_URwp2_CmlHLAwHaEK%26pid%3DApi&f=1$image
+duckduckgo.com##.js-vertical-bottom-right.serp__bottom-right > .feedback-btn.btn > .js-feedback-start.feedback-btn__send
+duckduckgo.com##.js-vertical-bottom-right.serp__bottom-right > .feedback-btn.btn
+duckduckgo.com##.is-stuck.has-dropdowns.js-zcm-sticky.metabar--fixed.metabar
+
+! 2022-04-17 https://stackoverflow.com
+stackoverflow.com##.mb16.s-anchors__grayscale.s-anchors.s-sidebarwidget__yellow.s-sidebarwidget
+
+! 2022-04-17 https://www.wordhippo.com
+||wordhippo.s3.amazonaws.com/what-is/img/mobile-v2/wordhippo-header-149x79.png$image
+www.wordhippo.com###rightsearchbox
+||wordhippo.s3.amazonaws.com/what-is/img/mobile-v2/wordhippo-header-149x79.png$image
+
+! 2022-04-17 https://www.grammarly.com
+||static.grammarly.com/assets/files/7c2fd678cb8b2f2929149fdf7f724b44/ukraine_swoosh.png$image
+||static.grammarly.com/assets/files/7c2fd678cb8b2f2929149fdf7f724b44/ukraine_swoosh.png$image
+www.grammarly.com##._20Oh5-fixedAfterShow._1pnO2-fixedBeforeShow._2rt5p-container
+www.grammarly.com##._2SubB-textCommon
+www.grammarly.com##._1tRh5-ukraineFlag
+www.grammarly.com##._1giOF-info > ._2O_7o-colorGreen._3Y7Vy-sizeLarge._2vXY_-basic
+
+! 2022-04-17 https://app.grammarly.com
+app.grammarly.com##._bebd3200-business_banner-banner
+app.grammarly.com##._8a1a56e9-index_navigation-main
+app.grammarly.com##._f69724bf-index_layout-nav
+
+
+! 2022-04-17 https://languagetool.org
+languagetool.org###addon-link > .addon-link.btn--prominent.btn--firefox.btn
+
+! 2022-04-18 https://www.wordhippo.com
+||wordhippo.s3.amazonaws.com/what-is/img/mobile-v2/wordhippo-header-149x79.png$image
+
+! 2022-04-23 https://themlbook.com
+themlbook.com##.d-flex.masthead .row > .card-columns > div.card > .card-body
+themlbook.com##.row > span
+themlbook.com##.d-flex.masthead > div > div
+
+! 2022-04-24 http://localhost:8888
+localhost###jp-top-panel
+localhost##.p-MenuBar-content.lm-MenuBar-content
+localhost###jp-menu-panel
+localhost##.p-BoxPanel-child.lm-BoxPanel-child.jp-mod-right.jp-SideBar.p-TabBar.lm-TabBar.p-Widget.lm-Widget
+localhost##.p-BoxPanel-child.lm-BoxPanel-child.jp-mod-left.jp-SideBar.p-TabBar.lm-TabBar.p-Widget.lm-Widget
+
+! 2022-04-27 https://app.grammarly.com
+app.grammarly.com##._2bea7c84-extension_banner-banner
+
+! 2022-04-27 https://www.kaggle.com
+www.kaggle.com##.kGINIR.sc-dvyGow
+
+! 2022-04-28 https://machinelearningmastery.com
+machinelearningmastery.com##.icon.nav-toggle
+machinelearningmastery.com##button.ssb_tweet-icon:nth-of-type(1)
+machinelearningmastery.com##div.simplesocialbuttons-inline-no-animation.post.post-7519.simplesocialbuttons-align-left.simplesocialbuttons_inline.simplesocial-simple-icons.simplesocialbuttons:nth-of-type(1)
+
+! 2022-04-30 https://docs.google.com
+docs.google.com##.docs-incompatibility-banner.goog-inline-block
+
+! 2022-04-30 https://www.ncbi.nlm.nih.gov
+www.ncbi.nlm.nih.gov##.usa-banner-inner.usa-grid
+
+! 2022-04-30 https://www.mctlaw.com
+||secure.livechatinc.com/customer/action/open_chat?license_id=5701831&group=2066&embedded=1&widget_version=3&unique_groups=1$subdocument
+
+! 2022-04-30 https://docs.google.com
+docs.google.com##.goog-inline-block.docs-explore-widget-icon-active.docs-explore-widget-icon.docs-explore-icon > svg
+docs.google.com##.goog-inline-block.docs-explore-widget-icon-active.docs-explore-widget-icon.docs-explore-icon
+docs.google.com##.goog-inline-block.docs-explore-widget-text
+docs.google.com##.goog-flat-button.goog-inline-block.docs-explore-widget-button
+
+! 2022-04-30 https://www.idc.uk.com
+www.idc.uk.com###cookieText
+
+! 2022-04-30 https://meso.vde.com
+meso.vde.com###usercentrics-root
+
+! 2022-05-01 https://www.keycdn.com
+www.keycdn.com##.my-0.alert-dismissible.alert-cookies.alert
+
+
+! 2022-05-03 https://tree-sitter.github.io
+tree-sitter.github.io###sidebar-toggle-link
+
+! 2022-05-04 https://thevaluable.dev
+thevaluable.dev##.icon-button.toggle-search
+thevaluable.dev##.header-menu
+thevaluable.dev##.icon-button.tob-button
+thevaluable.dev##.icon-button.light-button
+
+! 2022-05-04 https://thegradient.pub
+thegradient.pub##.c-widget-author.c-widget
+thegradient.pub##.c-sidebar
+thegradient.pub##.o-wrapper > .o-grid > .o-grid__col--1-3-m.o-grid__col
+thegradient.pub##.c-post-hero__content
+thegradient.pub##.o-plain-list.c-nav
+thegradient.pub##button
+
+! 2022-05-04 https://app.luminpdf.com
+app.luminpdf.com##.FVsMc.sc-13ek3d2-0
+
+! 2022-05-05 https://link.springer.com
+link.springer.com##.cc-banner__content
+
+
+! 2022-05-07 https://www.manchestereveningnews.co.uk
+www.manchestereveningnews.co.uk##.qc-cmp2-consent-info
+www.manchestereveningnews.co.uk##.css-1fpfdf7
+www.manchestereveningnews.co.uk##.css-1i1osrz.qc-cmp-cleanslate
+
+! 2022-05-07 https://www.express.co.uk
+www.express.co.uk##.qc-cmp2-consent-info
+
+! 2022-05-07 https://coolors.co
+coolors.co##.iubenda-cs-rationale
+coolors.co##.iubenda-cs-content
+coolors.co##.iubenda-cs-visible.iubenda-cs-overlay.iubenda-cs-center.iubenda-cs-default-floating
+
+! 2022-05-07 https://write.geeksforgeeks.org
+write.geeksforgeeks.org##.user-policy-footer--margin-left.user-policy-footer
+write.geeksforgeeks.org##.user-policy-footer
+
+! 2022-05-09 http://localhost:8888
+localhost###kernel_logo_widget
+||localhost:8888/static/base/images/logo.png?v=a2a176ee3cee251ffddf5fa21fe8e43727a9e5f87a06f9c91ad7b776d9e9d3d5e0159c16cc188a3965e00375fb4bc336c16067c688f5040c0c2d4bfdb852a9e4$image
+localhost##.checkpoint_status
+
+! 2022-05-09 https://pinetools.com
+pinetools.com###aviso_cookies > div
+
+! 2022-05-09 http://localhost:8888
+localhost##.selected.rendered.code_cell.cell > .output_wrapper > .output > div.output_area > .output_prompt.prompt > bdi
+localhost###notification_trusted
+localhost##.modal_indicator.navbar-text
+
+
+! 2022-05-12 https://genius.com
+genius.com##div.cXvCRB.SongPage__Section-sc-19xhmoi-3:nth-of-type(3)
+genius.com##.bIlJhm.SongComments__Grid-sc-131p4fy-0.hfRKjb.SongPageGriddesktop__TwoColumn-sc-1px5b71-1
+genius.com##.kNXBDG.PageFooterdesktop__Bottom-hz1fx1-7.PageFooterdesktop__Section-hz1fx1-2.PageGriddesktop-a6v82w-0
+||genius.com/songs/123839/apple_music_player?react=1$subdocument
+genius.com##div.hMUvCn.PageFooterdesktop__Quarter-hz1fx1-4:nth-of-type(2)
+genius.com##div.hMUvCn.PageFooterdesktop__Quarter-hz1fx1-4:nth-of-type(3)
+genius.com##.diwZPD.PageFooterdesktop__OffsetQuarter-hz1fx1-5.PageFooterdesktop__Quarter-hz1fx1-4 > .iDkyVM.PageFooterdesktop__FinePrint-hz1fx1-6
+genius.com##div.hMUvCn.PageFooterdesktop__Quarter-hz1fx1-4 > .iDkyVM.PageFooterdesktop__FinePrint-hz1fx1-6
+genius.com##.uGviF.PageFooterSocial__Slogan-sc-14u22mq-0
+genius.com##.gUdeqB.PageFooterdesktop__Section-hz1fx1-2.PageGriddesktop-a6v82w-0
+genius.com##.iTrjDY.SongPage__PageFooter-sc-19xhmoi-6.boDKcJ.PageFooterdesktop__Container-hz1fx1-0
+genius.com##.fPpEQG.SectionLeaderboard__Center-sc-1pjk0bw-1
+genius.com##.ePvBqA.ShareButtons__Container-jws18q-1
+||genius.com/songs/123839/apple_music_player?react=1$subdocument
+genius.com##.fCsyNi.HeaderMetadata__Container-sc-1p42fnf-0
+genius.com##.cWUwIM.StickyNavdesktop__Container-sc-60o25r-0
+||genius.com/songs/123839/apple_music_player?react=1$subdocument
+genius.com##.hHEDka.Lyrics__Title-sc-1ynbvzw-0.TextLabel-sc-8kw9oj-0
+genius.com##.hDGLeB.StickyNavdesktop__Container-sc-60o25r-0
+||genius.com/songs/123828/apple_music_player?react=1$subdocument
+
+! 2022-05-12 https://www.instagram.com
+www.instagram.com##.YT6rB.MnWb5.COOzN
+www.instagram.com##.VideM.IPQK5.zGtbP
+||www.instagram.com/static/bundles/es6/sprite_core_32f0a4f27407.png/32f0a4f27407.png$image
+www.instagram.com##.HUW1v > .T0kll.uL8Hv.gtFbE.qyrsm.xLCgt._7UhW9
+||www.instagram.com/static/bundles/es6/sprite_core_32f0a4f27407.png/32f0a4f27407.png$image
+www.instagram.com##._6CZji.Szr5J
+www.instagram.com##.feth3._6Eych > .wpO6b
+www.instagram.com##.feth3.l8mY4
+www.instagram.com##._aak9._aak6
+
+! 2022-05-14 https://www.footballcritic.com
+www.footballcritic.com##.qc-cmp2-consent-info
+www.footballcritic.com##.qc-cmp2-summary-buttons
+www.footballcritic.com##.qc-cmp2-footer-scrolled.qc-cmp2-footer-overlay.qc-cmp2-footer
+www.footballcritic.com##.css-1shrmd9
+www.footballcritic.com##.css-hwougz.qc-cmp-cleanslate
+
+! 2022-05-14 https://www.hackers-arise.com
+www.hackers-arise.com###Containercomp-jpdh29sd > div
+www.hackers-arise.com###bgLayers_yan8w > ._3SQN-._3KzuS
+
+! 2022-05-15 https://www.instagram.com
+www.instagram.com##.vfoLd.burfB.Zx5PI
+
+! 2022-05-15 https://nmap.org
+nmap.org##a.nlink:nth-of-type(6)
+
+! 2022-05-15 https://openvpn.net
+openvpn.net###usercentrics-root
+
+! 2022-05-18 https://www.instagram.com
+www.instagram.com##.O4GlU
+
+! 2022-05-18 https://www.pnas.org
+www.pnas.org##.cookie-policy
+www.pnas.org##.signup-alert-ad
+
+! 2022-05-20 https://ieeexplore.ieee.org
+ieeexplore.ieee.org##.cc-color-override-170793312.cc-bottom.cc-theme-block.cc-type-info.cc-banner.cc-window
+
+! 2022-05-20 https://www.cancerresearchuk.org
+www.cancerresearchuk.org##.vertical-align-content.bottom.otFlat
+www.cancerresearchuk.org##.ot-fade-in.onetrust-pc-dark-filter
+
+! 2022-05-20 https://www.mdpi.com
+www.mdpi.com##.js-allow-cookies
+
+! 2022-05-22 https://www.passivetoactivevoiceconverter.com
+www.passivetoactivevoiceconverter.com##td
+www.passivetoactivevoiceconverter.com###wpfront-notification-bar-table
+www.passivetoactivevoiceconverter.com##.bottom.wpfront-fixed-position.wpfront-fixed.wpfront-notification-bar
+
+
+
+! 2022-05-23 https://quillbot.com
+quillbot.com##.css-1n1t7nz.MuiBox-root.jss1173.jss1169
+
+! 2022-05-24 https://www.skysports.com
+||cdn.privacy-mgmt.com/index.html?message_id=631300&consentUUID=f75e3d0e-7489-474e-b447-8050e0687bf0&requestUUID=64c1597d-774b-4556-8489-544ce94e5e74&preload_message=true$subdocument
+||cdn.privacy-mgmt.com/index.html?message_id=631300&consentUUID=f75e3d0e-7489-474e-b447-8050e0687bf0&requestUUID=64c1597d-774b-4556-8489-544ce94e5e74&preload_message=true$subdocument
+
+! 2022-05-26 https://www.nature.com
+www.nature.com##.cc-banner__content
+
+! 2022-06-04 https://unsplash.com
+unsplash.com##.TbE_W
+
+! 2022-06-04 https://getcalc.com
+getcalc.com##.cookie-container > span
+
+! 2022-06-07 https://towardsdatascience.com
+towardsdatascience.com##.ee.dq.an.ed
+
+! 2022-07-05 https://www.iso-9001-checklist.co.uk
+www.iso-9001-checklist.co.uk###cookie-notice
+
+! 2022-07-06 https://daraz.com
+daraz.com##.c-cfHPwm
+
+! 2022-07-06 https://genius.com
+||genius.com/songs/68171/apple_music_player?react=1$subdocument
+genius.com##.eSonWA.StickyNavdesktop__Container-sc-60o25r-0
+||genius.com/songs/68171/apple_music_player?react=1$subdocument
+genius.com##.lgbAKX.SongComments__Container-sc-131p4fy-1
+||genius.com/songs/68171/apple_music_player?react=1$subdocument
+genius.com##.hTbbsa.HeaderBio__ViewBio-oaxemt-1
+genius.com##.eFqCnd.HeaderBio__Wrapper-oaxemt-0.kAsGrA.Link__StyledLink-h3isu4-0
+genius.com##.kKxYZS.HeaderTracklist__Album-sc-1qmk74v-2 > .fUgcxf.Link__StyledLink-h3isu4-0
+genius.com##.iPNSvE.HeaderTracklist__AlbumWrapper-sc-1qmk74v-1
+||t2.genius.com/unsafe/155x155/https%3A%2F%2Fimages.genius.com%2Fbd94ced1ec61a6f2d9cdd318b0825a78.600x600x1.jpg$image
+||t2.genius.com/unsafe/155x155/https%3A%2F%2Fimages.genius.com%2Fbd94ced1ec61a6f2d9cdd318b0825a78.600x600x1.jpg$image
+
+! 2022-07-13 https://www.desmos.com
+www.desmos.com##.dcg-btn-flat-gray-group.dcg-btn-flat-gray.dcg-zoominout-pillbox
+www.desmos.com##.dcg-action-zoomrestore.dcg-option.dcg-btn-flat-gray
+www.desmos.com##.dcg-hovered.dcg-action-settings.dcg-settings-pillbox.dcg-btn-flat-gray
+
+
+
+! 2022-07-17 https://www.wallpaperflare.com
+www.wallpaperflare.com##.cc-color-override-2132809765.cc-bottom.cc-theme-edgeless.cc-type-info.cc-banner.cc-window
+
+
+! 2022-07-20 https://genius.com
+||genius.com/songs/*/apple_music_player?react=1$subdocument
+genius.com##.fVBkQv.StickyNavdesktop__Container-sc-60o25r-0
+genius.com##.StickyNavdesktop__Container-sc-60o25r-0
+genius.com##.HeaderBio__Wrapper-oaxemt-0.celbFY.Link__StyledLink-h3isu4-0
+genius.com##.active.header-primary
+genius.com##.header-nav_menu
+||genius.com/songs/*/apple_music_player$subdocument
+genius.com##.column_layout-column_span-initial_content > div
+genius.com##.u-vertical_margins.share_buttons
+genius.com##recirculated-content > .u-xx_large_vertical_margins
+genius.com##.gray_container.u-vertical_margins.comments
+genius.com##.page_footer--padding-for-sticky-player.page_footer
+genius.com##.lyrics_controls > span > .square_button
+genius.com##.react_song_page_preview_link.square_button
+genius.com##.breadcrumbs
+genius.com##.global_search--high_z_index.ng-invalid-required.ng-invalid.global_search--header.global_search
+genius.com##search-form
+genius.com##.column_layout-column_span--secondary.column_layout-column_span > ng-transclude
+genius.com##.drop-target.header_with_cover_art-pyong_button.pyong_button
+genius.com##div.u-vertical_margins:nth-of-type(3)
+genius.com##div.u-vertical_margins > .square_button
+
+! 2022-07-20 https://duckduckgo.com
+duckduckgo.com##.at-bottom.t-m.related-searches
+duckduckgo.com###rld-1
+duckduckgo.com##.hide--mob.module__footer.js-images-show-more
+duckduckgo.com##.search-filters-wrap
+
+! 2022-07-20 https://genius.com
+genius.com##.column_layout.header_with_cover_art-inner > .column_layout-column_span--secondary.column_layout-column_span
+
+! 2022-07-20 https://www.youtube.com
+www.youtube.com###avatar-btn
+www.youtube.com##.ytd-popup-container.style-scope > .yt-tooltip-renderer.style-scope
+www.youtube.com##.ytd-live-chat-frame.style-scope > .ytd-toggle-button-renderer.style-scope.yt-simple-endpoint > .ytd-toggle-button-renderer.style-scope
+www.youtube.com###show-hide-button
+www.youtube.com###chat
+www.youtube.com###search-icon-legacy
+www.youtube.com###button > .ytd-button-renderer.style-scope
+www.youtube.com##.ytd-button-renderer.style-scope.yt-simple-endpoint > .size-small.style-suggestive.ytd-button-renderer.style-scope
+www.youtube.com##.ytd-rich-section-renderer.style-scope > .ytd-rich-shelf-renderer.s
+www.youtube.com##.ytd-video-primary-info-renderer.style-scope.super-title-icon
+www.youtube.com###filter-menu > .ytd-search-sub-menu-renderer.style-scope
+www.youtube.com##ytd-horizontal-card-list-renderer.ytd-item-section-renderer.style-scope
+||yt3.ggpht.com/yti/APfAmoGqfssofOn7D4y1BaaB8YAIe3i5KjHKq0pbJkoMVQ=s88-c-k-c0x00ffffff-no-rj-mo$image
+www.youtube.com##.no-transition.ytd-topbar-menu-button-renderer.style-scope > .yt-img-shadow.style-scope
+www.youtube.com##.ytd-compact-video-renderer.style-scope.badges > .ytd-badge-supported-renderer.style-scope.badge-style-type-simple.badge > span.ytd-badge-supported-renderer.style-scope
+www.youtube.com##.ytd-compact-video-renderer.style-scope.badges
+www.youtube.com##.ytd-video-renderer.style-scope.metadata-snippet-text
+www.youtube.com###content-wrapper
+www.youtube.com##ytd-feed-nudge-renderer.ytd-item-section-renderer.style-scope > .ytd-feed-nudge-renderer.style-scope
+! www.youtube.com###meta-contents > .ytd-watch-flexy.style-scope
+www.youtube.com###scroll-container > .yt-chip-cloud-renderer.style-scope
+www.youtube.com###voice-search-button > .size-default.style-default.ytd-masthead.style-scope > .ytd-button-renderer.style-scope.yt-simple-endpoint > .size-default.style-default.ytd-button-renderer.style-scope
+www.youtube.com###end > .ytd-masthead.style-scope
+www.youtube.com##ytd-button-renderer.size-default.style-default.force-icon-button.ytd-menu-renderer.style-scope > .ytd-button-renderer.style-scope.yt-simple-endpoint
+www.youtube.com##ytd-toggle-button-renderer.style-text.force-icon-button.ytd-menu-renderer.style-scope:nth-of-type(2)
+www.youtube.com##.ytd-video-primary-info-renderer.style-scope > .ytd-menu-renderer.style-scope.top-level-buttons
+www.youtube.com##.ytd-item-section-renderer.style-scope > .ytd-comments-header-renderer.style-scope
+www.youtube.com###dot
+www.youtube.com###button > .ytd-menu-renderer.style-scope
+www.youtube.com###guide-icon
+www.youtube.com###guide-button > .yt-icon-button.style-scope
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(1)
+www.youtube.com###guide-inner-content
+www.youtube.com###guide-content
+www.youtube.com###contentContainer > .ytd-app.style-scope
+www.youtube.com###scroll-container > .ytd-feed-filter-chip-bar-renderer.style-scope
+www.youtube.com###header > .ytd-rich-grid-renderer.style-scope
+www.youtube.com##.ytd-video-primary-info-renderer.style-scope.super-title > a.yt-formatted-string.style-scope.yt-simple-endpoint
+www.youtube.com##.ytd-video-view-count-renderer.style-scope.view-count
+www.youtube.com##.ytd-button-renderer.style-scope.yt-simple-endpoint > .size-default.style-suggestive.ytd-button-renderer.style-scope
+www.youtube.com##ytd-continuation-item-renderer.ytd-item-section-renderer.style-scope > .ytd-continuation-item-renderer.style-scope
+www.youtube.com##.iron-selected.ytd-menu-popup-renderer.style-scope > .ytd-menu-service-item-renderer.style-scope
+www.youtube.com###contentContainer
+www.youtube.com###guide-button
+www.youtube.com###button > .yt-icon-button.style-scope
+www.youtube.com###toolbar
+www.youtube.com###replies
+www.youtube.com##.ytd-comment-renderer.style-scope.published-time-text > .yt-formatted-string.style-scope.yt-simple-endpoint
+www.youtube.com##ytd-reel-shelf-renderer.ytd-item-section-renderer.style-scope
+! YouTube Video title
+www.youtube.com##.ytd-video-primary-info-renderer.style-scope.title > .ytd-video-primary-info-renderer.style-scope
+www.youtube.com###content > .ytd-video-secondary-info-renderer.style-scope
+www.youtube.com##.ytd-video-secondary-info-renderer.style-scope.more-button
+www.youtube.com##ytd-expander.ytd-video-secondary-info-renderer.style-scope
+www.youtube.com##tp-yt-paper-button.ytd-subscribe-button-renderer.style-scope
+www.youtube.com###info-strings > yt-formatted-string.ytd-video-primary-info-renderer.style-scope
+www.youtube.com###container > .ytd-video-primary-info-renderer.style-scope
+www.youtube.com###info-contents > .ytd-watch-flexy.style-scope
+
+
+
+! 2022-07-20 https://duckduckgo.com
+duckduckgo.com##.js-feedback-start.feedback-btn__send
+duckduckgo.com##.feedback-btn.btn
+
+
+
+
+! 2022-07-22 https://genius.com
+genius.com##.column_layout-column_span--secondary.column_layout-column_span > .u-half_bottom_margin.u-x_large_top_margin.text_label--gray.text_label
+genius.com##div.white_container:nth-of-type(2)
+genius.com##.leaderboard-row
+genius.com##.column_layout-column_span--secondary.column_layout-column_span > div > .white_container
+genius.com##.white_container.thumbnail_grid
+genius.com##.column_layout-column_span--secondary.column_layout-column_span > div > .u-half_bottom_margin.u-x_large_top_margin.text_label--gray.text_label
+genius.com##div.footer:nth-of-type(1)
+genius.com##div.footer--secondary.footer:nth-of-type(2)
+genius.com##div.footer--secondary.footer:nth-of-type(3)
+genius.com##.header_with_cover_art-metadata_preview-unit
+genius.com##div.u-vertical_margins:nth-of-type(4)
+genius.com##.annotation_label-underline
+
+! 2022-07-23 https://genius.com
+genius.com##ng-transclude expandable-list > .metadata_unit
+
+! 2022-07-25 https://www.instagram.com
+
+
+! 2022-07-26 https://www.reddit.com
+www.reddit.com##.HNozj_dKjQZ59ZsfEegz8._10BQ7pjWbeYP63SAPNS8Ts._2iuoyPiKHN3kfOoeIQalDT._3hna43Sh0DTnoV7v2NNc2r
+
+! 2022-07-28 https://play.typeracer.com
+play.typeracer.com##.rewardPromptPopup.trPopupDialog.DialogBox
+
+! 2022-07-29 https://fantasy.premierleague.com
+fantasy.premierleague.com##._90RzEeyM6H7IvIh291DTv
+fantasy.premierleague.com##._3_H6MsAd1grAO7T3v2WdhQ._1Qu7MokjMuBXLOM2oKVLhZ.tcf-cmp
+
+! 2022-08-01 https://www.ibm.com
+www.ibm.com###truste-consent-content
+www.ibm.com##.JfaJmC__4_4_10.l3Apkc__4_4_10
+www.ibm.com##.redDeu__4_4_10
+www.ibm.com##.Z5S7yf__4_4_10.FnNDrs__4_4_10
+
+! 2022-08-07 https://genius.com
+genius.com##.druTFX.OptOutButton__Container-e48zu0-0.kviCal.SmallButton__Container-mg33hl-0
+genius.com##.gfVIRm.LyricsControls__SmallButton-sghmdv-7.kviCal.SmallButton__Container-mg33hl-0
+
+! 2022-08-09 https://duckduckgo.com
+duckduckgo.com##.footer
+
+! 2022-08-11 https://www.wowessays.com
+www.wowessays.com##.wrap-ab-test-banner
+www.wowessays.com##.goback-popup-active.ab-test-banner
+
+! 2022-08-11 https://genius.com
+genius.com##.gNhDlQ.SongPage__FeedbackBanner-sc-19xhmoi-2
+
+! 2022-08-11 https://www.phrasebank.manchester.ac.uk
+www.phrasebank.manchester.ac.uk##.social-tab
+
+! 2022-08-12 https://www.cell.com
+www.cell.com##.ot-buttons-fw.ot-wo-title.bottom.otFlat
+
+! 2022-08-14 https://footystats.org
+footystats.org##.shown.pa1e.bbox.css3-primer
+footystats.org##.w100.m0Auto.ac
+
+! 2022-08-19 https://quillbot.com
+quillbot.com##.css-16f3nkb.MuiDrawer-paperAnchorDockedLeft.MuiDrawer-paperAnchorLeft.MuiDrawer-paper.mf-jss455.MuiPaper-elevation0.MuiPaper-elevation.MuiPaper-root
+
+! 2022-08-19 https://www.brainfacts.org
+www.brainfacts.org##.cc-color-override--1834547918.cc-right.cc-bottom.cc-theme-classic.cc-type-info.cc-floating.cc-window
+
+! 2022-08-26 https://www.skysports.com
+||cdn.privacy-mgmt.com/index.html?message_id=697562&consentUUID=f75e3d0e-7489-474e-b447-8050e0687bf0_10&preload_message=true&hasCsp=true&consent_origin=https%3A%2F%2Fcdn.privacy-mgmt.com%2Fconsent%2Ftcfv2&mms_origin=https%3A%2F%2Fcdn.privacy-mgmt.com%2Fmms%2Fv2
+
+! 2022-08-31 https://www.overleaf.com
+www.overleaf.com##.hidden-print.cookie-banner
+
+! 2022-09-03 https://www.programiz.com
+www.programiz.com##.d-lg-block.d-none.notice-bar-top
+
+! 2022-09-12 https://www.facebook.com
+www.facebook.com##.q46jt4gp > div > .om3e55n1 > .r5g9zsuq.q46jt4gp
+
+! 2022-09-15 https://www.facebook.com
+
+! 2022-09-16 https://ctan.org
+ctan.org###share
+ctan.org###share-toggle
+
+! 2022-09-17 https://www.overleaf.com
+www.overleaf.com##.current-plan-label
+www.overleaf.com##.ng-isolate-scope.btn-primary.btn
+
+! 2022-09-17 https://www.msn.com
+www.msn.com##.ot-sdk-ten.ot-sdk-columns
+
+! 2022-09-20 https://www.facebook.com
+www.facebook.com##.b3dzj11p.hf30pyar.lq84ybu9.mfclru0v.a96hb305.b52o6v01.yn3a2qjl.g6da2mms.oab4agdp.g4tp4svg.om3e55n1.bdao358l > .lq84ybu9.hf30pyar > div > .g4tp4svg.om3e55n1.bdao358l > .q46jt4gp.r5g9zsuq.osvssn79.kzdo7wvt.g4tp4svg.om3e55n1.bdao358l > .lkpwwwwx.h67akvdo.q46jt4gp.r5g9zsuq.kjdc1dyq.bdao358l.o565dech.ba4ynyj4.by1hb0a5.sqler345.ir1gxh3s.ly56v2vv.g4tp4svg.om3e55n1.hf30pyar.cqf1kptm.alzwoclg.jk4gexc9.qbc87b33.r7ybg2qv
+
+! 2022-09-21 https://ctan.org
+||ctan.org/assets/lightbox/close.png$image
+
+! 2022-09-22 https://www.programiz.com
+www.programiz.com##.get-app-link
+
+! 2022-09-23 https://www.reddit.com
+www.reddit.com##._10wb7d3rGvj56Gcs4IQWL5._1FUNcfOeszr8eruqLxCMcR
+
+! 2022-09-23 https://www.instagram.com
+
+! 2022-09-23 https://www.facebook.com
+www.facebook.com##.t29kiutw.nch0832m.rl78xhln.oxkhqvkx.srn514ro.pytsy3co.cqf1kptm.alzwoclg.i85zmo3j
+
+! 2022-09-24 https://www.facebook.com
+www.facebook.com##.l3gxykhd.o9wcebwi.d2hqwtrz.hgxaigo5.irrdun15.alzwoclg.i85zmo3j.icdlwmnq.l3ldwz01.f14ij5to.jl2a5g8c.hvb2xoa8.hupbnkgi.dzqi5evh.o9erhkwx.g4tp4svg.s3jn8y49.rn8ck1ys.cr00lzj9.om3e55n1.aeinzg81.dnr7xe2t.kmwttqpk.l7ghb35v.m8h3af8h.s5oniofx.jez8cy9q.tgm57n0e.fsf7x5fv.bdao358l.r7bn319e.djs4p424.bonavkto.frfouenu.bf1zulr9.lxqftegz.s9ljgwtm.s9ok87oh.gkg15gwv.tghlliq5.flwp5yud.tav9wjvu.nu7423ey.qi72231t
+www.facebook.com##.dnr7xe2t.cgu29s5g.cqf1kptm.alzwoclg.g4tp4svg.om3e55n1.bdao358l > .dnr7xe2t.i15ihif8.cgu29s5g.thmcm15y.gvxzyvdx.cqf1kptm.alzwoclg.g4tp4svg.om3e55n1.bdao358l
+www.facebook.com##.srn514ro.dnr7xe2t.i15ihif8.cgu29s5g.thmcm15y.gvxzyvdx.cqf1kptm.alzwoclg.bdao358l.g4tp4svg.om3e55n1 > .dnr7xe2t.cgu29s5g.cqf1kptm.alzwoclg.g4tp4svg.om3e55n1.bdao358l
+www.facebook.com##.qbfhvn0q.om3e55n1.izce65as.mm05nxu8.b95sz57d.jfw19y2w.id4k59z1.dnr7xe2t.i15ihif8.cgu29s5g.thmcm15y.by1hb0a5.sqler345.ir1gxh3s.h67akvdo.ly56v2vv.g4tp4svg.lq84ybu9.cqf1kptm.alzwoclg.jk4gexc9.qbc87b33.r7ybg2qv > .om3e55n1.cgu29s5g.cqf1kptm.alzwoclg
+www.facebook.com##.i85zmo3j.alzwoclg.o7bt71qk.n68fow1o.r227ecj6.gt60zsk1.s1m0hq7j
+www.facebook.com##.b3dzj11p.hf30pyar.lq84ybu9.mfclru0v.a96hb305.b52o6v01.yn3a2qjl.g6da2mms.oab4agdp.g4tp4svg.om3e55n1.bdao358l > .q46jt4gp.r5g9zsuq
+www.facebook.com##.d2hqwtrz.o9wcebwi.om3e55n1.mfclru0v.g4tp4svg > .g4tp4svg.om3e55n1.bdao358l > .q46jt4gp.r5g9zsuq.osvssn79.kzdo7wvt.g4tp4svg.om3e55n1.bdao358l > .lkpwwwwx.h67akvdo.q46jt4gp.r5g9zsuq.kjdc1dyq.bdao358l.o565dech.ba4ynyj4.by1hb0a5.sqler345.ir1gxh3s.ly56v2vv.g4tp4svg.om3e55n1.hf30pyar.cqf1kptm.alzwoclg.jk4gexc9.qbc87b33.r7ybg2qv
+www.facebook.com##.d2hqwtrz.o9wcebwi.om3e55n1.mfclru0v.g4tp4svg > .g4tp4svg.om3e55n1.bdao358l > .q46jt4gp.r5g9zsuq.osvssn79.kzdo7wvt.g4tp4svg.om3e55n1.bdao358l
+www.facebook.com##.d2hqwtrz.o9wcebwi.om3e55n1.mfclru0v.g4tp4svg
+www.facebook.com##.azrrz9ho.qgrdou9d.bp8ub9ni.lpmxukf2.nmlomj2f.qwcclf47.e7u6y3za.qmqpeqxj.ov5gjlzi.l188yfni.jcxyg2ei.i85zmo3j.fxk3tzhb.om3e55n1.icdlwmnq.l3ldwz01.f14ij5to.jl2a5g8c.g4tp4svg.s3jn8y49.rn8ck1ys.cr00lzj9.nch0832m.rl78xhln.oxkhqvkx.srn514ro.aeinzg81.dnr7xe2t.kmwttqpk.kjdc1dyq.l7ghb35v.m8h3af8h.s5oniofx.jez8cy9q.tgm57n0e.fsf7x5fv.bdao358l.r7bn319e.djs4p424.bonavkto.frfouenu.bf1zulr9.lxqftegz.s9ljgwtm.s9ok87oh.gkg15gwv.tghlliq5.flwp5yud.tav9wjvu.qi72231t
+www.facebook.com##.cgu29s5g.b0ur3jhr > .i85zmo3j.alzwoclg.sl27f92c
+www.facebook.com##.b3dzj11p.hf30pyar.lq84ybu9.mfclru0v.a96hb305.b52o6v01.yn3a2qjl.g6da2mms.oab4agdp.g4tp4svg.om3e55n1.bdao358l > .lq84ybu9.hf30pyar
+www.facebook.com##.ez8dtbzv.g4qalytl.gt60zsk1.r227ecj6.gvxzyvdx.jez8cy9q.cqf1kptm.alzwoclg.g4tp4svg.om3e55n1.bdao358l
+
+! 2022-09-24 https://www.instagram.com
+www.instagram.com##._abcm._abab._ab9_._ab9p._ab9m._ab9f._ab97._ab94._ab8w
+www.instagram.com##li._acaz > ._abcm._ab9p._ab9m._ab9f._ab97._ab94._ab8w
+||static.cdninstagram.com/rsrc.php/v3/y8/r/ZWR9C7_JdnP.png$image
+||static.cdninstagram.com/rsrc.php/v3/y8/r/ZWR9C7_JdnP.png$image
+www.instagram.com##._aaqh._aaqg > ._abl-
+www.instagram.com##._aaqh._aaqf > ._abl-
+
+! 2022-09-25 https://leetcode.com
+leetcode.com##.py-2.flex.nav-narrow-hidden
+
+! 2022-09-25 https://www.facebook.com
+||scontent.fktm17-1.fna.fbcdn.net/v/t39.30808-6/309019415_5301080713323950_2119718025471574378_n.jpg?stp=dst-jpg_s280x280&_nc_cat=106&ccb=1-7&_nc_sid=365331&_nc_ohc=QlsGz_jAlaIAX_IQgJx&_nc_ht=scontent.fktm17-1.fna&oh=00_AT9drk7syp_mmHxSQbPmf3cJ_o8ckg1BV9sDn-2M95t0pQ&oe=6334E4F1$image
+www.facebook.com##.om3e55n1.q46jt4gp.mx411szv.hf30pyar.lq84ybu9.rng1terr.hnay576k.t5n4vrf6.sr926ui1.jl2a5g8c.alzwoclg.o9w3sbdw
+
+! 2022-09-26 https://www.instagram.com
+www.instagram.com##._a6hd._ac5x.icdlwmnq.s3jn8y49.rn8ck1ys.cr00lzj9.nch0832m.rl78xhln.oxkhqvkx.srn514ro.kmwttqpk.kjdc1dyq.l7ghb35v.m8h3af8h.s5oniofx.rse6dlih.fsf7x5fv.bdao358l.fq87ekyn.b3qcqh3k.r86q59rh.n3hqoq4p.nu7423ey.qi72231t > ._aade._aad6._aad0._aacw._aaco._aacl
+www.instagram.com##._aade._aad6._aacy._aacw._aaco._aacl
+
+! 2022-09-28 https://www.youtube.com
+www.youtube.com##.ytd-rich-section-renderer.style-scope > .ytd-rich-shelf-renderer.style-scope
+www.youtube.com###content > .ytd-rich-section-renderer.style-scope
+
+! 2022-09-28 https://www.last.fm
+www.last.fm##.col-sidebar
+
+! 2022-09-30 https://medium.com
+medium.com##.ey.ex.bg.ew.ev.bd.bc.bb.ba.az.ay.ax.aw.eu.et
+medium.com##.nl.l.ck > span > .bi.bh.bg.bf.be.bd.bc.bb.ba.az.ay.ax.aw.av.au > .cj.ci.ch.cg.cf.ce.cd.cc.cb.ca.bz.bd.ul.uk.uj.ui.hl.bq.hj.bo.bn.b.bm
+
+! 2022-09-30 https://www.useblackbox.io
+www.useblackbox.io##.ed1p7qo0
+www.useblackbox.io##.efr23pf0.intercom-y71rxe.intercom-launcher-frame
+www.useblackbox.io##.w-inline-block.pricing > .text-block-24
+www.useblackbox.io##.w-inline-block.faq > .text-block-24
+www.useblackbox.io##.w-inline-block.small.button-animated
+
+! 2022-10-09 https://www.youtube.com
+www.youtube.com###owner-sub-count
+
+! 2022-10-11 https://www.facebook.com
+www.facebook.com##.xq1qtft.x1n2onr6.x1e4zzel.x1odjw0f.x1oyok0e.xwo3gff.xx8ngbg.x2lwn1j.xs83m0k.x1iyjqo2.x1l7klhg.xjx87ck.x1yqm8si.xfk6m8.x1rohswg.x1pq812k.x1ja2u2z.x6ikm8r.xdt5ytf.x78zum5.x5lxg6s.x1q594ok.xb57i2i > .x1n2onr6.x1iyjqo2.xdt5ytf.x78zum5 > .x1y1aw1k
+
+! 2022-10-11 https://www.instagram.com
+www.instagram.com##._a6hd._ac5x.x1a2a7pz.xggy1nq.x1hl2dhg.x16tdsg8.xkhd6sd.x18d9i69.x4uap5.xexx8yu.x1mh8g0r.xat24cr.x11i5rnm.xdj266r.xe8uvvx.xt0psk2.x1ypdohk.x9f619.xav7gou.xaqea5y.x1b1mbwd.x6umtig.xjbqb8w.x1i10hfl > ._aade._aad6._aad0._aacw._aaco._aacl
+
+! 2022-10-15 https://www.programiz.com
+||cdn.programiz.com/sites/tutorial2program/files/sp_logo.svg$image
+www.programiz.com##.card--no-border.card--shadowed-up.card--even-spaced.card
+www.programiz.com##.footer
+
+! 2022-10-21 https://www.instagram.com
+www.instagram.com##._ae62._ae60._ae5_._ae5y._aaoe
+www.instagram.com##._ae62._ae5z._ae5y._aaoe
+www.instagram.com##._aac6._aac5._aac4
+www.instagram.com##._aaqq._aarg._aarf > ._aarh
+
+! 2022-10-21 https://www.anime-planet.com
+||www.anime-planet.com/inc/img/banners/crbanner.png$image
+www.anime-planet.com##.video-auto-update.md-4-5.pure-1
+www.anime-planet.com##.md-1-5.pure-1.cta
+||www.anime-planet.com/inc/img/banners/crbanner.png$image
+www.anime-planet.com##div.pure-g.recEntry:nth-of-type(2)
+www.anime-planet.com##div.pure-g.recEntry:nth-of-type(3)
+||www.anime-planet.com/inc/img/banners/crbanner.png$image
+
+! 2022-10-21 https://w13.mangafreak.net
+! Manga Freak 
+w13.mangafreak.net##.manga_series_data
+w13.mangafreak.net##.manga_series_description
+w13.mangafreak.net##.manga_series_image
+
+! 2022-10-21 https://w13.mangafreak.net
+w13.mangafreak.net##.header_section
+
+! 2022-10-22 https://www.youtube.com
+www.youtube.com###search-form
+
+! 2022-10-23 https://ctan.org
+ctan.org##.top-bar > ul
+ctan.org##.breadcrumb
+
+! 2022-10-23 https://www.google.com
+www.google.com##.RNNXgb
+
+! 2022-10-23 https://github.com
+github.com##.height-full.position-relative.loading-context > div > .mt-5.js-repos-container.Details.mb-3 > .js-repos-container > .list-style-none
+github.com##.height-full.position-relative.loading-context > div > .mt-5.js-repos-container.Details.mb-3 > .js-repos-container > .js-more-repos-form.js-ajax-pagination.ajax-pagination-form > .px-2.px-md-0.py-3.py-md-0.border-top.border-md-0.mt-3.Link--muted.f6.btn-link.text-left.width-full
+
+! 2022-10-23 https://w13.mangafreak.net
+w13.mangafreak.net##.footer_section
+
+! 2022-10-26 https://www.youtube.com
+www.youtube.com##.yt-spec-button-shape-next--segmented-start.yt-spec-button-shape-next--icon-leading.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next > yt-touch-feedback-shape > .yt-spec-touch-feedback-shape--touch-response.yt-spec-touch-feedback-shape > .yt-spec-touch-feedback-shape__fill
+www.youtube.com###flexible-item-buttons > .ytd-menu-renderer.style-scope > yt-button-shape
+www.youtube.com###top-level-buttons-computed > ytd-button-renderer.ytd-menu-renderer.style-scope > yt-button-shape > .yt-spec-button-shape-next--icon-leading.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next > yt-touch-feedback-shape > .yt-spec-touch-feedback-shape--touch-response.yt-spec-touch-feedback-shape > .yt-spec-touch-feedback-shape__fill
+www.youtube.com###top-level-buttons-computed > ytd-button-renderer.ytd-menu-renderer.style-scope > yt-button-shape > .yt-spec-button-shape-next--icon-leading.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next > yt-touch-feedback-shape > .yt-spec-touch-feedback-shape--touch-response.yt-spec-touch-feedback-shape > .yt-spec-touch-feedback-shape__stroke
+www.youtube.com###top-level-buttons-computed > ytd-button-renderer.ytd-menu-renderer.style-scope
+www.youtube.com##.yt-spec-button-shape-next--segmented-end.yt-spec-button-shape-next--icon-button.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next > yt-touch-feedback-shape > .yt-spec-touch-feedback-shape--touch-response.yt-spec-touch-feedback-shape > .yt-spec-touch-feedback-shape__fill
+www.youtube.com##.yt-spec-button-shape-next--segmented-end.yt-spec-button-shape-next--icon-button.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next
+www.youtube.com###segmented-like-button > .ytd-segmented-like-dislike-button-renderer.style-scope > yt-button-shape
+www.youtube.com##.yt-spec-touch-feedback-shape--overlay-touch-response.yt-spec-touch-feedback-shape > .yt-spec-touch-feedback-shape__fill
+www.youtube.com###voice-search-button
+
+www.youtube.com##.ytd-watch-metadata.style-scope > yt-button-shape.ytd-subscribe-button-renderer.style-scope
+www.youtube.com###bottom-row > .ytd-watch-metadata.style-scope.item
+www.youtube.com###super-title > a.yt-formatted-string.style-scope.yt-simple-endpoint
+
+! 2022-10-26 https://www.viber.com
+www.viber.com###onetrust-button-group-parent
+www.viber.com##.ot-sdk-columns.ot-sdk-eight
+
+! 2022-10-26 https://genius.com
+genius.com##div.jOFKJt.RightSidebar__Container-pajcl2-0:nth-of-type(3)
+genius.com##.eRbhLo.HeaderCreditsPrimis__Container-dl42pr-0
+genius.com##span.fzwKEO.MetadataStats__LabelWithIcon-sc-1t7d8ac-5.exCHLx.LabelWithIcon__Container-sc-1ri57wg-0:nth-of-type(2)
+genius.com##span.fzwKEO.MetadataStats__LabelWithIcon-sc-1t7d8ac-5.exCHLx.LabelWithIcon__Container-sc-1ri57wg-0:nth-of-type(3)
+genius.com##button.fzwKEO.MetadataStats__LabelWithIcon-sc-1t7d8ac-5.exCHLx.LabelWithIcon__Container-sc-1ri57wg-0
+genius.com##.dvOJud.Tooltip__Children-sc-1uvy5c2-2 > .exCHLx.LabelWithIcon__Container-sc-1ri57wg-0
+genius.com##.kTUFzk.MetadataTooltip__InfoIcon-sc-435euq-4
+genius.com##.u-text_center > .text_label
+genius.com##.search_results_page-header
+genius.com##.u-bottom_margin.full_width_button
+genius.com##.fdEmdh.Lyrics__Title-sc-1ynbvzw-0.TextLabel-sc-8kw9oj-0
+
+! 2022-10-30 https://www.useblackbox.io
+www.useblackbox.io##.efr23pf0.intercom-1txmsu1.intercom-launcher-frame
+www.useblackbox.io##.e1lwd7c40.intercom-d88tdv
+
+! 2022-10-30 https://www.google.com
+www.google.com##.dXdtIf.dAEiw
+www.google.com##.s8GCU
+www.google.com##.sfbg
+www.google.com##.yIbDgf.Q3DXx
+www.google.com##.dodTBe
+
+! 2022-10-30 https://www.programiz.com
+www.programiz.com##.btn--toc.align-items-center.btn
+www.programiz.com##nav
+
+! 2022-11-02 https://bitly.com
+bitly.com##.sitebanner--spacer
+||docrdsfx76ssb.cloudfront.net/static/1667243647/pages/wp-content/uploads/2022/08/home-hero-mobile-v2.png$image
+||docrdsfx76ssb.cloudfront.net/static/1667243647/pages/wp-content/uploads/2022/08/home-hero-mobile-v2.png$image
+bitly.com##.hero-content
+bitly.com##.announcements
+bitly.com##div.large-4.cell > .content-padding
+bitly.com##.cell > .block-intro
+
+! 2022-11-03 https://linuxhint.com
+linuxhint.com##.formkit-form.seva-form > div
+

@@ -1,0 +1,9 @@
+unbind common q
+unbind common l
+unbind common h
+
+bind common q quit
+bind common h win-next
+bind common l win-next
+
+colorscheme green

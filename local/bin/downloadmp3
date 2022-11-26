@@ -1,0 +1,28 @@
+#! /bin/bash
+
+start=$(date | awk '{print $4}')
+
+cd ${HOME}/music/
+
+total_songs_to_download=$(cat ${HOME}/downloads/youtube_urls.txt | wc -l)
+
+count=1
+
+IFS_OLD=${IFS}
+IFS=$'\n'
+
+for url in $(cat ~/downloads/youtube_urls.txt)
+do
+    echo -e "Downloading audio... ${count} of ${total_songs_to_download} \n"
+    youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 ${url}
+    (( count++ ))
+    echo -e "\n"
+done
+
+stop=$(date|awk '{print $4}')
+
+mins=$(echo -e "${start}\n${stop}" | awk 'BEGIN {FS=":"; diff=0} {diff=$2 - diff} END {print diff}')
+
+changetitle ${mins}
+
+IFS=${IFS_OLD}

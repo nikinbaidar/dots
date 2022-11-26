@@ -1,0 +1,17 @@
+#! /bin/sh
+
+function set_random_wallpaper() {
+  random_wallpaper=$(ls ${HOME}/pics/wallpapers | shuf -n 1)
+  feh --no-fehbg --bg-fill ${HOME}/pics/wallpapers/${random_wallpaper}
+}
+
+if [ ${#} -eq 0 ] ; then
+  set_random_wallpaper
+elif [ ${1} = "-c" ] ; then
+  while true ; do
+    set_random_wallpaper
+    sleep ${2}
+  done
+else
+  feh --no-fehbg --bg-fill ${1}
+fi

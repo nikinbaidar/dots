@@ -1,0 +1,77 @@
+#!/bin/sh
+
+function openFilePickerDialog() {
+
+
+    function showArtWork() {
+        [[ -f ${DOTS}/config/bash/prompt_colors ]] \
+            && . ${DOTS}/config/bash/prompt_colors
+
+        echo -e "${p}" 
+        echo -ne "Lehte" | figlet -f pagga 
+        echo 
+    }
+
+
+    function createNewFile() {
+        echo -en "\n:: Enter a new filename: ${_g}${input}/" 
+        read filename
+        echo -e "${w}"
+        input="${input}"/"${filename}"
+        # Just in case user decided to add a sub directory in path.
+        sub_dir=$(echo "${input}" | awk 'BEGIN { FS = "/" } {
+        for(i=1; i<NF; i++) 
+            printf $i"/"
+        }')
+    }
+
+
+    function moveCapturedImageToSelectedPath() {
+        if [ -f "${input}" ] ; then
+            echo -en ":: Proceed and overwrite '${input}' ? [Y/n] "
+            read response
+            if [ "${response}" = 'n' ] ; then
+                clear 
+                showArtWork
+                echo -n ":: Do you want to select another file? [N/y] "
+                read b
+                if [ "${b}" = 'y' ] ; then
+                    clear
+                    main
+                else
+                    echo -en "\n${r}Failed to save captured image!"
+                    sleep 1.5
+                    exit 1
+                fi
+            fi
+        else
+            if ! [ -d "${sub_dir}" ]; then
+                mkdir "${sub_dir}"
+            fi
+        fi
+
+        mv /tmp/temporary.png "${input}"
+        exit 0
+    }
+
+
+    function main() {
+        showArtWork
+        echo -e "Select the destination file:${w}\n"
+        input=$(fzf)
+        [[ -d "${input}" ]] && createNewFile
+        moveCapturedImageToSelectedPath
+    }
+
+    main
+}
+
+maim --select /tmp/temporary.png 2> /dev/null
+
+if [ -f /tmp/temporary.png ] ; then
+    export -f openFilePickerDialog
+    st -c "File Picker" -T "Lehte - Terminal File Picker"\
+        -g 150x34 sh -c 'openFilePickerDialog'
+fi
+
+rm -f /tmp/temporary.png
