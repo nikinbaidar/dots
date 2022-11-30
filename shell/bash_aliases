@@ -5,7 +5,7 @@
 # ░▀▀░░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
 
 # Alias Definitions
-alias ls="ls --color=always --group-directories-first"
+alias ls="ls -v --color=always --group-directories-first"
 alias grep="grep --color=always"
 alias less="less --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
@@ -14,7 +14,6 @@ alias pqiv="pqiv 2> /dev/null"
 alias zathura="zathura --fork"
 ## Works with .pptx and .docx FIXED DEPRECIATION
 alias convert2pdf="soffice --headless --convert-to pdf"
-alias sxiv="feh 2> /dev/null &"
 
 # Function Definitions
 function weather() {

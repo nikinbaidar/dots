@@ -13,14 +13,12 @@ autocmd('BufReadPost', {
     command = 'normal! g`\"'
 })
 
-
 autocmd('VimLeave', {
     pattern = '*',
     group = augroup,
     desc = 'Echo nothing so gibberish don\'t print on linux terminal.',
     command = 'echo ""'
 })
-
 
 autocmd('TermOpen', {
     pattern = 'term://*',

@@ -3,12 +3,9 @@
 -- ░█░█░█▀█░█▀▄░█▀▄░█░█░█░█░█▄█░█░█░░░░█░░░█░█░█▀█
 -- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-vim.api.nvim_set_keymap('i', '<C-l>', '<C-[>[s1z=`]a', {noremap = true})
+map('i', '<C-l>', '<C-[>[s1z=`]a', noremap)
 
-vim.api.nvim_create_autocmd('BufWinEnter', {
-    pattern = '*.md',
-    command = 'silent! execute "syntax sync fromstart"'
-})
+vim.wo.conceallevel = 2
 
 vim.api.nvim_create_user_command(
   'Maketitlecase',

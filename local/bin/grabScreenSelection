@@ -4,8 +4,8 @@ function openFilePickerDialog() {
 
 
     function showArtWork() {
-        [[ -f ${DOTS}/config/bash/prompt_colors ]] \
-            && . ${DOTS}/config/bash/prompt_colors
+        [[ -f ${DOTS}/shell/prompt_colors ]] \
+            && . ${DOTS}/shell/prompt_colors
 
         echo -e "${p}" 
         echo -ne "Lehte" | figlet -f pagga 

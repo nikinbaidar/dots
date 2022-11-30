@@ -7,8 +7,8 @@ set relativenumber
 set ignorecase true
 set icons true
 set drawbox true
-set hidden true
 set preview false
+set hidden
 set ratios 1:3:4  
 
 
@@ -67,8 +67,4 @@ map gc :{{
     cd ~/.config
 }}
 
-map gb cd ~/books
-map gd cd ~/downloads
-map gp cd ~/projects
-map gs cd ~/pics/screenshots
-map gn cd ~/notes
+map gn cd ~/repos/notes

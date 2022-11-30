@@ -1,5 +1,3 @@
-vim.cmd [[
-
 hi clear
 
 set background=dark
@@ -24,6 +22,7 @@ if exists('+termguicolors')
 endif
 
 let g:spaceduck_bold = get(g:, 'spaceduck_bold', 0)
+hi Comment            guifg=#5966A1            ctermfg=NONE    guibg=None ctermbg=234   gui=NONE      cterm=NONE
 hi ColorColumn        guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
 hi CursorColumn       guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
 hi Conceal            guifg=#686f9a         ctermfg=60      guibg=NONE    ctermbg=NONE  gui=NONE      cterm=NONE
@@ -241,8 +240,7 @@ hi BufferCurrentTarget guifg=#ce6f8f ctermfg=168 guibg=#0f111b ctermbg=233 gui=N
 hi BufferVisibleTarget guifg=#ce6f8f ctermfg=168 guibg=#0f111b ctermbg=233 gui=NONE cterm=NONE
 hi BufferInactiveTarget guifg=#ce6f8f ctermfg=168 guibg=#0f111b ctermbg=233 gui=NONE cterm=NONE
 
-hi markdownBold guifg=#5ccc96 gui=BOLD
-hi markdownCodeDelimiter guifg=#5966a1
+
 
 let g:terminal_color_foreground = "#ecf0c1"
 let g:terminal_color_background = "#0f111b"
@@ -264,25 +262,34 @@ let g:terminal_color_14         = "#7a5ccc"
 let g:terminal_color_15         = "#ecf0c1"
 
 let g:terminal_ansi_colors =  ["#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1", "#686f9a", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1"]
-]]
 
-local hi = vim.api.nvim_set_hl
+" Tree sitter
+"
+hi @punctuation.blockquote guifg=#E39400
+hi @punctuation.symbols    guifg=#C36F8F
 
-local gui_palette = {
-  black     = '#0F111B',
-  red       = '#E33400',
-  green     = '#5CCC96',
-  -- blue     = '#5CCC96',
-  yellow    = '#F2CE00',
-  purple    = '#7A5CCC',
-  cyan      = '#00A3CC',
-  gray      = '#686F9A',
-  white     = '#ECF0C1',
-  darkgray  = '#30365F',
-  lightgray = '#C1C3CC',
-  comment   = '#5966A1'
-}
 
-hi (0, 'Comment' , {
-    fg = gui_palette.comment
-})
+
+
+
+" local hi = vim.api.nvim_set_hl
+"
+" local gui_palette = {
+"   black     = '#0F111B',
+"   red       = '#E33400',
+"   orange    = '#E39400',
+"   green     = '#5CCC96',
+"   -- blue     = '#5CCC96',
+"   yellow    = '#F2CE00',
+"   purple    = '#7A5CCC',
+"   cyan      = '#00A3CC',
+"   gray      = '#686F9A',
+"   white     = '#ECF0C1',
+"   darkgray  = '#30365F',
+"   lightgray = '#C1C3CC',
+"   comment   = '#5966A1'
+" }
+"
+" hi (0, 'Comment' , {
+"     fg = gui_palette.comment
+" })
