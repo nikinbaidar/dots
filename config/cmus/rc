@@ -1,0 +1,28 @@
+unbind common q
+unbind common l
+unbind common h
+
+bind common q quit
+bind common h win-next
+bind common l win-next
+
+set mouse=true
+
+colorscheme green
+
+set color_win_sel_attr=standout
+set color_win_cur_sel_attr=standout
+set color_win_cur_sel_fg=green
+set color_win_cur_attr=default
+set color_win_cur=gray
+set color_win_inactive_cur_sel_fg=gray
+set color_win_inactive_cur_sel_attr=default
+set color_win_inactive_sel_attr=underline
+set color_win_inactive_cur_sel_attr=underline
+set color_trackwin_album_fg=green
+set color_trackwin_album_attr=bold
+
+
+set color_win_cur=magenta
+set color_win_cur_attr=standout
+set color_win_inactive_cur_sel_attr=underline
