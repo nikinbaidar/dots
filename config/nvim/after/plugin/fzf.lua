@@ -14,7 +14,7 @@ vim.g.fzf_layout = {
 vim.g.fzf_preview_window = {'right,60%,<60(down,60%)', 'ctrl-/'}
 
 vim.api.nvim_set_keymap('n', '<C-t>', ':Files ~/<CR>', parameters)
-vim.api.nvim_set_keymap('n', '<leader>b', ':BLines<CR>', parameters)
+
 vim.keymap.set('n', '<leader>t',
 function()
     vim.cmd 'update!'
