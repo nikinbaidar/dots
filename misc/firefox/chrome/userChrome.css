@@ -1,0 +1,44 @@
+/*
+ * Do not remove the @namespace line -- it's required for correct functioning
+ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
+
+
+#statuspanel, #TabsToolbar, #nav-bar {
+  visibility: collapse !important;
+}
+
+/* #nav-bar {
+  --navbar-margin: -44px;
+  margin-top: var(--navbar-margin);
+  margin-bottom: 0;
+  z-index: -100;
+} */
+
+/*
+#context-navigation,
+#context-sep-navigation {
+  display:none !important;
+}
+
+#back-button,
+#forward-button {
+  display: none !important;
+}
+
+#PanelUI-menu-button {
+  display: none;
+}
+
+
+#navigator-toolbox:hover > #nav-bar,
+#navigator-toolbox:focus-within > #nav-bar
+{
+  margin: 0;
+  margin-bottom: var(--navbar-margin);
+  z-index: 100;
+  opacity: 1;
+  border: none;
+  transition: all 0.3s ease !important;
+} */
