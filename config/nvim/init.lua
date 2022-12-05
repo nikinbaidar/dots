@@ -1,6 +1,7 @@
 require("plugins")
 require("augroup")
 
+vim.opt.swapfile       = false
 vim.opt.hlsearch       = false
 vim.opt.number         = true
 vim.opt.relativenumber = true
