@@ -25,7 +25,6 @@ static const Rule rules[] = {
      *      WM_NAME(STRING) = title
      */
     /* class           instance     title tags_mask  isfloating monitor */
-    { "tabbed",        NULL,        NULL, 1 << 2,    0,         -1 },
     { "File Picker",   NULL,        NULL, 0,         1,         -1 },
 };
 
