@@ -16,12 +16,16 @@
     {
       "pattern": "https://github.dev/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https://www.youtube.com/*",
+      "passKeys": "i"
     }
   ],
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "unmap J\nunmap K\nunmap T\n\nmap t Vomnibar.activateTabSelection",
+  "keyMappings": "unmap T\nmap t Vomnibar.activateTabSelection",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
