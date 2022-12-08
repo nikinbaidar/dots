@@ -1,2 +1,7 @@
-kill -9 $(cat /tmp/x)
-rm -f /tmp/x
+#!/bin/bash
+
+if [ -f /tmp/x ]
+then
+    kill -9 `cat /tmp/x`
+    rm -f /tmp/x
+fi
