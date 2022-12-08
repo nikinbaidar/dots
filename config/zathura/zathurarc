@@ -27,7 +27,7 @@ set window-title-page true
 set notification-fg none
 set notification-bg none
 
-set recolor true
+set recolor false
 set recolor-keephue true 
 set recolor-reverse-video true
 set recolor-darkcolor  "#ecf0c1" # Foreground Color
