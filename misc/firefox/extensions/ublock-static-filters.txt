@@ -1064,12 +1064,9 @@ w13.mangafreak.net##.manga_series_image
 ! 2022-10-21 https://w13.mangafreak.net
 w13.mangafreak.net##.header_section
 
-
-
 ! 2022-10-23 https://ctan.org
 ctan.org##.top-bar > ul
 ctan.org##.breadcrumb
-
 
 ! 2022-10-23 https://github.com
 github.com##.height-full.position-relative.loading-context > div > .mt-5.js-repos-container.Details.mb-3 > .js-repos-container > .list-style-none
@@ -1126,4 +1123,7 @@ www.reddit.com##.zoWOQnp55WuhEugRSwfw1._20fGT0XJD3MvX9yBsVeKMn
 
 ! 2022-12-08 https://www.trinitybiotech.com
 www.trinitybiotech.com##div:nth-of-type(5)
+
+! 2022-12-08 https://www.youtube.com
+www.youtube.com###search-clear-button
 
