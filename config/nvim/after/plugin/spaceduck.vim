@@ -22,8 +22,8 @@ if exists('+termguicolors')
 endif
 
 let g:spaceduck_bold = get(g:, 'spaceduck_bold', 0)
-hi Comment            guifg=#5966A1            ctermfg=NONE    guibg=None ctermbg=234   gui=NONE      cterm=NONE
 hi ColorColumn        guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
+hi Comment            guifg=#5966A1         ctermfg=NONE    guibg=None ctermbg=234   gui=NONE      cterm=NONE
 hi CursorColumn       guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
 hi Conceal            guifg=#686f9a         ctermfg=60      guibg=NONE    ctermbg=NONE  gui=NONE      cterm=NONE
 hi Cursor             guifg=#0f111b         ctermfg=233     guibg=#818596 ctermbg=102   gui=NONE      cterm=NONE
@@ -48,6 +48,7 @@ hi MatchParen         guifg=#ffffff         ctermfg=15      guibg=#30365F ctermb
 hi ModeMsg            guifg=#b3a1e6         ctermfg=146     guibg=NONE    ctermbg=NONE  gui=NONE      cterm=NONE
 hi MoreMsg            guifg=#b3a1e6         ctermfg=146     guibg=NONE    ctermbg=NONE  gui=NONE      cterm=NONE
 hi NonText            guifg=#767676
+hi EndOfBuffer        guifg=#767676
 hi Pmenu              guifg=#ecf0c1         ctermfg=255     guibg=#1b1c36 ctermbg=234   gui=NONE      cterm=NONE
 hi PmenuSel           guifg=#ffffff         ctermfg=15      guibg=#30365F ctermbg=237   gui=NONE      cterm=NONE
 hi PmenuSbar          guifg=NONE            ctermfg=NONE    guibg=#30365F ctermbg=237   gui=NONE      cterm=NONE
@@ -267,8 +268,10 @@ let g:terminal_ansi_colors =  ["#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a
 "
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
+hi @punctuation.delimiter  guifg=#686F9A
+hi @text.literal           guifg=#686F9A
 
-
+hi IndentBlanklineChar guifg=#3a3a3a
 
 
 

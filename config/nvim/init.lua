@@ -1,7 +1,6 @@
 require("plugins")
 require("augroup")
 
-vim.opt.swapfile       = false
 vim.opt.hlsearch       = false
 vim.opt.number         = true
 vim.opt.relativenumber = true
@@ -20,6 +19,7 @@ vim.opt.colorcolumn    = "80"
 vim.opt.path           = "./*,**"
 vim.opt.tags           = "./.tags"
 
+
 map = vim.api.nvim_set_keymap
 noremap = { noremap = true }
 
@@ -31,3 +31,5 @@ map('n', '<leader>j', '<C-w>w'    , noremap)
 map('n', '<leader>k', '<C-w>w'    , noremap) 
 map('n', '<leader>l', ':bn<CR>'   , noremap)
 map('!', '<C-d>'    , '<Del>'     , noremap)
+
+map('n', '<leader> ', ':set spell!<CR>', noremap)
