@@ -6,6 +6,7 @@
 
 
 #statuspanel, #TabsToolbar, #nav-bar {
+/* #statuspanel, #TabsToolbar, { */
   visibility: collapse !important;
 }
 

@@ -1127,3 +1127,7 @@ www.trinitybiotech.com##div:nth-of-type(5)
 ! 2022-12-08 https://www.youtube.com
 www.youtube.com###search-clear-button
 
+! 2022-12-11 https://theathletic.com
+theathletic.com##.MuiGrid-align-items-xs-center.MuiGrid-direction-xs-column.MuiGrid-container.lePtIK.sc-a3d1ffae-0.MuiGrid-root
+theathletic.com###darken-overlay
+
