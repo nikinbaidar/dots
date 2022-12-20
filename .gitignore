@@ -6,3 +6,4 @@
 **/search-history
 **/lib.pl
 local/bin/stop-ls
+**/packer_compiled.lua

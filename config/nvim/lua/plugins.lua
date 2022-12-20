@@ -14,5 +14,5 @@ return require('packer').startup(function()
     use 'saadparwaiz1/cmp_luasnip'
     use 'nvim-treesitter/nvim-treesitter'
     use 'nvim-treesitter/nvim-treesitter-context'
+    use 'JoosepAlviste/nvim-ts-context-commentstring' 
 end)
-
