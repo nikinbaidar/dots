@@ -8,7 +8,6 @@ set ignorecase true
 set icons true
 set drawbox true
 set preview false
-set hidden
 set ratios 1:3:4  
 
 
