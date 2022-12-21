@@ -2,38 +2,21 @@
  * Do not remove the @namespace line -- it's required for correct functioning
  */
 
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+#sidebar-close, #statuspanel, #TabsToolbar { visibility: collapse !important; }
 
-#statuspanel, #TabsToolbar, #nav-bar {
-/* #statuspanel, #TabsToolbar, { */
-  visibility: collapse !important;
-}
+#back-button, #forward-button { display: none !important; }
 
-/* #nav-bar {
+#PanelUI-menu-button { display: none; }
+
+#nav-bar {
   --navbar-margin: -44px;
   margin-top: var(--navbar-margin);
   margin-bottom: 0;
   z-index: -100;
-} */
-
-/*
-#context-navigation,
-#context-sep-navigation {
-  display:none !important;
 }
 
-#back-button,
-#forward-button {
-  display: none !important;
-}
-
-#PanelUI-menu-button {
-  display: none;
-}
-
-
-#navigator-toolbox:hover > #nav-bar,
 #navigator-toolbox:focus-within > #nav-bar
 {
   margin: 0;
@@ -42,4 +25,12 @@
   opacity: 1;
   border: none;
   transition: all 0.3s ease !important;
-} */
+}
+
+
+/* The following line of code stores a cookie that always starts youtube on
+ * theater mode without the need of any kind of third-party plugins
+ * document.cookie = 'wide=1; expires='+new Date('3099').toUTCString()+'; path=/';
+ */
+
+
