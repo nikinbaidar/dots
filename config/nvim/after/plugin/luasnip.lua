@@ -12,16 +12,30 @@ fn_node = luasnip.function_node
 tx_node = luasnip.text_node
 in_node = luasnip.insert_node
 
-local parameters = { noremap = true, silent = true }
+local parameters = { noremap = ture, silent = true}
 
-map("i", "<C-f>", "<cmd>lua require'luasnip'.jump(1)<CR>", parameters)
-map("i", "<C-z>", "<cmd>lua require'luasnip'.jump(-1)<CR>", parameters)
+vim.keymap.set({"i", "s"}, "<Tab>",
+function()
+    if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+    end
+end,
+parameters)
 
-map("s", "<C-f>", "<cmd>lua require'luasnip'.jump(1)<CR>", parameters)
-map("s", "<C-z>", "<cmd>lua require'luasnip'.jump(-1)<CR>", parameters)
+vim.keymap.set({"i", "s"}, "<S-Tab>",
+function()
+    if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+    end
+end,  
+parameters)
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
+
+-- ╔╦╗┬ ┬  ╔═╗┌┐┌┬┌─┐┌─┐┌─┐┌┬┐┌─┐
+-- ║║║└┬┘  ╚═╗││││├─┘├─┘├┤  │ └─┐
+-- ╩ ╩ ┴   ╚═╝┘└┘┴┴  ┴  └─┘ ┴ └─┘
 
 local date = function() return {os.date('%Y-%m-%d')} end
 
