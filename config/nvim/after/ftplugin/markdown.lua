@@ -25,10 +25,3 @@ command! ViewImage execute('normal! yi):silent ! pqiv " &<CR>')
 command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0')
 nnoremap <leader>f :MakeJump<CR>
 ]]
-
-luasnippets(nil, { markdown = { 
-    snippet({ trig = "sec" }, {
-        tx_node("# ", {}),
-        in_node(1)
-    }), 
-}, })
