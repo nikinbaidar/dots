@@ -5,5 +5,5 @@
 **/command-history
 **/search-history
 **/lib.pl
-local/bin/stop-ls
 **/packer_compiled.lua
+local/bin/stop-ls
