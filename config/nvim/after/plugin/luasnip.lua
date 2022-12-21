@@ -11,24 +11,24 @@ fn_node = luasnip.function_node
 tx_node = luasnip.text_node
 in_node = luasnip.insert_node
 
-local parameters = { noremap = ture, silent = true}
-
-vim.keymap.set({"i", "s"}, "<C-f>",
+vim.keymap.set({"i", "s"}, "<Tab>",
 function()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+    else 
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
     end
-end,
-parameters)
+end,  
+{silent = true})
 
-vim.keymap.set({"i", "s"}, "<C-z>",
+vim.keymap.set({"i", "s"}, "<S-Tab>",
 function()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
 end,  
-parameters)
-
+{silent = true})
+                
 --
 
 require("luasnip.loaders.from_snipmate").lazy_load()
@@ -81,10 +81,6 @@ luasnip.add_snippets(nil, {
         })),
 
     },
-
-
-
-
 
 
 
