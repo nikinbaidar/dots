@@ -4,24 +4,30 @@
 -- ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░
 
 local luasnip = require("luasnip")
-
-luasnip.setup({
-    ft_func = require("luasnip.extras.filetype_functions").from_pos_or_filetype,
-})
-
+local filetype_functions = require('luasnip.extras.filetype_functions')
 local extras = require('luasnip.extras')
 local fmt = require('luasnip.extras.fmt').fmt
-
-local rep = extras.rep
-
 local snippet = luasnip.snippet
+local parse_snippet = luasnip.parser.parse_snippet
 local s = luasnip.snippet_node
 local c = luasnip.choice_node
 local d = luasnip.dynamic_node
-local p = luasnip.parser.parse_snippet
 local f = luasnip.function_node
 local i = luasnip.insert_node
 local t = luasnip.text_node
+-- Custom repeat node
+local r = function(index) 
+    return f(function(arg) 
+        return arg[1]
+    end, { index })
+end
+
+luasnip.setup({
+    history = true,
+    update_events = "TextChanged,TextChangedI",
+    -- Context specific snippets
+    ft_func = filetype_functions.from_pos_or_filetype,
+})
 
 vim.keymap.set({"i", "s"}, "<Tab>", function()
     if luasnip.expand_or_jumpable() then
@@ -56,6 +62,7 @@ luasnip.filetype_extend("javascript", {
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
+local bang = "#!/usr/bin/env "
 local lorem = [[
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -67,20 +74,30 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 ]]
 
+
+-- Functions for f nodes.
+
 local date = function() 
     return {os.date('%Y-%m-%d')} 
 end
 
+local luaimport = function(import_name)
+    local parts = vim.split(import_name[1][1], ".", true)
+    return parts[#parts] or ""
+end
+
+-- Snippet Table:
+
 luasnip.add_snippets(nil, {
-
-
     all = {
         
-        p("lorem", lorem),
+        parse_snippet("lorem", lorem),
 
         snippet("date", {
             f(date, {})
         }),
+
+        snippet("same", fmt([[example: {}, reproducedhere: {}]], { i(1), r(1)})),
 
     },
 
@@ -96,15 +113,30 @@ luasnip.add_snippets(nil, {
                 t "margin-bottom",
             }),
             c(2, {
-                i(2),
-                t "all",
-                t "top-bottom right-left",
-                t "top left bottom right",
-                t "top right-left bottom",
+                i(2, "all"),
+                i(2, "top-bottom right-left"),
+                i(2, "top left bottom right"),
+                i(2, "top right-left bottom"),
             })
         })), 
 
-        snippet("b", fmt("{} : {} {} #{};",  {
+        snippet("p", fmt("{} : {};",  {
+            c(1, { 
+                t "padding", 
+                t "padding-top",
+                t "padding-left",
+                t "padding-right",
+                t "padding-bottom",
+            }),
+            c(2, {
+                i(2, "all"),
+                i(2, "top-bottom right-left"),
+                i(2, "top left bottom right"),
+                i(2, "top right-left bottom"),
+            })
+        })), 
+
+        snippet("b", fmt("{} : {} {} {};", {
             c(1, { 
                 t "border", 
                 t "border-top",
@@ -114,7 +146,7 @@ luasnip.add_snippets(nil, {
             }),
             i(2, "1px"), 
             i(3, "solid"), 
-            i(4, "000")
+            i(4, "#000")
         })), 
 
     },
@@ -122,19 +154,19 @@ luasnip.add_snippets(nil, {
 
     javascript = {
 
-        p("#!", "#!/usr/bin/env node"),
+        parse_snippet("#!", bang .. "node"),
 
     },
 
 
     lua = { 
 
-        p("#!", "#!/usr/bin/env lua"),
+        parse_snippet("#!", "#!/usr/bin/env lua"),
 
-        snippet("req", fmt("local {} = require('{}')", {
-            i(1), i(2) 
-        })),
-
+        snippet("req", fmt([[local {} = require('{}')]], {
+            f(luaimport, {1}),
+            i(1)
+        }))
     },
 
 
@@ -149,7 +181,8 @@ luasnip.add_snippets(nil, {
         })),
 
         snippet("link", fmt("[{}]({})", {
-            i(1, "Anchor"), i(2, "URL")
+            i(1, "Anchor"),
+            i(2, "URL")
         })),
 
     },
@@ -157,7 +190,7 @@ luasnip.add_snippets(nil, {
 
     python = {
 
-        p("#!", "#!/usr/bin/env python"),
+        parse_snippet("#!", "#!/usr/bin/env python"),
 
     },
 
