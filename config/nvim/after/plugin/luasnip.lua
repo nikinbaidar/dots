@@ -5,22 +5,15 @@
 
 local luasnip = require("luasnip")
 local filetype_functions = require('luasnip.extras.filetype_functions')
-local extras = require('luasnip.extras')
 local fmt = require('luasnip.extras.fmt').fmt
 local snippet = luasnip.snippet
-local parse_snippet = luasnip.parser.parse_snippet
+local parse = luasnip.parser.parse_snippet
 local s = luasnip.snippet_node
 local c = luasnip.choice_node
 local d = luasnip.dynamic_node
 local f = luasnip.function_node
 local i = luasnip.insert_node
 local t = luasnip.text_node
--- Custom repeat node
-local r = function(index) 
-    return f(function(arg) 
-        return arg[1]
-    end, { index })
-end
 
 luasnip.setup({
     history = true,
@@ -29,7 +22,19 @@ luasnip.setup({
     ft_func = filetype_functions.from_pos_or_filetype,
 })
 
-vim.keymap.set({"i", "s"}, "<Tab>", function()
+--[[ 
+luasnip.filetype_extend("javascript", {
+    "html",
+}) ]]
+
+
+-- ╦╔═┌─┐┬ ┬┌┬┐┌─┐┌─┐┌─┐
+-- ╠╩╗├┤ └┬┘│││├─┤├─┘└─┐
+-- ╩ ╩└─┘ ┴ ┴ ┴┴ ┴┴  └─┘
+
+
+vim.keymap.set({"i", "s"}, "<Tab>", 
+function()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
     else 
@@ -38,13 +43,17 @@ vim.keymap.set({"i", "s"}, "<Tab>", function()
     end
 end, {noremap = true, silent = true})
 
-vim.keymap.set({"i", "s"}, "<S-Tab>", function()
+
+vim.keymap.set({"i", "s"}, "<S-Tab>",
+function()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
 end, {noremap = true, silent = true})
 
-vim.keymap.set({"i", "s"}, "<C-l>", function()
+
+vim.keymap.set({"i", "s"}, "<C-l>",
+function()
     if luasnip.choice_active() then
         luasnip.change_choice(1)
     end
@@ -55,15 +64,16 @@ end, {noremap = true, silent = true})
 -- ╚═╗││││├─┘├─┘├┤  │    ║║├┤ ├┤ │││││ │ ││ ││││└─┐
 -- ╚═╝┘└┘┴┴  ┴  └─┘ ┴   ═╩╝└─┘└  ┴┘└┘┴ ┴ ┴└─┘┘└┘└─┘
 
---[[ 
-luasnip.filetype_extend("javascript", {
-    "html",
-}) ]]
+local lorem
+local r -- repeat
+local colors
+local date
+local shebang
+local luaimport
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
-local bang = "#!/usr/bin/env "
-local lorem = [[
+lorem = [[
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -74,35 +84,91 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 ]]
 
+r = function(index) 
+    return f(function(arg) return arg[1] end, {index})
+end
 
--- Functions for f nodes.
 
-local date = function() 
+colors = function(index)
+    return d(index, 
+    function() 
+        return s(nil, c(1, {
+            s(1, {
+                t "#", i(1, "000") 
+            }),
+            s(1, {
+                i(1, "black") 
+            }),
+            s(1, {
+                t("rgb("),
+                i(1, "0"), t(", "),
+                i(2, "0"), t(", "),
+                i(3, "0"),
+                t(")") ,
+            }),
+            s(1, {
+                t("rgba("),
+                i(1, "0"), t(", "),
+                i(2, "0"), t(", "),
+                i(3, "0"), t(", "),
+                i(4, "0"),
+                t(")"),
+            }),
+        })) 
+    end, {})
+end
+
+
+date = function() 
     return {os.date('%Y-%m-%d')} 
 end
 
-local luaimport = function(import_name)
+
+shebang = function() 
+    return { "#!/usr/bin/env "  .. vim.bo.filetype }
+end
+
+
+luaimport = function(import_name)
     local parts = vim.split(import_name[1][1], ".", true)
     return parts[#parts] or ""
 end
 
--- Snippet Table:
+
+-- Snippet Table
 
 luasnip.add_snippets(nil, {
+
+
     all = {
+
+        snippet("#!", {
+            f(shebang, {})
+        }),
         
-        parse_snippet("lorem", lorem),
+        parse("lorem", lorem),
 
         snippet("date", {
             f(date, {})
         }),
 
-        snippet("same", fmt([[example: {}, reproducedhere: {}]], { i(1), r(1)})),
+        snippet("same", fmt("example: {}, reproducedhere: {}", {
+            i(1),
+            r(1)
+        })),
 
     },
 
 
     css = {
+
+        snippet("c", fmt("{} : {};", {
+            c(1, {
+                t "color",
+                t "background-color"
+            }),
+            colors(2),
+        })),
 
         snippet("m", fmt("{} : {};",  {
             c(1, { 
@@ -146,7 +212,7 @@ luasnip.add_snippets(nil, {
             }),
             i(2, "1px"), 
             i(3, "solid"), 
-            i(4, "#000")
+            colors(4),
         })), 
 
     },
@@ -154,19 +220,24 @@ luasnip.add_snippets(nil, {
 
     javascript = {
 
-        parse_snippet("#!", bang .. "node"),
+        parse("#!", "#!/usr/bin/env node"),
 
     },
 
 
     lua = { 
 
-        parse_snippet("#!", "#!/usr/bin/env lua"),
+        snippet("snip", fmt('snippet("{}", fmt("{}", {{\n\t{}\n}})),\n', {
+            i(1, "TRIGGER"),
+            i(2, "STRING"),
+            i(3, "NODES"),
+        })), 
 
         snippet("req", fmt([[local {} = require('{}')]], {
             f(luaimport, {1}),
             i(1)
-        }))
+        })),
+
     },
 
 
@@ -190,8 +261,6 @@ luasnip.add_snippets(nil, {
 
     python = {
 
-        parse_snippet("#!", "#!/usr/bin/env python"),
-
     },
 
 
@@ -202,5 +271,6 @@ luasnip.add_snippets(nil, {
         })
 
     }, 
+
 
 })
