@@ -67,6 +67,7 @@ end, {noremap = true, silent = true})
 local lorem
 local r -- repeat
 local colors
+local directions
 local date
 local shebang
 local luaimport
@@ -100,19 +101,45 @@ colors = function(index)
                 i(1, "black") 
             }),
             s(1, {
-                t("rgb("),
-                i(1, "0"), t(", "),
-                i(2, "0"), t(", "),
+                t "rgb(",
+                i(1, "0"), t ", ",
+                i(2, "0"), t ", ",
                 i(3, "0"),
-                t(")") ,
+                t ")"
             }),
             s(1, {
-                t("rgba("),
-                i(1, "0"), t(", "),
-                i(2, "0"), t(", "),
-                i(3, "0"), t(", "),
+                t "rgba(",
+                i(1, "0"), t ", ",
+                i(2, "0"), t ", ",
+                i(3, "0"), t ", ",
                 i(4, "0"),
-                t(")"),
+                t ")",
+            }),
+        })) 
+    end, {})
+end
+
+
+directions = function(index)
+    return d(index, 
+    function() 
+        return s(nil, c(1, {
+            i(1, "all"),
+            s(1, {
+                i(1, "top-bottom"), t(" "),
+                i(2, "left-right"),
+
+            }),
+            s(1, {
+                i(1, "top"), t(" "),
+                i(2, "left-right"), t(" "),
+                i(3, "bottom"),
+            }),
+            s(1, {
+                i(1, "top"), t(" "),
+                i(2, "left"), t(" "),
+                i(3, "bottom"), t(" "),
+                i(4, "right"),
             }),
         })) 
     end, {})
@@ -139,14 +166,13 @@ end
 
 luasnip.add_snippets(nil, {
 
-
     all = {
+        
+        parse("lorem", lorem),
 
         snippet("#!", {
             f(shebang, {})
         }),
-        
-        parse("lorem", lorem),
 
         snippet("date", {
             f(date, {})
@@ -162,15 +188,15 @@ luasnip.add_snippets(nil, {
 
     css = {
 
-        snippet("c", fmt("{} : {};", {
+        snippet("c", fmt("{}: {};", {
             c(1, {
                 t "color",
                 t "background-color"
             }),
-            colors(2),
+            colors(2)
         })),
 
-        snippet("m", fmt("{} : {};",  {
+        snippet("m", fmt("{}: {};",  {
             c(1, { 
                 t "margin", 
                 t "margin-top",
@@ -178,15 +204,10 @@ luasnip.add_snippets(nil, {
                 t "margin-right",
                 t "margin-bottom",
             }),
-            c(2, {
-                i(2, "all"),
-                i(2, "top-bottom right-left"),
-                i(2, "top left bottom right"),
-                i(2, "top right-left bottom"),
-            })
+            directions(2)
         })), 
 
-        snippet("p", fmt("{} : {};",  {
+        snippet("p", fmt("{}: {};",  {
             c(1, { 
                 t "padding", 
                 t "padding-top",
@@ -194,15 +215,10 @@ luasnip.add_snippets(nil, {
                 t "padding-right",
                 t "padding-bottom",
             }),
-            c(2, {
-                i(2, "all"),
-                i(2, "top-bottom right-left"),
-                i(2, "top left bottom right"),
-                i(2, "top right-left bottom"),
-            })
+            directions(2)
         })), 
 
-        snippet("b", fmt("{} : {} {} {};", {
+        snippet("b", fmt("{}: {} {} {};", {
             c(1, { 
                 t "border", 
                 t "border-top",
@@ -212,7 +228,7 @@ luasnip.add_snippets(nil, {
             }),
             i(2, "1px"), 
             i(3, "solid"), 
-            colors(4),
+            colors(4)
         })), 
 
     },
@@ -230,7 +246,7 @@ luasnip.add_snippets(nil, {
         snippet("snip", fmt('snippet("{}", fmt("{}", {{\n\t{}\n}})),\n', {
             i(1, "TRIGGER"),
             i(2, "STRING"),
-            i(3, "NODES"),
+            i(3, "NODES")
         })), 
 
         snippet("req", fmt([[local {} = require('{}')]], {
@@ -244,7 +260,7 @@ luasnip.add_snippets(nil, {
     markdown = { 
 
         snippet("sec", fmt("## {}",  {
-            i(1, "Section") 
+            i(1, "Section")
         })),
 
         snippet("sub", fmt("### {}", {
@@ -268,9 +284,8 @@ luasnip.add_snippets(nil, {
 
         snippet ("beg", { 
             t("\\begin{"), i(1), t("}"), i(0), t("\\end{"), i(1), t("}") 
-        })
+        }),
 
     }, 
-
 
 })
