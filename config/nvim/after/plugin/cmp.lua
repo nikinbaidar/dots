@@ -16,7 +16,7 @@ cmp.setup({
         ['<C-b>'] = cmp.mapping.scroll_docs(-5),
         ['<C-f>'] = cmp.mapping.scroll_docs(5),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-j>'] = cmp.mapping(function(fallback)
+        ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif has_words_before() then
@@ -25,7 +25,7 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-        ['<C-k>'] = cmp.mapping(function(fallback)
+        ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
