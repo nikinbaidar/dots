@@ -11,6 +11,7 @@ local f = luasnip.function_node
 luasnip.setup({
     history = true,
     update_events = "TextChanged,TextChangedI",
+	delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
     snip_env = {
         snippet = luasnip.snippet,
@@ -24,7 +25,9 @@ luasnip.setup({
         t = luasnip.text_node,
         r = function(index) 
             return f(function(arg) return arg[1] end, {index})
-        end
+        end,
+        conds = require("luasnip.extras.conditions"),
+        conds_expand = require("luasnip.extras.conditions.expand"),
     }
 })
 
@@ -42,7 +45,7 @@ vim.keymap.set({"i", "s"}, "<C-k>",
 function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end, opts)
 
 
-vim.keymap.set({"i", "s"}, "<C-l>", 
+vim.keymap.set({"i", "s"}, "<C-z>", 
 function() 
     if luasnip.choice_active() then 
         luasnip.change_choice(1) 
