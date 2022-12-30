@@ -92,7 +92,7 @@ return {
     })),
 
     snippet("m", fmt("{}: {};",  {
-        c(1, { 
+        c(2, { 
             t "margin", 
             t "margin-top",
             t "margin-left",

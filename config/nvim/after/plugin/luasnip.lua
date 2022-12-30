@@ -3,10 +3,18 @@
 -- ░█░░░█░█░█▀█░▀▀█░█░█░░█░░█▀▀░░░░█░░░█░█░█▀█
 -- ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀░░▀▀▀░▀▀▀░▀░▀
 
-local luasnip = require("luasnip")
-local filetype_functions = require('luasnip.extras.filetype_functions')
+local luasnip
+local filetype_functions
+local rt_path
+local opts = {noremap = true, silent = true}
+local f
 
-local f = luasnip.function_node
+luasnip = require("luasnip")
+filetype_functions = require('luasnip.extras.filetype_functions')
+f = luasnip.function_node
+rt_path = string.sub(vim.inspect(vim.api.nvim_list_runtime_paths()[1]), 2, -2)
+opts = {noremap = true, silent = true}
+
 
 luasnip.setup({
     history = true,
@@ -31,7 +39,13 @@ luasnip.setup({
     }
 })
 
-local opts = {noremap = true, silent = true}
+
+require("luasnip.loaders.from_lua").load({paths = rt_path .. "/lua/snippets"})
+
+require("luasnip.loaders.from_snipmate").lazy_load()
+
+
+-- KEYMAPS
 
 vim.keymap.set({"i", "s"}, "<C-j>", 
 function() 
@@ -52,8 +66,3 @@ function()
     end 
 end, opts)
 
-local rt_path = string.sub(vim.inspect(vim.api.nvim_list_runtime_paths()[1]), 2, -2)
-
-require("luasnip.loaders.from_lua").load({paths = rt_path .. "/lua/snippets"})
-
-require("luasnip.loaders.from_snipmate").lazy_load()
