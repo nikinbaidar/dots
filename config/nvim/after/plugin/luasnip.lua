@@ -59,7 +59,7 @@ vim.keymap.set({"i", "s"}, "<C-k>",
 function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end, opts)
 
 
-vim.keymap.set({"i", "s"}, "<C-z>", 
+vim.keymap.set({"i", "s"}, "<C-l>", 
 function() 
     if luasnip.choice_active() then 
         luasnip.change_choice(1) 

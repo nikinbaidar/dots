@@ -4,7 +4,7 @@
 -- ░░▀░░▀▀▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
 
-vim.api.nvim_set_keymap('i', '<C-l>', '<C-[>[s1z=`]a', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
 vim.b.cursorcolumn = true
 
