@@ -268,7 +268,7 @@ let g:terminal_ansi_colors =  ["#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a
 "
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
-hi @punctuation.delimiter  guifg=#686F9A
+hi @punctuation.delimiter  guifg=#b3a1e6
 hi @text.literal           guifg=#686F9A
 
 hi IndentBlanklineChar guifg=#3a3a3a
