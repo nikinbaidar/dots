@@ -3,7 +3,7 @@
 -- ░█░█░█▀█░█▀▄░█▀▄░█░█░█░█░█▄█░█░█░░░░█░░░█░█░█▀█
 -- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-map('i', '<C-z>', ':silent normal! <C-[>[s1z=`]a', {noremap = true})
+map('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
 vim.wo.conceallevel = 2
 
@@ -18,6 +18,7 @@ vim.api.nvim_create_user_command(
 )
 
 vim.cmd [[ 
+setlocal spell
 setlocal spellcapcheck=\_[\])'"   ]\+
 setlocal complete+=kspell
 

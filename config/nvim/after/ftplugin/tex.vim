@@ -8,6 +8,8 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+setlocal spell
+
 " Quick item-s
 imap <C-j> <CR><CR><C-h>\item<Space>
 " Auto Commands
