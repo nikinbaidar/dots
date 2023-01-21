@@ -127,7 +127,7 @@ getSite = function(index)
             }))
         elseif isModel("Selectra Pro S") then
             return s(nil, c(1, {
-                t "Anandaban Leprosy Hospital",
+                t "Ananda Ban Leprosy Hospital",
                 t "International Friendship Children's Hospital",
                 t "Kathmandu PathLab and Diagnostic Center",
                 t "Nepal Lab House",
@@ -166,7 +166,7 @@ getAddress = function(index)
 
         address_list = {
             ["Aarus LifeStyle Hospital"] = "Pulchwok, Lalitpur",
-            ["Anandaban Leprosy Hospital"] = "Lele, Lalitpur",
+            ["Ananda Ban Leprosy Hospital"] = "Lele, Lalitpur",
             ["Blue Cross Hospital"] = "Tripureshwor, Kathmandu",
             ["International Friendship Children's Hospital"] = "Panipokhari, Lazimpat, Kathmandu",
             ["Kathmandu PathLab and Diagnostic Center"] = "Maharjgunj, Kathmandu",
