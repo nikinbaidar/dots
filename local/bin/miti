@@ -226,7 +226,7 @@ function convertEnglishDateToNepali(yy, mm, dd) {
         total_eDays--;
     }
 
-    dateString = (getNepaliMonth(m) + " " + total_nDays + " " + y) ;
+    dateString = (y + " " + getNepaliMonth(m) + " " + total_nDays) ;
     return dateString;
 }
 

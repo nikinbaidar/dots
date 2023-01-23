@@ -6,11 +6,11 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 externalmonitor
 
-cb ${HOME}/pics/wallpapers/dark-forest.jpg
+cb ${HOME}/pics/wallpapers/black-pixelated.jpg
 
 slock
 
-while xsetroot -name "[$(hostname -i)] [$(miti)] [$(date +'%b %d %Y %a')] [$(date +'%R')]" 
+while xsetroot -name "[$(hostname -i)] [$(miti)] [$(date +'%Y %b %d %a')] [$(date +'%R')]" 
 do
     sleep 59
 done&
