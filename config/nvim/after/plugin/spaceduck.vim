@@ -266,33 +266,10 @@ let g:terminal_ansi_colors =  ["#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a
 
 " Tree sitter
 "
+hi markdownCodeDelimiter   guifg=#686F9A
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
 hi @punctuation.delimiter  guifg=#b3a1e6
 hi @text.literal           guifg=#686F9A
 
 hi IndentBlanklineChar guifg=#3a3a3a
-
-
-
-" local hi = vim.api.nvim_set_hl
-"
-" local gui_palette = {
-"   black     = '#0F111B',
-"   red       = '#E33400',
-"   orange    = '#E39400',
-"   green     = '#5CCC96',
-"   -- blue     = '#5CCC96',
-"   yellow    = '#F2CE00',
-"   purple    = '#7A5CCC',
-"   cyan      = '#00A3CC',
-"   gray      = '#686F9A',
-"   white     = '#ECF0C1',
-"   darkgray  = '#30365F',
-"   lightgray = '#C1C3CC',
-"   comment   = '#5966A1'
-" }
-"
-" hi (0, 'Comment' , {
-"     fg = gui_palette.comment
-" })
