@@ -7,11 +7,12 @@
 # Alias Definitions
 alias ls="ls -v --color=always --group-directories-first"
 alias grep="grep --color=always"
-alias less="less --RAW-CONTROL-CHARS"
+alias less="less --quit-if-one-screen -RX"
 alias octave="octave --silent"
 alias R="R --silent"
 alias pqiv="pqiv 2> /dev/null"
 alias zathura="zathura --fork"
+alias xo="xdg-open"
 ## Works with .pptx and .docx FIXED DEPRECIATION
 alias convert2pdf="soffice --headless --convert-to pdf"
 
@@ -21,30 +22,27 @@ function weather() {
 }
 
 
-function update() {
-    function git_commit() {
-        if [ $# -eq 3 ]
-        then
-            git commit -m "${2}"
-        else [ $# -eq 1 ]
-            git commit -m "added $(basename ${1}) to ${branch}"
-        fi
-    }
-
-    # main()
-    # Variable Declarations
-    repo=${!#}
-    pushd ${repo}
+function cloudsync() {
+    ## Notes
+    pushd ~/repos/notes
     branch=$(git branch | awk ' /\*/ {print $2} ')
     git add --all
-    git_commit "$@"
+    git commit -m "o.O"
     git push -u origin ${branch} --verbose
     popd 
+    ## Dropbox
+    echo "Syncing Dropbox..."
+    dropbox-cli start
+    until [ "$(dropbox-cli status)" = "Up to date" ]; do 
+        sleep 59
+    done
+    echo "Syncing Complete... Up to date"
+    dropbox-cli stop
 }
 
 
 function def() {
-	sdcv -n --utf8-output --color "$@" 2>&1 | \
-	fold --width=$(tput cols) | \
-	less --quit-if-one-screen -RX
+    sdcv -n --utf8-output --color "$@" 2>&1 | \
+    fold --width=$(tput cols) | \
+    less --quit-if-one-screen -RX
 }
