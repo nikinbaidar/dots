@@ -23,26 +23,35 @@ function weather() {
 
 
 function cloudsync() {
-    ## Notes
-    pushd ~/repos/notes
-    branch=$(git branch | awk ' /\*/ {print $2} ')
-    git add --all
-    git commit -m "o.O"
-    git push -u origin ${branch} --verbose
-    popd 
-    ## Dropbox
-    echo "Syncing Dropbox..."
-    dropbox-cli start
-    until [ "$(dropbox-cli status)" = "Up to date" ]; do 
-        sleep 59
-    done
-    echo "Syncing Complete... Up to date"
-    dropbox-cli stop
+
+    function pushNotes() {
+        pushd ~/repos/notes
+        branch=$(git branch | awk ' /\*/ {print $2} ')
+        git add --all
+        git commit -m "o.O"
+        git push -u origin ${branch} --verbose
+        popd 
+    }
+
+    function pushDropbox() {
+        dropbox-cli start
+        until [ "$(dropbox-cli status)" = "Up to date" ]; do 
+            :
+        done
+        echo "Up to date"
+        dropbox-cli stop
+    }
+
+    case $1 in 
+        -n) pushNotes ;;
+        -d) pushDropbox ;;
+        *) pushNotes && pushDropbox ;;
+    esac
 }
 
 
 function def() {
     sdcv -n --utf8-output --color "$@" 2>&1 | \
-    fold --width=$(tput cols) | \
-    less --quit-if-one-screen -RX
-}
+        fold --width=$(tput cols) | \
+        less --quit-if-one-screen -RX
+    }
