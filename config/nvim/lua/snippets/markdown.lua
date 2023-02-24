@@ -26,7 +26,7 @@ links = function(index)
     return d(index, 
     function() 
         return s(nil, c(1, {
-            s(1, { i(1, "url")}),
+            s(1, { t "./diagrams/", i(1, "filename")}),
             s(1, { t "https://www.", i(1, "url"), t ".com" }),
             s(1, { t "/",  i(1, "relative URL") }),
         })) 
@@ -216,6 +216,11 @@ return {
         links(2)
     })),
 
+    snippet("img", fmt("![{}]({})", {
+        i(1, "Anchor"),
+        links(2)
+    })),
+
     snippet("cbl", fmt("```{}\n{}\n```", {
         i(1),
         i(2),
@@ -260,6 +265,9 @@ return {
         i(9, "ANALYSIS OF PROBLEM"),
         i(10, "FINAL SOLUTION"),
         i(11, "NOTES"),
+    })),
+    snippet("e-", fmt("{}", {
+        t("$e^-$")
     })),
 
 }

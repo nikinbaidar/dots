@@ -6,6 +6,9 @@
 map('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
 vim.wo.conceallevel = 2
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+
 
 vim.api.nvim_create_user_command(
   'Maketitlecase',

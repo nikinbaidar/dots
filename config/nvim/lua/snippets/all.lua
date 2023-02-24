@@ -17,6 +17,9 @@ end
 
 
 shebang = function() 
+    if vim.bo.filetype == "sh" then
+        return { "#!/bin/bash" }
+    end
     return { "#!/usr/bin/env "  .. vim.bo.filetype }
 end
 

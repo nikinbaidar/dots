@@ -9,6 +9,7 @@ return require('packer').startup(function()
     use 'numToStr/Comment.nvim'
     use 'windwp/nvim-autopairs'
     use 'junegunn/fzf.vim'
+    use 'tpope/vim-surround'
     use 'nvim-treesitter/nvim-treesitter'
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'JoosepAlviste/nvim-ts-context-commentstring' 
