@@ -257,4 +257,7 @@ yy = currentDateTime.getFullYear();
 mm = currentDateTime.getMonth() + 1;
 dd = currentDateTime.getDate();
 
+// console.log(convertEnglishDateToNepali(2023, 02, 06));
+
 console.log(convertEnglishDateToNepali(yy, mm, dd));
+
