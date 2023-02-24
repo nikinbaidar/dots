@@ -26,6 +26,9 @@ static const Rule rules[] = {
      */
     /* class           instance     title tags_mask  isfloating monitor */
     { "File Picker",   NULL,        NULL, 0,         1,         -1 },
+    { "tabbed",        NULL,        NULL, 1<<2,      0,         -1 },
+    { "AFNI",          NULL,        NULL, 0,      1,         -1 },
+    { "TopLevelShell", NULL,        NULL, 0,      1,         -1 },
 };
 
 /* layout(s) */
