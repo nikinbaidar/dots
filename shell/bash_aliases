@@ -5,6 +5,8 @@
 # ░▀▀░░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
 
 # Alias Definitions
+alias vi="/usr/bin/nvim"
+alias nvim="echo Did you mean vi?"
 alias ls="ls -v --color=always --group-directories-first"
 alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -RX"
@@ -15,6 +17,7 @@ alias zathura="zathura --fork"
 alias xo="xdg-open"
 ## Works with .pptx and .docx FIXED DEPRECIATION
 alias convert2pdf="soffice --headless --convert-to pdf"
+alias nec="/usr/bin/nvim ~/repos/notes/NEC/*.md"
 
 # Function Definitions
 function weather() {

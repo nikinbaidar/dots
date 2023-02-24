@@ -6,7 +6,7 @@
 
 export EDITOR=nvim
 export TERM=st-256color
-export PATH=${PATH}:${HOME}/.local/bin
+export PATH=${PATH}:${HOME}/.local/bin:/opt/afni
 export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
 export TF_CPP_MIN_LOG_LEVEL=1
 export DOTS=${HOME}/repos/dots
