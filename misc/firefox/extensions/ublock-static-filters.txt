@@ -68,9 +68,6 @@ www.ringcentral.co.uk##.ot-fade-in.onetrust-pc-dark-filter
 ! 2021-07-21 https://www.accessengineeringlibrary.com
 www.accessengineeringlibrary.com##.page-wrapper.eu-cookie-compliance-toolbar
 
-! 2021-07-22 https://books.google.com.np
-books.google.com.np###menu_scroll_wrapper
-books.google.com.np##.overflow-scrolling
 
 ! 2021-07-26 https://www.electronics-tutorials.ws
 www.electronics-tutorials.ws##.col-md-12.col-sm-12.col-xs-12 > [href="/register"]
@@ -198,59 +195,7 @@ duckduckgo.com##.js-dropdown-button.dropdown__button.zcm__link
 ! 2022-02-01 https://duckduckgo.com
 duckduckgo.com##.js-header-aside.header--aside
 
-! 2022-02-01 https://www.google.com
-www.google.com##.uU7dJb
-www.google.com##.SSwjIe.KxwPGc
-www.google.com##.qarstb.o3j99
-www.google.com##.gb_Dd.gb_Ra.gb_Pd
-www.google.com###result-stats
-www.google.com###slim_appbar
-www.google.com##.oIk2Cb
-www.google.com###xjs
-www.google.com##.mSAqxd.TrMVnc.f6F9Be
-www.google.com###fbarcnt
-
-! 2022-02-01 https://mail.google.com
-mail.google.com##div.gb_tc:nth-of-type(1)
-mail.google.com##.YI
-||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWboaaIvNgDW3skuyOvcqSvc8gXu0Y64srp2ySM09EkmKhn8buRxVGeKbYh6s1wvALIW5iXK4GerK64a6rqjcNAmafbtdw%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
-mail.google.com##.YV
-||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWboaaIvNgDW3skuyOvcqSvc8gXu0Y64srp2ySM09EkmKhn8buRxVGeKbYh6s1wvALIW5iXK4GerK64a6rqjcNAmafbtdw%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
-mail.google.com##.Y5.YN.aiJ.YM > div
-mail.google.com##.aeQ
-||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWYHZuJcQMJBov_SQiQ-UJ_KirkXbJqXnVMsSJRsumCT3tXxhGI3qCiH2b78bGlxJZgjjmXqzUw75tXFuLlMi1jyICzSzA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
-||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWbaz9Ah_7GOvpDBt_CE8QXpry-7AZXkeqSQZ7tsZP_x8t7rH-A6xiKkiWQ8agXbWLpcnLEbwJUGu024G4tVY3I4umL0zA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
-||hangouts.google.com/webchat/u/0/frame2?v=1642541058&pvt=AMP3uWbaz9Ah_7GOvpDBt_CE8QXpry-7AZXkeqSQZ7tsZP_x8t7rH-A6xiKkiWQ8agXbWLpcnLEbwJUGu024G4tVY3I4umL0zA%3D%3D&prop=gmail&hl=en&fid=gtn-roster-iframe-id$subdocument
-mail.google.com##.Y5.YN.aiJ.YM
-mail.google.com##.brC-aMv-auO.brC-aT5-aOt-Jw
-mail.google.com##.nn.bAw.nH
-mail.google.com##.nn.vxm5ce.nH
-mail.google.com##.YX.aZ6.akc
-mail.google.com##.t6.gb_2c.gb_le.gb_ne
-mail.google.com##.FH
-mail.google.com##.gb_Oe > path
-||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
-||www.gstatic.com/images/icons/material/system/1x/arrow_drop_down_white_20dp.png$image
-||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
-||www.gstatic.com/inputtools/images/ita_sprite_grey8.png$image
-mail.google.com###itamenu
-
-! 2022-02-01 https://mail.google.com
-mail.google.com##.ahF
-mail.google.com###gbwa > .gb_sf > .gb_A
-mail.google.com##.pfiaof.l2
-mail.google.com##.aHS-aHP.bzz.TN
-
-serverfault.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
-
-! 2022-02-02 https://meet.google.com
-meet.google.com##.AkYcJb.dQO5xd
-meet.google.com##.keOrX.HDnnrf.XhPA0b.LjDxcd.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.VfPpkd-LgbsSe > .VfPpkd-RLmnJb
-
-! 2022-02-02 https://www.geeksforgeeks.org
-||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
-||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
-||accounts.google.com/gsi/iframe/select?client_id=388036620207-3uolk1hv6ta7p3r9l6s3bobifh086qe1.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=sILgBCeQYK2gg5jb3pkciQ&channel_id=66c80a87162c26263ecb4e05705b4a17d1c0b90dc799569b3062b7cc466f6558&origin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
+igin=https%3A%2F%2Fwww.geeksforgeeks.org$subdocument
 www.geeksforgeeks.org##.tooltip.article--viewer_improve
 www.geeksforgeeks.org##.btn-success.btn
 
@@ -280,7 +225,6 @@ play.typeracer.com##.textInfoHeader
 play.typeracer.com##.gwt-TabBarItem > .gwt-HTML
 play.typeracer.com##.TextStatsView > div > .gwt-TabPanel > tbody > tr > td > .gwt-TabPanelBottom
 play.typeracer.com##.SignUpPromptPopup.trPopupDialog.DialogBox
-
 
 ! 2022-02-03 https://www.dropbox.com
 ||consent.dropbox.com/?hide_gdpr=false&is_ccpa_enabled=true&gpc_signal=undefined&origin=https%253A%252F%252Fwww.dropbox.com$subdocument
@@ -321,10 +265,6 @@ genius.com##.hhAiQB.StickyNavdesktop__Container-sc-60o25r-0
 www.facebook.com##.hlyrhctz.poy2od1o.sf74r906.r54jmrld.r6i6mz7r.f0zqjlou.e5ffyxfx.fk4cgndu > div > .fg8d9fp7 > .k4urcfbm.l9j0dhe7.j83agx80 > .kmp5kqmu.stjgntxs.ni8dbmo4.k4urcfbm.nwvqtn77.fbipl8qg.m5lcvass.io0zqebd.hybvsw6c.du4w35lb.l9j0dhe7.rq0escxv > .a8nywdso.qt6c0cv9.rz4wbd8a.jb3vyjys.hcukyx3x.oygrvhab.cxmmr5t8.kvgmc6g5.r7d6kgcz.e9989ue4.esr5mh6w.qu0x051f
 www.facebook.com##.discj3wi.ihqw7lf3.dati1w0a.hv4rvrfc.btwxx1t3.owycx6da.aovydwv3.i1fnvgqd.pfnyh3mw.j83agx80.du4w35lb.l9j0dhe7.rq0escxv
 
-! 2022-02-11 https://docs.google.com
-docs.google.com##.companion-app-switcher-container
-docs.google.com##.docs-material.docs-companion-app-switcher-container
-
 ! 2022-02-12 https://www.premierleague.com
 www.premierleague.com##._90RzEeyM6H7IvIh291DTv
 www.premierleague.com##._3_H6MsAd1grAO7T3v2WdhQ._1Qu7MokjMuBXLOM2oKVLhZ.tcf-cmp
@@ -359,9 +299,6 @@ blog.tinned-software.net##.cc-color-override-1332973529.cc-bottom.cc-theme-class
 ! 2022-02-27 https://wall.alphacoders.com
 ||images4.alphacoders.com/129/thumbbig-12968.jpg$image
 wall.alphacoders.com###cookie_consent
-
-! 2022-03-02 https://docs.google.com
-docs.google.com##.docs-titlebar-occluding.docs-titlebar-buttons
 
 ! 2022-03-03 https://ai.stackexchange.com
 ai.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
@@ -420,34 +357,16 @@ ubuntu.com##.p-modal
 stackoverflow.co##.vertical-align-content.ot-bottom-left.otFloatingRoundedCorner
 stackoverflow.com##.af-bar__shown.js-smol-bar.f\:outline-ring.c-pointer.z-nav-fixed.flex__center.bg-black.btr-md.py12.px16.mr32.ml-auto.l100.b0.ps-sticky.af-bar--smol.af-bar
 
-! 2022-04-03 https://www.google.com
-www.google.com##.gb_d
-www.google.com##.gb_Ve > path
-
-! 2022-04-03 https://docs.google.com
-docs.google.com##.left-sidebar-container-animation.docs-ui-unprintable.left-sidebar-container
-
 ! 2022-04-04 https://photo.stackexchange.com
 photo.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
 
 ! 2022-04-05 https://dsp.stackexchange.com
 dsp.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
 
-! 2022-04-09 https://colab.research.google.com
-colab.research.google.com##.vertical.layout.colab-left-pane-nib
-colab.research.google.com###toolbar-add-code
-colab.research.google.com###toolbar-add-text
-colab.research.google.com###cell-SwnEJi-QqteF > .main-content > .codecell-input-output > .monaco-vim-statusbar
-
 ! 2022-04-09 https://duckduckgo.com
 duckduckgo.com##.badge-link__content
 duckduckgo.com##.content-info__items-wrap
 
-! 2022-04-09 https://colab.research.google.com
-colab.research.google.com##.notebook-content > .add-cell
-
-! 2022-04-10 https://colab.research.google.com
-colab.research.google.com##colab-status-bar
 
 ! 2022-04-10 https://www.kaggle.com
 www.kaggle.com##.ixnnOa.sc-EhTUr > .dHFIQf.sc-bdnxRM
@@ -477,8 +396,6 @@ huntdatascience.wordpress.com##.ads-active.hide-on-button
 christinarebuffet.com##.sg-popup-content.sgpb-theme-3-content.sgpb-content-27601.sgpb-content
 christinarebuffet.com##.sgpb-popup-overlay.sgpb-popup-overlay-27601.sgpb-theme-3-overlay
 
-! 2022-04-14 https://colab.research.google.com
-colab.research.google.com###cell-mtzoAaazGJGx > .main-content > .codecell-input-output > .output > .output-content > .output-info > .output-icon-selected.clear_outputs_enabled.output-icon > .collaborator-img-selected.collaborator
 
 ! 2022-04-16 https://paperheartdesign.com
 paperheartdesign.com##.copy-layer-background.group-copy.sqs-slice-group
@@ -491,11 +408,6 @@ paperheartdesign.com###yui_3_17_2_1_1650088703177_1319
 paperheartdesign.com##.sqs-slide-animation-ready.sqs-slide-ready.yui3-overlaycentercard03-content.yui3-overlaycentercard03.yui3-widget.sqs-slide
 paperheartdesign.com##.clear.Footer-inner
 
-! 2022-04-16 https://colab.research.google.com
-colab.research.google.com##.left-pane-content-title
-colab.research.google.com##.colab-left-pane-move
-colab.research.google.com##.colab-left-pane-close
-colab.research.google.com##.toc-add-section
 
 ! 2022-04-16 https://www.pinterest.com
 www.pinterest.com##.Hsu.iyn.zI7.rDA.ojN.jar._he.RDc.KO4 > .Hsu.iyn.zI7.wc1.JME > .Hsu.iyn.zI7.qJc.VxL.Shl.INd.C9q > .YbY.wsz.lnZ.yQo.adn.HEm > .BG7.qrs.czT.yQo.adn.kVc.rYa > .YbY.OGJ.mQ8.gjz._O1.INd.x8f
@@ -560,8 +472,7 @@ machinelearningmastery.com##.icon.nav-toggle
 machinelearningmastery.com##button.ssb_tweet-icon:nth-of-type(1)
 machinelearningmastery.com##div.simplesocialbuttons-inline-no-animation.post.post-7519.simplesocialbuttons-align-left.simplesocialbuttons_inline.simplesocial-simple-icons.simplesocialbuttons:nth-of-type(1)
 
-! 2022-04-30 https://docs.google.com
-docs.google.com##.docs-incompatibility-banner.goog-inline-block
+
 
 ! 2022-04-30 https://www.ncbi.nlm.nih.gov
 www.ncbi.nlm.nih.gov##.usa-banner-inner.usa-grid
@@ -569,11 +480,6 @@ www.ncbi.nlm.nih.gov##.usa-banner-inner.usa-grid
 ! 2022-04-30 https://www.mctlaw.com
 ||secure.livechatinc.com/customer/action/open_chat?license_id=5701831&group=2066&embedded=1&widget_version=3&unique_groups=1$subdocument
 
-! 2022-04-30 https://docs.google.com
-docs.google.com##.goog-inline-block.docs-explore-widget-icon-active.docs-explore-widget-icon.docs-explore-icon > svg
-docs.google.com##.goog-inline-block.docs-explore-widget-icon-active.docs-explore-widget-icon.docs-explore-icon
-docs.google.com##.goog-inline-block.docs-explore-widget-text
-docs.google.com##.goog-flat-button.goog-inline-block.docs-explore-widget-button
 
 ! 2022-04-30 https://www.idc.uk.com
 www.idc.uk.com###cookieText
@@ -1011,7 +917,6 @@ www.facebook.com##.om3e55n1.q46jt4gp.mx411szv.hf30pyar.lq84ybu9.rng1terr.hnay576
 www.instagram.com##._a6hd._ac5x.icdlwmnq.s3jn8y49.rn8ck1ys.cr00lzj9.nch0832m.rl78xhln.oxkhqvkx.srn514ro.kmwttqpk.kjdc1dyq.l7ghb35v.m8h3af8h.s5oniofx.rse6dlih.fsf7x5fv.bdao358l.fq87ekyn.b3qcqh3k.r86q59rh.n3hqoq4p.nu7423ey.qi72231t > ._aade._aad6._aad0._aacw._aaco._aacl
 www.instagram.com##._aade._aad6._aacy._aacw._aaco._aacl
 
-
 ! 2022-09-28 https://www.last.fm
 www.last.fm##.col-sidebar
 
@@ -1025,9 +930,6 @@ www.useblackbox.io##.efr23pf0.intercom-y71rxe.intercom-launcher-frame
 www.useblackbox.io##.w-inline-block.pricing > .text-block-24
 www.useblackbox.io##.w-inline-block.faq > .text-block-24
 www.useblackbox.io##.w-inline-block.small.button-animated
-
-
-
 
 ! 2022-10-11 https://www.facebook.com
 www.facebook.com##.xq1qtft.x1n2onr6.x1e4zzel.x1odjw0f.x1oyok0e.xwo3gff.xx8ngbg.x2lwn1j.xs83m0k.x1iyjqo2.x1l7klhg.xjx87ck.x1yqm8si.xfk6m8.x1rohswg.x1pq812k.x1ja2u2z.x6ikm8r.xdt5ytf.x78zum5.x5lxg6s.x1q594ok.xb57i2i > .x1n2onr6.x1iyjqo2.xdt5ytf.x78zum5 > .x1y1aw1k
@@ -1096,7 +998,6 @@ genius.com##.fdEmdh.Lyrics__Title-sc-1ynbvzw-0.TextLabel-sc-8kw9oj-0
 www.useblackbox.io##.efr23pf0.intercom-1txmsu1.intercom-launcher-frame
 www.useblackbox.io##.e1lwd7c40.intercom-d88tdv
 
-
 ! 2022-10-30 https://www.programiz.com
 www.programiz.com##.btn--toc.align-items-center.btn
 www.programiz.com##nav
@@ -1130,4 +1031,21 @@ www.youtube.com###search-clear-button
 ! 2022-12-11 https://theathletic.com
 theathletic.com##.MuiGrid-align-items-xs-center.MuiGrid-direction-xs-column.MuiGrid-container.lePtIK.sc-a3d1ffae-0.MuiGrid-root
 theathletic.com###darken-overlay
+
+! 2023-01-09 https://www.elitechgroup.com
+www.elitechgroup.com##.wpgdprc-consent-bar.wpgdprc
+
+! 2023-01-21 https://ell.stackexchange.com
+ell.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2023-01-22 https://trello.com
+trello.com##.w0K\+EiIqnaC4Az
+trello.com##.cGxv\+okCvh2p9x
+trello.com##.blY1EwBcXBUE-i
+
+! 2023-01-24 https://www.bbc.com
+www.bbc.com##.eh3hs0a5.bbc-1laioep
+
+! 2023-01-27 https://mail.google.com
+mail.google.com###qJTzr
 
