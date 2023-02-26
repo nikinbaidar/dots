@@ -15,12 +15,14 @@ f = luasnip.function_node
 rt_path = string.sub(vim.inspect(vim.api.nvim_list_runtime_paths()[1]), 2, -2)
 opts = {noremap = true, silent = true}
 
-
 luasnip.setup({
     history = true,
     update_events = "TextChanged,TextChangedI",
-	delete_check_events = "TextChanged",
+    delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
+    load_ft_func = filetype_functions.extend_load_ft({
+        html = {"javascript", "css"} 
+    }),
     snip_env = {
         snippet = luasnip.snippet,
         parse = luasnip.parser.parse_snippet,
@@ -40,10 +42,11 @@ luasnip.setup({
 })
 
 
-require("luasnip.loaders.from_lua").load({paths = rt_path .. "/lua/snippets"})
+require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
+luasnip.filetype_extend("javascript", {"html"})
 
 -- KEYMAPS
 
@@ -65,4 +68,3 @@ function()
         luasnip.change_choice(1) 
     end 
 end, opts)
-
