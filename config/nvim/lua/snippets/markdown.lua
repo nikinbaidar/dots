@@ -1,7 +1,6 @@
 local date
 local links
 local getModel
-local getUpstreamURL
 local getSite
 local getAddress
 
@@ -59,6 +58,8 @@ getModel = function(index)
             }))
         elseif isBrand("Trinity Biotech") then
             return s(nil, t "Premier Hb9210")
+        elseif isBrand("Techno Medica") then
+            return s(nil, t "GASTAT 700")
         else
             return s(nil, t((brand)))
         end
@@ -119,9 +120,11 @@ getSite = function(index)
         if isModel("Selectra Pro M") then
             return s(nil, c(1, {
                 t "Blue Cross Hospital",
-                t "KMC",
+                t "Kathmandu Medical College",
                 t "National Trauma Center",
+                t "Medicare Hospital",
                 t "Pratham Pathology",
+                t "Silverline Hospital",
                 t "Star Hospital",
                 t "Tesla Diagnostic Clinic",
             }))
@@ -137,7 +140,12 @@ getSite = function(index)
         elseif isModel("Selectra Mach 5") then
             return s(nil, t "Star Hospital")
         elseif isModel("Premier Hb9210") then
-            return s(nil, t "Aarus LifeStyle Hospital")
+            return s(nil, c(1, {
+                t "Aarus LifeStyle Hospital",
+                t "Teaching Hospital",
+            }))
+        elseif isModel("GASTAT 700") then
+            return s(nil, t "Kist Hospital")
         else
             return s(nil, t((model)))
         end
@@ -170,14 +178,18 @@ getAddress = function(index)
             ["Blue Cross Hospital"] = "Tripureshwor, Kathmandu",
             ["International Friendship Children's Hospital"] = "Panipokhari, Lazimpat, Kathmandu",
             ["Kathmandu PathLab and Diagnostic Center"] = "Maharjgunj, Kathmandu",
-            ["KMC"] = "Sinamangal, Kathmandu",
+            ["Kathmandu Medical College"] = "Sinamangal, Kathmandu",
             ["National Trauma Center"] = "Mahankal, RNAC, Kathmandu",
             ["Nepal Lab House"] = "Pinglastahn, Gaushala, Kathmandu",
+            ["Kist Hospital"] = "Gwarko, Lalitpur",
             ["Pratham Pathology"] = "Panipokhari, Lazimpat, Kathmandu",
             ["Siddhi Memorial Hospital"] = "Suryabinayak, Bhaktapur",
             ["Star Hospital"] = "Sanepa Height, Lalitpur",
+            ["Teaching Hospital"] = "Maharjgunj, Kathmandu",
             ["Tesla Diagnostic Clinic"] = "Baluwatar, Kathmandu",
             ["Valley Nursing Home"] = "Putalisadak, Kathmandu",
+            ["Silverline Hospital"] = "Balaju, Kathmandu",
+            ["Medicare Hospital"] = "Chabahil, Kathmandu",
         }
 
         if (type(address_list[site]) == "string") then
@@ -186,7 +198,7 @@ getAddress = function(index)
             return s(nil, t(site))
         end
 
-    end, {5}) -- Node where site is specifed
+    end, {4}) -- Node where site is specifed
 end
 
 return {
@@ -231,40 +243,39 @@ return {
     })),
 
     snippet("log", fmt([[
-    ```
-    Date : {}
-    Brand: {}
-    Model: {}
-    Age  : {}
-    Site : {}
-    Addr : {}
-    Rem  : {}
-    ```
+    Date  : {}  
+    Brand : {}  
+    Model : {}  
+    Site  : {}  
+    Addr  : {}  
+    Rem   : {}  
 
-    - {}
+    - Problem: {}
 
-    - {}
+    - Analysis: {}
 
-    - {}
+    - Solution: {}
 
-    - {}
+    - Notes: {}
     ]], {
         date(1),
         c(2, {
             t "ELITechGroup",
             t "Trinity Biotech",
-        }), getModel(3),
-        i(4, "YSI"), -- Years since installation
-        getSite(5), getAddress(6),
-        c(7, {
+            t "Techno Medica",
+        }),
+        getModel(3),
+        getSite(4),
+        getAddress(5),
+        c(6, {
             t "Corrective Maintenance",
             t "Preventive Maintenance",
             t "Installation",
         }),
-        i(8, "DESCRIPTION OF PROBLEM"),
-        i(9, "ANALYSIS OF PROBLEM"),
-        i(10, "FINAL SOLUTION"),
-        i(11, "NOTES"),
+        i(7, "DESCRIPTION OF PROBLEM"),
+        i(8, "ANALYSIS OF PROBLEM"),
+        i(9, "FINAL SOLUTION"),
+        i(10, "NOTES"),
     })),
     snippet("e-", fmt("{}", {
         t("$e^-$")
