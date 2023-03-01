@@ -42,11 +42,10 @@ luasnip.setup({
 })
 
 
-require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
-
-require("luasnip.loaders.from_snipmate").lazy_load()
-
 luasnip.filetype_extend("javascript", {"html"})
+
+getChoice = function(arg) return arg[1][1] end
+
 
 -- KEYMAPS
 
@@ -68,3 +67,9 @@ function()
         luasnip.change_choice(1) 
     end 
 end, opts)
+
+
+
+require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
+
+require("luasnip.loaders.from_snipmate").lazy_load()
