@@ -41,8 +41,7 @@ luasnip.setup({
     }
 })
 
-
-luasnip.filetype_extend("javascript", {"html"})
+luasnip.filetype_extend("javascript", {"html", "react"})
 
 getChoice = function(arg) return arg[1][1] end
 
@@ -67,7 +66,6 @@ function()
         luasnip.change_choice(1) 
     end 
 end, opts)
-
 
 
 require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
