@@ -91,17 +91,6 @@ return {
         colors(2)
     })),
 
-    snippet("m", fmt("{}: {};",  {
-        c(2, { 
-            t "margin", 
-            t "margin-top",
-            t "margin-left",
-            t "margin-right",
-            t "margin-bottom",
-        }),
-        directions(2)
-    })), 
-
     snippet("p", fmt("{}: {};",  {
         c(1, { 
             t "padding", 
@@ -109,6 +98,17 @@ return {
             t "padding-left",
             t "padding-right",
             t "padding-bottom",
+        }),
+        directions(2)
+    })), 
+
+    snippet("m", fmt("{}: {};",  {
+        c(1, { 
+            t "margin", 
+            t "margin-top",
+            t "margin-left",
+            t "margin-right",
+            t "margin-bottom",
         }),
         directions(2)
     })), 
