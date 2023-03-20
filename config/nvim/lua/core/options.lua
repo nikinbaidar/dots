@@ -3,10 +3,9 @@
 -- ░█░█░█▀▀░░█░░░█░░█░█░█░█░▀▀█░░░█░░░█░█░█▀█
 -- ░▀▀▀░▀░░░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀▀▀░▀▀▀░▀░▀
 
-
-
-
 vim.opt.hlsearch       = false
+vim.opt.swapfile       = false
+vim.opt.clipboard      = "unnamedplus"
 vim.opt.number         = true
 vim.opt.relativenumber = true
 vim.opt.cursorline     = true

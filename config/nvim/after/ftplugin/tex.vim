@@ -1,17 +1,5 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim ftplugin file
-"
-" Language: Tex, LaTeX
-" Maintainer: Nikin Baidar 
-" GitHub: nikinbaidar
-" Last Update: Sat Sep 17 2022
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 setlocal spell
 
-" Quick item-s
-imap <C-j> <CR><CR><C-h>\item<Space>
 " Auto Commands
 autocmd VimLeave *.tex silent ! ${HOME}/.local/bin/removeTexDependencies
 
