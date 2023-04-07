@@ -13,9 +13,12 @@ cmp.setup({
     },
     mapping = ({
         ['<CR>'] = cmp.mapping.confirm { select = true },
-        ['<C-b>'] = cmp.mapping.scroll_docs(-5),
-        ['<C-f>'] = cmp.mapping.scroll_docs(5),
-        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-f>'] = cmp.mapping.scroll_docs(-5),
+        ['<C-7>'] = cmp.mapping.scroll_docs(5),
+        ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
         ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -25,7 +28,7 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-        ['<C-p>'] = cmp.mapping(function(fallback)
+        ['<C-b>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
@@ -34,7 +37,8 @@ cmp.setup({
         end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
-        {name = 'luasnip'}
+        {name = 'luasnip'},
+        {name = 'buffer'}
     }),
     formatting = {
         fields = { "kind", "abbr", "menu" },

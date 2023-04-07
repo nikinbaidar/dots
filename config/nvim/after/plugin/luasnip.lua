@@ -10,6 +10,7 @@ local opts = {noremap = true, silent = true}
 local f
 
 luasnip = require("luasnip")
+luasnip_extras = require("luasnip.extras")
 filetype_functions = require('luasnip.extras.filetype_functions')
 f = luasnip.function_node
 rt_path = string.sub(vim.inspect(vim.api.nvim_list_runtime_paths()[1]), 2, -2)
@@ -33,12 +34,15 @@ luasnip.setup({
         i = luasnip.insert_node,
         s = luasnip.snippet_node,
         t = luasnip.text_node,
+        m = luasnip_extras.match,
+        p = luasnip_extras.partial,
         r = function(index) 
             return f(function(arg) return arg[1] end, {index})
         end,
         conds = require("luasnip.extras.conditions"),
         conds_expand = require("luasnip.extras.conditions.expand"),
-    }
+    },
+    enable_autosnippets = true,
 })
 
 luasnip.filetype_extend("javascript", {"html", "react"})
