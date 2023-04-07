@@ -4,6 +4,10 @@ local getModel
 local getSite
 local getAddress
 
+local function getHeading(_, snip)
+    return string.sub(snip.trigger, 2)
+end
+
 date = function(index)
     return d(index, 
     function() 
@@ -206,6 +210,27 @@ return {
     snippet("**", fmt("**{}**",  {
         i(1, "BOLD TEXT"),
     })),
+
+    snippet({trig = "q%d", regTrig = true}, fmt([[
+    {}. {} 
+        - [ ] {}
+        - [ ] {}
+        - [ ] {}
+        - [ ] {}
+    
+    ]], {
+        f(getHeading, {}),
+        i(1, "Question"),
+        i(2, "A"),
+        i(3, "B"),
+        i(4, "C"),
+        i(5, "D"),
+    })),
+
+
+    snippet({ trig = "->", snippetType = "autosnippet"}, {
+        t("$\\rightarrow$")
+    }), 
 
     snippet("_", fmt("_{}_",  {
         i(1, "ITALIC TEXT"),

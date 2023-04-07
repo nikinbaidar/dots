@@ -25,7 +25,9 @@ end
 
 return {
 
-    parse("lorem", lorem),
+    parse({
+        trig = "lorem", snippetType = "autosnippet"
+    }, lorem),
 
     snippet("date", {
         f(date, {})
@@ -39,5 +41,13 @@ return {
     snippet("#!", {
         f(shebang, {})
     }),
+
+    snippet({
+        trig = "helloworld",
+        snippetType = "autosnippet"
+    }, {
+        t("Hello, World!")
+    }), 
+
 
 }
