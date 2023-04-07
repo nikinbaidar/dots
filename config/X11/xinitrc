@@ -5,6 +5,7 @@
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 externalmonitor
+picom &
 
 cb ${HOME}/pics/wallpapers/black-pixelated.jpg
 
@@ -16,3 +17,4 @@ do
 done&
 
 exec dwm
+
