@@ -1,5 +1,3 @@
-setlocal spell
-
 " Auto Commands
 autocmd VimLeave *.tex silent ! ${HOME}/.local/bin/removeTexDependencies
 
@@ -34,12 +32,12 @@ function! CompileSource()
       " Source in current directory
       below split
       resize 15
-      execute ("term xelatex") g:source_path
+      execute ("term xelatex --shell-escape") g:source_path
     elseif ! empty(expand(glob("../" .g:source_path)))
       " Source in previous directory
       below split
       resize 15
-      cd .. | execute ("term xelatex") g:source_path | cd -
+      cd .. | execute ("term xelatex --shell-escape") g:source_path | cd -
     endif
   endif
 endfunction
@@ -59,7 +57,7 @@ function! RunLatex()
         " Current file is a source file.
         below split
         resize 15
-        term xelatex %
+        term xelatex --shell-escape %
       endif
     endif
 endfunction

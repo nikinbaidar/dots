@@ -26,6 +26,6 @@ setlocal spellcapcheck=\_[\])'"   ]\+
 setlocal complete+=kspell
 
 command! ViewImage execute('normal! yi):silent ! pqiv " &<CR>')
-command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0')
+command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0zO')
 nnoremap <leader>f :MakeJump<CR>
 ]]

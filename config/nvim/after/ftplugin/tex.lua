@@ -7,6 +7,8 @@
 vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
 vim.b.cursorcolumn = true
+vim.b.spell        = true
+
 
 vim.keymap.set('n', '<leader>v',  
 function()
@@ -14,8 +16,6 @@ function()
     vim.api.nvim_command("silent ! jumanji " .. filepath)
 end
 )
-
-
 
 vim.api.nvim_create_user_command(
   'MakeTitleCase',
@@ -27,7 +27,6 @@ vim.api.nvim_create_user_command(
   {bang = true, desc="Titlecase from current point to EOL"}
 )
 
-
 vim.api.nvim_create_user_command(
   'AddBibliography',
   function()
@@ -36,7 +35,6 @@ vim.api.nvim_create_user_command(
   end,
   {bang = true, desc = "Add bibliography to tex docs"}
 )
-
 
 vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*.tex',

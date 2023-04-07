@@ -13,3 +13,5 @@ vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*.js',
     command = 'nnoremap <leader>r :lua RunJavaScript()<CR>'
 })
+
+-- vim.wo.foldmethod = "indent"
