@@ -1,33 +1,45 @@
-#! /bin/bash
+#!/bin/bash
+# TeX Live auxiliary files
 
-rm --force \
-  ./*.aux  \
-  ./*.bcf  \
-  ./*.bbl  \
-  ./*.blg  \
-  ./*.log  \
-  ./*.out  \
-  ./*.lof  \
-  ./*.toc  \
-  ./*.run.nlo  \
-  ./*.run.xml  \
-  ./*.tex.bbl  \
-  ./*.tex.blg  \
-  ./*.nav \
-  ./*.snm \
-  ./*.lot
-
-rm --force \
-  ../*.aux  \
-  ../*.lof  \
-  ../*.log  \
-  ../*.out  \
-  ../*.toc  \
-  ../*.run.nlo  \
-  ../*.run.xml  \
-  ../*.tex.bbl  \
-  ../*.tex.blg  \
-  ../*.nav \
-  ../*.snm \
-  ../*.lot
-
+rm -rf \
+    ./*.aux \
+    ./*.bbl \
+    ./*.blg \
+    ./*.brf \
+    ./*.fls \
+    ./*.idx \
+    ./*.ind \
+    ./*.lof \
+    ./*.log \
+    ./*.lot \
+    ./*.nav \
+    ./*.out \
+    ./*.pdfsync \
+    ./*.snm \
+    ./*.synctex.gz \
+    ./*.toc \
+    ./*.fdb_latexmk \
+    ./*.run.xml \
+    ./*.bcf \
+    ./*.xdy \
+    ./*.acr \
+    ./*.acn \
+    ./*.alg \
+    ./*.glg \
+    ./*.glo \
+    ./*.gls \
+    ./*.ist \
+    ./*.loa \
+    ./*.maf \
+    ./*.mtc \
+    ./*.mtc0 \
+    ./*.nlg \
+    ./*.nlo \
+    ./*.not \
+    ./*.slg \
+    ./*.slo \
+    ./*.sty.bak \
+    ./*.tdo \
+    ./*.xdv \
+    ./*.upa \
+    ./*.upb

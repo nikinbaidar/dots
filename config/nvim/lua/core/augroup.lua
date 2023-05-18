@@ -17,10 +17,10 @@ autocmd('BufReadPost', {
 })
 
 autocmd('VimLeave', {
-    pattern = '*',
+    pattern = '*.tex',
     group = augroup,
-    desc = 'Echo nothing so gibberish don\'t print on linux terminal.',
-    command = 'echo ""'
+    desc = '',
+    command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
 autocmd('TermOpen', {

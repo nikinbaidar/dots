@@ -16,13 +16,18 @@ set ratios 1:3:4
 ####################
 
 cmd open ${{
-    case $(file --mime-type $f -b) in
-        text/*) $EDITOR $fx;;
-        *) for f in "${fx}"; do setsid $OPENER "${f}" > /dev/null 2> /dev/null & done;;
-    esac
-}}
-map <enter> open
+    file_type=$(file --mime-type "${fx}" -b)
 
+    case "$file_type" in
+        text/*) $EDITOR "$fx";;
+        text/tex) $EDITOR "$fx";;
+        text/plaintex) $EDITOR "$fx"; echo "" ;;
+        *) for file in "${fx[@]}"; do setsid $OPENER "$file" > /dev/null 2> /dev/null & done;;
+    esac
+    echo "";
+}}
+
+map <enter> open
 
 
 cmd mkdir ${{
@@ -68,3 +73,6 @@ map gc :{{
 }}
 
 map gn cd ~/repos/notes
+map gd cd ~/docs
+map gD cd ~/downloads
+map gb cd ~/docs/books

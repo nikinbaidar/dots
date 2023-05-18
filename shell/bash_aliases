@@ -12,12 +12,11 @@ alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -RX"
 alias octave="octave --silent"
 alias R="R --silent"
+alias sioyek='sioyek "$@" > /dev/null 2>&1'
 alias pqiv="pqiv 2> /dev/null"
-alias zathura="zathura --fork"
 alias xo="xdg-open"
-## Works with .pptx and .docx FIXED DEPRECIATION
+## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
-alias nec="/usr/bin/nvim ~/repos/notes/NEC/*.md"
 
 # Function Definitions
 function weather() {
@@ -51,7 +50,6 @@ function cloudsync() {
         *) pushNotes && pushDropbox ;;
     esac
 }
-
 
 function def() {
     sdcv -n --utf8-output --color "$@" 2>&1 | \

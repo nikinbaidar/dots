@@ -22,3 +22,10 @@ function()
     vim.api.nvim_command("BTags")
 end,
 {desc = 'Generate tags for the current project and open them up with fzf.'})
+
+vim.keymap.set('n', '<leader>f',
+function()
+    vim.cmd 'update!'
+    vim.api.nvim_command("GFiles")
+end,
+{desc = 'Search files in the current repository.'})

@@ -4,8 +4,7 @@
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-externalmonitor
-picom &
+dualmonitor
 
 cb ${HOME}/pics/wallpapers/black-pixelated.jpg
 

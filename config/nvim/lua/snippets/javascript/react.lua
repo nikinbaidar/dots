@@ -97,9 +97,9 @@ return {
     }),
 
     snippet("rf", fmt([[
-    <React.fragment>
+    <React.Fragment>
     {}
-    </React.fragment>
+    </React.Fragment>
     ]], {
         i(1)
     })),

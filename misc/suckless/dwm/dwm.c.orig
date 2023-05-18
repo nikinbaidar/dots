@@ -1,25 +1,3 @@
-/* See LICENSE file for copyright and license details.
- *
- * dynamic window manager is designed like any other X client as well. It is
- * driven through handling X events. In contrast to other X clients, a window
- * manager selects for SubstructureRedirectMask on the root window, to receive
- * events about window (dis-)appearance. Only one X connection at a time is
- * allowed to select for this event mask.
- *
- * The event handlers of dwm are organized in an array which is accessed
- * whenever a new event has been fetched. This allows event dispatching
- * in O(1) time.
- *
- * Each child of the root window is called a client, except windows which have
- * set the override_redirect flag. Clients are organized in a linked client
- * list on each monitor, the focus history is remembered through a stack list
- * on each monitor. Each client contains a bit array to indicate the tags of a
- * client.
- *
- * Keys and tagging rules are organized as arrays and defined in config.h.
- *
- * To understand everything else, start reading main().
- */
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -36,6 +14,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
+
 #ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
@@ -54,10 +33,7 @@
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
-#define NUMTAGS					(LENGTH(tags) + LENGTH(scratchpads))
-#define TAGMASK     			((1 << NUMTAGS) - 1)
-#define SPTAG(i) 				((1 << LENGTH(tags)) << (i))
-#define SPTAGMASK   			(((1 << LENGTH(scratchpads))-1) << LENGTH(tags))
+#define TAGMASK                 ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
@@ -90,6 +66,7 @@ typedef struct Client Client;
 struct Client {
     char name[256];
     float mina, maxa;
+    float cfact;
     int x, y, w, h;
     int oldx, oldy, oldw, oldh;
     int basew, baseh, incw, inch, maxw, maxh, minw, minh;
@@ -205,7 +182,9 @@ static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
+static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
+static void setcfact(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
@@ -216,7 +195,6 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglefloating(const Arg *arg);
-static void togglescratch(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -315,10 +293,6 @@ applyrules(Client *c)
         {
             c->isfloating = r->isfloating;
             c->tags |= r->tags;
-            if ((r->tags & SPTAGMASK) && r->isfloating) {
-              c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-              c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
-            }
             for (m = mons; m && m->num != r->monitor; m = m->next);
             if (m)
                 c->mon = m;
@@ -328,7 +302,7 @@ applyrules(Client *c)
         XFree(ch.res_class);
     if (ch.res_name)
         XFree(ch.res_name);
-    c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : (c->mon->tagset[c->mon->seltags] & ~SPTAGMASK);
+    c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
 }
 
 int
@@ -1051,6 +1025,7 @@ manage(Window w, XWindowAttributes *wa)
     c->w = c->oldw = wa->width;
     c->h = c->oldh = wa->height;
     c->oldbw = wa->border_width;
+	c->cfact = 1.0;
 
     updatetitle(c);
     if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
@@ -1078,6 +1053,8 @@ manage(Window w, XWindowAttributes *wa)
     updatewindowtype(c);
     updatesizehints(c);
     updatewmhints(c);
+    c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
+    c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
     XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
     grabbuttons(c, 0);
     if (!c->isfloating)
@@ -1125,18 +1102,23 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-	unsigned int n = 0;
-	Client *c;
+    unsigned int n = 0, h, mw, my;
+    Client *c;
 
-	for (c = m->clients; c; c = c->next)
-		if (ISVISIBLE(c))
-			n++;
-	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+    for (c = m->clients; c; c = c->next)
+        if (ISVISIBLE(c))
+            n++;
+    if (n > 0) /* override layout symbol */
+        snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+    for (c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
+            my = m->gappx;
+            mw = m->ww - m->gappx;
+            h = (m->wh - my) - m->gappx;
+            resize(c, m->wx + m->gappx, m->wy + my, mw - (2*c->bw) - m->gappx,
+                    h - (2*c->bw), 0);
+            my += HEIGHT(c) + m->gappx;
+    }
 }
-
 
 void
 motionnotify(XEvent *e)
@@ -1521,6 +1503,17 @@ setfullscreen(Client *c, int fullscreen)
 }
 
 void
+setgaps(const Arg *arg)
+{
+	if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
+		selmon->gappx = 0;
+	else
+		selmon->gappx += arg->i;
+	arrange(selmon);
+}
+
+
+void
 setlayout(const Arg *arg)
 {
     if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
@@ -1535,6 +1528,23 @@ setlayout(const Arg *arg)
         arrange(selmon);
     else
         drawbar(selmon);
+}
+
+void setcfact(const Arg *arg) {
+	float f;
+	Client *c;
+
+	c = selmon->sel;
+
+	if(!arg || !c || !selmon->lt[selmon->sellt]->arrange)
+		return;
+	f = arg->f + c->cfact;
+	if(arg->f == 0.0)
+		f = 1.0;
+	else if(f < 0.25 || f > 4.0)
+		return;
+	c->cfact = f;
+	arrange(selmon);
 }
 
 /* arg > 1.0 will set mfact absolutely */
@@ -1571,7 +1581,7 @@ setup(void)
     if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
         die("no fonts could be loaded.");
     lrpad = drw->fonts->h;
-    bh = drw->fonts->h + 2;
+    bh = drw->fonts->h + 3;
     updategeom();
     /* init atoms */
     utf8string = XInternAtom(dpy, "UTF8_STRING", False);
@@ -1642,10 +1652,6 @@ showhide(Client *c)
     if (!c)
         return;
     if (ISVISIBLE(c)) {
-   		if ((c->tags & SPTAGMASK) && c->isfloating) {
-   			c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-   			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
-   		}
         /* show clients top down */
         XMoveWindow(dpy, c->win, c->x, c->y);
         if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
@@ -1704,9 +1710,15 @@ void
 tile(Monitor *m)
 {
     unsigned int i, n, h, mw, my, ty;
+    float mfacts = 0, sfacts = 0;
     Client *c;
 
-    for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+    for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++) {
+        if (n < m->nmaster)
+            mfacts += c->cfact;
+        else
+            sfacts += c->cfact;
+    }
     if (n == 0)
         return;
 
@@ -1716,13 +1728,17 @@ tile(Monitor *m)
         mw = m->ww - m->gappx;
     for (i = 0, my = ty = m->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
         if (i < m->nmaster) {
-            h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gappx;
+            // h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gappx;
+            h = (m->wh - my) * (c->cfact / mfacts); // - m->gappx;
             resize(c, m->wx + m->gappx, m->wy + my, mw - (2*c->bw) - m->gappx, h - (2*c->bw), 0);
             my += HEIGHT(c) + m->gappx;
+            mfacts -= c->cfact;
         } else {
-            h = (m->wh - ty) / (n - i) - m->gappx;
+            // h = (m->wh - ty) / (n - i) - m->gappx;
+            h = (m->wh - ty) * (c->cfact / sfacts); //- m->gappx;
             resize(c, m->wx + mw + m->gappx, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappx, h - (2*c->bw), 0);
             ty += HEIGHT(c) + m->gappx;
+            sfacts -= c-> cfact;
         }
 }
 
@@ -1747,32 +1763,6 @@ togglefloating(const Arg *arg)
         resize(selmon->sel, selmon->sel->x, selmon->sel->y,
             selmon->sel->w, selmon->sel->h, 0);
     arrange(selmon);
-}
-
-void
-togglescratch(const Arg *arg)
-{
-	Client *c;
-	unsigned int found = 0;
-	unsigned int scratchtag = SPTAG(arg->ui);
-	Arg sparg = {.v = scratchpads[arg->ui].cmd};
-
-	for (c = selmon->clients; c && !(found = c->tags & scratchtag); c = c->next);
-	if (found) {
-		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
-		if (newtagset) {
-			selmon->tagset[selmon->seltags] = newtagset;
-			focus(NULL);
-			arrange(selmon);
-		}
-		if (ISVISIBLE(c)) {
-			focus(c);
-			restack(selmon);
-		}
-	} else {
-		selmon->tagset[selmon->seltags] |= scratchtag;
-		spawn(&sparg);
-	}
 }
 
 void

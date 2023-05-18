@@ -1,6 +1,3 @@
-" Auto Commands
-autocmd VimLeave *.tex silent ! ${HOME}/.local/bin/removeTexDependencies
-
 " nnoremap <leader>v :call ViewPDF()<CR>
 
 function! ViewPDF()
@@ -65,5 +62,4 @@ endfunction
 function! AddDevanagari()
   let g:texfile = expand("%:r").".tex"
   execute("silent term devnag % | xelatex ") g:texfile
-  " execute("term xelatex") g:texfile
 endfunction

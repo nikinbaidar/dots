@@ -9,7 +9,6 @@ vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 vim.b.cursorcolumn = true
 vim.b.spell        = true
 
-
 vim.keymap.set('n', '<leader>v',  
 function()
     local filepath = vim.fn.expand('%:r') .. ".pdf"
