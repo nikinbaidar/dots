@@ -1,0 +1,22 @@
+#!/bin/sh
+
+open() {
+    /usr/bin/sioyek --new-window "$@" > /dev/null 2>&1 &
+}
+
+args=()
+for file in "$@"
+do
+    extension="${file##*.}"
+    if [ ${extension} = "djvu" ] ; then
+        original=$(basename "${file}")
+        modified=${original%.*}.pdf
+        args+=("$modified")       
+        djvu2pdf "${file}"
+        rm "${file}"
+    else
+        args+=("$file")
+    fi
+done
+
+open "${args[@]}"

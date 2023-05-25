@@ -4,29 +4,26 @@
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-#sidebar-close, #statuspanel, #TabsToolbar { visibility: collapse !important; }
-
-#back-button, #forward-button { display: none !important; }
-
-#PanelUI-menu-button { display: none; }
-
 #nav-bar {
-  --navbar-margin: -44px;
-  margin-top: var(--navbar-margin);
-  margin-bottom: 0;
-  z-index: -100;
+    height: 0px !important;
+    min-height: 0px !important;
+    overflow: hidden !important;
 }
 
-#navigator-toolbox:focus-within > #nav-bar
-{
-  margin: 0;
-  margin-bottom: var(--navbar-margin);
-  z-index: 100;
-  opacity: 1;
-  border: none;
-  transition: all 0.3s ease !important;
+#sidebar-close,
+#statuspanel,
+#TabsToolbar {
+  visibility: collapse !important; 
 }
 
+#back-button,
+#forward-button {
+  display: none !important; 
+}
+
+#PanelUI-menu-button {
+  display: none; 
+}
 
 /* The following line of code stores a cookie that always starts youtube on
  * theater mode without the need of any kind of third-party plugins

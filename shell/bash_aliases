@@ -12,7 +12,7 @@ alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -RX"
 alias octave="octave --silent"
 alias R="R --silent"
-alias sioyek='sioyek "$@" > /dev/null 2>&1'
+# alias sioyek='sioyek "$@" > /dev/null 2>&1'
 alias pqiv="pqiv 2> /dev/null"
 alias xo="xdg-open"
 ## Works with .pptx and .docx POST DEPRECATION

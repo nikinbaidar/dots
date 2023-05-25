@@ -15,9 +15,6 @@ unmap q
 map x quit
 
 
-map b set first-page-column\ 1:1
-map B set first-page-column\ 1:2
-
 set guioptions none
 set statusbar-home-tilde true
 
@@ -39,3 +36,7 @@ set recolor-lightcolor "#0f111b" # Background Color
 set selection-clipboard clipboard
 
 set default-bg "#1c1c1c"
+
+map b set "first-page-column 1:1"
+map B set "first-page-column 1:2"
+
