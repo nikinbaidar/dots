@@ -46,6 +46,7 @@ luasnip.setup({
 })
 
 luasnip.filetype_extend("javascript", {"html", "react"})
+luasnip.filetype_extend("latex", {"tex"})
 
 getChoice = function(arg) return arg[1][1] end
 
