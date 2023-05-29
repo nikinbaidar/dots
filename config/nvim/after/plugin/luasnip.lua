@@ -22,7 +22,8 @@ luasnip.setup({
     delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
     load_ft_func = filetype_functions.extend_load_ft({
-        html = {"javascript", "css"} 
+        html = { "javascript", "css" },
+        tex =  { "latex" },
     }),
     snip_env = {
         snippet = luasnip.snippet,
@@ -45,7 +46,8 @@ luasnip.setup({
     enable_autosnippets = true,
 })
 
-luasnip.filetype_extend("javascript", {"html", "react"})
+luasnip.filetype_extend("javascript", { "html", "react" })
+luasnip.filetype_extend("latex", { "tex" })
 
 getChoice = function(arg) return arg[1][1] end
 
@@ -72,6 +74,6 @@ function()
 end, opts)
 
 
-require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
+require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets/*"})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
