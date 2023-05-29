@@ -16,14 +16,14 @@ return require('packer').startup(function()
     use 'JoosepAlviste/nvim-ts-context-commentstring' 
 
     use {
-        'hrsh7th/nvim-cmp',
-        requires = { 'saadparwaiz1/cmp_luasnip' }
-    }
-
-    use { "L3MON4D3/LuaSnip", after = 'nvim-cmp',
+        "L3MON4D3/LuaSnip",
         tag = "v<CurrentMajor>.*"
     }
 
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = { 'saadparwaiz1/cmp_luasnip' }
+    }
 
     use {
         'nvim-lualine/lualine.nvim'

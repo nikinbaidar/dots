@@ -1,1 +1,1 @@
-vim.opt.filetype = 'tex';
+vim.opt.filetype = 'tex'
