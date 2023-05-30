@@ -5,7 +5,6 @@
 
 local luasnip
 local filetype_functions
-local rt_path
 local opts = {noremap = true, silent = true}
 local f
 
@@ -13,7 +12,6 @@ luasnip = require("luasnip")
 luasnip_extras = require("luasnip.extras")
 filetype_functions = require('luasnip.extras.filetype_functions')
 f = luasnip.function_node
-rt_path = string.sub(vim.inspect(vim.api.nvim_list_runtime_paths()[1]), 2, -2)
 opts = {noremap = true, silent = true}
 
 luasnip.setup({
@@ -53,26 +51,28 @@ getChoice = function(arg) return arg[1][1] end
 
 -- KEYMAPS
 
-vim.keymap.set({"i", "s"}, "<C-j>", 
-function() 
+local expand_or_jump = function()
     if luasnip.expand_or_jumpable() then 
-        luasnip.expand_or_jump() 
-    end 
-end, opts)
+        luasnip.expand_or_jump()
+    end
+end
 
+local jump_previous = function()
+    if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+    end
+end
 
-vim.keymap.set({"i", "s"}, "<C-k>", 
-function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end, opts)
+local change_choice = function()
+    if luasnip.choice_active() then
+        luasnip.change_choice(1)
+    end
+end
 
+vim.keymap.set({"i", "s"}, "<C-j>", expand_or_jump, opts)
+vim.keymap.set({"i", "s"}, "<C-k>", jump_previous, opts)
+vim.keymap.set({"i", "s"}, "<C-l>", change_choice, opts)
 
-vim.keymap.set({"i", "s"}, "<C-l>", 
-function() 
-    if luasnip.choice_active() then 
-        luasnip.change_choice(1) 
-    end 
-end, opts)
-
-
-require("luasnip.loaders.from_lua").lazy_load({paths = rt_path .. "/lua/snippets"})
+require("luasnip.loaders.from_lua").lazy_load({paths = "./lua/snippets"})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
