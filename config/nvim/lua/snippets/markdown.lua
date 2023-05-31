@@ -228,9 +228,9 @@ return {
     })),
 
 
-    snippet({ trig = "->", snippetType = "autosnippet"}, {
+    --[[ snippet({ trig = "->", snippetType = "autosnippet"}, {
         t("$\\rightarrow$")
-    }), 
+    }),  ]]
 
     snippet("_", fmt("_{}_",  {
         i(1, "ITALIC TEXT"),
