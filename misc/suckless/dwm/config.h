@@ -61,8 +61,7 @@ static const char *dmenucmd[] = {
 
 static const char *nop[]           = { "no_operation", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
-// static const char *termcmd[]       = { "st", "tmux", "-f", "/home/nikin/.config/tmux/tmux.conf", NULL };
-static const char *termcmd[]       = { "st", "tmux", NULL };
+static const char *termcmd[]       = { "st", NULL };
 
 /* Monitor Setup */
 static const char *dualmon[]        = { "dualmonitor", NULL };

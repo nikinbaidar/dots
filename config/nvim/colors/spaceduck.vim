@@ -262,14 +262,15 @@ let g:terminal_color_13         = "#ce6f8f"
 let g:terminal_color_14         = "#7a5ccc"
 let g:terminal_color_15         = "#ecf0c1"
 
-let g:terminal_ansi_colors =  ["#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1", "#686f9a", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1"]
+let g:terminal_ansi_colors =  [ "#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1", "#686f9a", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1" ]
 
 " Tree sitter
 "
 hi markdownCodeDelimiter   guifg=#686F9A
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
-hi @punctuation.delimiter  guifg=#b3a1e6
+hi @punctuation.delimiter  guifg=#B3A1E6
 hi @text.literal           guifg=#686F9A
+hi IndentBlanklineChar     guifg=#3A3A3A
+hi Todo                    guibg=#F2CE00
 
-hi IndentBlanklineChar guifg=#3a3a3a

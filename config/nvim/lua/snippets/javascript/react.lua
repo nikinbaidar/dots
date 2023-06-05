@@ -20,6 +20,11 @@ return {
 
     parse("ird", "import ReactDOM from 'react-dom/client'"),
 
+    snippet("lazy", fmt("{}: lazy(() => import('./{}')),", {
+        i(1, "Filename"), 
+        r(1),
+    })), 
+
 
     -- Lifecycle Methods
     

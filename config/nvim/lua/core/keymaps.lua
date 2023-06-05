@@ -18,4 +18,3 @@ map('!', '<C-d>'    , '<Del>'        , { noremap = true })
 
 map('n', '<leader> ', ':set spell!<CR>', { noremap = true })
 map('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
-
