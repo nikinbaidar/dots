@@ -29,3 +29,6 @@ autocmd('TermOpen', {
     desc = 'Open built-in terminal in insert mode.',
     command = 'startinsert'
 })
+
+vim.cmd(' autocmd User DBUIOpened setlocal number relativenumber ')
+

@@ -273,4 +273,8 @@ hi @punctuation.delimiter  guifg=#B3A1E6
 hi @text.literal           guifg=#686F9A
 hi IndentBlanklineChar     guifg=#3A3A3A
 hi Todo                    guibg=#F2CE00
+hi WinSeparator            guifg=#2e3459 guibg=NONE
+hi NotificationInfo        guifg=#5CCC96 guibg=#2E3459
+hi! link NotificationError ErrorMsg
+hi! link NotificationWarning ErrorMsg
 
