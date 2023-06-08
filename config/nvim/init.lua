@@ -11,5 +11,3 @@ require("core.augroup")
 
 
 vim.cmd('colorscheme spaceduck')
-
-vim.cmd('source ~/.config/nvim/after/ftplugin/all.vim')
