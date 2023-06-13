@@ -44,9 +44,9 @@ directions = function(index)
             }),
             s(1, {
                 i(1, "top"), t(" "),
-                i(2, "left"), t(" "),
+                i(2, "right"), t(" "),
                 i(3, "bottom"), t(" "),
-                i(4, "right"),
+                i(4, "left"),
             }),
         })) 
     end, {})

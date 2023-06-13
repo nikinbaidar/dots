@@ -3,10 +3,7 @@
 -- ░█░█░█▀█░█▀▄░█▀▄░█░█░█░█░█▄█░█░█░░░░█░░░█░█░█▀█
 -- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-vim.wo.conceallevel = 2
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-
+vim.wo.conceallevel = 3
 
 vim.api.nvim_create_user_command(
   'Maketitlecase',
@@ -19,11 +16,20 @@ vim.api.nvim_create_user_command(
 )
 
 vim.cmd [[ 
+syntax on
 setlocal spell
 setlocal spellcapcheck=\_[\])'"   ]\+
 setlocal complete+=kspell
 
 command! ViewImage execute('normal! yi):silent ! pqiv " &<CR>')
-command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0zO')
+command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0')
 nnoremap <leader>f :MakeJump<CR>
+
+syntax region ConcealedCode matchgroup=ConcealGroup start=/`/ end=/`/ concealends contains=ConcealCheck
+
+syntax region ConcealBlockCode start=/```/ end=/```/ concealends
+
+syntax region MyBlock start=/^\s*>/ end=/^\s*$/
+
 ]]
+

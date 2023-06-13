@@ -1,3 +1,7 @@
+"
+" ░▀█▀░█▀▀░█░█░░░░█░█░▀█▀░█▄█
+" ░░█░░█▀▀░▄▀▄░░░░▀▄▀░░█░░█░█
+" ░░▀░░▀▀▀░▀░▀░▀░░░▀░░▀▀▀░▀░▀
 " nnoremap <leader>v :call ViewPDF()<CR>
 
 function! ViewPDF()
@@ -13,7 +17,7 @@ function! ViewPDF()
           let g:pdffile = "../".g:pdffile
       endif
     endif
-    execute ("silent ! jumanji") g:pdffile
+    execute ("silent ! sioyek") g:pdffile
 endfunction
 
 function! BiblatexCompile()

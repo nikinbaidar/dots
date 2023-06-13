@@ -23,6 +23,14 @@ autocmd('VimLeave', {
     command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
+autocmd('VimLeave', {
+    pattern = '*',
+    group = augroup,
+    desc = 'Echo nothing so gibberish don\'t print on linux terminal.',
+    command = 'echo ""'
+})
+
+
 autocmd('TermOpen', {
     pattern = 'term://*',
     group = augroup,

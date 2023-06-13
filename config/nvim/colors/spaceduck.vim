@@ -23,7 +23,7 @@ endif
 
 let g:spaceduck_bold = get(g:, 'spaceduck_bold', 0)
 hi ColorColumn        guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
-hi Comment            guifg=#5966A1         ctermfg=NONE    guibg=None ctermbg=234   gui=NONE      cterm=NONE
+hi Comment            guifg=#5966A1         ctermfg=NONE    guibg=None    ctermbg=234   gui=NONE      cterm=NONE
 hi CursorColumn       guifg=NONE            ctermfg=NONE    guibg=#16172d ctermbg=234   gui=NONE      cterm=NONE
 hi Conceal            guifg=#686f9a         ctermfg=60      guibg=NONE    ctermbg=NONE  gui=NONE      cterm=NONE
 hi Cursor             guifg=#0f111b         ctermfg=233     guibg=#818596 ctermbg=102   gui=NONE      cterm=NONE
@@ -264,9 +264,14 @@ let g:terminal_color_15         = "#ecf0c1"
 
 let g:terminal_ansi_colors =  [ "#000000", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1", "#686f9a", "#e33400", "#5ccc96", "#b3a1e6", "#00a3cc", "#ce6f8f", "#7a5ccc", "#ecf0c1" ]
 
-" Tree sitter
-"
-hi markdownCodeDelimiter   guifg=#686F9A
+
+hi markdownH1  guifg=#936adc
+hi link markdownH2  markdownH1
+hi link markdownH3  markdownH1 
+hi markdownCode            guifg=#c1c3cc  guibg=#1D2034
+hi markdownCodeDelimiter   guifg=#c1c3cc  guibg=#1D2034
+hi markdownBold   guifg=#FF4949  guibg=NONE gui=BOLD
+hi markdownItalic   guifg=NONE  guibg=NONE gui=underline
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
 hi @punctuation.delimiter  guifg=#B3A1E6
@@ -278,3 +283,6 @@ hi NotificationInfo        guifg=#5CCC96 guibg=#2E3459
 hi! link NotificationError ErrorMsg
 hi! link NotificationWarning ErrorMsg
 
+hi ConcealedCode guifg=#c1c3cc  guibg=#2E3459
+hi link ConcealBlockCode ConcealedCode
+hi MyBlock guifg=#00FFCA guibg=#0A4D68
