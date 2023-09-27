@@ -1,15 +1,15 @@
 local spaceduck = {}
 
 local colors = {
-  black = '#1b1c36',
-  white = '#ecf0c1',
-  red = '#e33400',
-  green = '#5ccc96',
-  blue = '#00a3cc',
-  purple = '#7a5ccc',
-  yellow = '#f2ce00',
-  gray = '#686f9a',
-  darkgray = '#30365F',
+  black     = '000000',
+  white     = '#ecf0c1',
+  red       = '#e33400',
+  green     = '#5ccc96',
+  blue      = '#00a3cc',
+  purple    = '#7a5ccc',
+  yellow    = '#f2ce00',
+  gray      = '#686f9a',
+  darkgray  = '#30365F',
   lightgray = '#c1c3cc'
 }
 

@@ -85,10 +85,6 @@ snippet eqnarray eqnarray environment
 snippet lab \label
 	\\label{${1:eq:}${2:fig:}${3:tab:}${0}}
 # Enumerate
-snippet enum enumerate environment
-	\\begin{enumerate}
-		\\item ${0}
-	\\end{enumerate}
 snippet enuma enumerate environment
 	\\begin{enumerate}[(a)]
 		\\item ${0}
@@ -96,14 +92,6 @@ snippet enuma enumerate environment
 snippet enumi enumerate environment
 	\\begin{enumerate}[(i)]
 		\\item ${0}
-	\\end{enumerate}
-# Itemize
-snippet item itemize environment
-	\\begin{itemize}
-		\\item ${0}
-	\\end{itemize}
-snippet it \item
-	\\item ${1:${VISUAL}}
 # Description
 snippet desc description environment
 	\\begin{description}

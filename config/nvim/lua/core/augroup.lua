@@ -9,12 +9,12 @@ local augroup
 autocmd = vim.api.nvim_create_autocmd
 augroup = vim.api.nvim_create_augroup('augroup', {clear = true})
 
-autocmd('BufReadPost', {
-    pattern = '*',
-    group = augroup,
-    desc = 'Jump to the last cursor position.',
-    command = 'normal! g`\"'
-})
+-- autocmd('BufReadPost', {
+--     pattern = '*',
+--     group = augroup,
+--     desc = 'Jump to the last cursor position.',
+--     command = 'normal! g`\"'
+-- })
 
 autocmd('VimLeave', {
     pattern = '*.tex',

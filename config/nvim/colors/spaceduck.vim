@@ -270,8 +270,8 @@ hi link markdownH2  markdownH1
 hi link markdownH3  markdownH1 
 hi markdownCode            guifg=#c1c3cc  guibg=#1D2034
 hi markdownCodeDelimiter   guifg=#c1c3cc  guibg=#1D2034
-hi markdownBold   guifg=#FF4949  guibg=NONE gui=BOLD
-hi markdownItalic   guifg=NONE  guibg=NONE gui=underline
+hi markdownBold            guifg=#FF2171  guibg=NONE gui=BOLD
+hi markdownItalic          guifg=NONE  guibg=NONE gui=underline
 hi @punctuation.blockquote guifg=#E39400
 hi @punctuation.symbols    guifg=#C36F8F
 hi @punctuation.delimiter  guifg=#B3A1E6

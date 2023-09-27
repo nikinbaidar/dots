@@ -1,7 +1,7 @@
 /* appearance */
 static const unsigned int borderpx  = 1;    
 static const unsigned int snap      = 32; 
-static const unsigned int gappx     = 5;     
+static const unsigned int gappx     = 2;     
 static const int showbar            = 1;      
 static const int topbar             = 1;        
 static const char *fonts[]          = {"monospace:size=9"};
@@ -9,7 +9,7 @@ static const char dmenufont[]       = "monospace:size=9";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#BBBBBB";
 static const char col_gray3[]       = "#C5C8C6";
-static const char col_cyan[]        = "#192845";
+static const char col_cyan[]        = "#232323";
 static const char *colors[][3]      = {
         /*               fg         bg         border   */
         [SchemeNorm] = { col_gray3, "#0F111B", "#0AB570" }, 
@@ -25,8 +25,8 @@ static const Rule rules[] = {
      *      WM_NAME(STRING) = title
      */
     /* class           instance     title tags_mask  isfloating monitor */
-    { "File Picker",   NULL,        NULL, 0,         1,         -1 },
-    { "tabbed",        NULL,        NULL, 1<<2,      0,         -1 },
+    { "File Picker",   NULL,        NULL, 0,      1,         -1 },
+    { "tabbed",        NULL,        NULL, 1<<2,   0,         -1 },
     { "AFNI",          NULL,        NULL, 0,      1,         -1 },
     { "TopLevelShell", NULL,        NULL, 0,      1,         -1 },
 };
@@ -61,7 +61,7 @@ static const char *dmenucmd[] = {
 
 static const char *nop[]           = { "no_operation", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
-static const char *termcmd[]       = { "st", NULL };
+static const char *termcmd[]       = { "st", "lterm", NULL };
 
 /* Monitor Setup */
 static const char *dualmon[]        = { "dualmonitor", NULL };

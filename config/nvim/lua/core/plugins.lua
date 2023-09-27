@@ -3,19 +3,60 @@
 -- ░█▀▀░█░░░█░█░█░█░░█░░█░█░▀▀█░░░░█░░░█░█░█▀█
 -- ░▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'lukas-reineke/indent-blankline.nvim'
-    use 'numToStr/Comment.nvim'
-    use 'windwp/nvim-autopairs'
-    use 'junegunn/fzf.vim'
-    use 'tpope/vim-surround'
-    use { 'tpope/vim-dadbod', 'kristijanhusak/vim-dadbod-ui' }
-    use 'tpope/vim-repeat'
-    use 'nvim-treesitter/nvim-treesitter'
-    use 'nvim-treesitter/nvim-treesitter-context'
-    use 'JoosepAlviste/nvim-ts-context-commentstring' 
-    use { "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" }
-    use { 'hrsh7th/nvim-cmp', requires = {'saadparwaiz1/cmp_luasnip'} }
-    use { 'nvim-lualine/lualine.nvim' }
-end)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter-context',
+    'JoosepAlviste/nvim-ts-context-commentstring' ,
+    'nvim-tree/nvim-web-devicons',
+    'lukas-reineke/indent-blankline.nvim', 
+    {
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            vim.cmd("set noshowmode")
+        end
+    }, 
+    'numToStr/Comment.nvim',
+    'windwp/nvim-autopairs',
+    'tpope/vim-surround',
+    'tpope/vim-repeat',
+    {
+        'nvim-telescope/telescope-fzf-native.nvim', 
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+    },
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.3',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        version = "2.*",
+        build = "make install_jsregexp"
+    },
+    {
+        'kristijanhusak/vim-dadbod-ui',
+        dependencies = {
+            "nikinbaidar/vim-dadbod"
+        },
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        dependencies = {
+            'saadparwaiz1/cmp_luasnip'
+        },
+    },
+})

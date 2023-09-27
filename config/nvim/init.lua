@@ -9,5 +9,4 @@ require("core.options")
 require("core.keymaps")
 require("core.augroup")
 
-
-vim.cmd('colorscheme spaceduck')
+vim.cmd("colorscheme habamax")

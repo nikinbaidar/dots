@@ -1,0 +1,52 @@
+#!/bin/bash
+
+source ${DOTS}/shell/prompt_colors
+
+audio_file="/home/nikin/music/Cyberpunk 2077 Incoming Call HQ Ringtone-cerCH5Kt8Ng.mp3"
+
+function play_audio {
+    while true; do
+        mpv --no-video "$audio_file"  2&> /dev/null  # Run mpv to play the audio
+        sleep 3
+    done
+}
+
+hours=0
+minutes=0
+seconds=0
+
+while [ -n "${1}" ] ; do
+    case "${1}" in 
+        -h) hours="${2}" ;;
+        -m) minutes="${2}" ;;
+        -s) seconds="${2}" ;;
+    esac
+    shift
+done
+
+duration=$(( (${hours} * 3600) + (${minutes} * 60) + ${seconds} ))
+
+# Trap Ctrl+C to stop the loop and exit gracefully
+trap 'break' SIGINT
+
+tput civis
+
+while [ $duration -ge 0 ]; do
+    # Calculate hours, minutes, and seconds
+    H=$((duration / 3600))
+    M=$(( (duration % 3600) / 60 ))
+    S=$((duration % 60))
+    # Format things to look a bit more nicer.
+    H=$(printf "%02d" "$H")
+    M=$(printf "%02d" "$((M % 60))")
+    S=$(printf "%02d" "$((S % 60))")
+    # Display countdown
+    echo -ne "Countdown ${_g}${H}:${M}:${S}${w} \r"
+    sleep 1
+    duration=$((duration - 1))
+done
+
+tput cnorm
+
+echo -e "\n${r}Time Up!${w}"
+play_audio

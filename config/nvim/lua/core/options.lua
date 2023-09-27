@@ -14,6 +14,7 @@ vim.opt.autochdir      = true
 vim.opt.expandtab      = true
 vim.opt.breakindent    = true
 vim.opt.linebreak      = true
+vim.opt.termguicolors  = true
 vim.opt.scrolloff      = 5
 vim.opt.shiftwidth     = 4
 vim.opt.tabstop        = 4

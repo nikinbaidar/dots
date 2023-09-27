@@ -14,7 +14,7 @@ function openFilePickerDialog() {
 
 
     function createNewFile() {
-        echo -en "\n:: Enter a new filename: ${_g}${input}/" 
+        echo -en "\n:: Enter a new filename: ${_g}${input}" 
         read filename
         echo -e "${w}"
         input="${input}"/"${filename}"

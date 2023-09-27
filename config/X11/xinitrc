@@ -1,19 +1,26 @@
-# ░█░█░▀█▀░█▀█░▀█▀░▀█▀░█▀▄░█▀▀
-# ░▄▀▄░░█░░█░█░░█░░░█░░█▀▄░█░░
-# ░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀
+#!/bin/sh
+
+if [ -d /etc/X12/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
+
+function getNetwork() {
+    echo " "$(nmcli con | head -2 | tail -1 | awk '{print $1}')
+}
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-dualmonitor
-
-cb ${HOME}/pics/wallpapers/arch_ascii_art.png
-
+externalmonitor
+cb 
+picom &
 slock
 
-while xsetroot -name "[$(miti)] [$(date +'%Y %b %d %a')] [$(date +'%R')]" 
+while xsetroot -name "[$(getNetwork)]  $(date +'%a %Y %b %d') [$(miti)]  $(date +'%R:%S ')" 
 do
-    sleep 59
+    sleep 1
 done&
 
 exec dwm
-

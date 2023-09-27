@@ -33,12 +33,12 @@ function! CompileSource()
       " Source in current directory
       below split
       resize 15
-      execute ("term xelatex --shell-escape") g:source_path
+      execute ("term lualatex --shell-escape") g:source_path
     elseif ! empty(expand(glob("../" .g:source_path)))
       " Source in previous directory
       below split
       resize 15
-      cd .. | execute ("term xelatex --shell-escape") g:source_path | cd -
+      cd .. | execute ("term lualatex --shell-escape") g:source_path | cd -
     endif
   endif
 endfunction
@@ -58,12 +58,12 @@ function! RunLatex()
         " Current file is a source file.
         below split
         resize 15
-        term xelatex --shell-escape %
+        term lualatex --shell-escape %
       endif
     endif
 endfunction
 
 function! AddDevanagari()
   let g:texfile = expand("%:r").".tex"
-  execute("silent term devnag % | xelatex ") g:texfile
+  execute("silent term devnag % | lualatex ") g:texfile
 endfunction

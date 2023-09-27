@@ -1,7 +1,7 @@
 #!/bin/sh
 
 open() {
-    /usr/bin/sioyek --new-window "$@" > /dev/null 2>&1 &
+    /usr/bin/sioyek "$@" > /dev/null 2>&1 &
 }
 
 args=()

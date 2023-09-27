@@ -20,7 +20,7 @@ cmd open ${{
 
     case "$file_type" in
         text/*) $EDITOR "$fx";;
-        text/tex) $EDITOR "$fx";;
+        text/tex) $EDITOR "$fx"; return 0;;
         text/markdown) $EDITOR "$fx" ;;
         text/plaintex) $EDITOR "$fx" ;;
         *) for file in "${fx[@]}"; do setsid $OPENER "$file" > /dev/null 2> /dev/null & done;;

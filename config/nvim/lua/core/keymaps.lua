@@ -24,3 +24,8 @@ vim.api.nvim_create_user_command(
   {bang = true, desc="Titlecase from current point to EOL"}
 )
 
+local builtin = require('telescope.builtin')
+
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+map('n', '<leader>ff', ":Telescope find_files cwd=~/<CR>", { noremap = true, silent = true })

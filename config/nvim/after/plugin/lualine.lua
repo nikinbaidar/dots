@@ -1,20 +1,21 @@
+--
 -- ░█░░░█░█░█▀█░█░░░▀█▀░█▀█░█▀▀
 -- ░█░░░█░█░█▀█░█░░░░█░░█░█░█▀▀
 -- ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀
---
+
 require('lualine').setup{
     options = {
         icons_enabled = true,
-        theme = 'spaceduck',
+        theme = 'auto',
         section_separators = {'', ''},
         globalstatus = true,
     },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = { 'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', {'filetype', colored = false, icon_only = true}},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_b = { {'branch', icon=''}, 'filename', 'diff', 'diagnostics'},
+        lualine_c = {''},
+        lualine_x = {'encoding', 'fileformat', {'filetype', colored = false, icon_only = false}},
+        lualine_y = {'location', 'progress'},
+        lualine_z = {''},
     },
 }

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+function searchAndInstall () {
+    pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+}
+
+function searchAndRemove () {
+    pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns
+}
+
+case ${1} in 
+    -S) searchAndInstall ;;
+    -r) searchAndRemove ;;
+esac
+
+
+
+
+
+

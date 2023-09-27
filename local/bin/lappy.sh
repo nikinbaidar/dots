@@ -1,3 +1,7 @@
 #!/bin/sh
-xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output DP-2 --off --output HDMI-1 --off
-cb
+
+intern=eDP-1
+extern=DP-1
+xrandr --output ${intern} --primary --pos 0x0 --rotate normal \
+    --output ${extern} --off
+cb ${HOME}/pics/wallpapers/black-pixelated.jpg
