@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 if [ -d /etc/X12/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
@@ -15,7 +14,7 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 externalmonitor
 cb 
-picom &
+# picom &
 slock
 
 while xsetroot -name "[$(getNetwork)]  $(date +'%a %Y %b %d') [$(miti)]  $(date +'%R:%S ')" 

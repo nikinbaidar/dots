@@ -2,7 +2,7 @@
 " ░▀█▀░█▀▀░█░█░░░░█░█░▀█▀░█▄█
 " ░░█░░█▀▀░▄▀▄░░░░▀▄▀░░█░░█░█
 " ░░▀░░▀▀▀░▀░▀░▀░░░▀░░▀▀▀░▀░▀
-" nnoremap <leader>v :call ViewPDF()<CR>
+
 
 function! ViewPDF()
     let g:headmost = getline(1)
@@ -17,7 +17,7 @@ function! ViewPDF()
           let g:pdffile = "../".g:pdffile
       endif
     endif
-    execute ("silent ! sioyek") g:pdffile
+    execute ("silent ! maggie &") g:pdffile
 endfunction
 
 function! BiblatexCompile()
@@ -67,3 +67,5 @@ function! AddDevanagari()
   let g:texfile = expand("%:r").".tex"
   execute("silent term devnag % | lualatex ") g:texfile
 endfunction
+
+nnoremap <leader>v :call ViewPDF()<CR>

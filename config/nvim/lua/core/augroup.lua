@@ -40,3 +40,15 @@ autocmd('TermOpen', {
 
 vim.cmd(' autocmd User DBUIOpened setlocal number relativenumber ')
 
+vim.cmd[[
+
+
+if has('autocmd')
+  " Save and restore cursor position
+  augroup remember_cursor
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute("normal! g'\"") | endif
+    autocmd VimLeave * if expand('%') != '' | execute "normal! m\"" | wviminfo! | endif
+  augroup END
+endif
+]]

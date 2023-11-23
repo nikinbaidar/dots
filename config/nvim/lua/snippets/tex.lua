@@ -12,12 +12,31 @@ end
 
 return {
 
+    
+    parse({
+        trig = "bls", snippetType = "autosnippet"
+    }, [[\enlargethispage{\baselineskip}]]),
+
+    snippet("doc", fmt([[
+    \documentclass[14pt]{{extarticle}}
+    \usepackage[margin=1in]{{geometry}}
+    \usepackage{{enumitems}}
+
+    \begin{{document}}
+    {}
+    \end{{document}}
+
+    ]], { i(1) })),
+
     snippet("beg", fmt([[
     \begin{{{}}}
     {}
     \end{{{}}}
     ]], { i(1), i(2), r(1) })),
 
+    snippet("di", fmt([[
+    \item [{}.] {}
+    ]], { i(1), i(2) })),
     snippet("li", fmt([[
     \begin{{{}}}
         \item {}{}

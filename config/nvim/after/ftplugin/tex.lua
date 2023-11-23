@@ -6,12 +6,12 @@
 
 vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
-vim.b.spell        = true
+vim.b.spell = false
 
 vim.keymap.set('n', '<leader>v',  
 function()
     local filepath = vim.fn.expand('%:r') .. ".pdf"
-    vim.api.nvim_command("silent ! xdg-open " .. filepath)
+    vim.api.nvim_command("silent ! maggie " .. filepath)
 end
 )
 

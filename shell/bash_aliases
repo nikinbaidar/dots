@@ -8,13 +8,14 @@
 alias vi="/usr/bin/nvim"
 alias ls="ls -v --color=always --group-directories-first"
 alias grep="grep --color=always"
-alias less="less --quit-if-one-screen -RX"
+alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
 alias R="R --silent"
 alias sudo="sudo "
 alias pqiv="pqiv 2> /dev/null"
 ## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
+alias vocab="/usr/bin/nvim ${HOME}/Dropbox/Vocab.tex"
 
 # Function Definitions
 function weather() {
@@ -25,8 +26,9 @@ function weather() {
 function cloudsync() {
 
     function pushNotes() {
-        pushd ~/repos/notes
+        pushd ~/projects/notes
         branch=$(git branch | awk ' /\*/ {print $2} ')
+        git pull
         git add --all
         git commit -m "o.O"
         git push -u origin ${branch} --verbose

@@ -143,6 +143,8 @@ hi diffRemoved guifg=#d75f5f guibg=NONE gui=NONE cterm=NONE
 hi diffSubname guifg=#af87af guibg=NONE gui=NONE cterm=NONE
 hi DiffText guifg=#000000 guibg=#d7d7d7 gui=NONE cterm=NONE
 hi DiffChange guifg=#000000 guibg=#afafaf gui=NONE cterm=NONE
+" hi MyBlock guifg=#00FFCA guibg=#0A4D68
+" hi ConcealedCode guifg=#c1c3cc  guibg=#2E3459
 
 if s:t_Co >= 256
   hi! link Terminal Normal
@@ -264,6 +266,8 @@ if s:t_Co >= 256
   hi diffSubname ctermfg=139 ctermbg=NONE cterm=NONE
   hi DiffText ctermfg=16 ctermbg=188 cterm=NONE
   hi DiffChange ctermfg=16 ctermbg=145 cterm=NONE
+hi MyBlock guifg=#00FFCA guibg=#0A4D68
+hi ConcealedCode guifg=#c1c3cc  guibg=#2E3459
   unlet s:t_Co
   finish
 endif
@@ -421,6 +425,14 @@ if s:t_Co >= 8
   hi diffSubname ctermfg=darkmagenta ctermbg=NONE cterm=NONE
   hi DiffText ctermfg=white ctermbg=black cterm=bold,reverse
   hi DiffChange ctermfg=black ctermbg=white cterm=NONE
+
+
+
+
+
+
+
+
   unlet s:t_Co
   finish
 endif
@@ -525,3 +537,4 @@ endif
 " Term colors: color00 color01 color02 color03 color04 color05 color06 color07
 " Term colors: color08 color09 color10 color11 color12 color13 color14 color15
 " vim: et ts=2 sw=2
+

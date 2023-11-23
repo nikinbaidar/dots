@@ -42,8 +42,8 @@ source ${DOTS}/shell/prompt_colors
 source ${XDG_CONFIG_HOME}/fzf/fzfrc
 source ${XDG_CONFIG_HOME}/lf/pretty_lf.sh
 
-PS1="${R}[${G}\u${P}@${B}\h${W}: ${Y}\W${R}]${C}\$${F} "
 
 # Shell options
 shopt -s checkjobs
 
+PS1="${R}[${G}\u${P}@${B}\h${W}: ${Y}\W${R}]${C}\$${F} "

@@ -1,14 +1,16 @@
+LF_COLORS=".git/=01;32:.git=32:.gitignore=32:*.mp3=35:ln=01;36:di=01;34:ex=01;32:"
 LF_ICONS=\
-"tw=:\
-st=:\
-ow=:\
-dt=:\
-di=:\
+"
+tw=:\
+st=:\
+ow=:\
+dt=:\
+di=:\
 fi=:\
 ln=:\
 or=:\
 ex=:\
-*.epub=:\
+*.epub=:\
 *.c=:\
 *.cc=:\
 *.cpp=:\
@@ -26,7 +28,7 @@ ex=:\
 *.sql=:\
 *.cmd=:\
 *.md=:\
-*.sh=:\
+*.sh=:\
 *.tar=:\
 *.tgz=:\
 *.lz4=:\
@@ -37,7 +39,7 @@ ex=:\
 *.deb=:\
 *.rpm=:\
 *.7z=:\
-*.svg=:\
+*.svg=:\
 *.svgz=:\
 *.mpeg=:\
 *.webm=:\
@@ -54,9 +56,6 @@ ex=:\
 *.png=:\
 *.class=:\
 "
-
-LF_COLORS=".git/=01;32:.git=32:.gitignore=32:*.mp3=35:ln=01;36:di=01;34:ex=01;32:"
-
 
 export LF_COLORS
 export LF_ICONS
