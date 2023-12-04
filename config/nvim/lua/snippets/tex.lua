@@ -14,8 +14,15 @@ return {
 
     
     parse({
-        trig = "bls", snippetType = "autosnippet"
+        trig = "bls",
+        snippetType = "autosnippet"
     }, [[\enlargethispage{\baselineskip}]]),
+
+    snippet("w", fmt("{} & {} & {} \\\\", {
+        i(1, "ROOT"),
+        i(2, "MEANING"),
+        i(3)
+    })), 
 
     snippet("doc", fmt([[
     \documentclass[14pt]{{extarticle}}

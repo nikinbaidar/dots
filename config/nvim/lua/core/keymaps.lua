@@ -13,6 +13,7 @@ map('n', '<leader>k', '<C-w>W'       , { noremap = true })
 map('!', '<C-d>'    , '<Del>'        , { noremap = true })
 map('n', '<leader> ', ':set spell!<CR>', { noremap = true })
 map('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
+map('n', '<leader>t', ':lua ShowTags()<CR>', {})
 
 vim.api.nvim_create_user_command(
   'MakeTitleCase',
@@ -24,9 +25,15 @@ vim.api.nvim_create_user_command(
   {bang = true, desc="Titlecase from current point to EOL"}
 )
 
-local builtin = require('telescope.builtin')
+local telescope = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>g', builtin.git_files, {})
-vim.keymap.set('n', '<leader>t', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+function ShowTags()
+    vim.api.nvim_command('! ctags -R %')
+    vim.api.nvim_command('Telescope current_buffer_tags')
+end
+
+vim.keymap.set('n', '<leader>g', telescope.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>s', telescope.buffers, {})
+vim.keymap.set('n', '<leader>f', telescope.find_files, {})
+
+

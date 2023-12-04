@@ -20,6 +20,9 @@ date = function(index)
                 i(2, 'MM'), t "-",
                 i(3, 'DD')
             }),
+            s(1, {
+                t(os.date('%Y-%m-%d %HH:%MM:%SS')), i(1)
+            }),
         })) 
     end, {})
 end

@@ -29,6 +29,7 @@ static const Rule rules[] = {
     { "tabbed",        NULL,        NULL, 1<<2,   0,         -1 },
     { "AFNI",          NULL,        NULL, 0,      1,         -1 },
     { "TopLevelShell", NULL,        NULL, 0,      1,         -1 },
+    { "GNU Octave",    NULL,        NULL, 1<<7,   1,         -1 },
 };
 
 /* layout(s) */

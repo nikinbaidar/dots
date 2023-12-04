@@ -14,10 +14,9 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 externalmonitor
 cb 
-# picom &
 slock
 
-while xsetroot -name "[$(getNetwork)]  $(date +'%a %Y %b %d') [$(miti)]  $(date +'%R:%S ')" 
+while xsetroot -name "[$(getNetwork)] [ $(date +'%a %Y %b %d')/$(miti)] [ $(date +'%R:%S]')" 
 do
     sleep 1
 done&

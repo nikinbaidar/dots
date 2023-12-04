@@ -45,8 +45,9 @@ while [ $duration -ge 0 ]; do
     sleep 1
     duration=$((duration - 1))
 done
+echo -ne "Countdown ${_g}${H}:${M}:${S}${w} ${r}Time Up!${w}"
 
 tput cnorm
 
-echo -e "\n${r}Time Up!${w}"
 play_audio
+echo

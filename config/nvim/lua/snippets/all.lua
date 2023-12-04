@@ -11,9 +11,25 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
 ]]
 
-date = function() 
-    return {os.date('%Y-%m-%d')} 
+-- date = function() 
+--     return {os.date('%Y-%m-%d')} 
+-- end
+
+date = function(index)
+    return d(index, 
+    function() 
+        return s(nil, c(1, {
+            s(1, {
+                t(os.date('%Y-%m-%d')), i(1)
+            }),
+            s(1, {
+                t(os.date('%Y-%m-%d %H:%M:%S')), i(1)
+            }),
+        })) 
+    end, {})
 end
+
+
 
 
 shebang = function() 
@@ -29,9 +45,7 @@ return {
         trig = "lorem", snippetType = "autosnippet"
     }, lorem),
 
-    snippet("date", {
-        f(date, {})
-    }),
+    snippet("date", fmt("{}", date(1))),
 
     snippet("same", fmt("example: {}, reproducedhere: {}", {
         i(1),

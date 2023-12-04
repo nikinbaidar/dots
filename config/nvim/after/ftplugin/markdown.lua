@@ -23,7 +23,6 @@ setlocal complete+=kspell
 
 command! ViewImage execute('normal! yi):silent ! pqiv " &<CR>')
 command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0')
-nnoremap <leader>f :MakeJump<CR>
 
 syntax region ConcealedCode matchgroup=ConcealGroup start=/`/ end=/`/ concealends contains=ConcealCheck
 

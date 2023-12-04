@@ -1,51 +1,27 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Vars
-declare -l main_string
-count=1;
-
-# Working Dir
-cd /tmp
-mkdir Zips
-mv *.zip Zips
-cd Zips
-
-for chapter in $(ls *.zip)
+for dir in $(ls)
 do
-  mkdir MYMANGA
-  mv ${chapter} MYMANGA
-  cd MYMANGA
+    cd ${dir}
 
-  empty_string=""
+    pdfs=""
 
-  main_string=$(ls ${chapter} | cut -f 1 -d ".")"_"
-  chapter_name=$(head -n ${count} /tmp/chap_names.txt | tail -n 1)
-  final=Chapter_$(echo ${main_string} | cut -f 2 -d "_")-"${chapter_name}".pdf
+    for image in $(ls *) ; do
+        soffice --headless --convert-to pdf ${image} > /dev/null
+        rm ${image}
+        pdfs="${pdfs} $(echo ${image} | cut --delimiter="." --fields=1).pdf"
+    done
 
-  ((count++))
+    pdftk ${pdfs} cat output "${dir}.pdf"
 
-  unzip ${chapter} > /dev/null
-  rm ${chapter}
-  pages=$(ls | wc -l)
+    rm ${pdfs}
 
-  for item in $(ls) 
-  do
-    soffice --headless --convert-to pdf ${item} > /dev/null
-    rm ${item}
-  done
+    mv "./${dir}.pdf" ..
 
-  for page in $(seq 1 ${pages})
-  do
-    empty_string+="${main_string}${page}.pdf "
-  done
+    cd ..
 
-  pdftk ${empty_string} cat output "${final}"
+    rmdir ${dir}
 
-  mv "${final}" /home/nikin/books/Mangas/Naruto/
-
-  cd ..
-  rm -rf MYMANGA
 done
 
-cd /tmp/
-rm -rf chap_names.txt Zips
+tree
