@@ -16,6 +16,14 @@ autocmd('BufReadPost', {
     command = 'syntax sync fromstart'
 })
 
+
+autocmd('BufWrite', {
+    pattern = '*.tex',
+    group = augroup,
+    desc = '',
+    command = 'try | %s/ "/ ``/g | catch | endtry'
+})
+
 autocmd('BufReadPost', {
     pattern = '*.log',
     group = augroup,

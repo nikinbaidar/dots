@@ -7,3 +7,4 @@
 **/lib.pl
 **/packer_compiled.lua
 local/bin/stop-ls
+**/surf
