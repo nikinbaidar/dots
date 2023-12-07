@@ -9,20 +9,26 @@ local augroup
 autocmd = vim.api.nvim_create_autocmd
 augroup = vim.api.nvim_create_augroup('augroup', {clear = true})
 
-autocmd('BufReadPost', {
-    pattern = '*',
+autocmd('BufWritePost', {
+    pattern = 'augroup.lua',
     group = augroup,
-    desc = '',
+    desc = 'Automatically source this file after saving',
+    command = 'so'
+}) 
+
+autocmd('BufReadPost', {
+    pattern = '*.md, *.tex',
+    group = augroup,
+    desc = 'Fixes markdown and tex syntax breaking',
     command = 'syntax sync fromstart'
 })
-
 
 autocmd('BufWrite', {
     pattern = '*.tex',
     group = augroup,
     desc = '',
-    command = 'try | %s/ "/ ``/g | catch | endtry'
-})
+    command = 'try | %s/\\v^(\\s*)(|[\\[\\{\\(])"/\\1\\2``/g | catch | endtry'
+}) 
 
 autocmd('BufReadPost', {
     pattern = '*.log',
@@ -38,10 +44,11 @@ autocmd('VimLeave', {
     command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
+
 autocmd('VimLeave', {
     pattern = '*',
     group = augroup,
-    desc = 'Echo nothing so gibberish don\'t print on linux terminal.',
+    desc = 'Echo nothing, so gibberish don\'t print on a linux terminal',
     command = 'echo ""'
 })
 
@@ -56,8 +63,6 @@ autocmd('TermOpen', {
 vim.cmd(' autocmd User DBUIOpened setlocal number relativenumber ')
 
 vim.cmd[[
-
-
 if has('autocmd')
   " Save and restore cursor position
   augroup remember_cursor
