@@ -40,7 +40,7 @@ function cloudsync() {
         until [ "$(dropbox-cli status)" = "Up to date" ]; do 
             :
         done
-        echo "Up to date"
+        echo "Dropbox Syncing Complete!"
         dropbox-cli stop
     }
 

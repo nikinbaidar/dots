@@ -37,6 +37,9 @@ luasnip.setup({
         r = function(index) 
             return f(function(arg) return arg[1] end, {index})
         end,
+        getTrig = function() 
+            return f(function(_, snip) return snip.trigger end, {})
+        end,
         conds = require("luasnip.extras.conditions"),
         conds_expand = require("luasnip.extras.conditions.expand"),
     },
@@ -51,19 +54,23 @@ getChoice = function(arg) return arg[1][1] end
 
 -- KEYMAPS
 
-local expand_or_jump = function()
+local expand_or_jump
+local jump_previous 
+local change_choice 
+
+expand_or_jump = function()
     if luasnip.expand_or_jumpable() then 
         luasnip.expand_or_jump()
     end
 end
 
-local jump_previous = function()
+jump_previous = function()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
 end
 
-local change_choice = function()
+change_choice = function()
     if luasnip.choice_active() then
         luasnip.change_choice(1)
     end

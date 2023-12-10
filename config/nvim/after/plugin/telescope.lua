@@ -1,16 +1,20 @@
-local telescope = require('telescope')
+#!/usr/bin/env lua
+
+local telescope
+
+telescope = require('telescope')
 
 telescope.setup {
   defaults = {
       layout_config = {
-          width=0.95;
+          width=0.95,
       },
-      results_title = "Matches",
+      prompt_prefix = '   ',
+      color_devicons = true,
   },
   pickers = {
       find_files = {
           cwd = "~/",
-          file_ignore_patterns = {".git", "node_modules"},
       },
   },
   extensions = {

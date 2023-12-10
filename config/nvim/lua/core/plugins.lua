@@ -22,6 +22,7 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'JoosepAlviste/nvim-ts-context-commentstring' ,
     'lukas-reineke/indent-blankline.nvim', 
+    'nvim-tree/nvim-web-devicons',
     {
         'nvim-lualine/lualine.nvim',
         config = function()

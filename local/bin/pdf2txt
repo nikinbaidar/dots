@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# PDF file cannot have space in it's name.
+
+xargs -I {} sh -c 'pdftotext -layout {} - | sed "s/\f/\n\n/g" > {}.txt' <<< "${1}"
+
+cat "${1}.txt" | less
+
+rm "${1}.txt" 

@@ -1,28 +1,63 @@
-local rec_item
+local rec_item 
 
 rec_item = function()
-    return s(nil,
+    return s(
+    nil,
     c(1, {
         t({""}),
-        s(nil, { t({ "", "\t\\item " }), i(1), d(2, rec_item, {}) })
+        s(nil, { t({ "", "\t\\item " }), i(1), d(2, rec_item, {}), }),
     })
     )
-end
 
+end
 
 return {
 
-    
     parse({
-        trig = "bls",
-        snippetType = "autosnippet"
-    }, [[\enlargethispage{\baselineskip}]]),
+        trig = "hypersetup",
+        snippetType = "autosnippet",
+    }, [[
+    \usepackage{hyperref}
+
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=black,
+        filecolor=magenta,      
+        urlcolor=blue,
+    }
+
+    \newcommand{\hrefund}[2]{\href{#1}{\underline{#2}}}
+    ]]),
+
+    parse({
+        trig = "baselineskip",
+        snippetType = "autosnippet",
+    }, [[\enlargethispage{\baselineskip}]]
+    ),
 
     snippet("w", fmt("{} & {} & {} \\\\", {
-        i(1, "ROOT"),
+        i(1, "ROOT/AFFIX"),
         i(2, "MEANING"),
         i(3)
     })), 
+
+    snippet( {trig = "(.*)fn", regTrig = true},
+    fmt("{}\\footnote{{{}}}", {
+        f(function(_, snip)
+            return snip.captures[1]
+        end, {}),
+        i(1),
+    })),
+
+
+    snippet("ls", {
+        t("\\begin"),
+        c(1, { t("{itemize}"), t("{enumerate}"), }),
+        c(2, { t({"[noitemsep]"}), t({""}), }),
+        t({ "", "\t\\item " }), i(3), d(4, rec_item, {}),
+        t({ "", "\\end" }), r(1)
+    }),
+
 
     snippet("doc", fmt([[
     \documentclass[14pt]{{extarticle}}
@@ -32,7 +67,6 @@ return {
     \begin{{document}}
     {}
     \end{{document}}
-
     ]], { i(1) })),
 
     snippet("beg", fmt([[
@@ -44,15 +78,6 @@ return {
     snippet("di", fmt([[
     \item [{}.] {}
     ]], { i(1), i(2) })),
-    snippet("li", fmt([[
-    \begin{{{}}}
-        \item {}{}
-    \end{{{}}}
-    ]], { 
-        c(1, { t "itemize", t "enumerate" }),
-        i(2),
-        d(3, rec_item, {}),
-        r(1) 
-    })),
 
 }
+

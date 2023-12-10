@@ -27,7 +27,7 @@ autocmd('BufWrite', {
     pattern = '*.tex',
     group = augroup,
     desc = '',
-    command = 'try | %s/\\v^(\\s*)(|[\\[\\{\\(])"/\\1\\2``/g | catch | endtry'
+    command = 'try | %s/\\v(^|\\s|footnote\\{)(|[{[(]|)"/\\1\\2``/g | catch | endtry'
 }) 
 
 autocmd('BufReadPost', {
