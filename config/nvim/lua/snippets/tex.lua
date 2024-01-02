@@ -1,4 +1,5 @@
 local rec_item 
+local rec_etymology
 
 rec_item = function()
     return s(
@@ -6,9 +7,22 @@ rec_item = function()
     c(1, {
         t({""}),
         s(nil, { t({ "", "\t\\item " }), i(1), d(2, rec_item, {}), }),
-    })
-    )
+    }))
+end
 
+rec_etymology = function()
+    return s(
+    nil,
+    c(1, {
+        t({""}),
+        s(nil, {
+            t({"", ""}),
+            i(1, "ROOT/AFFIX"), t(" & "),
+            i(2, "MEANING"),t (" & "),
+            i(3), t({" \\\\"}),
+            d(4, rec_etymology, {}),
+        }),
+    }))
 end
 
 return {
@@ -35,11 +49,19 @@ return {
     }, [[\enlargethispage{\baselineskip}]]
     ),
 
-    snippet("w", fmt("{} & {} & {} \\\\", {
-        i(1, "ROOT/AFFIX"),
-        i(2, "MEANING"),
-        i(3)
-    })), 
+    snippet("w", {
+        i(1, "ROOT/AFFIX"), t(" & "),
+        i(2, "MEANING"),t (" & "),
+        i(3), t({" \\\\"}),
+        d(4, rec_etymology, {}),
+    }),
+
+    snippet({trig = "sec"},
+    {
+        t("\\section{"), i(1), t("}"),
+        t({"", "\\label{sec:"}), r(1), t({"}", "", ""}),
+    }),
+
 
     snippet( {trig = "(.*)fn", regTrig = true},
     fmt("{}\\footnote{{{}}}", {
@@ -48,6 +70,7 @@ return {
         end, {}),
         i(1),
     })),
+
 
 
     snippet("ls", {
@@ -75,9 +98,6 @@ return {
     \end{{{}}}
     ]], { i(1), i(2), r(1) })),
 
-    snippet("di", fmt([[
-    \item [{}.] {}
-    ]], { i(1), i(2) })),
 
 }
 

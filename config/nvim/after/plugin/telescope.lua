@@ -10,7 +10,7 @@ telescope.setup {
           width=0.95,
       },
       prompt_prefix = '   ',
-      color_devicons = true,
+      file_ignore_patterns = { '.git', 'pdf', 'node_modules' },
   },
   pickers = {
       find_files = {

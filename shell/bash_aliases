@@ -36,6 +36,9 @@ function cloudsync() {
     }
 
     function pushDropbox() {
+
+        mv --verbose /home/nikin/projects/notes/Archives/*.pdf /home/nikin/Dropbox/
+
         dropbox-cli start
         until [ "$(dropbox-cli status)" = "Up to date" ]; do 
             :

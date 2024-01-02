@@ -5,5 +5,5 @@ qrencode --type utf8  < confidential
 rm confidential
 echo | xclip
 
-sleep 8
+sleep 60
 clear
