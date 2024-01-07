@@ -4,11 +4,11 @@ static const unsigned int snap      = 32;
 static const unsigned int gappx     = 2;     
 static const int showbar            = 1;      
 static const int topbar             = 1;        
-static const char *fonts[]          = {"monospace:size=9"};
+static const char *fonts[]          = { "monospace:size=9" };
 static const char dmenufont[]       = "monospace:size=9";
 static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#BBBBBB";
-static const char col_gray3[]       = "#C5C8C6";
+static const char col_gray2[]       = "#bbbbbb";
+static const char col_gray3[]       = "#c5c8c6";
 static const char col_cyan[]        = "#232323";
 static const char *colors[][3]      = {
         /*               fg         bg         border   */

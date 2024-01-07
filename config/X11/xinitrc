@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [ -d /etc/X12/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
@@ -7,16 +8,22 @@ if [ -d /etc/X12/xinit/xinitrc.d ] ; then
 fi
 
 function getNetwork() {
-    echo " "$(nmcli con | head -2 | tail -1 | awk '{print $1}')
+    network_id="$(nmcli -t -f NAME con show --active | head -1)"
+    if [[ "${network_id}" == "Laffitte" ]] then
+        echo "Wired"
+    else
+        echo "${network_id}"
+    fi
 }
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
+picom &
 externalmonitor
 cb 
 slock
 
-while xsetroot -name "[$(getNetwork)] [ $(date +'%a %Y %b %d')/$(miti)] [ $(date +'%R:%S]')" 
+while xsetroot -name "[$(getNetwork)] [$(date +'%a %Y %b %d')] [$(miti)] [$(date +'%R:%S]')" 
 do
     sleep 1
 done&
