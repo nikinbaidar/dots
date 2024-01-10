@@ -18,7 +18,6 @@ function getNetwork() {
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-picom &
 externalmonitor
 cb 
 slock

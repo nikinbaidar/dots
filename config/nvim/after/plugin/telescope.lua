@@ -9,7 +9,7 @@ telescope.setup {
       layout_config = {
           width=0.95,
       },
-      prompt_prefix = '   ',
+      prompt_prefix = '    ',
       file_ignore_patterns = { '.git', 'pdf', 'node_modules' },
   },
   pickers = {

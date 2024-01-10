@@ -19,3 +19,5 @@ pkg prefix ~/.config/octave/octave-packages ...
 %   addpath (fullfile (spm_path, "spm12-r7771"));
 %   cd (cwd);
 % end
+%
+clear -x save

@@ -45,4 +45,4 @@ source ${XDG_CONFIG_HOME}/lf/pretty_lf.sh
 # Shell options
 shopt -s checkjobs
 
-PS1="${R}[${G}\u${P}@${B}\h${W}: ${Y}\W${R}]${C}\$${F} "
+PS1="${R}[${G}\u${P}@${C}\h${W}: ${Y}\W${R}]${B}\$${F} "
