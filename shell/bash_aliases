@@ -17,6 +17,17 @@ alias pqiv="pqiv 2> /dev/null"
 alias convert2pdf="soffice --headless --convert-to pdf"
 alias vocab="/usr/bin/nvim ${HOME}/Dropbox/Vocab.tex"
 
+function blucon(){
+    JBL="F8:5C:7D:AC:31:F9"
+    SONY="90:7A:58:1F:C8:7F"
+
+    case $1 in 
+        -jbl) bluetoothctl -- connect ${JBL} ;;
+        -sony) bluetoothctl -- connect ${SONY} ;;
+        *) echo "Device not found."
+    esac
+}
+
 # Function Definitions
 function weather() {
   curl wttr.in/${1}
@@ -59,3 +70,8 @@ function def() {
         fold --width=$(tput cols) | \
         less --quit-if-one-screen -RX
     }
+
+
+
+
+

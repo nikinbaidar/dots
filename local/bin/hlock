@@ -1,0 +1,47 @@
+#!/bin/bash
+# hlock -> Hardware lock
+# https://askubuntu.com/questions/160945/is-there-a-way-to-disable-a-laptops-internal-keyboard
+# ↳ AT Translated Set 2 keyboard              id=26   [slave  keyboard (3)]
+# ↳ DELL07EA:00 06CB:7E92 Touchpad            id=21   [slave  pointer  (2)]
+# ↳ USB GAMING MOUSE                          id=17   [slave  pointer  (2)]
+
+display_usage() {
+    echo "Usage: $0 {-d|-e|-md|-me}"
+    echo "Options:"
+    echo "  -d   Detach laptop keyboard and touchpad."
+    echo "  -m   Likd -d. Also detaches USB Gaming Mouse."
+    echo "  -e   Reattach everything"
+    exit 1
+}
+
+while [[ -n "$1" ]] ; do
+    case $1  in
+        -d)
+            xinput float 26 
+            xinput float 21 
+            shift
+            ;;
+        -m) 
+            xinput float 17
+            xinput float 21 
+            xinput float 26 
+            shift
+            ;;
+        -e) 
+            xinput reattach 17 2 
+            xinput reattach 21 2 
+            xinput reattach 26 3 
+            shift
+            ;;
+
+        -h) 
+            display_usage 
+            ;;
+
+        *) 
+            echo "Use '-h' for help."
+            exit 1 
+            ;;
+    esac
+done
+

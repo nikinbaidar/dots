@@ -61,9 +61,11 @@ static const char *dmenucmd[] = {
           "-nf", col_gray3, "-sb", col_dmenu, "-sf", col_gray3, NULL 
 };
 
-static const char *nop[]           = { "no_operation", NULL };
+static const char *nop[] = { "no_operation", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
-static const char *termcmd[]       = { "st", "lterm", NULL };
+static const char *termcmd[] = { "st", "lterm", NULL };
+static const char *detach_all[] = { "hlock", "-m", NULL };
+static const char *reattach_all[] = { "hlock", "-e", NULL };
 
 /* Monitor Setup */
 static const char *dualmon[]        = { "dualmonitor", NULL };
@@ -76,6 +78,8 @@ static Key keys[] = {
 { MODKEY,             XK_b,            togglebar,      {0} },
 { MODKEY,             XK_d,            spawn,          {.v = nop } },
 { MODKEY,             XK_x,            spawn,          {.v = screenshotcmd } },
+{ MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
+{ MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 { MODKEY,             XK_bracketright, spawn,          {.v = dualmon } },
 { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
 { MODKEY,             XK_j,            focusstack,     {.i = +1 } },
@@ -97,7 +101,6 @@ static Key keys[] = {
 { MODKEY,             XK_0,            view,           {.ui = ~0 } },
 { MODKEY,             XK_a,            view,           {.ui = 3 } },
 { MODKEY,             XK_z,            view,           {.ui = 5 } },
-{ MODKEY,             XK_c,            view,           {.ui = 6 } },
 { MODKEY,             XK_comma,        focusmon,       {.i = -1 } },
 { MODKEY,             XK_period,       focusmon,       {.i = +1 } },
 { MODKEY|ShiftMask,   XK_comma,        tagmon,         {.i = -1 } },
