@@ -10,7 +10,8 @@ display_usage() {
     echo "Options:"
     echo "  -d   Detach laptop keyboard and touchpad."
     echo "  -m   Likd -d. Also detaches USB Gaming Mouse."
-    echo "  -e   Reattach everything"
+    echo "  -e   Reattach USB GAMING MOUSE"
+    echo "  -a   Reattach all"
     exit 1
 }
 
@@ -28,6 +29,11 @@ while [[ -n "$1" ]] ; do
             shift
             ;;
         -e) 
+            xinput reattach 17 2 
+            shift
+            ;;
+
+        -a) 
             xinput reattach 17 2 
             xinput reattach 21 2 
             xinput reattach 26 3 
