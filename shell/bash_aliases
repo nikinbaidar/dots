@@ -22,10 +22,18 @@ function blucon(){
     SONY="90:7A:58:1F:C8:7F"
 
     case $1 in 
-        -jbl) bluetoothctl -- connect ${JBL} ;;
-        -sony) bluetoothctl -- connect ${SONY} ;;
-        *) echo "Device not found."
+        -jbl)
+            bluetoothctl -- connect ${JBL} 
+            ;;
+
+        -sony) 
+            bluetoothctl -- connect ${SONY} 
+            ;;
+        *) 
+            echo "Device not found."
+            exit 1
     esac
+
 }
 
 # Function Definitions

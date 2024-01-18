@@ -210,9 +210,12 @@ end
 
 return {
 
-    snippet("**", fmt("**{}**",  {
-        i(1, "BOLD TEXT"),
-    })),
+    snippet({
+        trig = "**",
+        snippetType = "autosnippet"
+    }, {
+        t("**"), i(1), t("**"), i(2)
+    }),
 
     snippet({trig = "q%d", regTrig = true}, fmt([[
     {}. {} 

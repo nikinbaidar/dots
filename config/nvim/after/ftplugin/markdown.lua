@@ -15,8 +15,42 @@ vim.api.nvim_create_user_command(
   {bang = true, desc="titlecase from current point to eol"}
 )
 
+vim.api.nvim_create_user_command(
+  'Table',
+    function (args)
+        local num_rows = tonumber(args[1]) or 2
+        local num_cols = tonumber(args[2]) or 2
+
+        local table_lines = {
+            "|" .. string.rep(" |", num_cols),
+            "|" .. string.rep(" - |", num_cols)
+        }
+
+        for row = 1, num_rows do
+            local cell_line = "|"
+            for col = 1, num_cols do
+                cell_line = cell_line .. "" ..  " |"
+            end
+            table.insert(table_lines, cell_line)
+        end
+
+        local current_line = vim.fn.line('.')
+        vim.fn.append(current_line, table_lines)
+        vim.cmd("normal! j0l")
+    end,
+    { nargs = "*", range=true, bang = true, complete = 'customlist,TableComplete', desc = "Insert a Markdown table of specified rows and columns" }
+)
+
+vim.api.nvim_create_user_command(
+  'FixTable',
+  "normal! vip :! pandoc -t markdown-simple_tables<CR>",
+  {bang = true, desc="titlecase from current point to eol"}
+)
+
+vim.keymap.set('v', '<leader>t', '!pandoc -t markdown-simple_tables<CR>',
+  { silent = true, desc = 'Align selected md table using pandoc' })
+
 vim.cmd [[ 
-syntax on
 setlocal spell
 setlocal spellcapcheck=\_[\])'"   ]\+
 setlocal complete+=kspell

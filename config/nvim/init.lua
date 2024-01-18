@@ -14,4 +14,3 @@ vim.cmd 'colorscheme habamax'
 vim.cmd "hi TelescopeSelection cterm=underline guibg=#303030"
 
 
-

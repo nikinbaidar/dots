@@ -22,7 +22,7 @@ externalmonitor
 cb 
 slock
 
-while xsetroot -name "[$(getNetwork)] [$(date +'%a %Y %b %d')] [$(miti)] [$(date +'%R:%S]')" 
+while xsetroot -name "[Network: $(getNetwork)] [$(date +'%a %Y %b %d')] [$(miti)] [$(date +'%R:%S]')" 
 do
     sleep 1
 done&

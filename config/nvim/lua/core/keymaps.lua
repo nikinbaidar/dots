@@ -4,7 +4,6 @@
 -- ░▀░▀░▀▀▀░░▀░░▀░▀░▀░▀░▀░░░▀▀▀░▀░▀▀▀░▀▀▀░▀░▀
 
 local telescope 
-local showTags
 local api
 local set
 
@@ -23,7 +22,7 @@ api.nvim_set_keymap('n', '<leader>s', ':Buffers<CR>', { noremap = true })
 api.nvim_set_keymap('n', '<leader>j', '<C-w>w', { noremap = true })
 api.nvim_set_keymap('n', '<leader>k', '<C-w>W', { noremap = true }) 
 api.nvim_set_keymap('n', '<leader> ', ':set spell!<CR>', { noremap = true })
-api.nvim_set_keymap('n', '<leader>t', ':lua ShowTags()<CR>', {noremap = true})
+api.nvim_set_keymap('n', '<leader>t', ':lua showTags()<CR>', {noremap = true})
 api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 

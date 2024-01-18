@@ -6,7 +6,11 @@ require 'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = true,
-        disable = { "markdown" } 
+        -- disable = { "markdown" } 
+    },
+
+    context = {
+        enable = true
     },
 
     incremental_selection = { 
@@ -21,3 +25,4 @@ require 'nvim-treesitter.configs'.setup {
         enable = true
     },
 } 
+
