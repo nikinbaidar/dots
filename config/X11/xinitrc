@@ -7,12 +7,16 @@ if [ -d /etc/X12/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+CODEB10B5G
+
 function getNetwork() {
     network_id="$(nmcli -t -f NAME con show --active | head -1)"
     if [[ "${network_id}" == "Laffitte" ]] then
         echo "Wired"
+    elif [[ "${network_id}" == "CODEB10B5G" ]] then
+        echo "WiFi"
     else
-        echo "${network_id}"
+        echo "N/A"
     fi
 }
 
@@ -20,6 +24,7 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 externalmonitor
 cb 
+# picom&
 slock
 
 while xsetroot -name "[Network: $(getNetwork)] [$(date +'%a %Y %b %d')] [$(miti)] [$(date +'%R:%S]')" 

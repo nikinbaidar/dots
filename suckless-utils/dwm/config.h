@@ -26,11 +26,11 @@ static const Rule rules[] = {
      *      WM_NAME(STRING) = title
      */
     /* class           instance     title tags_mask  isfloating monitor */
-    { "File Picker",   NULL,        NULL, 0,      1,         -1 },
-    { "tabbed",        NULL,        NULL, 1<<2,   0,         -1 },
-    { "AFNI",          NULL,        NULL, 0,      1,         -1 },
-    { "TopLevelShell", NULL,        NULL, 0,      1,         -1 },
-    { "GNU Octave",    NULL,        NULL, 1<<7,   1,         -1 },
+    { "File Picker",   NULL,        NULL, 0,         1,         -1 },
+    { "tabbed",        NULL,        NULL, 1<<2,      0,         -1 },
+    { "AFNI",          NULL,        NULL, 0,         1,         -1 },
+    { "TopLevelShell", NULL,        NULL, 0,         1,         -1 },
+    { "GNU Octave",    NULL,        NULL, 0,         1,         -1 },
 };
 
 /* layout(s) */
@@ -42,7 +42,7 @@ static const int   lockfullscreen = 1;
 static const Layout layouts[] = {
     /* symbol     arrange function */
     { "[]=",      tile },    /* first entry is default */
-    { "><>",      NULL },    /* no layout function means floating behavior */
+    { "[φ]",      NULL },    /* no layout function means floating behavior */
     { "[M]",      monocle },
 };
 
@@ -95,7 +95,7 @@ static Key keys[] = {
 { MODKEY,             XK_Tab,          view,           {0} },
 { MODKEY,             XK_q,            killclient,     {0} },
 { MODKEY,             XK_t,            setlayout,      {.v = &layouts[0]} },
-{ MODKEY,             XK_m,            setlayout,      {.v = &layouts[2]} },
+// { MODKEY,             XK_m,            setlayout,      {.v = &layouts[2]} },
 { MODKEY,             XK_space,        setlayout,      {0} },
 { MODKEY|ShiftMask,   XK_space,        togglefloating, {0} },
 { MODKEY,             XK_0,            view,           {.ui = ~0 } },

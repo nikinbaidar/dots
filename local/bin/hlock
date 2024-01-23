@@ -1,5 +1,18 @@
 #!/bin/bash
-# hlock -> Hardware lock
+
+# ░█░█░█░░░█▀█░█▀▀░█░█░░░▄▀░░█░█░█▀█░█▀▄░█▀▄░█░█░█▀█░█▀▄░█▀▀░░█░░░█▀█░█▀▀░█░█░▀▄░
+# ░█▀█░█░░░█░█░█░░░█▀▄░░░█░░░█▀█░█▀█░█▀▄░█░█░█▄█░█▀█░█▀▄░█▀▀░░█░░░█░█░█░░░█▀▄░░█░
+# ░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░░░░▀░░▀░▀░▀░▀░▀░▀░▀▀░░▀░▀░▀░▀░▀░▀░▀▀▀░░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀░░
+
+################################################################################
+# **WARNING:** This script is designed to quickly disable USB peripherals to   #
+# prevent interference, especially in environments with children. This script  #
+# should not be used as a substitute for proper screen locking mechanisms like #
+# slock or i3 lock. Using this script as a primary security measure is not     #
+# recommended.                                                                 #
+################################################################################
+
+
 # https://askubuntu.com/questions/160945/is-there-a-way-to-disable-a-laptops-internal-keyboard
 # ↳ AT Translated Set 2 keyboard              id=26   [slave  keyboard (3)]
 # ↳ DELL07EA:00 06CB:7E92 Touchpad            id=21   [slave  pointer  (2)]
@@ -51,3 +64,4 @@ while [[ -n "$1" ]] ; do
     esac
 done
 
+exit 0
