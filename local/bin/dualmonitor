@@ -3,8 +3,5 @@
 intern=eDP-1
 extern=DP-1
 
-
 xrandr --output ${extern} --primary --mode 1366x768 --pos 0x0 --rotate normal \
   --output ${intern} --mode 1368x768 --rotate normal --brightness 1.0 --right-of ${extern}
-
-cb

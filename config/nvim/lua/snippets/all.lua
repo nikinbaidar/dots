@@ -11,10 +11,6 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
 ]]
 
--- date = function() 
---     return {os.date('%Y-%m-%d')} 
--- end
-
 date = function(index)
     return d(index, 
     function() 
@@ -30,15 +26,6 @@ date = function(index)
 end
 
 
-
-
-shebang = function() 
-    if vim.bo.filetype == "sh" then
-        return { "#!/bin/bash" }
-    end
-    return { "#!/usr/bin/env "  .. vim.bo.filetype }
-end
-
 return {
 
     parse({
@@ -52,9 +39,13 @@ return {
         r(1)
     })),
 
-    snippet("#!", {
-        f(shebang, {})
-    }),
+    snippet("#!", fmt("#!/{} {}", {
+        c(1, { 
+            t "bin/bash", 
+            t "usr/bin/env",
+        }),
+        i(2), 
+    })), 
 
     snippet({
         trig = "helloworld",

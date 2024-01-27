@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# ░▀█▀░█▀█░▀█▀░▀█▀░█▄█░█▀█░█▀█
+# ░░█░░█░█░░█░░░█░░█░█░█░█░█░█
+# ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀░▀
+
+
+function isExternalMonitorConnected () {
+    [[ $(xrandr | awk '/^DP-1/ {print $2}') = "connected" ]]
+}
+
+function display_help() {
+    echo "Usage: $0 [OPTION]"
+    echo "Switch and config displays."
+    echo
+    echo "Options:"
+    echo "  -e, --external      External monitor"
+    echo "  -d, --dual          Dual monitor"
+    echo "  -p, --presentation  Dual monitor mirrored"
+    echo "  -l, --laptop        Laptop"
+    echo
+}
+
+case $1 in
+    "--init" ) 
+        if isExternalMonitorConnected; then
+            # Use DP-1 only.
+            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+                --rotate normal --output eDP-1 --off
+        else
+            # Swtich to eDP-1 because there's no DP-1
+            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
+                --rotate normal --output DP-1 --off
+        fi
+        ;;
+
+    "-e" | "--external") 
+        if isExternalMonitorConnected; then
+            # Use DP-1 only.
+            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+                --rotate normal --output eDP-1 --off
+        else
+            # Swtich to eDP-1 because there's no DP-1
+            dm "External monitor not connected!" &
+            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
+                --rotate normal --output DP-1 --off
+        fi
+        ;;
+
+    "-d" | "--dual" )
+
+        if isExternalMonitorConnected; then
+            # Put eDP-1 right of DP-1
+            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+                --rotate normal --output eDP-1 --mode 1368x768 \
+                --rotate normal --brightness 1.0 --right-of DP-1
+        else
+            # Swtich to eDP-1 only
+            dm "External monitor not connected!" &
+            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
+                --rotate normal --output DP-1 --off 
+        fi
+        ;;
+
+    "-p" | "--presentation")
+
+        xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
+            --rotate normal --output DP-1 --mode 1366x768 --pos 0x0 \
+            --rotate normal --output DP-2 --off --output HDMI-1 --off
+        ;;
+
+    "-l" | "--laptop")
+        xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
+            --rotate normal --output DP-1 --off
+        ;;
+
+    "-h" | "--help")
+        display_help
+        ;;
+
+    *) 
+        exit 1 
+        ;;
+esac

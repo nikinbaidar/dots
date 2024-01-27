@@ -65,11 +65,11 @@ static const char *nop[] = { "no_operation", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
 static const char *termcmd[] = { "st", "lterm", NULL };
 static const char *detach_all[] = { "hlock", "-m", NULL };
-static const char *reattach_all[] = { "hlock", "-e", NULL };
+static const char *reattach_all[] = { "hlock", "-a", NULL };
 
 /* Monitor Setup */
-static const char *dualmon[]        = { "dualmonitor", NULL };
-static const char *externalmon[]    = { "externalmonitor", NULL };
+static const char *dualmon[]        = { "moncon", "-d",  NULL };
+static const char *externalmon[]    = { "moncon", "-e", NULL };
 
 static Key keys[] = {
 /* modifier           key              function        argument */
@@ -91,9 +91,10 @@ static Key keys[] = {
 { MODKEY|ShiftMask,   XK_h,            setcfact,       {.f = +0.25} },
 { MODKEY|ShiftMask,   XK_l,            setcfact,       {.f = -0.25} },
 { MODKEY|ShiftMask,   XK_o,            setcfact,       {.f =  0.00} },
-{ MODKEY,             XK_f,            zoom,           {0} },
+{ MODKEY,             XK_m,            zoom,           {0} },
 { MODKEY,             XK_Tab,          view,           {0} },
 { MODKEY,             XK_q,            killclient,     {0} },
+{ MODKEY,             XK_f,            togglefullscr,  {0} },
 { MODKEY,             XK_t,            setlayout,      {.v = &layouts[0]} },
 // { MODKEY,             XK_m,            setlayout,      {.v = &layouts[2]} },
 { MODKEY,             XK_space,        setlayout,      {0} },

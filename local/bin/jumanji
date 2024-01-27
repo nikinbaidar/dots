@@ -1,6 +1,0 @@
-#! /bin/bash
-
-filename="${1}"
-
-# tabbed -c zathura ${filename} -e & &> /dev/null
-tabbed -c zathura "${filename}" -e &> /dev/null &

@@ -1,35 +1,49 @@
 #!/bin/bash
 
+# ░█░█░▀█▀░█▀█░▀█▀░▀█▀░█▀▄░█▀▀
+# ░▄▀▄░░█░░█░█░░█░░░█░░█▀▄░█░░
+# ░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀
+
 if [ -d /etc/X12/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
 fi
 
-CODEB10B5G
+function getnet() {
+    net_type="$(nmcli -t -f TYPE connection show --active | awk -F '-' '{print $3}' | head -1)"
+    case "${net_type}" in
+        "ethernet") 
+            echo "Wired" 
+            ;;
+        "wireless") 
+            echo "WiFi" 
+            ;;
+        *) 
+            echo 
+            "localhost" 
+            ;;
+    esac
+}
 
-function getNetwork() {
-    network_id="$(nmcli -t -f NAME con show --active | head -1)"
-    if [[ "${network_id}" == "Laffitte" ]] then
-        echo "Wired"
-    elif [[ "${network_id}" == "CODEB10B5G" ]] then
-        echo "WiFi"
-    else
-        echo "N/A"
-    fi
+function simplestatus() {
+    n="[Network: $(getnet)]"
+    d="[$(date +'%a %Y %b %d')]"
+    m="[$(miti)]"
+    t="[$(date +'%R:%S')]"
+    xsetroot -name "${n} ${d} ${m} ${t}"
 }
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-externalmonitor
+moncon --init
 cb 
-# picom&
 slock
 
-while xsetroot -name "[Network: $(getNetwork)] [$(date +'%a %Y %b %d')] [$(miti)] [$(date +'%R:%S]')" 
+while simplestatus 
 do
     sleep 1
-done&
+done &
 
 exec dwm

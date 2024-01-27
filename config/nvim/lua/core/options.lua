@@ -22,3 +22,5 @@ vim.opt.tabstop        = 4
 vim.opt.softtabstop    = 4
 vim.opt.textwidth      = 79
 vim.opt.colorcolumn    = "80"
+vim.opt.path           = "80"
+vim.opt.path           = ".,**,/usr/include,,"

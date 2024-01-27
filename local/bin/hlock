@@ -16,7 +16,7 @@
 # https://askubuntu.com/questions/160945/is-there-a-way-to-disable-a-laptops-internal-keyboard
 # ↳ AT Translated Set 2 keyboard              id=26   [slave  keyboard (3)]
 # ↳ DELL07EA:00 06CB:7E92 Touchpad            id=21   [slave  pointer  (2)]
-# ↳ USB GAMING MOUSE                          id=17   [slave  pointer  (2)]
+# ↳ USB GAMING MOUSE                          id=15   [slave  pointer  (2)]
 
 display_usage() {
     echo "Usage: $0 {-d|-e|-md|-me}"
@@ -28,6 +28,7 @@ display_usage() {
     exit 1
 }
 
+
 while [[ -n "$1" ]] ; do
     case $1  in
         -d)
@@ -35,19 +36,23 @@ while [[ -n "$1" ]] ; do
             xinput float 21 
             shift
             ;;
+        -t)
+            xinput float 21 
+            shift
+            ;;
         -m) 
-            xinput float 17
+            xinput float 14
             xinput float 21 
             xinput float 26 
             shift
             ;;
         -e) 
-            xinput reattach 17 2 
+            xinput reattach 14 2 
             shift
             ;;
 
         -a) 
-            xinput reattach 17 2 
+            xinput reattach 14 2 
             xinput reattach 21 2 
             xinput reattach 26 3 
             shift
