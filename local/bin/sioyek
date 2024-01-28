@@ -1,5 +1,5 @@
 open() {
-    /home/nikin/projects/sioyek/build/sioyek "$@" > /dev/null 2>&1 &
+    /home/nikin/projects/sioyek/sioyek "$@" > /dev/null 2>&1 &
 }
 
 args=()

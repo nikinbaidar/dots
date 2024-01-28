@@ -28,33 +28,39 @@ display_usage() {
     exit 1
 }
 
+lk="$(xinput | awk '/AT Translated.*keyboard/ { for (i=1; i<=NF; i++) if ($i ~ /id=/) { split($i, parts, "="); print parts[2] } }')"
+
+
+tp="$(xinput | awk '/DELL.*Touchpad/ { for (i=1; i<=NF; i++) if ($i ~ /id=/) { split($i, parts, "="); print parts[2] } }')"
+
+gm="$(xinput | awk '/USB GAMING MOUSE[[:space:]]*id/ { for (i=1; i<=NF; i++) if ($i ~ /id=/) { split($i, parts, "="); print parts[2] } }')"
 
 while [[ -n "$1" ]] ; do
     case $1  in
         -d)
-            xinput float 26 
-            xinput float 21 
+            xinput float ${lk}
+            xinput float ${tp}
             shift
             ;;
         -t)
-            xinput float 21 
+            xinput float ${tp}
             shift
             ;;
         -m) 
-            xinput float 14
-            xinput float 21 
-            xinput float 26 
+            xinput float ${gm}
+            xinput float ${tp}
+            xinput float ${lk}
             shift
             ;;
         -e) 
-            xinput reattach 14 2 
+            xinput reattach ${gm} 2 
             shift
             ;;
 
         -a) 
-            xinput reattach 14 2 
-            xinput reattach 21 2 
-            xinput reattach 26 3 
+            xinput reattach ${gm} 2 
+            xinput reattach ${tp} 2 
+            xinput reattach ${lk} 3 
             shift
             ;;
 
