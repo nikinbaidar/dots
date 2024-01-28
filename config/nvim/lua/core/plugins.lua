@@ -33,6 +33,8 @@ require("lazy").setup({
     'windwp/nvim-autopairs',
     'tpope/vim-surround',
     'tpope/vim-repeat',
+    'tpope/vim-repeat',
+    'tpope/vim-fugitive',
     {
         'nvim-telescope/telescope-fzf-native.nvim', 
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 

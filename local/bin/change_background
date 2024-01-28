@@ -1,15 +1,46 @@
 #!/bin/bash
+
+# ░█▀▀░█░█░█▀█░█▀█░█▀▀░█▀▀░░░░░█▀▄░█▀█░█▀▀░█░█░█▀▀░█▀▄░█▀█░█░█░█▀█░█▀▄
+# ░█░░░█▀█░█▀█░█░█░█░█░█▀▀░░░░░█▀▄░█▀█░█░░░█▀▄░█░█░█▀▄░█░█░█░█░█░█░█░█
+# ░▀▀▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀░
+
+wallpapers="${HOME}/Pictures/wallpapers"
+interval=3
+
 function set_random_wallpaper() {
-  echo $(find ${HOME}/Pictures/wallpapers/ -maxdepth 1 -type f | shuf -n 1) | xargs feh --no-fehbg --bg-fill
+    echo $(find ${wallpapers} -maxdepth 1 -type f | shuf -n 1) | xargs feh --no-fehbg --bg-fill
 }
 
-if [ ${#} -eq 0 ] ; then
-  set_random_wallpaper
-elif [ ${1} = "-c" ] ; then
-  while true ; do
+function display_help() {
+    cat << EOF
+Usage: $0 [OPTIONS]
+Set desktop wallpaper using feh.
+Options:
+  -c [<int>]  Set a new wallpaper after <int> (default 3) seconds.
+  <file>      Set the specified file as the wallpaper.
+EOF
+}
+
+if [ $# -eq 0 ]; then
     set_random_wallpaper
-    sleep ${2}
-  done
 else
-  feh --no-fehbg --bg-fill ${1}
+    case ${1} in
+        -c)
+            # Use the provided interval
+            interval=${2:-$interval}
+            while true ; do
+                set_random_wallpaper
+                sleep "${interval}"
+            done
+            ;;
+        -h)
+            display_help
+            ;;
+        *)
+            # Assume it's a file path and set it as the wallpaper
+            feh --no-fehbg --bg-fill "${1}"
+            ;;
+    esac
 fi
+
+exit 0

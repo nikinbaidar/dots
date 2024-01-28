@@ -13,25 +13,27 @@ fi
 
 function getnet() {
     net_type="$(nmcli -t -f TYPE connection show --active | awk -F '-' '{print $3}' | head -1)"
+    name="$(nmcli -t -f NAME connection show --active | head -1)"
     case "${net_type}" in
         "ethernet") 
-            echo "Wired" 
+            net="󰈀" 
             ;;
         "wireless") 
-            echo "WiFi" 
+            net=" " 
             ;;
         *) 
-            echo 
-            "localhost" 
+            net="" 
             ;;
     esac
+
+    echo -n "${net} ${name}"
 }
 
 function simplestatus() {
-    n="[Network: $(getnet)]"
-    d="[$(date +'%a %Y %b %d')]"
+    n="[$(getnet)]"
+    d=" $(date +'%a %Y %b %d')"
     m="[$(miti)]"
-    t="[$(date +'%R:%S')]"
+    t=" $(date +'%R:%S') "
     xsetroot -name "${n} ${d} ${m} ${t}"
 }
 
@@ -40,6 +42,11 @@ xset -dpms && xset s off &
 moncon --init
 cb 
 slock
+
+if [[ -f /usr/bin/picom ]]
+then
+    picom &
+fi
 
 while simplestatus 
 do
