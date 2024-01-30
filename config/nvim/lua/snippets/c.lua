@@ -1,53 +1,39 @@
+-- DO NOT DETELTE THIS
+local surrround = function(index) 
+    pass = f(function(arg) 
+        if ((arg[1][1] == "<")) then return ">" 
+        end 
+        return arg[1] end, {index})
+    return pass
+end
+
 
 return {
 
-    snippet({
-        trig = "io",
-        snippetType = "autosnippet"
-    }, {
-        t ("#include <stdio.h>")
-    }, {
+    snippet({ trig = "(.+)%.h", regTrig=true, snippetType = "autosnippet"}, fmt("#include <{}>", {
+        getTrig(),
+    }), {
         condition = conds_expand.line_begin 
     }),
 
-    snippet({ trig = "inc", snippetType = "autosnippet"}, {
-        c(1, { 
-            s(1, {
-                t ("#include <"), i(1), t({".h>", ""})
-            }),
-            s(2, {
-                t ("#include \""), i(1), t({"\"", ""})
-            }),
-        }) 
-    }, {
+    snippet({ trig = "(.+)%.h", regTrig=true}, fmt("#include \"{}\"", {
+        getTrig(),
+    }), {
         condition = conds_expand.line_begin 
     }),
 
-    snippet({ trig = "pf", snippetType = "autosnippet"}, fmt("printf(\"{}\"{});",
+    snippet({ trig = "main"}, {
+        t({"int main() {", ""}),
+        t ("    "),
+        i(1),
+        t({"", "    return 0;", "}" })
+    }),
+
+    snippet({ trig = "print", snippetType = "autosnippet"}, fmt("printf(\"{}\"{});",
     {
         i(1), i(2)
     }), {
         condition = conds_expand.line_begin 
     }),
-
-    snippet({
-        trig = "fn",
-        snippetType = "autosnippet"
-    }, {
-		i(1),
-		m(1, "[v]", "oid "),
-		m(1, "[i]", "nt "),
-		m(1, "[f]", "loat "),
-		m(1, "[d]", "ouble "),
-		m(1, "[l]", "ong int "),
-        i(2, "main()"),
-        t(" "),
-        t({"{", "\t"}),
-        i(3),
-        t({"", "}"}),
-	}, {
-        condition = conds_expand.line_begin 
-    }),
-
 
 }

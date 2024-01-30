@@ -70,6 +70,7 @@ static const char *reattach_all[] = { "hlock", "-a", NULL };
 /* Monitor Setup */
 static const char *dualmon[]        = { "moncon", "-d",  NULL };
 static const char *externalmon[]    = { "moncon", "-e", NULL };
+static const char *lapmon[]    = { "moncon", "-l", NULL };
 
 static Key keys[] = {
 /* modifier           key              function        argument */
@@ -81,6 +82,7 @@ static Key keys[] = {
 { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
 { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 { MODKEY,             XK_bracketright, spawn,          {.v = dualmon } },
+{ MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = lapmon } },
 { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
 { MODKEY,             XK_j,            focusstack,     {.i = +1 } },
 { MODKEY,             XK_k,            focusstack,     {.i = -1 } },
