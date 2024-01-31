@@ -22,7 +22,7 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'JoosepAlviste/nvim-ts-context-commentstring' ,
     'lukas-reineke/indent-blankline.nvim', 
-    'nvim-tree/nvim-web-devicons',
+    -- 'nvim-tree/nvim-web-devicons',
     {
         'nvim-lualine/lualine.nvim',
         config = function()
@@ -36,12 +36,11 @@ require("lazy").setup({
     'tpope/vim-repeat',
     'tpope/vim-fugitive',
     {
-        'nvim-telescope/telescope-fzf-native.nvim', 
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
-    },
-    {
         'nvim-telescope/telescope.nvim', tag = '0.1.3',
         dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    {
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     {
         "L3MON4D3/LuaSnip",
