@@ -13,6 +13,12 @@ telescope.setup {
                 ["<esc>"] = actions.close,
                 ["<C-u>"] = false,
                 ["<M-p>"] = layout.toggle_preview,
+                ["<C-s>"] = function(prompt_bufnr)
+                    local selection = require("telescope.actions.state").get_selected_entry()
+                    local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                    require("telescope.actions").close(prompt_bufnr)
+                    vim.cmd(string.format("tcd %s", dir))
+                end
             },
         },
         vimgrep_arguments = {
@@ -29,16 +35,6 @@ telescope.setup {
     pickers = {
         find_files = {
             cwd = vim.fn.expand('~'),
-            mappings = {
-                i = {
-                    ["<C-s>"] = function(prompt_bufnr)
-                        local selection = require("telescope.actions.state").get_selected_entry()
-                        local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-                        require("telescope.actions").close(prompt_bufnr)
-                        vim.cmd(string.format("tcd %s", dir))
-                    end
-                }
-            },
         },
         buffers = {
             mappings = {
