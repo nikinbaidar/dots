@@ -10,8 +10,9 @@ end
 
 return {
 
-    snippet({ trig = "(.+)%.h", regTrig=true, snippetType = "autosnippet"}, fmt("#include <{}>", {
+    snippet({ trig = "(.+)%.h", regTrig=true, snippetType = "autosnippet"}, fmt("#include <{}>{}", {
         getTrig(),
+        t({"", ""}),
     }), {
         condition = conds_expand.line_begin 
     }),
@@ -29,11 +30,6 @@ return {
         t({"", "    return 0;", "}" })
     }),
 
-    snippet({ trig = "print", snippetType = "autosnippet"}, fmt("printf(\"{}\"{});",
-    {
-        i(1), i(2)
-    }), {
-        condition = conds_expand.line_begin 
-    }),
+    snippet({ trig = "print" }, fmt("printf(\"{}\"{});", { i(1), i(2) }), {}),
 
 }

@@ -48,7 +48,7 @@ return {
     })), 
 
     snippet({
-        trig = "helloworld",
+        trig = "hello",
         snippetType = "autosnippet"
     }, {
         t("Hello, World!")
