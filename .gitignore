@@ -8,3 +8,4 @@
 **/packer_compiled.lua
 local/bin/stop-ls
 **/surf
+config/nvim/lazy-lock.json
