@@ -1,4 +1,4 @@
---
+-- 
 -- ░█▀█░█░█░█▀▀░█▀▄░█▀█░█░█░█▀█░░░░█░░░█░█░█▀█
 -- ░█▀█░█░█░█░█░█▀▄░█░█░█░█░█▀▀░░░░█░░░█░█░█▀█
 -- ░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░░░▀░░▀▀▀░▀▀▀░▀░▀
@@ -41,7 +41,7 @@ autocmd('BufReadPost', {
     pattern = '*.log',
     group = augroup,
     desc = 'Do not wrap long lines',
-    command = 'set nowrap'
+    command = 'setlocal nowrap'
 })
 
 autocmd('VimLeave', {
@@ -51,14 +51,12 @@ autocmd('VimLeave', {
     command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
-
 autocmd('VimLeave', {
     pattern = '*',
     group = augroup,
     desc = 'Echo nothing, so gibberish don\'t print on a linux terminal',
     command = 'echo ""'
 })
-
 
 autocmd('TermOpen', {
     pattern = 'term://*',
