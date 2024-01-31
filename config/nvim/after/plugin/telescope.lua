@@ -1,33 +1,66 @@
 #!/usr/bin/env lua
 
-local telescope
-
-telescope = require('telescope')
+local telescope = require('telescope')
+local actions = require("telescope.actions")
+local layout = require("telescope.actions.layout")
 
 telescope.setup {
-  defaults = {
-      layout_config = {
-          width=0.95,
-      },
-      prompt_prefix = '    ',
-      file_ignore_patterns = { '.git', 'pdf', 'node_modules' },
-  },
-  pickers = {
-      find_files = {
-          cwd = "~/",
-      },
-  },
-  extensions = {
-      fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-          files = 8,
-      }
-  }
+    defaults = {
+        layout_config = { width = 0.90 },
+        prompt_prefix = '   ',
+        mappings = {
+            i = {
+                ["<esc>"] = actions.close,
+                ["<C-u>"] = false,
+                ["<M-p>"] = layout.toggle_preview,
+            },
+        },
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim"
+        },
+    },
+    pickers = {
+        find_files = {
+            cwd = vim.fn.expand('~'),
+            mappings = {
+                i = {
+                    ["<C-s>"] = function(prompt_bufnr)
+                        local selection = require("telescope.actions.state").get_selected_entry()
+                        local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                        require("telescope.actions").close(prompt_bufnr)
+                        vim.cmd(string.format("tcd %s", dir))
+                    end
+                }
+            },
+        },
+        buffers = {
+            mappings = {
+                i = {
+                    ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
+                }
+            }
+        },
+        current_buffer_fuzzy_find, live_grep, grep_string = {
+            previewer = false,
+        },
+        extensions = {
+            fzf = {
+                fuzzy = true,                    -- false will only do exact matching
+                override_generic_sorter = true,  -- override the generic sorter
+                override_file_sorter = true,     -- override the file sorter
+                case_mode = "ignore_case",
+            }
+        },
+    },
 }
+
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 telescope.load_extension('fzf')
-
