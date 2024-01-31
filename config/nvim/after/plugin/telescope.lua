@@ -43,7 +43,10 @@ telescope.setup {
                 }
             }
         },
-        current_buffer_fuzzy_find, live_grep, grep_string = {
+        current_buffer_fuzzy_find = {
+            previewer = false,
+        },
+        live_grep = {
             previewer = false,
         },
         extensions = {
