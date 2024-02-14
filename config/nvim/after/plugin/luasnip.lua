@@ -40,6 +40,12 @@ luasnip.setup({
         getTrig = function() 
             return f(function(_, snip) return snip.trigger end, {})
         end,
+        getTrigNum = function() 
+            return f(function(_, snip) 
+            -- print(type(snip.trigger))
+            local numericPart = string.match(snip.trigger, "%d+")
+            return numericPart end, {})
+        end,
         conds = require("luasnip.extras.conditions"),
         conds_expand = require("luasnip.extras.conditions.expand"),
     },

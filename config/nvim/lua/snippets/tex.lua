@@ -28,6 +28,11 @@ end
 return {
 
     parse({
+        trig = "ohm", 
+    }, "$\\Omega$"),
+
+
+    parse({
         trig = "hypersetup",
         snippetType = "autosnippet",
     }, [[
@@ -43,11 +48,49 @@ return {
     \newcommand{\hrefund}[2]{\href{#1}{\underline{#2}}}
     ]]),
 
+    snippet("slide", fmt([[
+    \begin{{frame}}
+        \frametitle{{{}}}
+        \section{{{}}}
+        {}
+    \end{{frame}}
+    ]], { i(1), r(1), i(2) })),
+
     parse({
         trig = "baselineskip",
         snippetType = "autosnippet",
     }, [[\enlargethispage{\baselineskip}]]
     ),
+
+   snippet({
+       trig = "\\q"
+   }, {
+        t({"\\question", ""}),
+        i(1),
+        t({"", "\\begin{choices}"}),
+        t({"", "    \\choice "}), i(2),
+        t({"", "    \\choice "}), i(3),
+        t({"", "    \\choice "}), i(4),
+        t({"", "    \\choice "}), i(5),
+        t({"", "\\end{choices}", ""}),
+    }),
+
+   snippet({
+       trig = "fig" }, {
+        t({"\\begin{figure}[h]", "\\centering", ""}),
+        t("\\includegraphics[scale="), i(3, "0.50"), t("]{./"),
+        i(1), t({"}", ""}),
+        i(2), t("\\caption{}"), 
+        t({"", "\\label{fig:"}), 
+        r(1), t("}"),
+
+
+        t({"", "\\end{figure}", ""}),
+    }),
+
+    -- snippet({ trig = "(%a+)", regTrig=true}, {
+    --     t"\\", getTrig()
+    -- }),
 
     snippet("w", {
         i(1, "ROOT/AFFIX"), t(" & "),
@@ -62,6 +105,10 @@ return {
         t({"", "\\label{sec:"}), r(1), t({"}", "", ""}),
     }),
 
+    snippet({trig = "vs(%d+)", regTrig = true}, fmt("\\vspace{{{}pt}}", {
+        getTrigNum()
+    })),
+
 
     snippet( {trig = "(.*)fn", regTrig = true},
     fmt("{}\\footnote{{{}}}", {
@@ -69,6 +116,11 @@ return {
             return snip.captures[1]
         end, {}),
         i(1),
+    })),
+
+    snippet( {trig = "frac"},
+    fmt("\\displaystyle\\frac{{{}}}{{{}}}", {
+        i(1), i(2)
     })),
 
 
