@@ -25,6 +25,7 @@ display_usage() {
     echo "  -m   Likd -d. Also detaches USB Gaming Mouse."
     echo "  -e   Reattach USB GAMING MOUSE"
     echo "  -a   Reattach all"
+    echo "  -t   Dettach all USB pointer devices. (For touchscreen)"
     exit 1
 }
 
@@ -44,6 +45,7 @@ while [[ -n "$1" ]] ; do
             ;;
         -t)
             xinput float ${tp}
+            xinput float ${gm}
             shift
             ;;
         -m) 
