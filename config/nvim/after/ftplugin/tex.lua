@@ -14,7 +14,7 @@ vim.b.spell = false
 vim.keymap.set('n', '<leader>v',  
 function()
     local filepath = vim.fn.expand('%:r') .. ".pdf"
-    vim.api.nvim_command("silent ! maggie " .. filepath)
+    vim.api.nvim_command("silent ! sioyek " .. filepath)
 end
 )
 
