@@ -8,6 +8,7 @@ telescope.setup {
     defaults = {
         layout_config = { width = 0.90 },
         prompt_prefix = '   ',
+        file_ignore_patterns = { "%.pdf" },
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
