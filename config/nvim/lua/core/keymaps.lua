@@ -9,7 +9,8 @@ local builtin = require('telescope.builtin')
 -- Functions defs need to global
 
 function showTags()
-    vim.api.nvim_command('! ctags -R %')
+    local escaped_filename = vim.fn.shellescape(vim.fn.expand('%'))
+    vim.api.nvim_command('! ctags -R ' .. escaped_filename)
     vim.api.nvim_command('Telescope current_buffer_tags')
 end
 
@@ -45,9 +46,9 @@ vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 vim.api.nvim_create_user_command(
   'MakeTitleCase',
   function()
-    api.nvim_command("normal! i\")
-    api.nvim_command("s#\\v(\\w)(\\S*)#\\u\\1\\L\\2#g")
-    api.nvim_command("normal! kJ")
+    vim.api.nvim_command("normal! i\")
+    vim.api.nvim_command("s#\\v(\\w)(\\S*)#\\u\\1\\L\\2#g")
+    vim.api.nvim_command("normal! kJ")
   end,
   {bang = true, desc="Titlecase from current point to EOL"}
 )
@@ -58,3 +59,6 @@ vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.api.nvim_set_keymap('n', '<leader>.', ':lua vim.find_files_from_project_git_root()<CR>', {noremap = true})
 
+vim.cmd([[
+  command! -range=% FixMultipleSpaces :<line1>,<line2>s/\s\+/ /g
+]])

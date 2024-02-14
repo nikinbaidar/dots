@@ -9,43 +9,6 @@ vim.bo.tabstop = 2
 vim.bo.softtabstop = 2
 
 vim.api.nvim_create_user_command(
-  'Maketitlecase',
-  function()
-    vim.api.nvim_command("normal! i\")
-    vim.api.nvim_command("s#\\v(\\w)(\\s*)#\\u\\1\\l\\2#g")
-    vim.api.nvim_command("normal! kj")
-  end,
-  {bang = true, desc="titlecase from current point to eol"}
-)
-
--- vim.api.nvim_create_user_command(
---   'Table',
---     function (args)
---         local num_rows = tonumber(args[1]) or 2
---         local num_cols = tonumber(args[2]) or 2
---         print(num_rows, num_cols)
---
---         local table_lines = {
---             "|" .. string.rep(" |", num_cols),
---             "|" .. string.rep(" - |", num_cols)
---         }
---
---         for row = 1, num_rows do
---             local cell_line = "|"
---             for col = 1, num_cols do
---                 cell_line = cell_line .. "" ..  " |"
---             end
---             table.insert(table_lines, cell_line)
---         end
---
---         local current_line = vim.fn.line('.')
---         vim.fn.append(current_line, table_lines)
---         vim.cmd("normal! j0l")
---     end,
---     { nargs = "*", bang = true, complete = 'customlist,TableComplete', desc = "Insert a Markdown table of specified rows and columns" }
--- )
-
-vim.api.nvim_create_user_command(
   'Table',
   function (args)
 
