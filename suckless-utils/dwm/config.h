@@ -2,7 +2,7 @@
 static const unsigned int borderpx  = 1;    
 static const unsigned int snap      = 32; 
 static const unsigned int gappx     = 2;     
-static const int showbar            = 1;      
+static const int showbar            = 0;      
 static const int topbar             = 1;        
 static const char *fonts[]          = { "monospace:size=9" };
 static const char dmenufont[]       = "monospace:size=9";
@@ -66,6 +66,7 @@ static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
 static const char *termcmd[] = { "st", "lterm", NULL };
 static const char *detach_all[] = { "hlock", "-m", NULL };
 static const char *reattach_all[] = { "hlock", "-a", NULL };
+static const char *gifrun[] = { "rungif", NULL };
 
 /* Monitor Setup */
 static const char *dualmon[]        = { "moncon", "-d",  NULL };
@@ -82,6 +83,7 @@ static Key keys[] = {
 { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
 { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 { MODKEY,             XK_bracketright, spawn,          {.v = dualmon } },
+{ MODKEY,             XK_g, spawn,          {.v = gifrun } },
 { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = lapmon } },
 { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
 { MODKEY,             XK_j,            focusstack,     {.i = +1 } },

@@ -48,9 +48,9 @@ then
     picom &
 fi
 
-while simplestatus 
-do
-    sleep 1
-done &
+# while simplestatus 
+# do
+#     sleep 1
+# done &
 
 exec dwm
