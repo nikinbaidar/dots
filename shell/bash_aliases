@@ -55,7 +55,7 @@ function weather() {
 function cloudsync() {
 
     function pushNotes() {
-        pushd ~/projects/notes
+        pushd ~/notes
         branch=$(git branch | awk ' /\*/ {print $2} ')
         git pull
         git add --all
