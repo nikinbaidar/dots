@@ -41,16 +41,15 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 moncon --init
 cb 
-slock
 
 if [[ -f /usr/bin/picom ]]
 then
     picom &
 fi
 
-# while simplestatus 
-# do
-#     sleep 1
-# done &
+while simplestatus 
+do
+    sleep 1
+done &
 
 exec dwm
