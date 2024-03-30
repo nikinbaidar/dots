@@ -2,7 +2,7 @@
 static const unsigned int borderpx  = 1;    
 static const unsigned int snap      = 32; 
 static const unsigned int gappx     = 2;     
-static const int showbar            = 0;      
+static const int showbar            = 1;      
 static const int topbar             = 1;        
 static const char *fonts[]          = { "monospace:size=9" };
 static const char dmenufont[]       = "monospace:size=9";
@@ -27,7 +27,6 @@ static const Rule rules[] = {
      */
     /* class           instance     title tags_mask  isfloating monitor */
     { "File Picker",   NULL,        NULL, 0,         1,         -1 },
-    { "tabbed",        NULL,        NULL, 1<<2,      0,         -1 },
     { "AFNI",          NULL,        NULL, 0,         1,         -1 },
     { "TopLevelShell", NULL,        NULL, 0,         1,         -1 },
     { "GNU Octave",    NULL,        NULL, 0,         1,         -1 },

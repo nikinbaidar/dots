@@ -38,11 +38,16 @@ export TASKDATA=${XDG_CONFIG_HOME}/task
 # Find and source configs.
 source ${DOTS}/shell/bash_aliases
 source ${DOTS}/shell/prompt_colors
-source ${XDG_CONFIG_HOME}/fzf/fzfrc
 source ${XDG_CONFIG_HOME}/lf/pretty_lf.sh
+source ${XDG_CONFIG_HOME}/fzf/fzfrc
+
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
 
 
 # Shell options
 shopt -s checkjobs
 
 PS1="${R}[${G}\u${B}@${C}\h${W}: ${Y}\W${R}]${P}\$${F} "
+
+

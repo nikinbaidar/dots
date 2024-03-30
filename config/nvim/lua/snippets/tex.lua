@@ -51,10 +51,15 @@ return {
     snippet("slide", fmt([[
     \begin{{frame}}
         \frametitle{{{}}}
-        \section{{{}}}
+        \subsection{{{}}}
         {}
+        \vfill
     \end{{frame}}
-    ]], { i(1), r(1), i(2) })),
+    ]], { i(1), r(1), i(2)})),
+
+    snippet("tc", fmt([[
+    \textcolor{{magenta}}{{{}}}
+    ]], {i(1)})),
 
     parse({
         trig = "baselineskip",
@@ -123,21 +128,17 @@ return {
         i(1), i(2)
     })),
 
-
-
     snippet("ls", {
         t("\\begin"),
         c(1, { t("{itemize}"), t("{enumerate}"), }),
-        c(2, { t({"[noitemsep]"}), t({""}), }),
-        t({ "", "\t\\item " }), i(3), d(4, rec_item, {}),
+        t({ "", "\t\\item " }), i(2), d(3, rec_item, {}),
         t({ "", "\\end" }), r(1)
     }),
-
 
     snippet("doc", fmt([[
     \documentclass[14pt]{{extarticle}}
     \usepackage[margin=1in]{{geometry}}
-    \usepackage{{enumitems}}
+    \usepackage{{enumitem}}
 
     \begin{{document}}
     {}

@@ -23,20 +23,6 @@ autocmd('BufReadPost', {
     command = 'syntax sync fromstart'
 })
 
-autocmd('BufWrite', {
-    pattern = '*.tex',
-    group = augroup,
-    desc = '',
-    command = 'try | %s/\\v(^|\\s|footnote\\{)(|[{[(]|)"/\\1\\2``/g | catch | endtry'
-}) 
-
-autocmd('BufWrite', {
-    pattern = '*.tex',
-    group = augroup,
-    desc = '',
-    command = 'try | %s/\\v(^|\\s|footnote\\{)(|[{[(]|)\'/\\1\\2`/g | catch | endtry'
-}) 
-
 autocmd('BufReadPost', {
     pattern = '*.log',
     group = augroup,
@@ -65,7 +51,17 @@ autocmd('TermOpen', {
     command = 'startinsert'
 })
 
+-- autocmd('BufWrite', {
+--     pattern = '*.tex',
+--     group = augroup,
+--     desc = '',
+--     command = 'try | %s/\\v(^|\\s|footnote\\{)(|[{[(]|)\'/\\1\\2`/g | catch | endtry'
+-- }) 
+
 vim.cmd(' autocmd User DBUIOpened setlocal number relativenumber ')
+
+
+
 
 vim.cmd[[
 if has('autocmd')

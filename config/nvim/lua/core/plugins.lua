@@ -22,7 +22,6 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'JoosepAlviste/nvim-ts-context-commentstring' ,
     'lukas-reineke/indent-blankline.nvim', 
-    -- 'nvim-tree/nvim-web-devicons',
     {
         'nvim-lualine/lualine.nvim',
         config = function()
@@ -33,8 +32,7 @@ require("lazy").setup({
     'windwp/nvim-autopairs',
     'tpope/vim-surround',
     'tpope/vim-repeat',
-    'tpope/vim-repeat',
-    'tpope/vim-fugitive',
+    -- 'tpope/vim-fugitive',
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.3',
         dependencies = { 'nvim-lua/plenary.nvim' },

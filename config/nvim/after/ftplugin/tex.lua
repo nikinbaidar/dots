@@ -72,6 +72,7 @@ elseif (g:headmost[0] =~ "%")
         endfunction
 
         function! CompileSource()
+
         let g:headmost = getline(1)
         if g:headmost[0] =~ "%"
             let g:source_path = getline(1)[2:]
@@ -90,28 +91,30 @@ elseif (g:headmost[0] =~ "%")
                 endfunction
 
                 function! RunLatex()
-                update!
-                if expand('%:e') =~ "dn"
-                    call AddDevanagari()
-                else
-                    normal! mh
-                    let g:documentclass = execute("g/documentclass/z#.1")
-                    normal! `hzz
-                    if g:documentclass =~ "Pattern not found: documentclass"
-                        " Current file is not a source file.
-                        call CompileSource()
+                    silent! execute '%s/\v(^|\s)(|[{[(]|)"/\1\2``/g'
+                    silent! execute '%s/\v(^|\s)(|[{[(]})''/\1\2`/g'
+                    update!
+                    if expand('%:e') =~ "dn"
+                        call AddDevanagari()
                     else
-                        " Current file is a source file.
-                        below split
-                        resize 15
-                        term lualatex --shell-escape %
-                        endif
-                        endif
+                        normal! mh
+                        let g:documentclass = execute("g/documentclass/z#.1")
+                        normal! `hzz
+                        if g:documentclass =~ "Pattern not found: documentclass"
+                            " Current file is not a source file.
+                            call CompileSource()
+                        else
+                            " Current file is a source file.
+                            below split
+                            resize 15
+                            term lualatex --shell-escape %
+                            endif
+                            endif
                         endfunction
 
-                        function! AddDevanagari()
+                    function! AddDevanagari()
                         let g:texfile = expand("%:r").".tex"
                         execute("silent term devnag % | lualatex ") g:texfile
-                        endfunction
+                    endfunction
 
-                        ]]
+]]
