@@ -26,7 +26,7 @@ function getnet() {
             ;;
     esac
 
-    echo -n "${net} ${name}"
+    echo -n "${net}${name}"
 }
 
 function simplestatus() {
@@ -40,7 +40,8 @@ function simplestatus() {
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 moncon --init
-cb 
+cb /home/nikin/Pictures/wallpapers/black-pixelated.jpg
+
 
 if [[ -f /usr/bin/picom ]]
 then

@@ -68,6 +68,12 @@ return {
     ),
 
    snippet({
+       trig = "use"
+   }, {
+        t("\\usepackage{"), i(1), t("}"),
+    }),
+
+   snippet({
        trig = "\\q"
    }, {
         t({"\\question", ""}),
@@ -88,8 +94,6 @@ return {
         i(2), t("\\caption{}"), 
         t({"", "\\label{fig:"}), 
         r(1), t("}"),
-
-
         t({"", "\\end{figure}", ""}),
     }),
 
@@ -136,20 +140,21 @@ return {
     }),
 
     snippet("doc", fmt([[
-    \documentclass[14pt]{{extarticle}}
-    \usepackage[margin=1in]{{geometry}}
-    \usepackage{{enumitem}}
-
+    \documentclass{{{}}}
+    
     \begin{{document}}
+
     {}
+
     \end{{document}}
-    ]], { i(1) })),
+    ]], { i(1), i(2) })),
 
     snippet("beg", fmt([[
     \begin{{{}}}
     {}
     \end{{{}}}
     ]], { i(1), i(2), r(1) })),
+
 
 
 }

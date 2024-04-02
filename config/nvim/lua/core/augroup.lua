@@ -16,12 +16,12 @@ autocmd('BufWritePost', {
     command = 'so'
 }) 
 
-autocmd('BufReadPost', {
-    pattern = '*.md, *.tex',
-    group = augroup,
-    desc = 'Fixes markdown and tex syntax breaking',
-    command = 'syntax sync fromstart'
-})
+-- autocmd('BufReadPost', {
+--     pattern = '*.md, *.tex',
+--     group = augroup,
+--     desc = 'Fixes markdown and tex syntax breaking',
+--     command = 'loadview'
+-- })
 
 autocmd('BufReadPost', {
     pattern = '*.log',
@@ -51,16 +51,7 @@ autocmd('TermOpen', {
     command = 'startinsert'
 })
 
--- autocmd('BufWrite', {
---     pattern = '*.tex',
---     group = augroup,
---     desc = '',
---     command = 'try | %s/\\v(^|\\s|footnote\\{)(|[{[(]|)\'/\\1\\2`/g | catch | endtry'
--- }) 
-
 vim.cmd(' autocmd User DBUIOpened setlocal number relativenumber ')
-
-
 
 
 vim.cmd[[
