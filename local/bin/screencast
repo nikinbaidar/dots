@@ -3,38 +3,55 @@
 source ${DOTS}/shell/prompt_colors
 
 SCREENCAST_DIR="${HOME}/Videos/screencasts"
-echo -n "Enter screencast name: "; read x
-output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
 
-# Set the default audio input
-audio_input=""
+function start() {
 
-echo -n "Include the audio sink? [Y/n] "; read record_audio
-case "$record_audio" in
-    [yY])
-        audio_input="-f pulse -i default"
-        sleep 2
-        pactl set-card-profile bluez_card.74_B7_E6_0B_CE_64 handsfree_head_unit
-        ;;
-    *)
-        # No audio recording
-        audio_input=""
-        ;;
-esac
+    echo -n "Enter screencast name: "; read x
+    output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
+    audio_input=""
+
+    echo -n "Include the audio sink? [Y/n] "; read record_audio
+    case "$record_audio" in
+        [yY])
+            audio_input="-f pulse -i default"
+            sleep 2
+            pactl set-card-profile bluez_card.74_B7_E6_0B_CE_64 handsfree_head_unit
+            ;;
+        *)
+            # No audio recording
+            audio_input=""
+            ;;
+    esac
+
+    for ((i=3; i>=1; i--)); do
+        echo -ne "\rThe screencast will begin in $i seconds."
+        sleep 1
+    done
+    echo 
+    tmux new-window "ffmpeg -f x11grab -s 1366x768 -i :0.0 ${audio_input} ${output}" \; last-window
+    echo -ne "${_g}Recording in progress ...${w}\n"
+}
+
+function stop() {
+    pkill ffmpeg
+    echo -n "Would you like to watch the latest screencast? [N/y] "; read answer
+    case "$answer" in
+        [yY])
+            output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
+            mpv ${SCREENCAST_DIR}/${output}
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+}
 
 
-for ((i=3; i>=1; i--)); do
-    echo -ne "\rThe screencast will begin in $i seconds."
-    sleep 1
-done
-echo 
 
-tmux new-window "ffmpeg -f x11grab -s 1366x768 -i :0.0 ${audio_input} ${output}" \; last-window
-
-# [nikin@leviathan: Videos]$ ffmpeg -i day0.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k -strict experimental compressed_day0.mp4
-
-echo -ne "${_g}Recording in progress ...${w}"
-
-echo
-
-
+if [[ "$1" = "--start" ]]; then
+    start
+elif [[ "$1" = "--stop" ]]; then
+    stop
+else
+    echo "command: $0 requires and arg '--start' or '--stop'. "
+fi
