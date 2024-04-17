@@ -3,7 +3,6 @@
 -- ░█░█░█▀█░█▀▄░█▀▄░█░█░█░█░█▄█░█░█░░░░█░░░█░█░█▀█
 -- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-vim.wo.conceallevel = 3
 vim.bo.shiftwidth = 2
 vim.bo.tabstop = 2
 vim.bo.softtabstop = 2
@@ -62,11 +61,11 @@ setlocal complete+=kspell
 command! ViewImage execute('normal! yi):silent ! pqiv " &<CR>')
 command! MakeJump execute('update! | normal! vi[yvi(gf/# "<CR>zt0')
 
-syntax region ConcealedCode matchgroup=ConcealGroup start=/`/ end=/`/ concealends contains=ConcealCheck
-
-syntax region ConcealBlockCode start=/```/ end=/```/ concealends
-
-syntax region MyBlock start=/^\s*>/ end=/^\s*$/
+" syntax region ConcealedCode matchgroup=ConcealGroup start=/`/ end=/`/ concealends contains=ConcealCheck
+"
+" syntax region ConcealBlockCode start=/```/ end=/```/ concealends
+"
+" syntax region MyBlock start=/^\s*>/ end=/^\s*$/
 
 ]]
 

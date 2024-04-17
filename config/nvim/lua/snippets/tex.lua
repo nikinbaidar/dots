@@ -31,6 +31,12 @@ return {
         trig = "ohm", 
     }, "$\\Omega$"),
 
+    parse({
+        trig = "jw", 
+    }, "$j\\omega$"),
+
+
+
 
     parse({
         trig = "hypersetup",
@@ -85,6 +91,12 @@ return {
         t({"", "    \\choice "}), i(5),
         t({"", "\\end{choices}", ""}),
     }),
+
+   snippet({
+       trig = "\\m"
+   }, {
+        t("\\["), i(1), t("\\]")
+   }),
 
    snippet({
        trig = "fig" }, {

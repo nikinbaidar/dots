@@ -14,7 +14,6 @@ do
         modified=${original%.*}.pdf
         args+=("$modified")       
         djvu2pdf "${file}"
-        rm "${file}"
     else
         args+=("$file")
     fi

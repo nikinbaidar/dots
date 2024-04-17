@@ -33,7 +33,10 @@
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
-#define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+#define NUMTAGS					(LENGTH(tags) + LENGTH(scratchpads))
+#define TAGMASK     			((1 << NUMTAGS) - 1)
+#define SPTAG(i) 				((1 << LENGTH(tags)) << (i))
+#define SPTAGMASK   			(((1 << LENGTH(scratchpads))-1) << LENGTH(tags))
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
@@ -164,7 +167,6 @@ static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
-static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
@@ -185,7 +187,6 @@ static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
-static void setcfact(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
@@ -196,6 +197,7 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglefloating(const Arg *arg);
+static void togglescratch(const Arg *arg);
 static void togglefullscr(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void toggletag(const Arg *arg);
@@ -295,6 +297,12 @@ applyrules(Client *c)
         {
             c->isfloating = r->isfloating;
             c->tags |= r->tags;
+
+ 			if ((r->tags & SPTAGMASK) && r->isfloating) {
+ 				c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
+ 				c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+ 			}
+ 
             for (m = mons; m && m->num != r->monitor; m = m->next);
             if (m)
                 c->mon = m;
@@ -302,9 +310,10 @@ applyrules(Client *c)
     }
     if (ch.res_class)
         XFree(ch.res_class);
-    if (ch.res_name)
+    if (ch.res_name) {
         XFree(ch.res_name);
-    c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
+    }
+ 	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : (c->mon->tagset[c->mon->seltags] & ~SPTAGMASK);
 }
 
 int
@@ -1115,26 +1124,6 @@ maprequest(XEvent *e)
         manage(ev->window, &wa);
 }
 
-void
-monocle(Monitor *m)
-{
-    unsigned int n = 0, h, mw, my;
-    Client *c;
-
-    for (c = m->clients; c; c = c->next)
-        if (ISVISIBLE(c))
-            n++;
-    if (n > 0) /* override layout symbol */
-        snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-    for (c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
-            my = m->gappx;
-            mw = m->ww - m->gappx;
-            h = (m->wh - my) - m->gappx;
-            resize(c, m->wx + m->gappx, m->wy + my, mw - (2*c->bw) - m->gappx,
-                    h - (2*c->bw), 0);
-            my += HEIGHT(c) + m->gappx;
-    }
-}
 
 void
 motionnotify(XEvent *e)
@@ -1546,22 +1535,6 @@ setlayout(const Arg *arg)
         drawbar(selmon);
 }
 
-void setcfact(const Arg *arg) {
-	float f;
-	Client *c;
-
-	c = selmon->sel;
-
-	if(!arg || !c || !selmon->lt[selmon->sellt]->arrange)
-		return;
-	f = arg->f + c->cfact;
-	if(arg->f == 0.0)
-		f = 1.0;
-	else if(f < 0.25 || f > 4.0)
-		return;
-	c->cfact = f;
-	arrange(selmon);
-}
 
 /* arg > 1.0 will set mfact absolutely */
 void
@@ -1668,6 +1641,10 @@ showhide(Client *c)
     if (!c)
         return;
     if (ISVISIBLE(c)) {
+ 		if ((c->tags & SPTAGMASK) && c->isfloating) {
+ 			c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
+ 			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+ 		}
         /* show clients top down */
         XMoveWindow(dpy, c->win, c->x, c->y);
         if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
@@ -1779,6 +1756,32 @@ togglefloating(const Arg *arg)
         resize(selmon->sel, selmon->sel->x, selmon->sel->y,
             selmon->sel->w, selmon->sel->h, 0);
     arrange(selmon);
+}
+
+void
+togglescratch(const Arg *arg)
+{
+	Client *c;
+	unsigned int found = 0;
+	unsigned int scratchtag = SPTAG(arg->ui);
+	Arg sparg = {.v = scratchpads[arg->ui].cmd};
+
+	for (c = selmon->clients; c && !(found = c->tags & scratchtag); c = c->next);
+	if (found) {
+		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
+		if (newtagset) {
+			selmon->tagset[selmon->seltags] = newtagset;
+			focus(NULL);
+			arrange(selmon);
+		}
+		if (ISVISIBLE(c)) {
+			focus(c);
+			restack(selmon);
+		}
+	} else {
+		selmon->tagset[selmon->seltags] |= scratchtag;
+		spawn(&sparg);
+	}
 }
 
 void

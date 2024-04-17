@@ -1,0 +1,14 @@
+#!/bin/sh
+
+function showArtWork() {
+    [[ -f ${DOTS}/shell/prompt_colors ]] \
+        && . ${DOTS}/shell/prompt_colors
+
+    echo -e "${p}" 
+    echo -ne "Hello, World!" | figlet -f pagga 
+    echo -e "${w}"
+}
+
+showArtWork
+
+octave -q 

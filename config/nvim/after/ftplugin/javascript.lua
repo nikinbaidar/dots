@@ -15,3 +15,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 -- vim.wo.foldmethod = "indent"
+vim.bo.shiftwidth  = 2
+vim.bo.tabstop = 2
+vim.bo.softtabstop = 2
+vim.wo.colorcolumn = "95"

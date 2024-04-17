@@ -3,4 +3,4 @@
 -- ░░░█░▀▀█░█░█░█░█░░░░█░░░█░█░█▀█
 -- ░▀▀░░▀▀▀░▀▀▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
-vim.wo.foldmethod = "syntax"
+-- vim.wo.foldmethod = "syntax"

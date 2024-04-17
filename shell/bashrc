@@ -51,3 +51,4 @@ shopt -s checkjobs
 PS1="${R}[${G}\u${B}@${C}\h${W}: ${Y}\W${R}]${P}\$${F} "
 
 
+export NODE_OPTIONS=--openssl-legacy-provider

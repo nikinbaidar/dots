@@ -2,16 +2,16 @@
 
 start=$(date | awk '{print $4}')
 
-cd ${HOME}/music/
+cd ${HOME}/Music/
 
-total_songs_to_download=$(cat ${HOME}/downloads/youtube_urls.txt | wc -l)
+total_songs_to_download=$(cat ${HOME}/Downloads/youtube_urls.txt | wc -l)
 
 count=1
 
 IFS_OLD=${IFS}
 IFS=$'\n'
 
-for url in $(cat ~/downloads/youtube_urls.txt)
+for url in $(cat ~/Downloads/youtube_urls.txt)
 do
     echo -e "Downloading audio... ${count} of ${total_songs_to_download} \n"
     youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 ${url}

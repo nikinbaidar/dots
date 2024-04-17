@@ -9,7 +9,7 @@ output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
 # Set the default audio input
 audio_input=""
 
-echo -n "Do you want to record audio? [y/n]"; read record_audio
+echo -n "Include the audio sink? [Y/n] "; read record_audio
 case "$record_audio" in
     [yY])
         audio_input="-f pulse -i default"
@@ -22,14 +22,19 @@ case "$record_audio" in
         ;;
 esac
 
-echo -ne "${_g}The screen cast will start in 3 seconds...${w}"
 
+for ((i=3; i>=1; i--)); do
+    echo -ne "\rThe screencast will begin in $i seconds."
+    sleep 1
+done
 echo 
 
-echo -ne "${_r}Press Mod q to quit tmux. ${w}"
-
-sleep 3
-
-ffmpeg -f x11grab -s 1366x768 -i :0.0 ${audio_input} ${output}
+tmux new-window "ffmpeg -f x11grab -s 1366x768 -i :0.0 ${audio_input} ${output}" \; last-window
 
 # [nikin@leviathan: Videos]$ ffmpeg -i day0.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k -strict experimental compressed_day0.mp4
+
+echo -ne "${_g}Recording in progress ...${w}"
+
+echo
+
+

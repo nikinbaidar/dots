@@ -40,7 +40,7 @@ function simplestatus() {
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 moncon --init
-cb /home/nikin/Pictures/wallpapers/black-pixelated.jpg
+cb
 
 
 if [[ -f /usr/bin/picom ]]
