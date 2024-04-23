@@ -1,10 +1,11 @@
 --- dwm.c
 +++ dwm.c
-@@ -211,6 +211,7 @@ static void tagmon(const Arg *arg);
- static void tile(Monitor *);
- static void togglebar(const Arg *arg);
- static void togglefloating(const Arg *arg);
-+static void togglefullscr(const Arg *arg);
- static void toggletag(const Arg *arg);
- static void toggleview(const Arg *arg);
- static void unfocus(Client *c, int setfocus);
+@@ -2137,7 +2152,7 @@ updategeom(void)
+ 					m->clients = c->next;
+ 					detachstack(c);
+ 					c->mon = mons;
+-					attach(c);
++					attachabove(c);
+ 					attachstack(c);
+ 				}
+ 				if (m == selmon)
