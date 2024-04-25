@@ -22,6 +22,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     let g:terminal_color_{i} = g:terminal_ansi_colors[i]
   endfor
 endif
+hi TelescopeSelection cterm=underline guibg=#303030
 hi! link Terminal Normal
 hi! link StatuslineTerm Statusline
 hi! link StatuslineTermNC StatuslineNC

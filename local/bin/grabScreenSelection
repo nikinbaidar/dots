@@ -70,7 +70,7 @@ maim --select /tmp/temporary.png 2> /dev/null
 
 if [ -f /tmp/temporary.png ] ; then
     export -f openFilePickerDialog
-    st -c "File Picker" -T "Lehte - Terminal File Picker"\
+    st -c "Lehte" -T "Lehte - Terminal File Picker"\
         -g 150x34 sh -c 'openFilePickerDialog'
 fi
 

@@ -1,6 +1,4 @@
 local npairs = require "nvim-autopairs"
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
 
 npairs.setup {
     check_ts = true,
@@ -19,9 +17,3 @@ npairs.setup {
         highlight_grey = "LineNr",
     },
 }
-
--- If you want insert `(` after select function or method item
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)

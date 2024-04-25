@@ -22,12 +22,6 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'JoosepAlviste/nvim-ts-context-commentstring' ,
     'lukas-reineke/indent-blankline.nvim', 
-    {
-        'nvim-lualine/lualine.nvim',
-        config = function()
-            vim.cmd("set noshowmode")
-        end
-    }, 
     'numToStr/Comment.nvim',
     'windwp/nvim-autopairs',
     'tpope/vim-surround',
@@ -49,13 +43,6 @@ require("lazy").setup({
         'kristijanhusak/vim-dadbod-ui',
         dependencies = {
             "nikinbaidar/vim-dadbod"
-        },
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
-        dependencies = {
-            'saadparwaiz1/cmp_luasnip'
         },
     },
 })

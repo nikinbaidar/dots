@@ -53,8 +53,8 @@ vim.api.nvim_create_user_command(
   {bang = true, desc="Titlecase from current point to EOL"}
 )
 
-vim.keymap.set('n', '<leader>gb', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>gl', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>l', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.api.nvim_set_keymap('n', '<leader>.', ':lua vim.find_files_from_project_git_root()<CR>', {noremap = true})
