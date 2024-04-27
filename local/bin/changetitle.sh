@@ -1,8 +1,9 @@
-#! /bin/bash
-# Function Definitions:
+#!/bin/bash
+
+source ${DOTS}/shell/prompt_colors
 
 function changeTrackTitle() {
-    echo -n "Enter the track title or press enter to skip:"
+    echo -n "Enter the track title or press enter to skip: "
     read title
 
     if ! [ -z ${title} ] ; then
@@ -15,7 +16,7 @@ function changeTrackTitle() {
 }
 
 function changeTrackNumber() {
-    echo -n "Enter the track number or press enter to skip:"
+    echo -n "Enter the track number or press enter to skip: "
     read track_num
 
     if ! [ -z ${track_num} ] ; then
@@ -159,7 +160,7 @@ function changeArtistandAlbum() {
 }
 
 # Main
-cd ~/music
+cd ~/Music
 
 # Varibale Declarations:
 declare filename

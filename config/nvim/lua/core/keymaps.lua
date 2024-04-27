@@ -35,7 +35,7 @@ end
 
 vim.g.mapleader = " " 
 
-vim.api.nvim_set_keymap('n', '<leader>d', ':ls<CR>:bd<C-b>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>d', ':DBUIToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>w', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>W', { noremap = true }) 
 vim.api.nvim_set_keymap('n', '<leader> ', ':set spell!<CR>', { noremap = true })
