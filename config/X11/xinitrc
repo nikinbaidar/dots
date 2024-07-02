@@ -16,7 +16,7 @@ function getnet() {
     name="$(nmcli -t -f NAME connection show --active | head -1)"
     case "${net_type}" in
         "ethernet") 
-            net="󰈀" 
+            net="󰈀 " 
             ;;
         "wireless") 
             net=" " 

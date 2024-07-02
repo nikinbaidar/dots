@@ -35,9 +35,6 @@ return {
         trig = "jw", 
     }, "$j\\omega$"),
 
-
-
-
     parse({
         trig = "hypersetup",
         snippetType = "autosnippet",
@@ -73,10 +70,13 @@ return {
     }, [[\enlargethispage{\baselineskip}]]
     ),
 
-   snippet({
-       trig = "use"
-   }, {
-        t("\\usepackage{"), i(1), t("}"),
+
+    snippet("up", {
+        t("\\usepackage"),
+        c(1, { 
+            s(nil, {t("{"), i(1), t("}")}),
+            s(nil, {t("["), i(1), t("]"), t("{"), i(2), t("}")}),
+        }),
     }),
 
    snippet({
@@ -153,6 +153,8 @@ return {
 
     snippet("doc", fmt([[
     \documentclass{{{}}}
+
+    \usepackage[margin=1in]{{geometry}}
     
     \begin{{document}}
 
@@ -167,6 +169,14 @@ return {
     \end{{{}}}
     ]], { i(1), i(2), r(1) })),
 
+    snippet("cases", fmt([[
+    \begin{{cases}}
+        {} & \text{{if }} {}
+        {} & \text{{if }} {} 
+    \end{{cases}}
+    ]], {
+        i(1, "exp1"), i(2, "cond1"), i(3, "exp2"), i(4, "cond2")
+    })), 
 
 
 }

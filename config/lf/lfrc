@@ -73,7 +73,7 @@ map gc :{{
     cd ~/.config
 }}
 
-map gn cd ~/projects/notes
-map gd cd ~/docs
-map gD cd ~/downloads
-map gb cd ~/docs/books
+map gn cd ~/notes
+map gd cd ~/Docs
+map gD cd ~/Downloads
+map gb cd ~/Documents/books

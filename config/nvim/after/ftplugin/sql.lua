@@ -1,6 +1,7 @@
 vim.cmd [[
-map <leader>e vip<leader>S
-vmap <leader>e <leader>S
+setlocal wrap
+map <leader>r vip<leader>S
+vmap <leader>r <leader>S
 ]]
 
 

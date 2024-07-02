@@ -12,6 +12,7 @@ alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
 # alias R="R --silent"
 alias sudo="sudo "
+alias todo="/usr/bin/nvim ${HOME}/Dropbox/TODO"
 alias pqiv="pqiv 2> /dev/null"
 ## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
@@ -66,7 +67,7 @@ function cloudsync() {
 
     function pushDropbox() {
 
-        mv --verbose /home/nikin/projects/notes/Archives/*.pdf /home/nikin/Dropbox/
+        # mv --verbose --force /home/nikin/projects/notes/Archives/*.pdf /home/nikin/Dropbox/
 
         dropbox-cli start
         until [ "$(dropbox-cli status)" = "Up to date" ]; do 

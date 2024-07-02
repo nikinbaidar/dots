@@ -20,6 +20,22 @@ static const char *colors[][3]      = {
     [SchemeSel]  = { col_gray3, col_cyan,  "#444444" },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "144x41", "-e", "nvim", "/home/nikin/Dropbox/todo.md", NULL };
+const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL };
+const char *spcmd3[] = {"keepassxc", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	{"spranger",    spcmd2},
+	{"keepassxc",   spcmd3},
+};
+
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -30,6 +46,9 @@ static const Rule rules[] = {
 	 */
 	/* class      instance   title     tags mask     isfloating   monitor */
     { "Dummy",    NULL,      NULL,     0,             0,           -1 },
+	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "spfm",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "keepassxc",	NULL,		SPTAG(2),		0,			 -1 },
 };
 
 /* layout(s) */
@@ -76,7 +95,7 @@ static const Key keys[] = {
     { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
     { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = dualmon } },
     { MODKEY|ShiftMask,   XK_bracketleft,  spawn,          {.v = dualmon } },
-    { MODKEY,             XK_x,            spawn,          {.v = screenshotcmd } },
+    { MODKEY,             XK_s,            spawn,          {.v = screenshotcmd } },
     { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
     { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 	{ MODKEY,             XK_m,            zoom,           {0} },
@@ -84,11 +103,11 @@ static const Key keys[] = {
 	{ MODKEY,             XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY,             XK_i,            incnmaster,     {.i = +1 } },
 	{ MODKEY,             XK_r,            incnmaster,     {.i = -1 } },
-	{ MODKEY,             XK_h,            setmfact,       {.f = -0.05} },
-	{ MODKEY,             XK_l,            setmfact,       {.f = +0.05} },
+	/*{ MODKEY,             XK_h,            setmfact,       {.f = -0.05} },*/
+	/*{ MODKEY,             XK_l,            setmfact,       {.f = +0.05} },*/
 	{ MODKEY,             XK_Tab,          view,           {0} },
     { MODKEY,             XK_a,            view,           {.ui = 3 } },
-    { MODKEY,             XK_z,            view,           {.ui = 5 } },
+    { MODKEY,             XK_b,            view,           {.ui = 5 } },
 	{ MODKEY,             XK_q,            killclient,     {0} },
 	{ MODKEY,             XK_t,            setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,             XK_f,            togglefullscr,  {0} },
@@ -98,6 +117,9 @@ static const Key keys[] = {
 	{ MODKEY,             XK_period,       focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,   XK_comma,        tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,   XK_period,       tagmon,         {.i = +1 } },
+    { MODKEY,             XK_x,	           togglescratch,  {.ui = 2 } },
+    { MODKEY,             XK_y,  	       togglescratch,  {.ui = 0 } },
+    { MODKEY,             XK_z,	           togglescratch,  {.ui = 1 } },
     { MODKEY,             XK_minus,        setgaps,        {.i = -5 } },
 	{ MODKEY,             XK_equal,        setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,   XK_minus,        setgaps,        {.i = GAP_RESET } },

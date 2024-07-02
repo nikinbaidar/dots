@@ -5,24 +5,24 @@
 require 'nvim-treesitter.configs'.setup { 
     highlight = {
         enable = false,
-        additional_vim_regex_highlighting = true,
+        additional_vim_regex_highlighting = false,
         -- disable = { "markdown" } 
     },
 
     context = {
-        enable = true
+        enable = false
     },
 
     incremental_selection = { 
-        enable = true 
+        enable = false 
     },
 
     indent = {
-        enable = true 
+        enable = false 
     },
 
     contex_commentstring = {
-        enable = true
+        enable = false
     },
 } 
 
