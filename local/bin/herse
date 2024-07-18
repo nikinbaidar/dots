@@ -2,7 +2,7 @@
 port=9999
 log_file="/tmp/jupyterlogs"
 # Launch Jupyter Lab in detached mode
-jupyter-lab --no-browser --port "$port" &> "$log_file" &
-sleep 2
+jupyter lab --no-browser --port "$port" &> "$log_file" &
+sleep 5
 # Open Jupyter Lab in web browser
 surf "http://localhost:$port" > /dev/null 2>&1 &

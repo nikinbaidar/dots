@@ -26,7 +26,6 @@ require("lazy").setup({
     'windwp/nvim-autopairs',
     'tpope/vim-surround',
     'tpope/vim-repeat',
-    -- 'tpope/vim-fugitive',
     {
         'ibhagwan/fzf-lua',
         config = function()

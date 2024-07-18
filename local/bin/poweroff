@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function cloudsync() {
+
+    function pushNotes() {
+        pushd ~/notes
+        branch=$(git branch | awk ' /\*/ {print $2} ')
+        git pull
+        git add --all
+        git commit -m "o.O"
+        git push -u origin ${branch} --verbose
+        popd 
+    }
+
+    function pushDropbox() {
+        dropbox-cli start
+        until [ "$(dropbox-cli status)" = "Up to date" ]; do 
+            :
+        done
+        echo "Dropbox Syncing Complete"
+        dropbox-cli stop
+    }
+
+    pushNotes
+    pushDropbox
+}
+
+mv ${HOME}/notes/Archives/*.pdf ${HOME}/Dropbox/ 2> /dev/null
+
+if ping -c 1 google.com 1> /dev/null || ping -c 1 reddit.com 1> /dev/null
+then
+    cloudsync
+fi
+
+shutdown now

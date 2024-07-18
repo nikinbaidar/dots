@@ -1,7 +1,6 @@
 #!/bin/bash 
 
 open() {
-    # /home/nikin/projects/stable_sioyek/sioyek "$@" --new-window > /dev/null 2>&1 &
     /home/nikin/projects/sioyek/build/sioyek "$@" --new-window > /dev/null 2>&1 &
 }
 

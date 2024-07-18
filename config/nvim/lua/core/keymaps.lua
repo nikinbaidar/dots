@@ -29,11 +29,11 @@ function vim.find_files_from_project_git_root()
     end
 end
 
-vim.g.mapleader = " " 
+vim.g.mapleader = " "
 
 vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>DBUIToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>w', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>W', { noremap = true }) 
+vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>W', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader> ', '<cmd>set spell!<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua showTags()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
@@ -47,6 +47,14 @@ vim.api.nvim_create_user_command(
     vim.api.nvim_command("normal! kJ")
   end,
   {bang = true, desc="Titlecase from current point to EOL"}
+)
+
+vim.api.nvim_create_user_command(
+  'StripTrailingSpaces',
+  function()
+    vim.api.nvim_command("%s/\\s\\+$//g")
+  end,
+  {bang = true, desc="Globally strip trailing spaces from each line in current file."}
 )
 
 vim.keymap.set('n', '<leader>x', "<cmd> DBUIToggle<CR>", {})

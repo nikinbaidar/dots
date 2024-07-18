@@ -52,7 +52,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
@@ -95,7 +95,7 @@ static const Key keys[] = {
     { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
     { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = dualmon } },
     { MODKEY|ShiftMask,   XK_bracketleft,  spawn,          {.v = dualmon } },
-    { MODKEY,             XK_s,            spawn,          {.v = screenshotcmd } },
+    { MODKEY,             XK_x,            spawn,          {.v = screenshotcmd } },
     { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
     { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 	{ MODKEY,             XK_m,            zoom,           {0} },
@@ -103,8 +103,8 @@ static const Key keys[] = {
 	{ MODKEY,             XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY,             XK_i,            incnmaster,     {.i = +1 } },
 	{ MODKEY,             XK_r,            incnmaster,     {.i = -1 } },
-	/*{ MODKEY,             XK_h,            setmfact,       {.f = -0.05} },*/
-	/*{ MODKEY,             XK_l,            setmfact,       {.f = +0.05} },*/
+	{ MODKEY,             XK_h,            setmfact,       {.f = -0.05} },
+	{ MODKEY,             XK_l,            setmfact,       {.f = +0.05} },
 	{ MODKEY,             XK_Tab,          view,           {0} },
     { MODKEY,             XK_a,            view,           {.ui = 3 } },
     { MODKEY,             XK_b,            view,           {.ui = 5 } },
@@ -117,7 +117,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_period,       focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,   XK_comma,        tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,   XK_period,       tagmon,         {.i = +1 } },
-    { MODKEY,             XK_x,	           togglescratch,  {.ui = 2 } },
+    { MODKEY|ShiftMask,   XK_x,	           togglescratch,  {.ui = 2 } },
     { MODKEY,             XK_y,  	       togglescratch,  {.ui = 0 } },
     { MODKEY,             XK_z,	           togglescratch,  {.ui = 1 } },
     { MODKEY,             XK_minus,        setgaps,        {.i = -5 } },
