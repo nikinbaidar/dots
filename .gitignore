@@ -7,5 +7,7 @@
 **/lib.pl
 **/packer_compiled.lua
 local/bin/stop-ls
+local/bin/downloadvids
 **/surf
 config/nvim/lazy-lock.json
+
