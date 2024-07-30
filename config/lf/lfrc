@@ -3,6 +3,7 @@
 ##################
 
 set number
+set mouse
 set relativenumber
 set ignorecase true
 set icons true
@@ -74,6 +75,7 @@ map gc :{{
 }}
 
 map gn cd ~/notes
+map gf cd ~/notes/Fuse-AI-Fellowhsip-2024
 map gd cd ~/Docs
 map gD cd ~/Downloads
 map gb cd ~/Documents/books
