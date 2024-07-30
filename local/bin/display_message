@@ -16,5 +16,5 @@ export -f DisplayMessage
 
 message="DisplayMessage \"$1\""
 
-st -c "File Picker" -T "Display mesage" -g 50x5 sh -c "$message"
+st -c "Display message" -T "Display message" -g 50x5 sh -c "$message"
 
