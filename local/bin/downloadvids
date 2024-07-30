@@ -5,14 +5,19 @@ while IFS= read -r line; do
 done < "${HOME}/Downloads/youtube_urls.txt"
 length=${#urls[@]}
 
+dir="${1}"
+
 if [ -z ${dir} ] ; then
-    echo -ne "wd not specified.\nEnter path: "
-    read dir
+    read -p "Enter dir to download vids: " dir
 fi
 
-echo wd: $dir
+if [ ! -d "${dir}" ]; then
+    mkdir "${dir}"
+fi
 
-cd ${dir}
+cd "${dir}"
+
+echo Dowloading vids in $(pwd)
 
 start=$(date | awk '{print $4}')
 for ((i=0; i <= ${length}; i++)); do
@@ -22,13 +27,7 @@ done
 
 stop=$(date|awk '{print $4}')
 echo ; echo "Download Complete."
-printf '#%.0s' {1..46} ; echo
-time_elapsed=$(echo -e "${start}\n${stop}" | awk 'BEGIN {FS=":"; diff=0} {diff=$2 - diff} END {print diff}')
 
-# if [ $time_elapsed -lt 1 ]; then
-#     changetitle 1
-# else
-#     changetitle "${time_elapsed}"
-# fi
+time_elapsed=$(echo -e "${start}\n${stop}" | awk 'BEGIN {FS=":"; diff=0} {diff=$2 - diff} END {print diff}')
 
 IFS=${IFS_OLD}

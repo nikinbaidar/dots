@@ -58,22 +58,28 @@ function cloudsync() {
     function pushNotes() {
         pushd ~/notes
         branch=$(git branch | awk ' /\*/ {print $2} ')
-        git pull
-        git add --all
-        git commit -m "o.O"
-        git push -u origin ${branch} --verbose
-        popd 
+        if [ -n "$(git status -s)" ]; then
+            git pull
+            git add --all
+            git commit -m "o.O"
+            git push -u origin ${branch} --verbose
+        else
+            echo "nothing to commit, working tree clean"
+        fi
+        popd > /dev/null
     }
 
     function pushDropbox() {
-
-        # mv --verbose --force /home/nikin/projects/notes/Archives/*.pdf /home/nikin/Dropbox/
-
-        dropbox-cli start
-        until [ "$(dropbox-cli status)" = "Up to date" ]; do 
-            :
-        done
-        echo "Dropbox Syncing Complete!"
+        dropbox-cli start > /dev/null 2>&1
+        if [ "$(dropbox-cli status)" = "Up to date" ]; then
+            echo "Dropbox is up to date"
+        else
+            echo "Synchronization in progress..."
+            until [ "$(dropbox-cli status)" = "Up to date" ]; do 
+                :
+            done
+            echo "Synchronization complete"
+        fi
         dropbox-cli stop
     }
 
