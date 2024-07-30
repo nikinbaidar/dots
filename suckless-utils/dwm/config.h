@@ -95,7 +95,7 @@ static const Key keys[] = {
     { MODKEY,             XK_bracketleft,  spawn,          {.v = externalmon } },
     { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = dualmon } },
     { MODKEY|ShiftMask,   XK_bracketleft,  spawn,          {.v = dualmon } },
-    { MODKEY,             XK_x,            spawn,          {.v = screenshotcmd } },
+    { MODKEY,             XK_s,            spawn,          {.v = screenshotcmd } },
     { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } }, 
     { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 	{ MODKEY,             XK_m,            zoom,           {0} },
@@ -117,7 +117,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_period,       focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,   XK_comma,        tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,   XK_period,       tagmon,         {.i = +1 } },
-    { MODKEY|ShiftMask,   XK_x,	           togglescratch,  {.ui = 2 } },
+    { MODKEY,             XK_x,	           togglescratch,  {.ui = 2 } },
     { MODKEY,             XK_y,  	       togglescratch,  {.ui = 0 } },
     { MODKEY,             XK_z,	           togglescratch,  {.ui = 1 } },
     { MODKEY,             XK_minus,        setgaps,        {.i = -5 } },
@@ -139,7 +139,7 @@ static const Key keys[] = {
 /* button definitions */
 static Button buttons[] = {
     /* click          event mask    button          function        argument */
-    { ClkClientWin,   MODKEY,       Button1,        movemouse,      {0} },
-    { ClkClientWin,   MODKEY,       Button3,        resizemouse,    {0} },
+   /*{ ClkClientWin,   MODKEY,       Button1,        movemouse,      {0} },*/
+    /*{ ClkClientWin,   MODKEY,       Button3,        resizemouse,    {0} },*/
     { ClkTagBar,      0,            Button1,        view,           {0} },
 };
