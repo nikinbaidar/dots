@@ -44,11 +44,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                instance      title     tags mask     isfloating   monitor       float x, y, w, h       floatborder*/
-	{ "Display message",	  NULL,			NULL,		0,				1,			 -1,     480,300,415,100,       1 },
-	{ NULL,		              "spterm",		NULL,		SPTAG(0),		0,			 -1,     50,50,500,500,         0 },
-	{ NULL,		              "spfm",		NULL,		SPTAG(1),		0,			 -1,     50,50,500,500,         0 },
-	{ NULL,		              "keepassxc",	NULL,		SPTAG(2),		0,			 -1,     50,50,500,500,         0 },
+	/* class      instance   title     tags mask     isfloating   monitor */
+    { "Dummy",    NULL,      NULL,     0,             0,           -1 },
+	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "spfm",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "keepassxc",	NULL,		SPTAG(2),		0,			 -1 },
 };
 
 /* layout(s) */
@@ -111,7 +111,6 @@ static const Key keys[] = {
 	{ MODKEY,             XK_q,            killclient,     {0} },
 	{ MODKEY,             XK_t,            setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,             XK_f,            togglefullscr,  {0} },
-	{ MODKEY|ShiftMask,   XK_f,            togglefloating, {0} },
 	{ MODKEY,             XK_0,            view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,   XK_0,            tag,            {.ui = ~0 } },
 	{ MODKEY,             XK_comma,        focusmon,       {.i = -1 } },
@@ -140,7 +139,7 @@ static const Key keys[] = {
 /* button definitions */
 static Button buttons[] = {
     /* click          event mask    button          function        argument */
-    { ClkClientWin,   MODKEY,       Button1,        movemouse,      {0} },
-    { ClkClientWin,   MODKEY,       Button3,        resizemouse,    {0} },
+   /*{ ClkClientWin,   MODKEY,       Button1,        movemouse,      {0} },*/
+    /*{ ClkClientWin,   MODKEY,       Button3,        resizemouse,    {0} },*/
     { ClkTagBar,      0,            Button1,        view,           {0} },
 };
