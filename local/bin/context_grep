@@ -1,0 +1,66 @@
+#!/bin/bash 
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "$0: Context grep"
+    echo "Usage: cgrep [above] [pattern] [below] [file]"
+    echo -e "Notes: (1) options must be placed at the end\n       (2) if more than 1 match is found, a select prompt will be displayed"
+    echo "Options:"
+    echo -e "\t-x : exclude the matched pattern from the output ; either [above] or [below] must be 0"
+
+    exit 1
+fi
+
+# Assign input parameters
+above=$1
+pattern=$2
+below=$3
+file=$4
+
+
+if ! [ -f "$file" ] ;then 
+    echo "'${file}' not found"
+    exit 1;
+fi
+
+# Check for multiple matches and get the line number
+matches=$(grep -in "${pattern}" "${file}")
+
+if [ $(echo "${matches}" | wc -l) -gt 1 ]; then
+    echo "${matches}" | grep --color=always -i "${pattern}"
+    echo -ne "\nSelect the line number: "
+    read n
+    echo ""
+else
+    n=$(echo "${matches}" | awk -F: '{print $1}')
+fi
+
+if [ $n -gt 0 ] 
+then
+    total_lines=$(cat ${file} | wc -l)
+    actual_lines_below=$(( ${total_lines} - ${n} ))
+    actual_lines_above=$(( ${n} - 1 ))
+
+    if [ ${above} -gt ${actual_lines_above} ] ; then
+        above=${actual_lines_above}
+    fi
+
+    if [ ${below} -gt ${actual_lines_below} ] ; then
+        below=${actual_lines_below}
+    fi
+
+fi
+
+if [ "${5}" = "-x" ]; then
+
+    if [ ${above} -eq 0 ]; then
+        head -n `expr ${n} + ${below}` ${file} | tail -n `expr ${below} + ${above}`
+    fi
+
+    if [ ${below} -eq 0 ]; then
+        head -n `expr ${n} - 1 + ${below}` ${file} | tail -n `expr ${below} + ${above}`
+    fi
+    exit 0;
+fi
+
+
+head -n `expr ${n} + ${below}` ${file} | tail -n `expr ${below} + ${above} + 1`
