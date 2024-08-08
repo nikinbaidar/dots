@@ -6,8 +6,8 @@
 export EDITOR=nvim
 # export TERM=st-256color
 export PATH=${HOME}/.local/bin:${PATH}:/opt/afni:/opt/cuda
-export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
-export TF_CPP_MIN_LOG_LEVEL=1
+export TF_CPP_MIN_LOG_LEVEL=3
+export LD_LIBRARY_PATH=/opt/cuda/lib64
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
 export DOTS=${HOME}/projects/dots
 
