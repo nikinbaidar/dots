@@ -33,9 +33,9 @@ while true; do
     url=$(cgrep 0 "is running at" 1 /tmp/jupyterlogs -x | awk '{print $NF}')
     if [ "${url:0:7}" = "http://" ]; then
         echo "server online @ '${url}'"
+        surf "${url}" > /dev/null 2>&1 &
         break
     fi
     sleep 1
 done
 
-# surf "${url}" > /dev/null 2>&1 &
