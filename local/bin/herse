@@ -1,12 +1,41 @@
 #!/bin/bash
-echo Note: If you\'re starting jupyter lab from a conda environment don\'t 
-echo forget to update the \`jupyter kernelspec list\`.
-echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`"
-echo "Then select the appropriate kernel in jupyter lab"
+
+function display_setup_info() {
+    echo If you\'re starting jupyter lab within a conda environment don\'t forget to update the \`jupyter kernelspec list\`.
+    echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`"
+    echo "Then select the appropriate kernel in jupyter lab"
+}
+
+if [[ "$1" = "-h" || "$1" = "--help" ]]; then
+    display_setup_info
+    exit 0
+fi
 
 rm -rf /tmp/jupyterlogs
+
 jupyter lab &> /tmp/jupyterlogs &
-sleep 3
-url=`cgrep 0 "is running at" 1 /tmp/jupyterlogs -x | awk '{print $NF}'`
-echo "Server online @ '${url}'"
-surf "${url}" > /dev/null 2>&1 &
+
+echo -n "Starting Jupyter Server..."
+
+MAX_WAIT_TIME=60
+start_time=$(date +%s)
+
+while true; do
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
+    
+    # Check if the elapsed time has exceeded the maximum wait time
+    if [ "$elapsed_time" -ge "$MAX_WAIT_TIME" ]; then
+        echo "Timeout reached. Jupyter Server did not start in time."
+        exit 1
+    fi
+    
+    url=$(cgrep 0 "is running at" 1 /tmp/jupyterlogs -x | awk '{print $NF}')
+    if [ "${url:0:7}" = "http://" ]; then
+        echo "server online @ '${url}'"
+        break
+    fi
+    sleep 1
+done
+
+# surf "${url}" > /dev/null 2>&1 &

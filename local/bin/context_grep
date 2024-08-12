@@ -31,10 +31,17 @@ if [ $(echo "${matches}" | wc -l) -gt 1 ]; then
     read n
     echo ""
 else
-    n=$(echo "${matches}" | awk -F: '{print $1}')
+    n="$(echo "${matches}" | awk -F: '{print $1}')"
 fi
 
-if [ $n -gt 0 ] 
+# Ensure n is set and numeric
+n=${n:-0}  # Set n to 0 if it is unset
+
+if ! [[ "${n}" =~ ^[0-9]+$ ]] && [ "$n" -gt 0 ]; then
+    exit 1;
+fi
+
+if [ ${n} -gt 0 ] 
 then
     total_lines=$(cat ${file} | wc -l)
     actual_lines_below=$(( ${total_lines} - ${n} ))

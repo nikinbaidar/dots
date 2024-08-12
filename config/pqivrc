@@ -1,6 +1,6 @@
 [options]
 hide-info-box=1
-auto-montage-mode=0
+auto-montage-mode=1
 lazy-load=1
 end-of-files-action=wrap
 sort-key=MTIME
