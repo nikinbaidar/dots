@@ -1,12 +1,13 @@
 #!/bin/bash
 
 function display_setup_info() {
-    echo If you\'re starting jupyter lab within a conda environment don\'t forget to update the \`jupyter kernelspec list\`.
+    echo If you\'re starting jupyter lab within a conda env don\'t forget to update the \`jupyter kernelspec list\`.
     echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`"
     echo "Then select the appropriate kernel in jupyter lab"
 }
 
-if [[ "$1" = "-h" || "$1" = "--help" ]]; then
+if [[ "${1}" = "-h" || "${1}" = "--help" ]]
+then
     display_setup_info
     exit 0
 fi
@@ -15,12 +16,13 @@ rm -rf /tmp/jupyterlogs
 
 jupyter lab &> /tmp/jupyterlogs &
 
-echo -n "Starting Jupyter Server..."
+echo "Starting Jupyter Server..."
 
-MAX_WAIT_TIME=60
+MAX_WAIT_TIME=30
 start_time=$(date +%s)
 
-while true; do
+while true
+do
     current_time=$(date +%s)
     elapsed_time=$((current_time - start_time))
     
@@ -31,11 +33,14 @@ while true; do
     fi
     
     url=$(cgrep 0 "is running at" 1 /tmp/jupyterlogs -x | awk '{print $NF}')
+
     if [ "${url:0:7}" = "http://" ]; then
-        echo "server online @ '${url}'"
+        echo "${url}" | xclip -selection clipboard
+        echo "Server online @ '${url}'"
+        echo "Took ${elapsed_time} seconds."
         surf "${url}" > /dev/null 2>&1 &
         break
     fi
-    sleep 1
-done
 
+    sleep 0.5
+done
