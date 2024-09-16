@@ -17,16 +17,23 @@ function getnet() {
     case "${net_type}" in
         "ethernet") 
             net="󰈀 " 
+            names="LAN"
             ;;
         "wireless") 
             net=" " 
+            if [ "${name}" = "Netricsa" ]; then
+                names="WiFi: Hotspot"
+            else
+                names="WiFi"
+            fi
             ;;
         *) 
-            net="" 
+            net="" 
+            names="n/A"
             ;;
     esac
 
-    echo -n "${net}${name}"
+    echo -n "${net}${names}"
 }
 
 function simplestatus() {
