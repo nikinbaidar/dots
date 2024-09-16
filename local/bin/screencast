@@ -4,54 +4,51 @@ source ${DOTS}/shell/prompt_colors
 
 SCREENCAST_DIR="${HOME}/Videos/screencasts"
 
+function display_help() {
+    echo "Usage: $0 [OPTION]"
+    echo "Options:"
+    echo "    --start   Start screen recording."
+    echo "    --stop    Stop screen recording."
+    echo "    --watch   Watch the latest screencast."
+}
+
 function start() {
 
     echo -n "Enter screencast name: "; read x
     output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
-    audio_input=""
+    default_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
+    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
 
-    echo -n "Include the audio sink? [Y/n] "; read record_audio
-    case "$record_audio" in
-        [yY])
-            audio_input="-f pulse -i default"
-            sleep 2
-            pactl set-card-profile bluez_card.74_B7_E6_0B_CE_64 handsfree_head_unit
-            ;;
-        *)
-            # No audio recording
-            audio_input=""
-            ;;
-    esac
-
+    screencast_command="ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex \"[1:a][2:a]amerge=inputs=2[a]\" -map 0:v -map \"[a]\" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output}"
+    # Display a countdown
     for ((i=3; i>=1; i--)); do
         echo -ne "\rThe screencast will begin in $i seconds."
         sleep 1
     done
-    echo 
-    tmux new-window "ffmpeg -f x11grab -s 1366x768 -i :0.0 ${audio_input} ${output}" \; last-window
-    echo -ne "${_g}Recording in progress ...${w}\n"
+    echo
+    # Start the ffmpeg command in a new tmux window
+    tmux new-window "${screencast_command}" \; last-window
 }
 
-function stop() {
-    pkill ffmpeg
-    echo -n "Would you like to watch the latest screencast? [N/y] "; read answer
+function watch() {
+    output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
+    echo -en "The latest screencast is '${output}'.\nWould you like to watch it? [N/y] "
+    read answer
     case "$answer" in
         [yY])
-            output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
-            mpv ${SCREENCAST_DIR}/${output}
-            ;;
+            mpv ${SCREENCAST_DIR}/${output} ;;
         *)
-            exit 0
-            ;;
+            exit 0 ;;
     esac
 }
-
-
 
 if [[ "$1" = "--start" ]]; then
     start
 elif [[ "$1" = "--stop" ]]; then
-    stop
+    pkill ffmpeg
+elif [[ "$1" = "--watch" ]]; then
+    watch
 else
-    echo "command: $0 requires and arg '--start' or '--stop'. "
+    display_help
+    exit 0;
 fi
