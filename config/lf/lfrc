@@ -65,6 +65,7 @@ map u :clear; unselect
 map i invert
 map D delete
 map t $$SHELL
+map gs setwallpaper
 
 # Quick navigations to Frequent Paths
 map gh cd ~
