@@ -4,10 +4,11 @@
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+
+
 #nav-bar {
   /* customize this value. */
-  --navbar-margin: -44px;
-
+  --navbar-margin: -38px;
   margin-top: var(--navbar-margin);
   margin-bottom: 0;
   z-index: -100;
@@ -27,8 +28,9 @@
   width: 100vw;
 }
 
-#sidebar-close,
-#TabsToolbar {
+/*#TabsToolbar,*/
+.tabbrowser-tab .tab-close-button,
+#sidebar-close {
   visibility: collapse !important; 
 }
 
