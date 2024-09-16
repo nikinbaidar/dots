@@ -69,14 +69,5 @@ vim.cmd([[
 ]])
 
 
-vim.keymap.set({ "i" }, "<C-x><C-f>",
-    function()
-        require("fzf-lua").complete_file({
-            cmd = "rg --files",
-            winopts = { preview = { hidden = "nohidden" } }
-        })
-    end, { silent = true, desc = "Fuzzy complete file" })
-
-
 vim.keymap.set('n', "<C-x><C-f>", "<cmd>FzfLua files cwd=~/<CR>", {})
 vim.keymap.set('n', "gp", "<cmd>lua require('fzf-lua').grep_project()<CR>", {})
