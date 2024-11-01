@@ -21,8 +21,8 @@ function vim.find_files_from_project_git_root()
         local dot_git_path = vim.fn.finddir(".git", ".;")
         return vim.fn.fnamemodify(dot_git_path, "<cmd>h")
     end
-    local opts = {}
     if is_git_repo() then
+        local opts = {}
         opts = {
             cwd = get_git_root(),
         }
@@ -39,24 +39,6 @@ vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua showTags()<CR>', {noremap = 
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<C-z>', '<C-[>[s1z=`]a', {noremap = true})
 
-vim.api.nvim_create_user_command(
-  'MakeTitleCase',
-  function()
-    vim.api.nvim_command("normal! i\")
-    vim.api.nvim_command("s#\\v(\\w)(\\S*)#\\u\\1\\L\\2#g")
-    vim.api.nvim_command("normal! kJ")
-  end,
-  {bang = true, desc="Titlecase from current point to EOL"}
-)
-
-vim.api.nvim_create_user_command(
-  'StripTrailingSpaces',
-  function()
-    vim.api.nvim_command("%s/\\s\\+$//g")
-  end,
-  {bang = true, desc="Globally strip trailing spaces from each line in current file."}
-)
-
 vim.keymap.set('n', '<leader>x', "<cmd> DBUIToggle<CR>", {})
 vim.keymap.set('n', '<leader>/', "<cmd> FzfLua blines<CR>", {})
 vim.keymap.set('n', '<leader>l', "<cmd> FzfLua live_grep<CR>", {})
@@ -69,5 +51,5 @@ vim.cmd([[
 ]])
 
 
-vim.keymap.set('n', "<C-x><C-f>", "<cmd>FzfLua files cwd=~/<CR>", {})
+vim.keymap.set('n', "<leader>ff", "<cmd>FzfLua files cwd=~/<CR>", {})
 vim.keymap.set('n', "gp", "<cmd>lua require('fzf-lua').grep_project()<CR>", {})

@@ -22,10 +22,13 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'JoosepAlviste/nvim-ts-context-commentstring' ,
     'lukas-reineke/indent-blankline.nvim', 
-    -- 'numToStr/Comment.nvim',
     'windwp/nvim-autopairs',
     'tpope/vim-surround',
     'tpope/vim-repeat',
+    -- 'hrsh7th/nvim-cmp',
+    -- 'saadparwaiz1/cmp_luasnip',
+    'neovim/nvim-lspconfig',
+
     {
         'ibhagwan/fzf-lua',
         config = function()
@@ -45,3 +48,4 @@ require("lazy").setup({
         },
     },
 })
+

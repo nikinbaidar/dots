@@ -5,14 +5,14 @@
 
 local luasnip
 local filetype_functions
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 local f
 
 luasnip = require("luasnip")
 luasnip_extras = require("luasnip.extras")
 filetype_functions = require('luasnip.extras.filetype_functions')
 f = luasnip.function_node
-opts = {noremap = true, silent = true}
+opts = { noremap = true, silent = true }
 
 luasnip.setup({
     history = true,
@@ -20,7 +20,7 @@ luasnip.setup({
     delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
     load_ft_func = filetype_functions.extend_load_ft({
-        html = {"javascript", "css"} 
+        html = { "javascript", "css" }
     }),
     snip_env = {
         snippet = luasnip.snippet,
@@ -34,17 +34,18 @@ luasnip.setup({
         t = luasnip.text_node,
         m = luasnip_extras.match,
         p = luasnip_extras.partial,
-        r = function(index) 
-            return f(function(arg) return arg[1] end, {index})
+        r = function(index)
+            return f(function(arg) return arg[1] end, { index })
         end,
-        getTrig = function() 
+        getTrig = function()
             return f(function(_, snip) return snip.trigger end, {})
         end,
-        getTrigNum = function() 
-            return f(function(_, snip) 
-            -- print(type(snip.trigger))
-            local numericPart = string.match(snip.trigger, "%d+")
-            return numericPart end, {})
+        getTrigNum = function()
+            return f(function(_, snip)
+                -- print(type(snip.trigger))
+                local numericPart = string.match(snip.trigger, "%d+")
+                return numericPart
+            end, {})
         end,
         conds = require("luasnip.extras.conditions"),
         conds_expand = require("luasnip.extras.conditions.expand"),
@@ -52,20 +53,20 @@ luasnip.setup({
     enable_autosnippets = true,
 })
 
-luasnip.filetype_extend("javascript", {"html", "react"})
-luasnip.filetype_extend("latex", {"tex"})
+luasnip.filetype_extend("javascript", { "html", "react" })
+luasnip.filetype_extend("latex", { "tex" })
 
 getChoice = function(arg) return arg[1][1] end
 
 
--- KEYMAPS
-
+-- -- KEYMAPS
+--
 local expand_or_jump
-local jump_previous 
-local change_choice 
+local jump_previous
+local change_choice
 
 expand_or_jump = function()
-    if luasnip.expand_or_jumpable() then 
+    if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
     end
 end
@@ -82,10 +83,10 @@ change_choice = function()
     end
 end
 
-vim.keymap.set({"i", "s"}, "<C-j>", expand_or_jump, opts)
-vim.keymap.set({"i", "s"}, "<C-k>", jump_previous, opts)
-vim.keymap.set({"i", "s"}, "<C-l>", change_choice, opts)
+vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, opts)
+vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, opts)
+vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, opts)
 
-require("luasnip.loaders.from_lua").lazy_load({paths = "./lua/snippets"})
-
+require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua/snippets" })
+--
 require("luasnip.loaders.from_snipmate").lazy_load()

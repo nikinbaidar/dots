@@ -22,7 +22,7 @@ function getnet() {
         "wireless") 
             net=" " 
             if [ "${name}" = "Netricsa" ]; then
-                names="WiFi: Hotspot"
+                names="Hotspot"
             else
                 names="WiFi"
             fi
@@ -52,7 +52,7 @@ cb
 
 if [[ -f /usr/bin/picom ]]
 then
-    picom &
+    picom --backend xrender &
 fi
 
 while simplestatus 

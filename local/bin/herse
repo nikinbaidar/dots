@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function display_setup_info() {
-    echo If you\'re starting jupyter lab within a conda env don\'t forget to update the \`jupyter kernelspec list\`.
+    echo If you\'re starting jupyter-lab within a conda env don\'t forget to update the \`jupyter kernelspec list\`.
     echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`"
     echo "Then select the appropriate kernel in jupyter lab"
 }
@@ -14,7 +14,7 @@ fi
 
 rm -rf /tmp/jupyterlogs
 
-jupyter lab &> /tmp/jupyterlogs &
+jupyter-lab &> /tmp/jupyterlogs &
 
 echo "Starting Jupyter Server..."
 
