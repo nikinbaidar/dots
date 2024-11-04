@@ -24,6 +24,10 @@
   opacity: 1;
 }
 
+#urlbar-container { 
+    visibility: hidden !important; 
+  }
+
 #statuspanel * {
   width: 100vw;
 }
