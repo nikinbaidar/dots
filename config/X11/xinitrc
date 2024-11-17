@@ -38,10 +38,10 @@ function getnet() {
 
 function simplestatus() {
     n="[$(getnet)]"
-    d=" $(date +'%a %Y %b %d')"
+    d=" $(date +'%a %Y-%m-%d')"
     m="[$(miti)]"
-    t=" $(date +'%R:%S') "
-    xsetroot -name "${n} ${d} ${m} ${t}"
+    t="$(date +'%R:%S') "
+    xsetroot -name "${n} ${m} ${d} ${t}"
 }
 
 unclutter --timeout 1 --start-hidden --fork

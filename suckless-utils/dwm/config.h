@@ -55,7 +55,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
@@ -84,6 +84,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn",
     col_cyan, "-sf", col_gray3, NULL };
 static const char *termcmd[] = { "st", "lterm", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
+static const char *blightup[] = { "blight", "set", "+10%", NULL };
+static const char *blightdown[] = { "blight", "set", "-10%", NULL };
 static const char *detach_all[] = { "hlock", "-m", NULL };
 static const char *reattach_all[] = { "hlock", "-a", NULL };
 static const char *dualmon[] = { "moncon", "-d",  NULL };
@@ -99,6 +101,8 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = dualmon } },
   { MODKEY|ShiftMask,   XK_bracketleft,  spawn,          {.v = dualmon } },
   { MODKEY,             XK_s,            spawn,          {.v = screenshotcmd } },
+  { MODKEY,             XK_Up,            spawn,          {.v = blightup } },
+  { MODKEY,             XK_Down,            spawn,          {.v = blightdown } },
   { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } },
   { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 	{ MODKEY,             XK_m,            zoom,           {0} },

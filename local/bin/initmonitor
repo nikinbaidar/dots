@@ -6,7 +6,7 @@
 
 
 function isExternalMonitorConnected () {
-    [[ $(xrandr | awk '/^DP-1/ {print $2}') = "connected" ]]
+    [[ $(xrandr | awk '/^DP-2/ {print $2}') = "connected" ]]
 }
 
 function display_help() {
@@ -24,54 +24,55 @@ function display_help() {
 case $1 in
     "--init" ) 
         if isExternalMonitorConnected; then
-            # Use DP-1 only.
-            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+            # Use DP-2 only.
+            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
-            # Swtich to eDP-1 because there's no DP-1
+            # Swtich to eDP-1 because there's no DP-2
             xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-1 --off
+                --rotate normal --output DP-2 --off
         fi
         ;;
 
     "-e" | "--external") 
         if isExternalMonitorConnected; then
-            # Use DP-1 only.
-            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+            # Use DP-2 only.
+            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
-            # Swtich to eDP-1 because there's no DP-1
+            # Swtich to eDP-1 because there's no DP-2
             dm "External monitor not connected!" &
             xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-1 --off
+                --rotate normal --output DP-2 --off
         fi
         ;;
 
     "-d" | "--dual" )
 
         if isExternalMonitorConnected; then
-            # Put eDP-1 right of DP-1
-            xrandr --output DP-1 --primary --mode 1366x768 --pos 0x0 \
+            # Put eDP-1 right of DP-2
+            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
                 --rotate normal --output eDP-1 --mode 1368x768 \
-                --rotate normal --brightness 1.0 --right-of DP-1
+                --rotate normal --brightness 1.0 --right-of DP-2
+            cb
         else
             # Swtich to eDP-1 only
             dm "External monitor not connected!" &
             xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-1 --off 
+                --rotate normal --output DP-2 --off 
         fi
         ;;
 
     "-p" | "--presentation")
 
         xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-            --rotate normal --output DP-1 --mode 1366x768 --pos 0x0 \
+            --rotate normal --output DP-2 --mode 1366x768 --pos 0x0 \
             --rotate normal --output DP-2 --off --output HDMI-1 --off
         ;;
 
     "-l" | "--laptop")
         xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-            --rotate normal --output DP-1 --off
+            --rotate normal --output DP-2 --off
         ;;
 
     "-h" | "--help")
@@ -82,3 +83,4 @@ case $1 in
         exit 1 
         ;;
 esac
+

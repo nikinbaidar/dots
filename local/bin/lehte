@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+function openFilePickerDialog() {
+  echo -e "Select the destination file:${w}\n"
+  input=$(find /home/nikin/notes/ -type f | fzf)
+  echo "${input}" > /tmp/temporary.txt
+}
+
+export -f openFilePickerDialog
+st -c "Lehte" -T "Lehte - Terminal File Picker"\
+    -g 150x34 sh -c 'openFilePickerDialog'

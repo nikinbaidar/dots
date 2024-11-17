@@ -34,7 +34,7 @@ function cloudsync() {
     pushDropbox
 }
 
-mv ${HOME}/notes/Archives/*.pdf ${HOME}/Dropbox/ 2> /dev/null
+# mv ${HOME}/notes/Archives/*.pdf ${HOME}/Dropbox/ 2> /dev/null
 
 if ping -c 1 google.com 1> /dev/null || ping -c 1 reddit.com 1> /dev/null
 then
