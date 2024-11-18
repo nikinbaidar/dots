@@ -70,9 +70,9 @@ static const Layout layouts[] = {
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,  view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,  toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,  toggletag,      {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,  tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,  toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY|ControlMask|ShiftMask, KEY,  toggleview,     {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -86,6 +86,8 @@ static const char *termcmd[] = { "st", "lterm", NULL };
 static const char *screenshotcmd[] = { "grabScreenSelection", NULL };
 static const char *blightup[] = { "blight", "set", "+10%", NULL };
 static const char *blightdown[] = { "blight", "set", "-10%", NULL };
+static const char *volup[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *voldown[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *detach_all[] = { "hlock", "-m", NULL };
 static const char *reattach_all[] = { "hlock", "-a", NULL };
 static const char *dualmon[] = { "moncon", "-d",  NULL };
@@ -101,8 +103,10 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,   XK_bracketright, spawn,          {.v = dualmon } },
   { MODKEY|ShiftMask,   XK_bracketleft,  spawn,          {.v = dualmon } },
   { MODKEY,             XK_s,            spawn,          {.v = screenshotcmd } },
-  { MODKEY,             XK_Up,            spawn,          {.v = blightup } },
-  { MODKEY,             XK_Down,            spawn,          {.v = blightdown } },
+  { MODKEY,             XK_Up,           spawn,          {.v = blightup } },
+  { MODKEY,             XK_Down,         spawn,          {.v = blightdown } },
+  { MODKEY|ShiftMask,   XK_k,            spawn,          {.v = volup } },
+  { MODKEY|ShiftMask,   XK_j,            spawn,          {.v = voldown } },
   { MODKEY,             XK_semicolon,    spawn,          {.v = detach_all } },
   { MODKEY|ShiftMask,   XK_semicolon,    spawn,          {.v = reattach_all } },
 	{ MODKEY,             XK_m,            zoom,           {0} },
