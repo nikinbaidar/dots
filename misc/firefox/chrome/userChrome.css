@@ -4,11 +4,21 @@
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+*|*:root {
+  --tab-toolbar-navbar-overlap: 0px !important;
+}
+
+#navigator-toolbox toolbar:not(#nav-bar):not(#toolbar-menubar) {
+  -moz-box-ordinal-group: 10 !important;
+  order: 10 !important;
+}
+
+
 
 
 #nav-bar {
   /* customize this value. */
-  --navbar-margin: -38px;
+  --navbar-margin: -35px;
   margin-top: var(--navbar-margin);
   margin-bottom: 0;
   z-index: -100;
@@ -17,16 +27,12 @@
   background-color: rgba(0,0,0,0.8) !important;
 }
 
-#navigator-toolbox:focus-within > #nav-bar {
+#navigator-toolbox:focus-within #nav-bar {
   margin-top: 0;
   margin-bottom: var(--navbar-margin);
   z-index: 100;
   opacity: 1;
 }
-
-#urlbar-container { 
-    visibility: hidden !important; 
-  }
 
 #statuspanel * {
   width: 100vw;
