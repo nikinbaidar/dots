@@ -4,32 +4,24 @@
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-*|*:root {
-  --tab-toolbar-navbar-overlap: 0px !important;
-}
-
 #navigator-toolbox toolbar:not(#nav-bar):not(#toolbar-menubar) {
   -moz-box-ordinal-group: 10 !important;
   order: 10 !important;
 }
 
-
-
-
 #nav-bar {
   /* customize this value. */
-  --navbar-margin: -35px;
-  margin-top: var(--navbar-margin);
+  margin-top: -35px;
   margin-bottom: 0;
   z-index: -100;
   transition: all 0.3s ease !important;
   opacity: 0;
-  background-color: rgba(0,0,0,0.8) !important;
+  background-color: rgba(0,0,0,0.9) !important;
 }
 
-#navigator-toolbox:focus-within #nav-bar {
-  margin-top: 0;
-  margin-bottom: var(--navbar-margin);
+#urlbar-container:focus-within {
+  /* customize this value. */
+  margin-top: 38px;
   z-index: 100;
   opacity: 1;
 }
@@ -38,14 +30,11 @@
   width: 100vw;
 }
 
-/*#TabsToolbar,*/
-.tabbrowser-tab .tab-close-button,
-#sidebar-close {
+.tabbrowser-tab .tab-close-button, #sidebar-close {
   visibility: collapse !important; 
 }
 
-#back-button,
-#forward-button {
+#back-button, #forward-button {
   display: none !important; 
 }
 
@@ -67,12 +56,6 @@
   border-top: none !important;
   box-shadow: none !important;
   background-image: none !important;
-
-  /* Uncomment to add a transition from the top */
-  /*
-  transition: 400ms !important;
-  z-index: 0 !important;
-  */
 }
 
 /* Margin from top when hidden (necessary for the transition to work) */
