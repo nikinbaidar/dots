@@ -13,25 +13,14 @@ function display_help() {
 }
 
 function start() {
-
     echo -n "Enter screencast name: "; read x
     output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
     default_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
     default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
-
-    # echo $default_source $default_sink
-
     screencast_command="ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex \"[1:a][2:a]amerge=inputs=2[a]\" -map 0:v -map \"[a]\" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output}"
     # Start the ffmpeg command in a new tmux window
     tmux new-window "${screencast_command}" \; last-window
-
-    # Display a countdown
-    for ((i=3; i>=1; i--)); do
-        echo -ne "\rThe screencast will begin in $i seconds."
-        sleep 1
-    done
     echo "1" > /tmp/recording.txt
-    echo
 }
 
 function watch() {

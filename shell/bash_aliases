@@ -18,12 +18,15 @@ alias pqiv="pqiv 2> /dev/null"
 alias convert2pdf="soffice --headless --convert-to pdf"
 alias vocab="/usr/bin/nvim ${HOME}/Dropbox/Vocab.tex"
 
-function blucon(){
+#!/bin/bash
+
+function blucon() {
+
     JBL="F8:5C:7D:AC:31:F9"
     SONY="74:B7:E6:0B:CE:64"
     ANKER="F4:B6:2D:08:0C:EA"
 
-    connect_device() {
+    connectwith() {
         local device_mac=$1
         local profile=$2
 
@@ -35,29 +38,30 @@ function blucon(){
         fi
     }
 
-
-
     case $1 in 
         -jbl)
+            echo jbl
             sleep 2
-            connect_device ${JBL} ;;
+            connectwith "${JBL}" ;;
         -sony)
-            connect_device ${SONY} a2dp_sink ;;
+            connectwith "${SONY}" a2dp_sink ;;
         -anker)
-            connect_device ${ANKER} a2dp_sink ;;
+            connectwith "${ANKER}" a2dp_sink ;;
         -sony-hfp)
-            connect_device ${SONY} handsfree_head_unit ;;
+            connectwith "${SONY}" handsfree_head_unit ;;
         -anker-hfp)
-            connect_device ${ANKER} handsfree_head_unit ;;
+            connectwith "${ANKER}" handsfree_head_unit ;;
         -r) 
-            sudo systemctl restart bluetooth
-            ;;
+            sudo systemctl restart bluetooth ;;
+        -d) 
+            bluetoothdevice=`pactl list short sinks | grep -i bluez | awk '{print $2}' | cut -d '.' -f 2`
+            bluetoothdevice="${bluetoothdevice//_/:}"
+            bluetoothctl -- disconnect "${bluetoothdevice}" ;;
         *) 
-            echo "Device not found."
-            exit 1
+            echo "'$1' device not found";;
     esac
-
 }
+
 
 # Function Definitions
 function weather() {
