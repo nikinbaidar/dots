@@ -9,6 +9,11 @@
   order: 10 !important;
 }
 
+#toolbar-menubar {
+  -moz-box-ordinal-group: 10 !important;
+  order: 10 !important;
+}
+
 #nav-bar {
   /* customize this value. */
   margin-top: -35px;
