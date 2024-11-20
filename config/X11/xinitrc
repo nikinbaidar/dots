@@ -36,12 +36,44 @@ function getnet() {
     echo -n "${net}${names}"
 }
 
+
+function detectbluetooth() {
+    bluetoothdevice=`pactl list short sinks | grep -i bluez | awk '{print $2}' | cut -d '.' -f 2`
+
+
+    channel=`pactl info | grep "Default Source" | cut -d "." -f 3`
+
+    if [[ ${channel} = "handsfree_head_unit" ]]; then 
+        mic=""
+    else
+        mic=""
+    fi
+
+    bluetoothdevice="${bluetoothdevice//_/:}"
+
+    if [[ -n ${bluetoothdevice} ]] ; then
+    device_name=$(bluetoothctl devices | grep "${bluetoothdevice}" | awk '{print $3}')
+    echo " ${device_name} ${mic}"
+    fi
+
+}
+
+function detectrecording() {
+    if [[ "$(cat /tmp/recording.txt)" = "1" ]]
+    then
+        echo "󰑊"
+    fi
+}
+
+
 function simplestatus() {
     n="[$(getnet)]"
     d=" $(date +'%a %Y-%m-%d')"
     m="[$(miti)]"
     t="$(date +'%R:%S') "
-    xsetroot -name "${n} ${m} ${d} ${t}"
+    b="$(detectbluetooth)"
+    r="$(detectrecording)"
+    xsetroot -name "${n}${b} ${m} ${d} ${t}${r}"
 }
 
 unclutter --timeout 1 --start-hidden --fork

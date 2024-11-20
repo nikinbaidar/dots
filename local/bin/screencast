@@ -19,6 +19,8 @@ function start() {
     default_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
     default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
 
+    # echo $default_source $default_sink
+
     screencast_command="ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex \"[1:a][2:a]amerge=inputs=2[a]\" -map 0:v -map \"[a]\" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output}"
     # Start the ffmpeg command in a new tmux window
     tmux new-window "${screencast_command}" \; last-window
@@ -28,6 +30,7 @@ function start() {
         echo -ne "\rThe screencast will begin in $i seconds."
         sleep 1
     done
+    echo "1" > /tmp/recording.txt
     echo
 }
 
@@ -47,6 +50,7 @@ if [[ "$1" = "--start" ]]; then
     start
 elif [[ "$1" = "--stop" ]]; then
     pkill ffmpeg
+    rm /tmp/recording.txt
 elif [[ "$1" = "--watch" ]]; then
     watch
 else
