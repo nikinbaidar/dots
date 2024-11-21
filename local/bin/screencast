@@ -17,15 +17,15 @@ function start() {
     output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
     default_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
     default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
-    screencast_command="ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex \"[1:a][2:a]amerge=inputs=2[a]\" -map 0:v -map \"[a]\" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output}"
-    # Start the ffmpeg command in a new tmux window
-    tmux new-window "${screencast_command}" \; last-window
+
     echo "1" > /tmp/recording.txt
+
+    ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex "[1:a][2:a]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output} -hide_banner -loglevel quiet &
 }
 
 function watch() {
     output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
-    echo -en "The latest screencast is '${output}'.\nWould you like to watch it? [N/y] "
+    echo -en "The latest screencast is '${output}'.nWould you like to watch it? [N/y] "
     read answer
     case "$answer" in
         [yY])
