@@ -35,6 +35,19 @@ function watch() {
     esac
 }
 
+function mute() {
+    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
+    pactl set-source-mute "${default_source}" 1
+    echo "mute" > /tmp/muted
+}
+
+function unmute() {
+    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
+    pactl set-source-mute "${default_source}" 0
+    rm /tmp/muted
+}
+
+
 if [[ "$1" = "--start" ]]; then
     start
 elif [[ "$1" = "--stop" ]]; then
@@ -42,6 +55,10 @@ elif [[ "$1" = "--stop" ]]; then
     rm /tmp/recording.txt
 elif [[ "$1" = "--watch" ]]; then
     watch
+elif [[ "$1" = "--mute" ]]; then
+    mute
+elif [[ "$1" = "--unmute" ]]; then
+    unmute
 else
     display_help
     exit 0;

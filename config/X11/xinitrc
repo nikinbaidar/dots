@@ -44,10 +44,10 @@ function detectbluetooth() {
 
     channel=`pactl info | grep "Default Source" | cut -d "." -f 3`
 
-    if [[ ${channel} = "handsfree_head_unit" ]]; then 
-        mic=""
-    else
+    if [[ ${channel} != "handsfree_head_unit" || -f /tmp/muted ]]; then 
         mic=""
+    else
+        mic=""
     fi
 
 
