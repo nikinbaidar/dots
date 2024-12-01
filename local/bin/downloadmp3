@@ -1,29 +1,39 @@
 #! /bin/bash
 urls=()
+
 while IFS= read -r line; do
     urls+=("$line")
 done < "${HOME}/Downloads/youtube_urls.txt"
+
 length=${#urls[@]}
 
 dir="${HOME}/Music"
 
-echo wd: ${dir}
+if [ -d "${dir}" ] 
+then
+    cd "${dir}"
+    start=$(date | awk '{print $4}')
 
-start=$(date | awk '{print $4}')
-for ((i=0; i <= ${length}; i++)); do
-    echo -ne "\rDownload in progress ... ${w} [ ${i} / ${length} ] complete."
-    yt-dlp --extract-audio --audio-format mp3 --audio-quality 0 ${urls[$i]} &>/dev/null
-done
+    for ((i=0; i <= ${length}; i++)); do
+        echo -ne "\rDownload in progress ... ${w} [ ${i} / ${length} ] complete."
+        yt-dlp --extract-audio --audio-format mp3 --audio-quality 0 ${urls[$i]} &>/dev/null
+    done
 
-stop=$(date|awk '{print $4}')
-echo ; echo "Download Complete."
-printf '#%.0s' {1..46} ; echo
-time_elapsed=$(echo -e "${start}\n${stop}" | awk 'BEGIN {FS=":"; diff=0} {diff=$2 - diff} END {print diff}')
+    stop=$(date|awk '{print $4}')
+    echo ; echo "Download Complete."
+    printf '#%.0s' {1..46} ; echo
+    time_elapsed=$(echo -e "${start}\n${stop}" | awk 'BEGIN {FS=":"; diff=0} {diff=$2 - diff} END {print diff}')
 
-if [ $time_elapsed -lt 1 ]; then
-    changetitle 1
+    if [ $time_elapsed -lt 1 ]; then
+        changetitle 1
+    else
+        changetitle "${time_elapsed}"
+    fi
+
+    IFS=${IFS_OLD}
 else
-    changetitle "${time_elapsed}"
+    echo "${dir}" does not exist.
+    IFS=${IFS_OLD}
+    exit 1
 fi
 
-IFS=${IFS_OLD}

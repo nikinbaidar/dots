@@ -101,6 +101,7 @@ static const char *dualmon[] = {"moncon", "-d", NULL};
 static const char *externalmon[] = {"moncon", "-e", NULL};
 static const char *lapmon[] = {"moncon", "-l", NULL};
 static const char *capturestop[] = {"screencast", "--stop", NULL};
+static const char *captureprogress[] = {"screencast", "--progress", NULL};
 static const char *mute[] = {"screencast", "--mute", NULL};
 static const char *unmute[] = {"screencast", "--unmute", NULL};
 
@@ -109,7 +110,8 @@ static const Key keys[] = {
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_bracketright, spawn, {.v = lapmon}},
-    {MODKEY, XK_c, spawn, {.v = capturestop}},
+    {MODKEY, XK_c, spawn, {.v = captureprogress}},
+    {MODKEY | ShiftMask, XK_c, spawn, {.v = capturestop}},
     {MODKEY | ShiftMask, XK_m, spawn, {.v = mute}},
     {MODKEY | ShiftMask, XK_u, spawn, {.v = unmute}},
     {MODKEY, XK_bracketleft, spawn, {.v = externalmon}},
@@ -130,8 +132,8 @@ static const Key keys[] = {
     {MODKEY, XK_h, setmfact, {.f = -0.05}},
     {MODKEY, XK_l, setmfact, {.f = +0.05}},
     {MODKEY, XK_Tab, view, {0}},
+    {MODKEY, XK_b, togglebar, {0}},
     {MODKEY, XK_a, view, {.ui = 3}},
-    {MODKEY, XK_b, view, {.ui = 5}},
     {MODKEY, XK_q, killclient, {0}},
     {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
     {MODKEY, XK_space, togglefloating, {0}},

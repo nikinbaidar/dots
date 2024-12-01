@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ${DOTS}/shell/prompt_colors
-
 SCREENCAST_DIR="${HOME}/Videos/screencasts"
 
 function display_help() {
@@ -13,19 +11,25 @@ function display_help() {
 }
 
 function start() {
-    echo -n "Enter screencast name: "; read x
-    output="${SCREENCAST_DIR}/${x}$(date +'%y%m%d%H%M%S').mp4"
+    if [[ -n "${1}" ]]; then
+        x="$1"
+    else
+        echo "filename not provided"
+        exit 1
+    fi
+    echo "1" > /tmp/recording.txt
+    output="${SCREENCAST_DIR}/${x}_$(date +'%y%m%d%H%M%S').mp4"
     default_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
     default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
-
-    echo "1" > /tmp/recording.txt
-
     ffmpeg -f x11grab -r 30 -s 1366x768 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex "[1:a][2:a]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output} -hide_banner -loglevel quiet &
+    echo Recording started at $(date +'%H:%M:%S')
+    echo "$(date +%s)" > /tmp/rectime.txt
+
 }
 
 function watch() {
     output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
-    echo -en "The latest screencast is '${output}'.nWould you like to watch it? [N/y] "
+    echo -en "The latest screencast is '${output}'. Would you like to watch it? [N/y] "
     read answer
     case "$answer" in
         [yY])
@@ -47,12 +51,29 @@ function unmute() {
     rm /tmp/muted
 }
 
+function progress() {
+    START=$(cat /tmp/rectime.txt)
+    NOW=$(date +%s)
+    SECONDS_ELAPSED=$(( $NOW-$START ))
+    HOURS_ELAPSED=$(( $SECONDS_ELAPSED / 3600 ))
+    if [ $HOURS_ELAPSED = 0 ] ;then
+        MINUTES_ELAPSED=$(( ($SECONDS_ELAPSED) / 60 ))
+    else
+        MINUTES_ELAPSED=$(( ($SECONDS_ELAPSED % 60) / 60 ))
+    fi
+
+    dm "RECORDING: ${HOURS_ELAPSED} hours ${MINUTES_ELAPSED} mins" &
+}
+
 
 if [[ "$1" = "--start" ]]; then
-    start
+    start "$2"
 elif [[ "$1" = "--stop" ]]; then
     pkill ffmpeg
     rm /tmp/recording.txt
+    rm /tmp/rectime.txt
+elif [[ "$1" = "--progress" ]]; then
+    progress
 elif [[ "$1" = "--watch" ]]; then
     watch
 elif [[ "$1" = "--mute" ]]; then
