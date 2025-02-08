@@ -78,7 +78,9 @@ function simplestatus() {
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-moncon --init
+#moncon --init
+bash /home/nikin/.screenlayout/newmon.sh
+
 cb
 
 

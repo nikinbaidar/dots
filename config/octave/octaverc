@@ -3,6 +3,7 @@ edit mode sync;
 edit home .;
 EDITOR('$EDITOR');
 EDITOR('$EDITOR > /dev/tty 2>&1 < /dev/tty %s');
+format long g
 
 % addpath ("/home/nikin/Documents/Common-Projects/octave");
 addpath(fullfile("/home/nikin/projects", "spm12-r7771"));

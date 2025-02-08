@@ -5,10 +5,7 @@ source ${DOTS}/shell/prompt_colors
 audio_file="/home/nikin/Music/Cyberpunk 2077 Incoming Call HQ Ringtone-cerCH5Kt8Ng.mp3"
 
 function play_audio {
-    while true; do
-        mpv --no-video "$audio_file"  2&> /dev/null  # Run mpv to play the audio
-        sleep 3
-    done
+        timeout 10 mpv --no-video "$audio_file"  2&> /dev/null  # Run mpv to play the audio
 }
 
 hours=0
@@ -45,7 +42,7 @@ while [ $duration -ge 0 ]; do
     sleep 1
     duration=$((duration - 1))
 done
-echo -ne "Countdown ${_g}${H}:${M}:${S}${w} ${r}Time Up!${w} "
+#echo -ne "Countdown ${_g}${H}:${M}:${S}${w} ${r}Time Up!${w} "
 
 tput cnorm
 
