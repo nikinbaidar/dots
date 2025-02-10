@@ -5,8 +5,8 @@ static const unsigned int gappx[] = {5};
 static const unsigned int snap = 32;
 static const int showbar = 1;
 static const int topbar = 1;
-static const char *fonts[] = {"monospace:size=9"};
-static const char dmenufont[] = "monospace:size=9";
+static const char *fonts[] = {"monospace:size=14"};
+static const char dmenufont[] = "monospace:size=14";
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#bbbbbb";
 static const char col_gray3[] = "#c5c8c6";
@@ -87,7 +87,7 @@ static char dmenumon[2] = "0";
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray3, NULL};
-static const char *termcmd[] = {"st", "lterm", NULL};
+static const char *termcmd[] = {"st", "tmux", NULL};
 static const char *screenshotcmd[] = {"grabScreenSelection", NULL};
 static const char *blightup[] = {"blight", "set", "+10%", NULL};
 static const char *blightdown[] = {"blight", "set", "-10%", NULL};

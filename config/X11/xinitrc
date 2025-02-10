@@ -78,7 +78,14 @@ function simplestatus() {
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-moncon --init
+
+if [[ `uname -n` = 'ideapad' ]]
+then
+	bash ~/.screenlayout/lenovo.sh
+else
+	moncon --init
+fi
+
 cb
 
 

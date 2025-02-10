@@ -31,6 +31,10 @@
   opacity: 1;
 }
 
+#TabsToolbar {
+	border-bottom: none !important;
+}
+
 #statuspanel * {
   width: 100vw;
 }
