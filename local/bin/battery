@@ -4,5 +4,6 @@
 # ░█▀▄░█▀█░░█░░░█░░█▀▀░█▀▄░░█░
 # ░▀▀░░▀░▀░░▀░░░▀░░▀▀▀░▀░▀░░▀░
 
-echo BATTERY_PERCENTAGE = $(grep -oP 'CAPACITY=\K\d+' /sys/class/power_supply/BAT0/uevent)%
-grep 'STATUS=' /sys/class/power_supply/BAT0/uevent
+percent=`grep -oP 'CAPACITY=\K\d+' /sys/class/power_supply/BAT0/uevent`
+status=`grep -i status /sys/class/power_supply/BAT0/uevent | cut -d '=' -f 2`
+echo ${percent}%

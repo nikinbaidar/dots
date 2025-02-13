@@ -73,7 +73,8 @@ function simplestatus() {
     t="$(date +'%R:%S') "
     b="$(detectbluetooth)"
     r="$(detectrecording)"
-    xsetroot -name "${n}${b} ${d} ${m} ${t}${r}"
+    B="[󱊣$(battery)]"
+    xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}"
 }
 
 unclutter --timeout 1 --start-hidden --fork

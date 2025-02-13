@@ -10,12 +10,12 @@ static const char dmenufont[] = "monospace:size=14";
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#bbbbbb";
 static const char col_gray3[] = "#c5c8c6";
-static const char col_cyan[] = "#232323";
+static const char col_cyan[] = "#373b41";
 static const char col_dmenu[] = "#4c4f57";
 static const char *colors[][3] = {
     /*               fg         bg         border   */
     [SchemeNorm] = {col_gray3, "#0F111B", "#444444"},
-    [SchemeSel] = {col_gray3, col_cyan, "#444444"},
+    [SchemeSel] = {col_gray3, "#232323", "#444444"},
 };
 
 typedef struct {
@@ -87,7 +87,7 @@ static char dmenumon[2] = "0";
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray3, NULL};
-static const char *termcmd[] = {"st", "tmux", NULL};
+static const char *termcmd[] = {"st", "lterm", NULL};
 static const char *screenshotcmd[] = {"grabScreenSelection", NULL};
 static const char *blightup[] = {"blight", "set", "+10%", NULL};
 static const char *blightdown[] = {"blight", "set", "-10%", NULL};

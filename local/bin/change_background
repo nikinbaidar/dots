@@ -4,7 +4,7 @@
 # ░█░░░█▀█░█▀█░█░█░█░█░█▀▀░░░░░█▀▄░█▀█░█░░░█▀▄░█░█░█▀▄░█░█░█░█░█░█░█░█
 # ░▀▀▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀░
 
-wallpapers="${HOME}/pictures/walls"
+wallpapers="${HOME}/Pictures/walls"
 interval=3
 
 function set_random_wallpaper() {
