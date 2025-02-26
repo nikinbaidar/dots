@@ -5,7 +5,7 @@
 # ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀░▀
 
 
-DEFAULT_RESOLUTION="1368x768"
+DEFAULT_RESOLUTION="1920x1080"
 
 # Detect external monitor
 externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
