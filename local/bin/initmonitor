@@ -5,82 +5,61 @@
 # ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀░▀
 
 
-function isExternalMonitorConnected () {
-    [[ $(xrandr | awk '/^DP-2/ {print $2}') = "connected" ]]
+DEFAULT_RESOLUTION="1368x768"
+
+# Detect external monitor
+externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
+
+setResolution() {
+    case "$externalMonitor" in
+        "DP-1") resolution="1920x1080" ;;
+        "DP-2") resolution="1366x768" ;;
+        *) resolution="$DEFAULT_RESOLUTION" ;;
+    esac
 }
 
-function display_help() {
-    echo "Usage: $0 [OPTION]"
-    echo "Switch and config displays."
-    echo
-    echo "Options:"
-    echo "  -e, --external      External monitor"
-    echo "  -d, --dual          Dual monitor"
-    echo "  -p, --presentation  Dual monitor mirrored"
-    echo "  -l, --laptop        Laptop"
-    echo
-}
+setResolution
 
-case $1 in
-    "--init" ) 
-        if isExternalMonitorConnected; then
-            # Use DP-2 only.
-            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
+# Handle script arguments
+case "$1" in
+    "--init" | "-e" | "--external" ) 
+        if [[ -n "$externalMonitor" ]]; then
+            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
-            # Swtich to eDP-1 because there's no DP-2
-            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-2 --off
-        fi
-        ;;
-
-    "-e" | "--external") 
-        if isExternalMonitorConnected; then
-            # Use DP-2 only.
-            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
-                --rotate normal --output eDP-1 --off
-        else
-            # Swtich to eDP-1 because there's no DP-2
-            dm "External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-2 --off
+            xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+                --rotate normal --output "$externalMonitor" --off
+            [[ "$1" != "--init" ]] && dm "External monitor not connected!" &
         fi
         ;;
 
     "-d" | "--dual" )
-
-        if isExternalMonitorConnected; then
-            # Put eDP-1 right of DP-2
-            xrandr --output DP-2 --primary --mode 1366x768 --pos 0x0 \
-                --rotate normal --output eDP-1 --mode 1368x768 \
-                --rotate normal --brightness 1.0 --right-of DP-2
+        if [[ -n "$externalMonitor" ]]; then
+            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
+                --rotate normal --output eDP-1 --mode "$DEFAULT_RESOLUTION" \
+                --rotate normal --brightness 1.0 --right-of "$externalMonitor"
             cb
         else
-            # Swtich to eDP-1 only
             dm "External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-                --rotate normal --output DP-2 --off 
+            xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+                --rotate normal --output "$externalMonitor" --off 
         fi
         ;;
 
     "-p" | "--presentation")
-
-        xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-            --rotate normal --output DP-2 --mode 1366x768 --pos 0x0 \
-            --rotate normal --output DP-2 --off --output HDMI-1 --off
+        xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --mode "$resolution" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --off --output HDMI-1 --off
         ;;
 
     "-l" | "--laptop")
-        xrandr --output eDP-1 --primary --mode 1368x768 --pos 0x0 \
-            --rotate normal --output DP-2 --off
+        xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --off
         ;;
 
     "-h" | "--help")
         display_help
         ;;
 
-    *) 
-        exit 1 
-        ;;
+    *) exit 1 ;;
 esac
-

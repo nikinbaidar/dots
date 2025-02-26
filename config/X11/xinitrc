@@ -11,6 +11,11 @@ if [ -d /etc/X12/xinit/xinitrc.d ] ; then
     unset f
 fi
 
+
+if [[ -f /usr/bin/picom ]]; then
+    picom --backend xrender &
+fi
+
 function getnet() {
     net_type="$(nmcli -t -f TYPE connection show --active | awk -F '-' '{print $3}' | head -1)"
     name="$(nmcli -t -f NAME connection show --active | head -1)"
@@ -66,38 +71,16 @@ function detectrecording() {
 }
 
 
-function simplestatus() {
-    n="[$(getnet)]"
-    d=" $(date +'%a %Y-%m-%d')"
-    m="[$(miti)]"
-    t="$(date +'%R:%S') "
-    b="$(detectbluetooth)"
-    r="$(detectrecording)"
-    B="[󱊣$(battery)]"
-    xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}"
+mysimplestatus() {
+    while true; do
+        xsetroot -name "[$(getnet)]$(detectbluetooth)  $(date +'%a %Y-%m-%d') [$(miti)] $(date +'%R:%S') [󱊣$(battery)]$(detectrecording)"
+        sleep 1
+    done &
 }
 
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-
-if [[ `uname -n` = 'ideapad' ]]
-then
-	bash ~/.screenlayout/lenovo.sh
-else
-	moncon --init
-fi
-
+moncon --init
 cb
-
-
-if [[ -f /usr/bin/picom ]]
-then
-    picom --backend xrender &
-fi
-
-while simplestatus 
-do
-    sleep 1
-done &
-
+mysimplestatus
 exec dwm
