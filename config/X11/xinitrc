@@ -83,4 +83,5 @@ xset -dpms && xset s off &
 moncon --init
 cb
 mysimplestatus
+sleep 2
 exec dwm
