@@ -10,14 +10,16 @@ export TF_CPP_MIN_LOG_LEVEL=3
 export LD_LIBRARY_PATH=/opt/cuda/lib64
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
 export DOTS=${HOME}/dots
+export HISTFILE=${HOME}/.bash_history
 
+export HISTFILESIZE=
+export HISTSIZE=
+PROMPT_COMMAND='history -a; history -c; history -r'
 # See [XDG Base Directory Specs](https://bit.ly/3zFJEV5).
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
 export XDG_CACHE_HOME=${HOME}/.cache
-# STATE
-export HISTFILE=${XDG_STATE_HOME}/bash/history
 # DATA
 export PYTHONPATH=${XDG_DATA_HOME}/python
 export MYSQL_HISTFILE=${XDG_DATA_HOME}/mysql_history
@@ -49,7 +51,7 @@ source /usr/share/fzf/completion.bash
 
 # Shell options
 shopt -s checkjobs
-
+shopt -s histappend
 
 if [[ `uname -n` = 'ideapad' ]]
 then
