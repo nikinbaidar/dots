@@ -73,7 +73,7 @@ function detectrecording() {
 
 mysimplestatus() {
     while true; do
-        xsetroot -name "[$(getnet)]$(detectbluetooth)  $(date +'%a %Y-%m-%d') [$(miti)] $(date +'%R:%S') [󱊣$(battery)]$(detectrecording)"
+	    xsetroot -name "[$(getnet)]$(detectbluetooth)  $(date +'%a %Y-%m-%d') [$(miti)] $(date +'%R:%S') [󱊣$(battery)]$(detectrecording)"
         sleep 1
     done &
 }
