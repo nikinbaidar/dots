@@ -71,17 +71,25 @@ function detectrecording() {
 }
 
 
-mysimplestatus() {
-    while true; do
-	    xsetroot -name "[$(getnet)]$(detectbluetooth)  $(date +'%a %Y-%m-%d') [$(miti)] $(date +'%R:%S') [󱊣$(battery)]$(detectrecording)"
-        sleep 1
-    done &
-}
 
+function mysimplestatus() {
+    n="[$(getnet)]"
+    d=" $(date +'%a %Y-%m-%d')"
+    m="[$(miti)]"
+    t="$(date +'%R:%S') "
+    b="$(detectbluetooth)"
+    r="$(detectrecording)"
+    B="[󱊣$(battery)]"
+    xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}"
+}
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 moncon --init
 cb
-mysimplestatus
-sleep 2
+
+while mysimplestatus 
+do
+    sleep 1
+done &
+
 exec dwm
