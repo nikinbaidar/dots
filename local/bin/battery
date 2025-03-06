@@ -6,4 +6,10 @@
 
 percent=`grep -oP 'CAPACITY=\K\d+' /sys/class/power_supply/BAT0/uevent`
 status=`grep -i status /sys/class/power_supply/BAT0/uevent | cut -d '=' -f 2`
-echo ${percent}%
+
+if [[ $1 = "--status" ]]
+then
+	echo ${status}
+else
+	echo ${percent}%
+fi
