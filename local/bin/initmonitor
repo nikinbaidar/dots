@@ -18,7 +18,8 @@ setResolution() {
     esac
 }
 
-setResolution
+# setResolution
+resolution="${DEFAULT_RESOLUTION}"
 
 # Handle script arguments
 case "$1" in

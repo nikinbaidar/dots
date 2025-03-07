@@ -9,7 +9,7 @@ export PATH=${HOME}/.local/bin:${PATH}:/opt/afni:/opt/cuda
 export TF_CPP_MIN_LOG_LEVEL=3
 export LD_LIBRARY_PATH=/opt/cuda/lib64
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
-export DOTS=${HOME}/dots
+export DOTS=${HOME}/projects/dots
 export HISTFILE=${HOME}/.bash_history
 
 export HISTFILESIZE=
