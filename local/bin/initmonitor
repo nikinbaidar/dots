@@ -6,7 +6,13 @@
 
 
 DEFAULT_RESOLUTION="1920x1080"
-DELL_RESOLUTION="1600x900"
+
+if [[ "`uname -n`" = "ideapad ]]
+then
+	DELL_RESOLUTION="1920x1080"
+else
+	DELL_RESOLUTION="1600x900"
+fi
 
 # Detect external monitor
 externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
