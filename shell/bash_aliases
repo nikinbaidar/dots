@@ -83,6 +83,7 @@ function cloudsync() {
     }
 
     function pushDropbox() {
+	rm -f ~/Dropbox/sioyek/shared\ *.db
         dropbox-cli start > /dev/null 2>&1
         if [ "$(dropbox-cli status)" = "Up to date" ]; then
             echo "Dropbox is up to date"
