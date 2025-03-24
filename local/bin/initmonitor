@@ -7,11 +7,11 @@
 
 DEFAULT_RESOLUTION="1920x1080"
 
-if [[ "`uname -n`" = "ideapad ]]
+if [[ "`uname -n`" = "ideapad" ]]
 then
-	DELL_RESOLUTION="1920x1080"
+	LAPTOP_RESOLUTION="1920x1080"
 else
-	DELL_RESOLUTION="1600x900"
+	LAPTOP_RESOLUTION="1600x900"
 fi
 
 # Detect external monitor
@@ -35,7 +35,7 @@ case "$1" in
             xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
-            xrandr --output eDP-1 --primary --mode "$DELL_RESOLUTION" --pos 0x0 \
+            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off
             [[ "$1" != "--init" ]] && dm "External monitor not connected!" &
         fi
@@ -44,24 +44,24 @@ case "$1" in
     "-d" | "--dual" )
         if [[ -n "$externalMonitor" ]]; then
             xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
-                --rotate normal --output eDP-1 --mode "$DELL_RESOLUTION" \
+                --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
                 --rotate normal --brightness 1.0 --right-of "$externalMonitor"
             cb
         else
             dm "External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode "$DELL_RESOLUTION" --pos 0x0 \
+            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off 
         fi
         ;;
 
     "-p" | "--presentation")
-        xrandr --output eDP-1 --primary --mode "$DELL_RESOLUTION" --pos 0x0 \
+        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
             --rotate normal --output "$externalMonitor" --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
             --rotate normal --output "$externalMonitor" --off --output HDMI-1 --off
         ;;
 
     "-l" | "--laptop")
-        xrandr --output eDP-1 --primary --mode "$DELL_RESOLUTION" --pos 0x0 \
+        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
             --rotate normal --output "$externalMonitor" --off
         ;;
 
