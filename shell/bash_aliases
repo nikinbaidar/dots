@@ -6,7 +6,7 @@
 
 # Alias Definitions
 alias vi="/usr/bin/nvim"
-alias ls="ls -v --color=always --group-directories-first"
+alias ls="ls -v --color=always --group-directories-first -1"
 alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
