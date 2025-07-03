@@ -55,9 +55,10 @@ function detectbluetooth() {
         mic=""
     fi
 
-
-    if [[ -n ${bluetoothdevice} ]] ; then
-        device_name=$(bluetoothctl devices | grep "${bluetoothdevice}" | awk '{print $3}') echo " ${mic} ${device_name}"
+    if [[ -n ${bluetoothdevice} ]]; then
+        device_name=$(bluetoothctl devices | \
+            awk -v dev="$bluetoothdevice" '$0 ~ dev {for (i=3; i<=NF; i++) printf "%s%s", $i, (i<NF ? OFS : ORS)}')
+        echo " [${mic} ${device_name}]"
     fi
 
 }
