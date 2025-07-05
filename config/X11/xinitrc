@@ -55,10 +55,10 @@ function detectbluetooth() {
         mic=""
     fi
 
-
-    if [[ -n ${bluetoothdevice} ]] ; then
-        device_name=$(bluetoothctl devices | grep "${bluetoothdevice}" | awk '{print $3}')
-    echo " ${mic} ${device_name}"
+    if [[ -n ${bluetoothdevice} ]]; then
+        device_name=$(bluetoothctl devices | \
+            awk -v dev="$bluetoothdevice" '$0 ~ dev {for (i=3; i<=NF; i++) printf "%s%s", $i, (i<NF ? OFS : ORS)}')
+        echo " [${mic} ${device_name}]"
     fi
 
 }
@@ -79,7 +79,12 @@ function mysimplestatus() {
     t="$(date +'%R:%S') "
     b="$(detectbluetooth)"
     r="$(detectrecording)"
-    B="[󱊣$(battery)]"
+    if [[ $(battery --status) = "Charging" ]]
+    then
+        B="[󰂄$(battery)]"
+    else
+        B="[󱊣$(battery)]"
+    fi
     xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}"
 }
 unclutter --timeout 1 --start-hidden --fork
