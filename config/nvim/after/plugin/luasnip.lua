@@ -55,6 +55,7 @@ luasnip.setup({
 
 luasnip.filetype_extend("javascript", { "html", "react" })
 luasnip.filetype_extend("latex", { "tex" })
+luasnip.filetype_extend("markdown", { "quarto" })
 
 getChoice = function(arg) return arg[1][1] end
 
