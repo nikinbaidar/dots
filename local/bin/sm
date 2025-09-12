@@ -1,0 +1,13 @@
+#!/bin/bash
+
+file=`fd --full-path ~/manuals/ /home/nikin | fzf`
+
+mime=$(file --mime-type -b "$file")
+
+if [[ "${mime}" == text/* && "${file}" != *.html ]]; then
+  /usr/bin/nvim "${file}"
+elif [[ -n "${file}" ]]; then
+  xdg-open "${file}" &
+else
+  :
+fi
