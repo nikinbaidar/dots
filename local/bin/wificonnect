@@ -1,0 +1,26 @@
+#!/bin/bash
+
+case $1 in 
+  "--new")
+    nmcli device wifi rescan
+    sleep 2
+    SSID=$(nmcli -f SSID device wifi list | tail -n +2 | grep --invert-match "^--" | sort -t: -k2 -nr | cut -d: -f1 | fzf)
+
+    if [ -n "${SSID}" ]; then
+      echo "    SSID: ${SSID}"
+      read -s -p "Password: " PASSWORD
+      nmcli device wifi connect ${SSID} password ${PASSWORD}
+    fi
+    ;;
+
+  *)
+    SSID=$(nmcli -f NAME con | tail -n +2 | grep --invert-match "^lo" | fzf)
+    if [ -n "${SSID}" ]; then
+      nmcli con up ${SSID}
+    fi
+    ;;
+esac
+
+
+
+

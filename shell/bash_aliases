@@ -6,6 +6,7 @@
 
 # Alias Definitions
 alias vi="/usr/bin/nvim"
+alias dbworkbench="/usr/bin/nvim -c \"DBUI\""
 alias ls="ls -v --color=always --group-directories-first -1"
 alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
