@@ -22,15 +22,10 @@ function getnet() {
     case "${net_type}" in
         "ethernet") 
             net="󰈀 " 
-            names="LAN"
+            name="LAN"
             ;;
         "wireless") 
             net=" " 
-            if [ "${name}" = "Netricsa" ]; then
-                names="Hotspot"
-            else
-                names="WiFi"
-            fi
             ;;
         *) 
             net="" 
