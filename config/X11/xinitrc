@@ -61,10 +61,9 @@ function detectbluetooth() {
 function detectrecording() {
     if [[ "$(head -n1 /tmp/screencast.nikin/status)" = "1" ]]
     then
-        echo "[ REC] "
-    elif [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]]
-    then
-        echo "[ REC] "
+        echo "[  REC ] "
+    elif [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]] then
+        echo "[  REC ] "
     fi
 }
 

@@ -1,15 +1,14 @@
 #!/bin/bash
 
-: <<'END_COMMENT'
-
-END_COMMENT
-
-SCREENCAST_DIR="/home/nikin/Videos/screencasts"
+SCREENCAST_OUTPUT_DIR="/home/nikin/Videos/screencasts"
+screencast_files="/tmp/screencast.$USER"
 
 function display_help() {
     echo "Usage: $0 [OPTION]"
     echo "Options:"
     echo "    --start   Start screen recording (includes the default audio sink)."
+    echo "    --pause   Pauses the previously started screen recording."
+    echo "    --resume  Resumes the previously paused screen recording."
     echo "    --stop    Stop screen recording."
     echo "    --watch   Watch the latest screencast."
 }
@@ -18,56 +17,55 @@ function start() {
 
     if [[ -n "${1}" ]]
     then
-        output="${SCREENCAST_DIR}/${1}_$(date +'%y%m%d%H%M%S').mp4"
+        output="${SCREENCAST_OUTPUT_DIR}/${1}_$(date +'%y%m%d%H%M%S').mp4"
     else
         echo "Filename not provided."
         exit 1
     fi
 
 
-    if [[ -d "/tmp/screencast.nikin" ]] && [[ "$(head -n1 /tmp/screencast.nikin/status)" = "2" ]]
+    if [[ -d "${screencast_files}" ]] && [[ "$(head -n1 ${screencast_files}/status)" = "2" ]]
     then
         echo Recording resumed on $(date +'%H:%M:%S')
-        echo "file ${output}" >> /tmp/screencast.nikin/segments
-    elif [[ -d "/tmp/screencast.nikin" ]]
+        echo "file ${output}" >> ${screencast_files}/segments
+    elif [[ -d "${screencast_files}" ]]
     then
         echo "Stop previous recording first."
         exit 1
     else
-        mkdir "/tmp/screencast.nikin"
-        echo "${1}" > /tmp/screencast.nikin/title
+        mkdir -p "${screencast_files}"
+        echo "${1}" > ${screencast_files}/title
         echo Recording started on $(date +'%H:%M:%S')
     fi
 
-    echo "1" > /tmp/screencast.nikin/status
 
-    default_sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
-    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
+    sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
+    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
 
-    echo "$(date +%s)" >> /tmp/screencast.nikin/status
+    { echo "1"; date +%s; } > ${screencast_files}/status
 
-    ffmpeg -f x11grab -r 30 -s 1920x1080 -i :0.0 -f pulse -i "${default_sink}" -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac ${output} -hide_banner -loglevel error &
+    ffmpeg -f x11grab -r 30 -s 1920x1080 -i :0.0 -f pulse -i "${sink}" -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac ${output} -hide_banner -loglevel error &
 
     # Grabs mic as well
-    # ffmpeg -f x11grab -r 30 -s 1920x1080 -i :0.0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex "[1:a][2:a]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output} -hide_banner -loglevel quiet &
+    # ffmpeg -f x11grab -r 30 -s 1920x1080 -i :0.0 -f pulse -i ${source} -f pulse -i ${sink}.monitor -filter_complex "[1:a][2:a]amerge=inputs=2[a]" -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental ${output} -hide_banner -loglevel quiet &
 
     # Adds (Needs webcam) PIP 320x240
-    # ffmpeg -f x11grab -video_size 1920x1080 -framerate 30 -i :0.0 -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0 -f pulse -i ${default_source} -f pulse -i ${default_sink}.monitor -filter_complex "[1:v] scale=320:240,hqdn3d [webcam]; [0:v][webcam] overlay=W-w-10:H-h-10" -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -r 30 -acodec aac -b:a 192k -ar 44100 -ac 2 ${output} -hide_banner -loglevel quiet &
+    # ffmpeg -f x11grab -video_size 1920x1080 -framerate 30 -i :0.0 -f v4l2 -framerate 30 -video_size 320x240 -i /dev/video0 -f pulse -i ${source} -f pulse -i ${sink}.monitor -filter_complex "[1:v] scale=320:240,hqdn3d [webcam]; [0:v][webcam] overlay=W-w-10:H-h-10" -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -r 30 -acodec aac -b:a 192k -ar 44100 -ac 2 ${output} -hide_banner -loglevel quiet &
 
 }
 
 function pause() {
     pkill ffmpeg
-    sed -i '1s/.*/0/' /tmp/screencast.nikin/status
-    echo "file $(realpath "$SCREENCAST_DIR/$(ls -t "$SCREENCAST_DIR" | head -n 1)")" >> /tmp/screencast.nikin/segments
+    sed -i '1s/.*/0/' ${screencast_files}/status
+    echo "file $(realpath "$SCREENCAST_OUTPUT_DIR/$(ls -t "$SCREENCAST_OUTPUT_DIR" | head -n 1)")" >> ${screencast_files}/segments
 
 }
 
 function resume() {
-    if [[ -f /tmp/screencast.nikin/title ]] && [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]]
+    if [[ -f ${screencast_files}/title ]] && [[ "$(head -n1 ${screencast_files}/status)" = "0" ]]
     then
-            output="`cat /tmp/screencast.nikin/title`"
-            sed -i '1s/.*/2/' /tmp/screencast.nikin/status
+            output="`cat ${screencast_files}/title`"
+            sed -i '1s/.*/2/' ${screencast_files}/status
             start "${output}"
     else
         echo "No recording found."
@@ -77,50 +75,54 @@ function resume() {
 function stop() {
     pkill ffmpeg
 
-    if [[ -f /tmp/screencast.nikin/segments ]]
+    if [[ -f ${screencast_files}/segments ]]
     then
-        sort -u /tmp/screencast.nikin/segments > /tmp/screencast.nikin/merge.txt
-        cat /tmp/screencast.nikin/merge.txt
-        echo "Concatenating files... if this takes too long blame the electrons!"
+        sort -u ${screencast_files}/segments > ${screencast_files}/merge.txt
+        cat ${screencast_files}/merge.txt
+        echo "Concatenating files ... if this takes too long blame the electrons!"
         sleep 3
-        output="${SCREENCAST_DIR}/$(< /tmp/screencast.nikin/title)_final.mp4"
-        if ffmpeg -f concat -safe 0 -i  /tmp/screencast.nikin/merge.txt -c copy "${output}" -hide_banner -loglevel error
+        local output="${SCREENCAST_OUTPUT_DIR}/$(< ${screencast_files}/title)_final.mp4"
+        if ffmpeg -f concat -safe 0 -i  ${screencast_files}/merge.txt -c copy "${output}" -hide_banner -loglevel error
         then 
             echo "Recording stopped."
-            sed -i 's/^file /rm /g' /tmp/screencast.nikin/merge.txt
-            bash /tmp/screencast.nikin/merge.txt
+            sed -i 's/^file /rm /g' ${screencast_files}/merge.txt
+            bash ${screencast_files}/merge.txt
+        else
+            echo "Failed to merge all segements. Manual interventatoin required."
+            exit 1
         fi
     fi
 
-    rm -rf "/tmp/screencast.nikin"
+    rm -rf "${screencast_files}"
+    watch
 }
 
 function watch() {
-    output=$(ls -t ${SCREENCAST_DIR} | head -n 1)
+    output=$(ls -t ${SCREENCAST_OUTPUT_DIR} | head -n 1)
     echo -en "The latest screencast is '${output}'. Would you like to watch it? [N/y] "
     read answer
     case "$answer" in
         [yY])
-            mpv ${SCREENCAST_DIR}/${output} ;;
+            mpv "${SCREENCAST_OUTPUT_DIR}/${output}" ;;
         *)
             exit 0 ;;
     esac
 }
 
 function mute() {
-    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
-    pactl set-source-mute "${default_source}" 1
-    echo "mute" > /tmp/screencast.nikin/muted
+    source=$(pactl info | grep "Default Source" | awk '{print $3}')
+    pactl set-source-mute "${source}" 1
+    echo "mute" > ${screencast_files}/muted
 }
 
 function unmute() {
-    default_source=$(pactl info | grep "Default Source" | awk '{print $3}')
-    pactl set-source-mute "${default_source}" 0
-    rm /tmp/screencast.nikin/muted
+    source=$(pactl info | grep "Default Source" | awk '{print $3}')
+    pactl set-source-mute "${source}" 0
+    rm ${screencast_files}/muted
 }
 
 function progress() {
-    START=$(tail -n1 /tmp/screencast.nikin/status)
+    START=$(tail -n1 ${screencast_files}/status)
     NOW=$(date +%s)
     SECONDS_ELAPSED=$(( $NOW-$START ))
     HOURS_ELAPSED=$(( $SECONDS_ELAPSED / 3600 ))

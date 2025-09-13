@@ -31,10 +31,10 @@ function blucon() {
 
         bluetoothctl -- connect ${device_mac}
 
-        if [ -n "$profile" ]; then
-            sleep 1
-            pactl set-card-profile "bluez_card.${device_mac//:/_}" $profile
-        fi
+        # if [ -n "$profile" ]; then
+        #     sleep 1
+        #     pactl set-card-profile "bluez_card.${device_mac//:/_}" $profile
+        # fi
     }
 
     case $1 in 
