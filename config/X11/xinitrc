@@ -21,7 +21,7 @@ function getnet() {
     name="$(nmcli -t -f NAME connection show --active | head -1)"
     case "${net_type}" in
         "ethernet") 
-            net="󰈀 " 
+            net="󰈀" 
             name="LAN"
             ;;
         "wireless") 
@@ -59,9 +59,12 @@ function detectbluetooth() {
 }
 
 function detectrecording() {
-    if [[ "$(cat /tmp/recording.txt)" = "1" ]]
+    if [[ "$(head -n1 /tmp/screencast.nikin/status)" = "1" ]]
     then
-        echo "[󰑊 REC] "
+        echo "[ REC] "
+    elif [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]]
+    then
+        echo "[ REC] "
     fi
 }
 
