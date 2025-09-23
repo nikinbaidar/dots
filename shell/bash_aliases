@@ -24,6 +24,7 @@ function blucon() {
     JBL="F8:5C:7D:AC:31:F9"
     ANKER="F4:B6:2D:08:0C:EA"
     liberty="E8:26:CF:13:FF:DE"
+    sony="74:B7:E6:29:ED:B2" 
 
     connectwith() {
         local device_mac=$1
@@ -47,12 +48,15 @@ function blucon() {
             connectwith "${ANKER}" a2dp_sink ;;
         -anker-hfp)
             connectwith "${ANKER}" handsfree_head_unit ;;
+        -sony)
+            connectwith "${sony}" a2dp_sink;;
         -r) 
             sudo systemctl restart bluetooth ;;
         -d) 
             bluetoothdevice=`pactl list short sinks | grep -i bluez | awk '{print $2}' | cut -d '.' -f 2`
             bluetoothdevice="${bluetoothdevice//_/:}"
-            bluetoothctl -- disconnect "${bluetoothdevice}" ;;
+            bluetoothctl -- disconnect "${bluetoothdevice}" 
+            ;;
         *) 
             echo "'$1' device not found";;
     esac
