@@ -16,22 +16,43 @@ function cloudsync() {
         popd > /dev/null
     }
 
-    function pushDropbox() {
-        dropbox-cli start > /dev/null 2>&1
-        if [ "$(dropbox-cli status)" = "Up to date" ]; then
-            echo "Dropbox is up to date"
-        else
-            echo "Synchronization in progress..."
-            until [ "$(dropbox-cli status)" = "Up to date" ]; do 
-                :
-            done
-            echo "Synchronization complete"
+function waitForDropbox() {
+    local start=$(date +%s)
+    local TIMEOUT=10
+    while [ "$(dropbox-cli status)" != "Up to date" ]; do
+        sleep 1
+        local now=$(date +%s)
+        local elapsed=$((now - start))
+        if [ "${elapsed}" -ge "${TIMEOUT}" ]; then
+            return 1  # timeout
+        fi
+    done
+    echo "Up to date."
+    return 0
+}
+
+function pushDropbox() {
+    dropbox-cli start > /dev/null 2>&1
+    if [ "$(dropbox-cli status)" = "Up to date" ]; then
+        echo "Up to date."
+    else
+        echo "Synchronization in progress..."
+        if ! waitForDropbox; then
+            dropbox-cli update
+            if ! waitForDropbox ; then
+                echo "Dropbox did not sync."
+                echo "Press any key to shutdown now."
+                read x
+                exit 1
+            fi
         fi
         dropbox-cli stop
+    fi
     }
 
-    pushNotes
-    pushDropbox
+pushNotes
+pushDropbox
+
 }
 
 # mv ${HOME}/notes/Archives/*.pdf ${HOME}/Dropbox/ 2> /dev/null
