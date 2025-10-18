@@ -2,7 +2,7 @@
 
 source ${DOTS}/shell/prompt_colors
 
-audio_file="/home/nikin/Music/Cyberpunk 2077 Incoming Call HQ Ringtone-cerCH5Kt8Ng.mp3"
+audio_file="/home/nikin/Music/SPECIALZ.m4a"
 
 function play_audio {
         timeout 10 mpv --no-video "$audio_file"  2&> /dev/null  # Run mpv to play the audio

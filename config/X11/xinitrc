@@ -59,14 +59,18 @@ function detectbluetooth() {
 }
 
 function detectrecording() {
-    if [[ "$(head -n1 /tmp/screencast.nikin/status)" = "1" ]]
+    if [[ -d "/tmp/screencast.$USER" ]]
     then
-        echo "[  REC ] "
-    elif [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]] then
-        echo "[  REC ] "
+        if [[ "$(head -n1 /tmp/screencast.nikin/status)" = "1" ]]
+        then
+            echo "[  REC ] "
+        elif [[ "$(head -n1 /tmp/screencast.nikin/status)" = "0" ]] 
+        then
+            echo "[  REC ] "
+        fi
+
     fi
 }
-
 
 
 function mysimplestatus() {
@@ -76,13 +80,14 @@ function mysimplestatus() {
     t="$(date +'%R:%S') "
     b="$(detectbluetooth)"
     r="$(detectrecording)"
+    p="$(progress)"
     if [[ $(battery --status) = "Charging" ]]
     then
         B="[󰂄$(battery)]"
     else
         B="[󱊣$(battery)]"
     fi
-    xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}"
+    xsetroot -name "${n}${b} ${d} ${m} ${t}${B}${r}${p}"
 }
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
