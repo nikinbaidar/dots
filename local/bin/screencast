@@ -138,7 +138,6 @@ function progress() {
 
 
 case "$1" in
-    --start) start "$2" ;;
     --stop) stop ;;
     --progress) progress ;;
     --watch) watch ;;
@@ -146,5 +145,11 @@ case "$1" in
     --resume) resume ;;
     --mute) mute ;;
     --unmute) unmute ;;
-    *) display_help; exit 0 ;;
+    --help|h) display_help ;;
+    *) 
+        if [[ "$2" = "-a" ]];
+        then
+            start "$1"
+        fi
+            ;;
 esac

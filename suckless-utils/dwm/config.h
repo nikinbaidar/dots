@@ -90,7 +90,7 @@ static const char *dmenucmd[] = {
 static const char *termcmd[] = {"st", "lterm", NULL};
 static const char *screenshotcmd[] = {"grabScreenSelection", NULL};
 static const char *blightup[] = {"blight", "set", "+10%", NULL};
-static const char *blightdown[] = {"blight", "set", "-10%", NULL};
+static const char *blightdown[] = {"blight", "set", "-5%", NULL};
 static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
                               "+5%", NULL};
 static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
