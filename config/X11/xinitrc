@@ -99,4 +99,6 @@ do
     sleep 1
 done &
 
+export XDG_SESSION_TYPE=x11
+
 exec dwm
