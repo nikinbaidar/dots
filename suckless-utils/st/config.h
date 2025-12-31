@@ -5,14 +5,10 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-<<<<<<< HEAD
-static char *font = "Source Code Pro Medium:size=12";
-static char *font2 = "Hack Regular Nerd Font:pixelsize=12:antialias=true:autohint=true";
-=======
+
 static char *font = "Source Code Pro Medium:size=10";
 static char *font2 =
     "Hack Regular Nerd Font:pixelsize=10:antialias=true:autohint=true";
->>>>>>> 5fd08c347ae643c17ca58c9999c8ca73cbe70016
 static int borderpx = 2;
 
 /*
