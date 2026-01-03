@@ -19,6 +19,29 @@ alias pqiv="pqiv 2> /dev/null"
 alias convert2pdf="soffice --headless --convert-to pdf"
 alias vocab="/usr/bin/nvim ${HOME}/Dropbox/Vocab.tex"
 
+
+function hb() {
+    # Handle block devices
+    local mntpt selection
+    mntpt="/run/media/$USER"
+
+    selection="$(ls -1 $base | fzf)" || return 1
+    selection="$(mntpt)/$(selection)"
+
+    if [ "$1" = "-u" ]; then
+        local device
+        device=$(findmnt -n -o SOURCE "$selection")
+        udiskie-umount $device || return 1
+        return 0
+    fi
+
+    if [ -d "$selection" ]; then
+        cd "$selection"
+    fi
+
+    return 0
+}
+
 function blucon() {
 
     JBL="F8:5C:7D:AC:31:F9"
