@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo Connected to \'$(nmcli -t -f NAME connection show --active | head -1)\'
+
+

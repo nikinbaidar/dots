@@ -13,14 +13,23 @@ case $1 in
     fi
     ;;
 
-  *)
+  "--connect")
     SSID=$(nmcli -f NAME con | tail -n +2 | grep --invert-match "^lo" | fzf)
     if [ -n "${SSID}" ]; then
       nmcli con up ${SSID}
     fi
     ;;
+
+  "-h"|"--help")
+    echo "Connect network (WiFi)"
+    echo
+    echo "  --connect Activate an existing connection."
+    echo "  --new     Create a new connection."
+    echo "  -h        Display this help."
+    ;;
+
+  *)
+    echo "Use '-h' for help"
+    exit 1
+    ;;
 esac
-
-
-
-
