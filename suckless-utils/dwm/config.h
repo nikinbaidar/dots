@@ -5,11 +5,11 @@ static const unsigned int gappx[] = {5};
 static const unsigned int snap = 32;
 static const int showbar = 1;
 static const int topbar = 1;
-static const char *fonts[] = {"monospace:size=12"};
-static const char dmenufont[] = "monospace:size=12";
+static const char *fonts[] = {"Adobe Helvetica:size=14"};
+static const char dmenufont[] = "Adobe Helvetica:size=14";
 static const char col_gray1[] = "#222222";
-static const char col_gray2[] = "#bbbbbb";
-static const char col_gray3[] = "#c5c8c6";
+static const char col_gray2[] = "#ffff00";
+static const char col_gray3[] = "#959cbd";
 static const char col_cyan[] = "#373b41";
 static const char col_dmenu[] = "#4c4f57";
 static const char *colors[][3] = {
@@ -24,7 +24,7 @@ typedef struct {
 } Sp;
 
 const char *spcmd1[] = {"st",     "-n", "spterm", "-g",
-                        "144x41", "-e", "nvim",   "/home/nikin/Dropbox/todo.md",
+                        "144x41", "-e", "nvim",   "/home/nikin/",
                         NULL};
 const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL};
 const char *spcmd3[] = {"keepassxc", NULL};
@@ -64,7 +64,7 @@ static const int lockfullscreen =
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    {"[]=", tile},
+    {"[ ] =", tile},
     {"><>", NULL},
 };
 
