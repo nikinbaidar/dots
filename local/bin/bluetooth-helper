@@ -32,14 +32,18 @@ declare -rA bluetooth_devices=(
 )
 
 case $1 in
+  "-c" |"--connect") 
+    selection=$(printf "%s\n" "${!bluetooth_devices[@]}" | fzf) || exit 1
+    bluetoothctl -- connect ${bluetooth_devices["${selection}"]} 
+    ;;
+
   "-d" |"--disconnect") 
     selection=$(printf "%s\n" "${!bluetooth_devices[@]}" | fzf) || exit 1
     bluetoothctl -- disconnect ${bluetooth_devices["${selection}"]} 
     ;;
 
-  "-c" |"--connect") 
-    selection=$(printf "%s\n" "${!bluetooth_devices[@]}" | fzf) || exit 1
-    bluetoothctl -- connect ${bluetooth_devices["${selection}"]} 
+  "-h" | "--help")
+    display_help
     ;;
 
   "-i" | "--info")
@@ -47,12 +51,9 @@ case $1 in
     bluetoothctl devices | grep -F -- "${current_device_mac}" | awk '{printf "Connected to %s\n", $3}'
     ;;
 
-  "-h" | "--help")
-    display_help
-    ;;
-
   *)
     echo "Use '-h' for help."
     exit 1
     ;;
+
 esac

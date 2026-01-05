@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 open() {
-    /home/nikin/projects/sioyek-build/sioyek "$@" --new-window > /dev/null 2>&1 &
+    /home/nikin/.local/share/sioyek-build/sioyek "$@" --new-window > /dev/null 2>&1 &
 }
 
 args=()
