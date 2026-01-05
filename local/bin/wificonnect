@@ -1,5 +1,13 @@
 #!/bin/bash
 
+display_help() {
+    echo "Connect network (WiFi)"
+    echo
+    echo "  --connect Activate an existing connection."
+    echo "  --new     Create a new connection."
+    echo "  -h        Display this help."
+}
+
 case $1 in 
   "--new")
     nmcli device wifi rescan
@@ -20,16 +28,9 @@ case $1 in
     fi
     ;;
 
-  "-h"|"--help")
-    echo "Connect network (WiFi)"
-    echo
-    echo "  --connect Activate an existing connection."
-    echo "  --new     Create a new connection."
-    echo "  -h        Display this help."
-    ;;
 
   *)
-    echo "Use '-h' for help"
+    display_help
     exit 1
     ;;
 esac
