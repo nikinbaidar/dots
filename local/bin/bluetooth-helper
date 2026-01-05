@@ -1,0 +1,36 @@
+#!/bin/bash
+
+declare -rA bluetooth_devices=(
+  ["JBL Clip 4"]="F8:5C:7D:AC:31:F9"
+  ["soundcore H30i"]="F4:B6:2D:08:0C:EA"
+  ["Sony WI-C100"]="74:B7:E6:29:ED:B2"
+  ["soundcore Liberty 4 NC"]="E8:26:CF:13:FF:DE"
+)
+
+case $1 in
+
+  "-d" |"--disconnect") 
+    current_device_mac=$(bluetoothctl info | awk '/Device/ {device=$2} /Connected: yes/ {print device}')
+    bluetoothctl devices | grep -F -- "${current_device_mac}" | awk '{printf "Disconnecting from %s\n", $3}'
+    bluetoothctl -- disconnect "${current_device_mac}"
+    ;;
+
+  "-c" |"--connect") 
+    selection=$(printf "%s\n" "${!bluetooth_devices[@]}" | fzf) || exit 1
+    bluetoothctl -- connect ${bluetooth_devices["${selection}"]} 
+    ;;
+
+  "-i")
+    current_device_mac=$(bluetoothctl info | awk '/Device/ {device=$2} /Connected: yes/ {print device}')
+    bluetoothctl devices | grep -F -- "${current_device_mac}" | awk '{printf "Connected to %s\n", $3}'
+    ;;
+
+  "-h" | "--help")
+    bluetoothctl info | awk ' /Device/ {device=$2} /Connected: yes/ {print device} ' 
+    ;;
+
+  *)
+    echo "Use '-h' for help."
+    exit 1
+    ;;
+esac

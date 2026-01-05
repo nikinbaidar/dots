@@ -4,20 +4,18 @@
 # ░█▀▄░█▀█░▀▀█░█▀█░░░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 # ░▀▀░░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
 
-# Alias Definitions
+
 alias vi="/usr/bin/nvim"
 alias dbworkbench="/usr/bin/nvim -c \"DBUI\""
 alias ls="ls -v --color=always --group-directories-first -1"
 alias grep="grep --color=always"
 alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
-# alias gre="/home/nikin/.local/bin/sioyek /home/nikin/GREPrep/Princeton2022.epub"
 alias sudo="sudo "
-alias todo="/usr/bin/nvim ${HOME}/Dropbox/TODO.md"
 alias pqiv="pqiv 2> /dev/null"
 ## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
-alias vocab="/usr/bin/nvim ${HOME}/Dropbox/Vocab.tex"
+alias figlet="figlet -f /home/nikin/projects/dots/local/share/figlet/pagga.tlf"
 
 
 function hb() {
@@ -25,8 +23,8 @@ function hb() {
     local mntpt selection
     mntpt="/run/media/$USER"
 
-    selection="$(ls -1 $base | fzf)" || return 1
-    selection="$(mntpt)/$(selection)"
+    selection="$(ls -1 --color=never $mntpt | fzf)" || return 1
+    selection="${mntpt}/${selection}"
 
     if [ "$1" = "-u" ]; then
         local device
@@ -40,49 +38,6 @@ function hb() {
     fi
 
     return 0
-}
-
-function blucon() {
-
-    JBL="F8:5C:7D:AC:31:F9"
-    ANKER="F4:B6:2D:08:0C:EA"
-    liberty="E8:26:CF:13:FF:DE"
-    sony="74:B7:E6:29:ED:B2" 
-
-    connectwith() {
-        local device_mac=$1
-        local profile=$2
-
-        bluetoothctl -- connect ${device_mac}
-
-        # if [ -n "$profile" ]; then
-        #     sleep 1
-        #     pactl set-card-profile "bluez_card.${device_mac//:/_}" $profile
-        # fi
-    }
-
-    case $1 in 
-        -jbl)
-            sleep 2
-            connectwith "${JBL}" ;;
-        -liberty)
-            connectwith "${liberty}" a2dp_sink ;;
-        -anker)
-            connectwith "${ANKER}" a2dp_sink ;;
-        -anker-hfp)
-            connectwith "${ANKER}" handsfree_head_unit ;;
-        -sony)
-            connectwith "${sony}" a2dp_sink;;
-        -r) 
-            sudo systemctl restart bluetooth ;;
-        -d) 
-            bluetoothdevice=`pactl list short sinks | grep -i bluez | awk '{print $2}' | cut -d '.' -f 2`
-            bluetoothdevice="${bluetoothdevice//_/:}"
-            bluetoothctl -- disconnect "${bluetoothdevice}" 
-            ;;
-        *) 
-            echo "'$1' device not found";;
-    esac
 }
 
 

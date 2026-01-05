@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# ░▄█▄█▄░█▄█░█▀█░█▀█░▀█▀░▀█▀░█▀█░█▀▄░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
+# ░▄█▄█▄░█░█░█░█░█░█░░█░░░█░░█░█░█▀▄░█░░░█░█░█░█░█▀▀░░█░░█░█
+# ░░▀░▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀
+
+display_help() {
+    cat << 'EOF'
+'monitorconfig' — Configure monitor layout with xrandr.
+
+Usage:
+  monitorconfig [OPTION]
+
+Options:
+  --init, -e        Initial setup. If an external monitor is detected,
+                    start with the external monitor only.
+
+  --dual, -d        Dual-monitor mode. If an external monitor is detected,
+                    start with the external monitor only.
+
+  --present, -p     Presentation mode. Same as --dual, but displays are mirrored.
+
+  --laptop, -l      Laptop-only mode.
+
+  --help, -h        Display this help.
+
+EOF
+}
+
+DEFAULT_RESOLUTION="1920x1080"
+
+if [[ "`uname -n`" = "limitless" ]]
+then
+	LAPTOP_RESOLUTION="1920x1200"
+else
+	LAPTOP_RESOLUTION="1600x900"
+fi
+
+# Detect external monitor
+externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
+
+setResolution() {
+    case "$externalMonitor" in
+        "DP-1") resolution="2560x1440" ;;
+        "DP-2") resolution="1366x768" ;;
+        *) resolution="$DEFAULT_RESOLUTION" ;;
+    esac
+}
+
+setResolution
+#resolution="${DEFAULT_RESOLUTION}"
+
+case "$1" in
+    "--init" | "-e" | "--external" ) 
+        if [[ -n "$externalMonitor" ]]; then
+            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
+                --rotate normal --output eDP-1 --off
+        else
+            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+                --rotate normal --output "$externalMonitor" --off
+            [[ "$1" != "--init" ]] && dm "External monitor not connected!" &
+        fi
+        ;;
+
+    "-d" | "--dual" )
+        if [[ -n "$externalMonitor" ]]; then
+            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
+                --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
+                --rotate normal --brightness 1.0 --right-of "$externalMonitor"
+        else
+            dm "External monitor not connected!" &
+            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+                --rotate normal --output "$externalMonitor" --off 
+        fi
+        ;;
+
+    "-p" | "--presentation")
+        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --off --output HDMI-1 --off
+        ;;
+
+    "-l" | "--laptop")
+        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --off
+        ;;
+
+    "-h" | "--help")
+        display_help
+        exit 1
+        ;;
+
+    *) 
+        echo "Use '-h' for help."
+        exit 1 
+        ;;
+esac
+
+cb
