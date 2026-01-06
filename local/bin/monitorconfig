@@ -85,15 +85,10 @@ case "$1" in
             --rotate normal --output "$externalMonitor" --off
         ;;
 
-    "-h" | "--help")
-        display_help
-        exit 1
-        ;;
-
     *) 
-        echo "Use '-h' for help."
+        display_help
         exit 1 
         ;;
 esac
 
-cb
+cb /home/nikin/Pictures/walls/digital-art-pixel-art-pixels-8-bit-wallpaper-b9f0684d514a7ddb9607887f6091560d.jpg
