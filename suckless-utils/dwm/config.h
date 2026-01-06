@@ -8,7 +8,6 @@ static const int topbar = 1;
 static const char *fonts[] = {"Adobe Helvetica:size=14"};
 static const char dmenufont[] = "Adobe Helvetica:size=14";
 static const char col_gray1[] = "#222222";
-static const char col_gray2[] = "#ffff00";
 static const char col_gray3[] = "#959cbd";
 static const char col_cyan[] = "#373b41";
 static const char col_dmenu[] = "#4c4f57";
@@ -23,19 +22,15 @@ typedef struct {
   const void *cmd;
 } Sp;
 
-const char *spcmd1[] = {"st",     "-n", "spterm", "-g",
-                        "144x41", "-e", "nvim",   "/home/nikin/",
-                        NULL};
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL};
-const char *spcmd3[] = {"keepassxc", NULL};
-const char *spcmd4[] = {"st", "-n",     "calculator", "-g", "120x31",
-                        "-e", "octave", "--slient",   NULL};
+const char *spcmd0[] = {"keepassxc", NULL};
+const char *spcmd1[] = {"st", "-c", "st-floating", "-n", "spterm", "-g", "144x41", NULL};
+const char *spcmd2[] = {"st", "-c", "st-floating", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL};
+
 static Sp scratchpads[] = {
     /* name          cmd  */
+    {"keepassxc", spcmd0},
     {"spterm", spcmd1},
-    {"spranger", spcmd2},
-    {"keepassxc", spcmd3},
-    {"calculator", spcmd4},
+    {"spfm", spcmd2},
 };
 
 /* tagging */
@@ -46,12 +41,14 @@ static const Rule rules[] = {
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
-    /* class      instance   title     tags mask     isfloating   monitor */
-    {"Display", NULL, NULL, 0, 1, -1},
-    {NULL, "spterm", NULL, SPTAG(0), 1, -1},
-    {NULL, "spfm", NULL, SPTAG(1), 1, -1},
-    {NULL, "keepassxc", NULL, SPTAG(2), 0, -1},
-    {NULL, "calculator", NULL, SPTAG(3), 1, -1},
+    /* class                      instance      title     tags mask     isfloating   monitor */
+
+    {"st-256color",               NULL,         NULL,     1,            0,           -1},
+    {"firefox-developer-edition", NULL,         NULL,     2,            0,           -1},
+    {"Display",                   NULL,         NULL,     0,            1,           -1},
+    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     1,           -1},
+    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,           -1},
+    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           -1},
 };
 
 /* layout(s) */
@@ -71,9 +68,9 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+  {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
       {MODKEY | ControlMask, KEY, toggletag, {.ui = 1 << TAG}},                \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+      {MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
       {MODKEY | ControlMask | ShiftMask, KEY, toggleview, {.ui = 1 << TAG}},
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -133,20 +130,18 @@ static const Key keys[] = {
     {MODKEY, XK_l, setmfact, {.f = +0.05}},
     {MODKEY, XK_Tab, view, {0}},
     {MODKEY, XK_b, togglebar, {0}},
-    {MODKEY, XK_a, view, {.ui = 3}},
     {MODKEY, XK_q, killclient, {0}},
     {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
     {MODKEY, XK_space, togglefloating, {0}},
     {MODKEY, XK_f, togglefullscr, {0}},
-    {MODKEY, XK_0, view, {.ui = ~0}},
     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
     {MODKEY, XK_comma, focusmon, {.i = -1}},
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-    {MODKEY, XK_x, togglescratch, {.ui = 2}},
-    {MODKEY, XK_y, togglescratch, {.ui = 0}},
-    {MODKEY, XK_z, togglescratch, {.ui = 1}},
+    {MODKEY, XK_x, togglescratch, {.ui = 0}},
+    {MODKEY, XK_y, togglescratch, {.ui = 1}},
+    {MODKEY, XK_z, togglescratch, {.ui = 2}},
     {MODKEY, XK_minus, setgaps, {.i = -5}},
     {MODKEY, XK_equal, setgaps, {.i = +5}},
     {MODKEY | ShiftMask, XK_minus, setgaps, {.i = GAP_RESET}},
