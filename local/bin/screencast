@@ -84,6 +84,10 @@ start_recording () {
   fi
 
   echo $msg
+
+  if [ -z $quiet ]; then
+    show_status
+  fi
 }
 
 
@@ -144,7 +148,7 @@ stop_recording () {
 }
 
 
-recording_status() {
+show_status() {
   if [ -d ${metadata} ]; then
     cat ${metadata}/info
     if [ -f ${metadata}/mergelist.txt ]; then
@@ -172,7 +176,6 @@ do
   case $1 in
     -b|--begin) 
       filename="${2//[\"\']/}"
-      mode=0
       shift 2
       start_recording 
       ;;
@@ -194,7 +197,7 @@ do
 
     -i|--info) 
       shift
-      recording_status
+      show_status
       ;;
 
     -h|--help) 
