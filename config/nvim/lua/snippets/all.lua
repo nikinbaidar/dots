@@ -25,7 +25,6 @@ date = function(index)
     end, {})
 end
 
-
 return {
 
     parse({

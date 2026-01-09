@@ -8,7 +8,7 @@ function openFilePickerDialog() {
             && . ${DOTS}/shell/prompt_colors
 
         echo -e "${p}" 
-        echo -ne "Lehte" | figlet -f pagga 
+        echo -ne "Lehte" | figlet -f /home/nikin/projects/dots/local/share/figlet/pagga.tlf
         echo 
     }
 

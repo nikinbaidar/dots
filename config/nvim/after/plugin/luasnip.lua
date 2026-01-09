@@ -1,8 +1,3 @@
---
--- ░█░░░█░█░█▀█░█▀▀░█▀█░▀█▀░█▀█░░░░█░░░█░█░█▀█
--- ░█░░░█░█░█▀█░▀▀█░█░█░░█░░█▀▀░░░░█░░░█░█░█▀█
--- ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀░░▀▀▀░▀▀▀░▀░▀
-
 local luasnip
 local filetype_functions
 local opts = { noremap = true, silent = true }
@@ -19,9 +14,6 @@ luasnip.setup({
     update_events = "TextChanged,TextChangedI",
     delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
-    load_ft_func = filetype_functions.extend_load_ft({
-        html = { "javascript", "css" }
-    }),
     snip_env = {
         snippet = luasnip.snippet,
         parse = luasnip.parser.parse_snippet,
@@ -53,41 +45,46 @@ luasnip.setup({
     enable_autosnippets = true,
 })
 
-luasnip.filetype_extend("javascript", { "html", "react" })
-luasnip.filetype_extend("latex", { "tex" })
-luasnip.filetype_extend("markdown", { "quarto" })
+local extensions = {
+    javascript = {"html", "react"},
+    html = {"css", "javascript"},
+    plaintex = {"tex"},
+    makrdown = {"tex", "quarto"}
+}
+
+for ft, ext in pairs(extensions) do 
+    luasnip.filetype_extend(ft, ext)
+end
 
 getChoice = function(arg) return arg[1][1] end
-
-
--- -- KEYMAPS
---
-local expand_or_jump
-local jump_previous
-local change_choice
-
-expand_or_jump = function()
-    if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-    end
-end
-
-jump_previous = function()
-    if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-    end
-end
-
-change_choice = function()
-    if luasnip.choice_active() then
-        luasnip.change_choice(1)
-    end
-end
-
-vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, opts)
-vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, opts)
-vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, opts)
-
 require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua/snippets" })
 --
 require("luasnip.loaders.from_snipmate").lazy_load()
+
+--
+-- local expand_or_jump
+-- local jump_previous
+-- local change_choice
+--
+-- expand_or_jump = function()
+--     if luasnip.expand_or_jumpable() then
+--         luasnip.expand_or_jump()
+--     end
+-- end
+--
+-- jump_previous = function()
+--     if luasnip.jumpable(-1) then
+--         luasnip.jump(-1)
+--     end
+-- end
+--
+-- change_choice = function()
+--     if luasnip.choice_active() then
+--         luasnip.change_choice(1)
+--     end
+-- end
+--
+-- vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, opts)
+-- vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, opts)
+-- vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, opts)
+--

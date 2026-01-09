@@ -112,7 +112,7 @@ relisten
 decalogue
 superfluous
 Baidar
-Nikin
+#ikin
 matlab
 SIMULINK
 digitalLogic
@@ -395,3 +395,5 @@ Bita
 cgrep
 tesseract's
 filetype
+#ikin/!
+Nikin/?

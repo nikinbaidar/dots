@@ -1,8 +1,5 @@
---
--- ░▀█▀░█▀█░▀█▀░▀█▀░░░░█░░░█░█░█▀█
--- ░░█░░█░█░░█░░░█░░░░░█░░░█░█░█▀█
--- ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░░▀▀▀░▀▀▀░▀░▀
-
-require("core.options")
-vim.cmd "colorscheme quiet"
-
+require("options")
+require("keymaps")
+require("augroup")
+require("plugins")
+require("colors")

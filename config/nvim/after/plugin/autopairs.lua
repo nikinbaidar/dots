@@ -1,3 +1,5 @@
+if true then return {} end 
+
 local npairs = require "nvim-autopairs"
 
 npairs.setup {

@@ -1,28 +1,11 @@
--- ╔╦╗┬─┐┌─┐┌─┐┌─┐┬┌┬┐┌┬┐┌─┐┬─┐
---  ║ ├┬┘├┤ ├┤ └─┐│ │  │ ├┤ ├┬┘
---  ╩ ┴└─└─┘└─┘└─┘┴ ┴  ┴ └─┘┴└─
-
-require 'nvim-treesitter.configs'.setup { 
+require 'nvim-treesitter'.setup { 
     highlight = {
-        enable = false,
+        enable = true,
         additional_vim_regex_highlighting = false,
-        -- disable = { "markdown" } 
-    },
-
-    context = {
-        enable = false
-    },
-
-    incremental_selection = { 
-        enable = false 
-    },
-
-    indent = {
-        enable = false 
+        disable = { "markdown", "tex", "plaintex" }
     },
 
     contex_commentstring = {
-        enable = false
+        enable = true
     },
 } 
-
