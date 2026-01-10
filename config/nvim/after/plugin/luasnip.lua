@@ -1,46 +1,38 @@
-local luasnip
-local filetype_functions
-local opts = { noremap = true, silent = true }
-local f
+local ls = require("luasnip")
+local extras = require("luasnip.extras")
+local filetype_functions = require('luasnip.extras.filetype_functions')
+local f = ls.function_node
 
-luasnip = require("luasnip")
-luasnip_extras = require("luasnip.extras")
-filetype_functions = require('luasnip.extras.filetype_functions')
-f = luasnip.function_node
-opts = { noremap = true, silent = true }
-
-luasnip.setup({
+ls.setup({
     history = true,
     update_events = "TextChanged,TextChangedI",
     delete_check_events = "TextChanged",
     ft_func = filetype_functions.from_pos_or_filetype,
     snip_env = {
-        snippet = luasnip.snippet,
-        parse = luasnip.parser.parse_snippet,
-        fmt = require('luasnip.extras.fmt').fmt,
-        c = luasnip.choice_node,
-        d = luasnip.dynamic_node,
-        f = luasnip.function_node,
-        i = luasnip.insert_node,
-        s = luasnip.snippet_node,
-        t = luasnip.text_node,
-        m = luasnip_extras.match,
-        p = luasnip_extras.partial,
-        r = function(index)
-            return f(function(arg) return arg[1] end, { index })
-        end,
-        getTrig = function()
-            return f(function(_, snip) return snip.trigger end, {})
-        end,
-        getTrigNum = function()
-            return f(function(_, snip)
-                -- print(type(snip.trigger))
-                local numericPart = string.match(snip.trigger, "%d+")
-                return numericPart
-            end, {})
-        end,
+        snippet = ls.snippet,
+        s = ls.snippet,
+        sn = ls.snippet_node,
+        t = ls.text_node,
+        i = ls.insert_node,
+        f = ls.function_node,
+        c = ls.choice_node,
+        d = ls.dynamic_node,
+        r = ls.restore_node,
+        l = require("luasnip.extras").lambda,
+        rep = require("luasnip.extras").rep,
+        p = require("luasnip.extras").partial,
+        m = require("luasnip.extras").match,
+        n = require("luasnip.extras").nonempty,
+        dl = require("luasnip.extras").dynamic_lambda,
+        fmt = require("luasnip.extras.fmt").fmt,
+        fmta = require("luasnip.extras.fmt").fmta,
+        types = require("luasnip.util.types"),
         conds = require("luasnip.extras.conditions"),
         conds_expand = require("luasnip.extras.conditions.expand"),
+        prase = ls.parser.parse_snippet,
+        trigger = function() return f(function(_, snip) return snip.trigger end, {}) end,
+        T = function() return f(function(_, snip) return snip.trigger end, {}) end,
+        C = function() return f(function(_, snip) return snip.captures[1] end, {}) end,
     },
     enable_autosnippets = true,
 })
@@ -53,38 +45,29 @@ local extensions = {
 }
 
 for ft, ext in pairs(extensions) do 
-    luasnip.filetype_extend(ft, ext)
+    ls.filetype_extend(ft, ext)
 end
 
-getChoice = function(arg) return arg[1][1] end
 require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua/snippets" })
---
-require("luasnip.loaders.from_snipmate").lazy_load()
 
+local expand_or_jump = function()
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end
+
+local jump_previous = function()
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end
+
+local change_choice = function()
+    if ls.choice_active() then
+        ls.change_choice(1)
+    end
+end
 --
--- local expand_or_jump
--- local jump_previous
--- local change_choice
---
--- expand_or_jump = function()
---     if luasnip.expand_or_jumpable() then
---         luasnip.expand_or_jump()
---     end
--- end
---
--- jump_previous = function()
---     if luasnip.jumpable(-1) then
---         luasnip.jump(-1)
---     end
--- end
---
--- change_choice = function()
---     if luasnip.choice_active() then
---         luasnip.change_choice(1)
---     end
--- end
---
--- vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, opts)
--- vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, opts)
--- vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, opts)
---
+vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, { noremap = true, silent = true })
+vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, { noremap = true, silent = true })
+vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, { noremap = true, silent = true })

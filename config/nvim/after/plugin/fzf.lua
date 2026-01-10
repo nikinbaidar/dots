@@ -3,5 +3,6 @@ require("fzf-lua").setup {
 }
 
 vim.api.nvim_set_keymap('n', '<leader>f', ':FzfLua<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>b', ':FzfLua buffers<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>ff', ':FzfLua files cwd="$HOME"<CR>', { noremap = true })
 

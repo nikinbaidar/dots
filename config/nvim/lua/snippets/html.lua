@@ -1,7 +1,5 @@
 return {
-
-    snippet({trig = "h%d", regTrig = true}, fmt("<{}>{}</{}>", {
-        getTrig(), i(1, "Heading"), getTrig(),
-    })),
-
+    s({trig="h[1-6]", regTrig=true, snippetType="autosnippet", desc="Headers <<h1>$1</h1>"}, {
+        t("<"), T(), t(">"), i(1), t("</"), T(), t(">")
+    }),
 }

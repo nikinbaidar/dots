@@ -11,14 +11,14 @@ end
 return {
 
     snippet({ trig = "(.+)%.h", regTrig=true, snippetType = "autosnippet"}, fmt("#include <{}>{}", {
-        getTrig(),
+        trigger(),
         t({"", ""}),
     }), {
         condition = conds_expand.line_begin 
     }),
 
     snippet({ trig = "(.+)%.h", regTrig=true}, fmt("#include \"{}\"", {
-        getTrig(),
+        trigger(),
     }), {
         condition = conds_expand.line_begin 
     }),

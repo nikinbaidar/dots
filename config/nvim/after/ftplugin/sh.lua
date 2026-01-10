@@ -1,8 +1,3 @@
---
--- ░█▀▀░█░█░░░░█░░░█░█░█▀█
--- ░▀▀█░█▀█░░░░█░░░█░█░█▀█
--- ░▀▀▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
-
 function RunBash()
     vim.api.nvim_command('update!')
     vim.api.nvim_command('below split')

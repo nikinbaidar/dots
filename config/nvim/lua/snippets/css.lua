@@ -1,75 +1,102 @@
-selectors = function(index)
-    return d(index, 
-    function() 
-        return s(nil, c(1, {
-            s(1, {
-                t("#"),
-                i(1, "div-name"),
+local docs = {
 
-            }),
-            s(1, {
-                t("."),
-                i(1, "class-name"),
-            }),
-            i(1, "element"),
-            s(1, {
-                i(1, "first"),
-                t("::"),
-                i(2, "final")
-            }),
+important = [[
+`!important` is a declaration modifier that overrides the normal cascade and
+specificity rules. When a property is marked !important, it is promoted to
+the highest priority tier in the cascade.
 
-        })) 
-    end, {})
+Syntax:
+
+`property: value !important;`
+
+Notes: `!important` must be declared before the semi-colon.
+]],
+
+parameter = "value",
+
+height = [[
+The height property sets the height of an element.
+
+Syntax:
+
+`height: auto|numeric|initial|inherit;`
+
+Notes:
+
+1. The min-height and max-height properties override the height property.
+2. The height of an element does not include padding, borders, or margins.
+]],
+
+width = [[
+The width property sets the width of an element.
+
+Syntax:
+
+`width: auto|numeric (px, r[em], %)|initial|inherit;`
+]]
+}
+
+local function color(index)
+  return d(index, function()
+    return sn(nil, c(1, {
+      sn(1, {t"#", i(1)}),
+      i(1, "black"),
+      sn(1, {t"rgb(", i(1), t")"}),
+      sn(1, {t"rgba(", i(1), t")"}),
+      sn(1, {t"hsl(", i(1), t")"}),
+    }))
+  end, {})
 end
 
 return {
+    parse({trig="!imp", desc={docs["important"]}}, "!important"),
 
-    snippet("s", fmt("{} {{\n\t{}\n}}\n", {
-        selectors(1),
-        i(2, "CSS")
-    })),
+    s({trig="([#.])([%a%d-]+)", regTrig=true,  desc="CSS block for HTML id/class selector."}, {
+        T(), t" ",
+        i(1),
+        t{"{", "\t"}, i(2), t{"", "}"}, i(3),
+    }),
 
-    snippet("c", fmt("{}: {};", {
-        c(1, {
-            t "color",
-            t "background-color"
+    s({trig="c", desc = "color: <value>;  <value> can be cycled." }, {
+        t("color : "),
+        color(1),
+        t(";")
+    }),
+
+    s({trig="bgc", desc = "color: <value>;  <value> can be cycled." }, {
+        t("background-color : "),
+        color(1),
+        t(";")
+    }),
+
+    s({trig="h", desc=docs["height"] }, {
+        t("height : "),
+        i(1, "auto"),
+        c(2, {
+            m(1, "%d", "em"),
+            i(1)
         }),
-        colors(2)
-    })),
+        t(";")
+    }),
 
-    snippet("p", fmt("{}: {};",  {
-        c(1, { 
-            t "padding", 
-            t "padding-top",
-            t "padding-left",
-            t "padding-right",
-            t "padding-bottom",
+    s({trig="w", desc=docs["width"] }, {
+        t("width : "),
+        i(1, "auto"),
+        c(2, {
+            m(1, "%d", "em"),
+            i(1)
         }),
-        directions(2)
-    })), 
+        t(";")
+    }),
 
-    snippet("m", fmt("{}: {};",  {
-        c(1, { 
-            t "margin", 
-            t "margin-top",
-            t "margin-left",
-            t "margin-right",
-            t "margin-bottom",
-        }),
-        directions(2)
-    })), 
+    s({trig="p", desc = "padding" },  {
+        t("padding : "), i(1), t(";")
+    }),
 
-    snippet("b", fmt("{}: {} {} {};", {
-        c(1, { 
-            t "border", 
-            t "border-top",
-            t "border-left",
-            t "border-right",
-            t "border-bottom",
-        }),
-        i(2, "1px"), 
-        i(3, "solid"), 
-        colors(4)
-    })), 
+    s({trig="b", desc = "border" }, {
+        t("border : "), i(1), t(";")
+    }),
+
+
 
 }

@@ -6,8 +6,14 @@ vim.api.nvim_create_augroup('OnExit', {clear = true})
 vim.api.nvim_create_augroup('AutoSource', {clear = true})
 
 autocmd('BufWritePost', {
-    pattern = { "init.lua", "options.lua", "colors.lua", "keymaps.lua", "augroup.lua",
-"cmp.lua"},
+    pattern = {
+        "init.lua",
+        "options.lua",
+        "colors.lua",
+        "keymaps.lua",
+        "augroup.lua",
+        "cmp.lua",
+    },
     group = 'AutoSource',
     desc = 'Automatically source this file after saving',
     command = 'so'
@@ -37,11 +43,11 @@ autocmd('TermOpen', {
 
 vim.cmd[[
 if has('autocmd')
-  " Save and restore cursor position
-  augroup remember_cursor
+    " Save and restore cursor position
+    augroup remember_cursor
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute("normal! g'\"") | endif
     autocmd VimLeave * if expand('%') != '' | execute "normal! m\"" | wviminfo! | endif
-  augroup END
-endif
-]]
+    augroup END
+    endif
+    ]]

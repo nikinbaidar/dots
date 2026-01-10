@@ -1,11 +1,13 @@
 local cmp = require'cmp'
+local luasnip = require("luasnip")
 local background = "#03051E"
 
-vim.api.nvim_set_hl(0, "CmpCompletion", {bg = background })
-vim.api.nvim_set_hl(0, "CmpDocumentation", {bg = background, })
-vim.api.nvim_set_hl(0, "CmpCompletionBorder", {bg = background, fg="#393E46"})
+vim.api.nvim_set_hl(0, "MyCmpCompletion", {bg = background })
+vim.api.nvim_set_hl(0, "MyCmpDocumentation", {bg = background, })
+vim.api.nvim_set_hl(0, "MyCmpCompletionBorder", {bg = background, fg="#393E46"})
 
 cmp.setup({
+    event = { "InsertEnter", "CmdlineEnter" },
     completion = {
         completeopt = 'menu,menuone,noinsert'
     },
@@ -17,25 +19,23 @@ cmp.setup({
     window = {
         completion = cmp.config.window.bordered({
             border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-            winhighlight = "Normal:CmpCompletion,FloatBorder:CmpCompletionBorder",
+            winhighlight = "Normal:MyCmpCompletion,FloatBorder:MyCmpCompletionBorder",
             scrollbar = false
         }),
         documentation = cmp.config.window.bordered({
             border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-            winhighlight = "Normal:CmpDocumentation,FloatBorder:CmpCompletionBorder",
+            winhighlight = "Normal:MyCmpDocumentation,FloatBorder:MyCmpCompletionBorder",
+            max_width = math.floor(vim.o.columns * 0.9),
         }),
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
         {name = "luasnip", priority= 1000},
         {name = "buffer", priority = 500},
-        {name = "path", priority = 250}
     })
 })
-
-
 

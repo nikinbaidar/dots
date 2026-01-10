@@ -17,4 +17,6 @@ vim.opt.wrap = true
 vim.opt.confirm = false
 vim.opt.path:append( "**,")
 vim.opt.textwidth = 80
-vim.opt.formatoptions = "jcrqltn"
+vim.opt.formatoptions = "jcrqltn" -- implement this from autocmds
+vim.opt.list = true
+vim.opt.listchars = "trail:␣"   
