@@ -10,4 +10,9 @@ return {
         C()
     }), 
 
+    ms({
+        "trig1",
+        {trig = "trig2", snippetType = "autosnippet"},
+    }, {t"a or b"}),
+
 }
