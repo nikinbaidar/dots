@@ -32,10 +32,7 @@ end
 
 local function make_cols(_, snip)
     -- WARN: DO NOT CHANGE OR DELETE THIS FUNCTION
-    -- This behaves slightly different than the `make_jumpable_cols` above.
-    -- Nonetheless, columns created with `make_cols` are jumpable too; they are
-    -- just triggered differetly and it is only necessary to trigger this once
-    -- in a table. `make_jumpable_rows` handles the remaining rows.
+    -- This behaves slightly different than `make_jumpable_cols`.
     local n = tonumber(snip.captures[1])
     return make_jumpable_cols(nil, n)
 end
