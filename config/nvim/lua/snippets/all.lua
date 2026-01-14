@@ -1,5 +1,7 @@
 
 return {
+    parse({trig="hlw", desc=""}, "Hello, World!"),
+
     s({trig="date", desc="Insert today's date"}, {
         t(os.date('%Y-%m-%d'))
     }),
@@ -10,9 +12,8 @@ return {
         C()
     }), 
 
-    ms({
-        "trig1",
-        {trig = "trig2", snippetType = "autosnippet"},
+    ms({ -- multi trigger
+        "trig1", {trig = "trig2", snippetType = "autosnippet"},
     }, {t"a or b"}),
 
 }

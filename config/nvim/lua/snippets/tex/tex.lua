@@ -1,31 +1,65 @@
 local item = "\\item "
-local slash = "\\\\"
 
-
-local function fn (args, parent, user_args)
-    return '[' .. args[1][1] .. user_args .. ']'
+local function recursive_item()
+    return sn(nil, c(1, {
+        t("% Press <C-l> to add item"),
+        sn(nil, {
+            t(item),
+            i(1),
+            t({"", ""}),
+            d(2, recursive_item, {}),
+        }),
+    }))
 end
 
 
-local function make_cols (_, snip)
+local function make_jumpable_cols(index, n)
+    -- NOTE: THIS FUCNTION ACHIEVES
+    -- [this](https://github.com/L3MON4D3/LuaSnip/issues/1422#issue-3809595769).
     local nodes = {}
-    local n = tonumber(snip.captures[1])
+    if index then
+        table.insert(nodes, t(" & "))
+    end
     for col = 1, n-1 do
         table.insert(nodes, i(col))
         table.insert(nodes, t(" & "))
     end
     table.insert(nodes, i(n))
-    table.insert(nodes, t(" " .. slash))
-    return sn(nil, nodes)
+    table.insert(nodes, t(" " .. "\\\\"))
+    return sn(index, nodes)
 end
 
 
-local function recursive_item ()
-    return sn( nil, c(1, {
-        t(""),
-        sn(nil, { t({ "", item}), i(1), d(2, recursive_item, {}) }),
-    })
-)
+local function make_cols(_, snip)
+    -- WARN: DO NOT CHANGE OR DELETE THIS FUNCTION
+    -- This behaves slightly different than the `make_jumpable_cols` above.
+    -- Nonetheless, columns created with `make_cols` are jumpable too; they are
+    -- just triggered differetly and it is only necessary to trigger this once
+    -- in a table. `make_jumpable_rows` handles the remaining rows.
+    local n = tonumber(snip.captures[1])
+    return make_jumpable_cols(nil, n)
+end
+
+
+local function repeat_jumpable_rows(args)
+    local _, n = string.gsub(args[1][1], "&", "")
+    return sn(nil, c(1, {
+        t("% Press <C-l> to add row"),
+        sn(nil, {
+            i(1),
+            make_jumpable_cols(2, n),
+            t({"", "\t\t"}),
+            d(3, repeat_jumpable_rows, 2, {}),
+        }),
+    }))
+end
+
+
+local function repeat_rows(args)
+    return sn(nil, c(1, {
+        t("% Press <C-l> to add row"),
+        sn(nil, { i(1), sn(2, t({args[1][1], "\t\t"})),  d(3, repeat_rows, 2, {}) }),
+    }))
 end
 
 
@@ -50,9 +84,11 @@ return {
 
     s({trig="beg", desc="Begin an environment"}, {
         t"\\begin{", i(1), t"}", i(2), t{"", ""},
+        m(1, "document", string.rep("\n", 2), ""),
         m(1, "document", "", "\t"),
+        m(1, "itemize", item),
         i(3),
-        m(1, "document", string.rep("\n", 3), ""),
+        m(1, "document", string.rep("\n", 2), ""),
         t{"", "\\end{"}, rep(1), t"}",
     }),
 
@@ -76,9 +112,15 @@ return {
         t({"", "\\label{ssub:"}), rep(1), t({"}", "", ""}),
     }),
 
-    s({trig="it", desc="Recursively expands an item list with nested insertion nodes."}, {
-        t(item), i(1), d(2, recursive_item, {}),
+    s({trig="im", snippetType="autosnippet", desc="Repeat \\item-s"}, {
+        t(item),
+        i(1),
+        t({"", ""}),
+        d(2, recursive_item, {}),
+        t({"", ""}),
+        i(3)
     }),
+
 
     s({trig = "fig", desc="Figure environment" }, {
         t({"\\begin{figure}[h]", "\\centering", ""}),
@@ -89,13 +131,27 @@ return {
         t({"", "\\end{figure}", ""}),
     }),
 
-    s({trig="tab", desc="Snip Test"}, {
+    s({trig="tab", desc="Snip Test", docTrig="tab1"}, {
         t({"\\begin{table}", ""}),
         t({"\t\\begin{tabular}"}), i(1), t({"", ""}),
         t({"\t\t\\hline"}), t({"", "\t\t"}),
         i(2),t({"", "\t\t"}),
         t({"\\hline"}), t({"", "\t\t"}),
-        i(3),
+        d(3, repeat_rows, 2, {}),
+        t({"", "\t\t"}),
+        t({"\\hline"}), t({"", "\t"}),
+        t({"\\end{tabular}"}), t({"", ""}),
+        t({"\\end{table}"}),
+    }),
+
+
+    s({trig="tab2", desc="Snip Test 2"}, {
+        t({"\\begin{table}", ""}),
+        t({"\t\\begin{tabular}"}), i(1), t({"", ""}),
+        t({"\t\t\\hline"}), t({"", "\t\t"}),
+        i(2),t({"", "\t\t"}),
+        t({"\\hline"}), t({"", "\t\t"}),
+        d(3, repeat_jumpable_rows, 2, {}),
         t({"", "\t\t"}),
         t({"\\hline"}), t({"", "\t"}),
         t({"\\end{tabular}"}), t({"", ""}),
@@ -106,19 +162,8 @@ return {
         d(1, make_cols , {}),
     }),
 
-    s("extras1", {
-        i(1), t { "", "" }, m(1, "^ABC$", "A")
-    }),
-
     s("extras2", {
         i(1, "INPUT"), t { "", "" }, m(1, l._1:match(l._1:reverse()), "PALINDROME")
-    }),
-
-
-    s("trig", {
-        i(1), t '<-i(1) ',
-        f(fn, {2}, { user_args = { slash }}),
-        t ' i(2)->', i(2), t '<-i(2) i(0)->', i(0)
     }),
 
     s("isn", {
@@ -126,6 +171,11 @@ return {
             t({"This is indented as deep as the trigger",
             "and this is at the beginning of the next line"})
         }, "")
-    })
+    }),
+
+    s("trig", {
+        i(1, "change to update"),
+        d(2, count, {1})
+    }),
 
 }

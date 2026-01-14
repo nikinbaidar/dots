@@ -9,6 +9,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- WARN: sdkjfslk
+
+
 require("lazy").setup({
     'rebelot/kanagawa.nvim',
     'tpope/vim-surround',
@@ -18,6 +21,7 @@ require("lazy").setup({
     "ibhagwan/fzf-lua",
     'nvim-treesitter/nvim-treesitter',
     'JoosepAlviste/nvim-ts-context-commentstring',
+    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     'lukas-reineke/indent-blankline.nvim', 
     { "L3MON4D3/LuaSnip", version = "2.*", build = "make install_jsregexp" },
     {'hrsh7th/nvim-cmp', dependencies={ 'hrsh7th/cmp-buffer', 'saadparwaiz1/cmp_luasnip', }},
