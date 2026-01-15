@@ -93,6 +93,7 @@ elseif (g:headmost[0] =~ "%")
                 function! RunLatex()
                     silent! execute '%s/\v(^|\s)(|[{[(]|)"/\1\2``/g'
                     silent! execute '%s/\v(^|\s)(|[{[(]})''/\1\2`/g'
+                    silent! execute 'g/% Press <C-l> to add \w\+/d'
                     update!
                     if expand('%:e') =~ "dn"
                         call AddDevanagari()

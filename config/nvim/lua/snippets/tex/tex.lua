@@ -83,7 +83,6 @@ return {
         t"\\begin{", i(1), t"}", i(2), t{"", ""},
         m(1, "document", string.rep("\n", 2), ""),
         m(1, "document", "", "\t"),
-        m(1, "itemize", item),
         i(3),
         m(1, "document", string.rep("\n", 2), ""),
         t{"", "\\end{"}, rep(1), t"}",
@@ -109,13 +108,11 @@ return {
         t({"", "\\label{ssub:"}), rep(1), t({"}", "", ""}),
     }),
 
-    s({trig="im", snippetType="autosnippet", desc="Repeat \\item-s"}, {
+    s({trig="\\it", snippetType="autosnippet", desc="Repeat \\item-s"}, {
         t(item),
         i(1),
         t({"", ""}),
         d(2, recursive_item, {}),
-        t({"", ""}),
-        i(3)
     }),
 
 
@@ -128,23 +125,9 @@ return {
         t({"", "\\end{figure}", ""}),
     }),
 
-    s({trig="tab", desc="Snip Test", docTrig="tab1"}, {
+    s({trig="tab", desc="Snip Test 2"}, {
         t({"\\begin{table}", ""}),
-        t({"\t\\begin{tabular}"}), i(1), t({"", ""}),
-        t({"\t\t\\hline"}), t({"", "\t\t"}),
-        i(2),t({"", "\t\t"}),
-        t({"\\hline"}), t({"", "\t\t"}),
-        d(3, repeat_rows, 2, {}),
-        t({"", "\t\t"}),
-        t({"\\hline"}), t({"", "\t"}),
-        t({"\\end{tabular}"}), t({"", ""}),
-        t({"\\end{table}"}),
-    }),
-
-
-    s({trig="tab2", desc="Snip Test 2"}, {
-        t({"\\begin{table}", ""}),
-        t({"\t\\begin{tabular}"}), i(1), t({"", ""}),
+        t({"\t\\begin{tabular}{"}), i(1), t({"}", ""}),
         t({"\t\t\\hline"}), t({"", "\t\t"}),
         i(2),t({"", "\t\t"}),
         t({"\\hline"}), t({"", "\t\t"}),
@@ -159,20 +142,11 @@ return {
         d(1, make_cols , {}),
     }),
 
-    s("extras2", {
-        i(1, "INPUT"), t { "", "" }, m(1, l._1:match(l._1:reverse()), "PALINDROME")
+
+    ms({ "use", {trig = "upo", snippetType = "autosnippet"},
+    }, {
+        t("\\usepackage"), i(2), t("{"), i(1), t({"}", ""}) 
     }),
 
-    s("isn", {
-        isn(1, {
-            t({"This is indented as deep as the trigger",
-            "and this is at the beginning of the next line"})
-        }, "")
-    }),
-
-    s("trig", {
-        i(1, "change to update"),
-        d(2, count, {1})
-    }),
 
 }
