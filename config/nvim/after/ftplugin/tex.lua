@@ -94,6 +94,8 @@ elseif (g:headmost[0] =~ "%")
                     silent! execute '%s/\v(^|\s)(|[{[(]|)"/\1\2``/g'
                     silent! execute '%s/\v(^|\s)(|[{[(]})''/\1\2`/g'
                     silent! execute 'g/% Press <C-l> to add \w\+/d'
+                    silent! execute '%s/\s\+$//e'
+                    silent! execute '%s/\n\{3,}/\r\r/e'
                     update!
                     if expand('%:e') =~ "dn"
                         call AddDevanagari()

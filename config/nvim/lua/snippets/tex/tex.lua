@@ -1,5 +1,11 @@
 local item = "\\item "
 
+local function mklabel(args) 
+    local x = string.lower(args[1][1])
+    x = string.gsub(x, "%s+", "-")
+    return x
+end
+
 local function recursive_item()
     return sn(nil, c(1, {
         t("% Press <C-l> to add item"),
@@ -61,19 +67,22 @@ end
 
 
 return {
-    parse({trig="latex", desc="LaTeX"}, "\\LaTeX{}"),
+    parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
 
-    s({trig="dcl", snippetType="autosnippet", desc="document class"}, {
-        t("\\documentclass[a4 paper,"), i(2), t("]{"), i(1), t("}"),
+    s({trig="title", desc="Make Title"}, {
+        t("\\title{"), i(1), t({"}", ""}),
+        t("\\author{"), i(2), t({"}", ""}),
+        t("\\date{"), i(2), t({"}", ""}),
     }),
 
-    s({trig="up", desc=""}, {
-        t("\\usepackage"),
-        c(1, {
-            sn(nil, {t("{"), i(1), t("}")}),
-            sn(nil, {t("["), i(1), t("]"), t("{"), i(2), t("}")}),
-        }), }
-    ),
+    s({trig="dcl", snippetType="autosnippet", desc="Set document class"}, {
+        t("\\documentclass[a4 paper,"), i(2), t("]{"), i(1, "article"), t({"}", "", ""}), i(3),
+    }),
+
+    ms({ "use", "up", "pac" }, {
+        t("\\usepackage"), i(2), t("{"), i(1), t({"}", ""}),
+        i(3),
+    }),
 
     s({trig="$$", snippetType="autosnippet", desc="Inline math"}, {
         t"$", i(1), t"$", i(2),
@@ -81,39 +90,64 @@ return {
 
     s({trig="beg", desc="Begin an environment"}, {
         t"\\begin{", i(1), t"}", i(2), t{"", ""},
-        m(1, "document", string.rep("\n", 2), ""),
-        m(1, "document", "", "\t"),
+        m(1, "document", "\n", ""), m(1, "document", "", "\t"),
         i(3),
-        m(1, "document", string.rep("\n", 2), ""),
-        t{"", "\\end{"}, rep(1), t"}",
+        m(1, "document", "\n", ""),
+        t{"", "\\end{"}, rep(1), t({"}", "", ""}),
+        i(4),
     }),
 
-    s({trig = "cha", desc="Chapter Heading"}, {
+    s({trig = "cha", desc="Chapter Heading", docTrig="cha"}, {
         t("\\chapter{"), i(1), t("}"),
-        t({"", "\\label{cha:"}), rep(1), t({"}", "", ""}),
+        t({"", "\\label{cha:"}), 
+        f(mklabel, 1),
+        t({"}", "", ""}),
     }),
 
     s({trig = "sec", desc="Section Heading"}, {
         t("\\section{"), i(1), t("}"),
-        t({"", "\\label{sec:"}), rep(1), t({"}", "", ""}),
+        t({"", "\\label{sec:"}),
+        f(mklabel, 1),
+        t({"}", "", ""}),
     }),
 
     s({trig = "sub", desc="Sub Section Heading"}, {
         t("\\subsection{"), i(1), t("}"),
-        t({"", "\\label{sub:"}), rep(1), t({"}", "", ""}),
+        t({"", "\\label{sub:"}),
+        f(mklabel, 1),
+        t({"}", "", ""}),
     }),
 
     s({trig = "ssub", desc="Sub x2 section heading"}, {
         t("\\subsubsection{"), i(1), t("}"),
-        t({"", "\\label{ssub:"}), rep(1), t({"}", "", ""}),
+        t({"", "\\label{ssub:"}),
+        f(mklabel, 1),
+        t({"}", "", ""}),
     }),
 
-    s({trig="\\it", snippetType="autosnippet", desc="Repeat \\item-s"}, {
-        t(item),
-        i(1),
-        t({"", ""}),
-        d(2, recursive_item, {}),
+    s({trig="ref", desc="Cross reference"}, {
+        m(1, "cha*", "section~", ""),
+        m(1, "sec*", "section~", ""),
+        m(1, "sub*", "section~", ""),
+        m(1, "ssub*", "section~", ""),
+        m(1, "fig*", "Figure~", ""),
+        m(1, "tab*", "Table~", ""),
+        m(1, "eq*", "Equation~", ""),
+        t("\\ref{"), i(1), t("}")
     }),
+
+    s({trig="pref", desc="Cross reference"}, {
+        t(" on page~\\pageref{"), i(1), t("}")
+    }),
+
+    ms({
+        {trig="im", desc="Recursive \\item" },
+        {trig="\\it", snippetType="autosnippet"},
+    }, {
+        t(item), i(1), t({"", ""}), d(2, recursive_item, {}),
+    }),
+
+
 
 
     s({trig = "fig", desc="Figure environment" }, {
@@ -141,12 +175,5 @@ return {
     s({trig = "col(%d)", regTrig = true, docTrig = "col1"}, {
         d(1, make_cols , {}),
     }),
-
-
-    ms({ "use", {trig = "upo", snippetType = "autosnippet"},
-    }, {
-        t("\\usepackage"), i(2), t("{"), i(1), t({"}", ""}) 
-    }),
-
 
 }
