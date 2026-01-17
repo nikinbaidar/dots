@@ -1,11 +1,10 @@
-#!/bin/bash
-# ░█▀▄░█▀█░█▀▀░█░█░█▀▄░█▀▀
-# ░█▀▄░█▀█░▀▀█░█▀█░█▀▄░█░░
-# ░▀▀░░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀
+#!/usr/bin/env bash
 
 export EDITOR=nvim
-# export TERM=st-256color
-export PATH=${HOME}/.local/bin:${PATH}:/opt/afni:/opt/cuda
+export PATH=${HOME}/.local/bin:${PATH}
+if [[ $(hostnamectl hostname) = "leviathan" ]]; then
+    export PATH=${PATH}:/opt/afni:/opt/cuda
+fi
 export TF_CPP_MIN_LOG_LEVEL=3
 export LD_LIBRARY_PATH=/opt/cuda/lib64
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
@@ -57,14 +56,14 @@ shopt -s histappend
 
 if [[ `uname -n` = 'ideapad' ]]
 then
-	R='\[\e[0;90m\]'  # Dark Gray brackets
-	G='\[\e[0;96m\]'  # Bright Cyan username
-	B='\[\e[0;94m\]'  # Bright Blue '@'
-	C='\[\e[0;95m\]'  # Bright Magenta hostname
-	W='\[\e[0;97m\]'  # White ':'
-	Y='\[\e[0;92m\]'  # Bright Green working directory
-	P='\[\e[0;93m\]'  # Bright Yellow '$'
-	F='\[\e[0m\]'     # Reset
+    R='\[\e[0;90m\]'  # Dark Gray brackets
+    G='\[\e[0;96m\]'  # Bright Cyan username
+    B='\[\e[0;94m\]'  # Bright Blue '@'
+    C='\[\e[0;95m\]'  # Bright Magenta hostname
+    W='\[\e[0;97m\]'  # White ':'
+    Y='\[\e[0;92m\]'  # Bright Green working directory
+    P='\[\e[0;93m\]'  # Bright Yellow '$'
+    F='\[\e[0m\]'     # Reset
 fi
 
 PS1="${R}[${G}\u${B}@${C}\h${W}: ${Y}\w${R}]${P}\$${F} "
