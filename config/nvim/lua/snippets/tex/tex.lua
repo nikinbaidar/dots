@@ -1,6 +1,6 @@
 local item = "\\item "
 
-local function mklabel(args) 
+local function mklabel(args)
     local x = string.lower(args[1][1])
     x = string.gsub(x, "%s+", "-")
     return x
@@ -69,7 +69,7 @@ end
 return {
     parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
 
-    s({trig="title", desc="Make Title"}, {
+    s({trig="tit", desc="Make Title"}, {
         t("\\title{"), i(1), t({"}", ""}),
         t("\\author{"), i(2), t({"}", ""}),
         t("\\date{"), i(2), t({"}", ""}),
@@ -80,12 +80,7 @@ return {
     }),
 
     ms({ "use", "up", "pac" }, {
-        t("\\usepackage"), i(2), t("{"), i(1), t({"}", ""}),
-        i(3),
-    }),
-
-    s({trig="$$", snippetType="autosnippet", desc="Inline math"}, {
-        t"$", i(1), t"$", i(2),
+        t("\\usepackage"), i(2), t("{"), i(1), t("}"),
     }),
 
     s({trig="beg", desc="Begin an environment"}, {
@@ -93,13 +88,12 @@ return {
         m(1, "document", "\n", ""), m(1, "document", "", "\t"),
         i(3),
         m(1, "document", "\n", ""),
-        t{"", "\\end{"}, rep(1), t({"}", "", ""}),
-        i(4),
+        t{"", "\\end{"}, rep(1), t("}"),
     }),
 
     s({trig = "cha", desc="Chapter Heading", docTrig="cha"}, {
         t("\\chapter{"), i(1), t("}"),
-        t({"", "\\label{cha:"}), 
+        t({"", "\\label{cha:"}),
         f(mklabel, 1),
         t({"}", "", ""}),
     }),
@@ -125,15 +119,26 @@ return {
         t({"}", "", ""}),
     }),
 
-    s({trig="ref", desc="Cross reference"}, {
-        m(1, "cha*", "section~", ""),
-        m(1, "sec*", "section~", ""),
-        m(1, "sub*", "section~", ""),
-        m(1, "ssub*", "section~", ""),
-        m(1, "fig*", "Figure~", ""),
-        m(1, "tab*", "Table~", ""),
-        m(1, "eq*", "Equation~", ""),
-        t("\\ref{"), i(1), t("}")
+    s({trig="l(%a+)", regTrig=true, desc="Cross reference"}, {
+        t("\\label{"), X(1), t(":"), i(1), t("}")
+    }),
+
+    s({trig="r(%a+)", regTrig=true, desc="Cross reference"}, {
+        m(1, "cha", "section~", ""),
+        m(1, "sec", "section~", ""),
+        m(1, "sub", "section~", ""),
+        m(1, "ssub", "section~", ""),
+        m(1, "fig", "Figure~", ""),
+        m(1, "tab", "Table~", ""),
+        m(1, "eq", "Equation~", ""),
+        t("\\ref{"), 
+        d(1, function(_, snip)
+            return sn(nil, {
+                t(snip.captures[1] .. ":"),
+            })
+        end, {}),
+        i(2),
+        t("}")
     }),
 
     s({trig="pref", desc="Cross reference"}, {
@@ -147,20 +152,17 @@ return {
         t(item), i(1), t({"", ""}), d(2, recursive_item, {}),
     }),
 
-
-
-
     s({trig = "fig", desc="Figure environment" }, {
-        t({"\\begin{figure}[h]", "\\centering", ""}),
-        t("\\includegraphics[scale="), i(3, "0.50"), t("]{./"), i(1), t({"}", ""}),
-        i(2), t("\\caption{}"),
-        t({"", "\\label{fig:"}),
-        rep(1), t("}"),
-        t({"", "\\end{figure}", ""}),
+        t({"\\begin{figure}[h!]", "\t\\centering", ""}),
+        t("\t\\includegraphics[width="), i(2, ""), t("\\textwidth]{./"), i(1), t({"}", ""}),
+        t("\t\\caption{"), i(3), t({"}", ""}),
+        t("\t\\label{fig:"), f(mklabel, 1, {}), t({"}", ""}),
+        t("\\end{figure}"),
     }),
 
     s({trig="tab", desc="Snip Test 2"}, {
         t({"\\begin{table}", ""}),
+        t({"\t\\centering", ""}),
         t({"\t\\begin{tabular}{"}), i(1), t({"}", ""}),
         t({"\t\t\\hline"}), t({"", "\t\t"}),
         i(2),t({"", "\t\t"}),
@@ -169,6 +171,8 @@ return {
         t({"", "\t\t"}),
         t({"\\hline"}), t({"", "\t"}),
         t({"\\end{tabular}"}), t({"", ""}),
+        t("\t\\caption{"), i(4), t({"}", ""}),
+        t("\t\\label{tab:"), f(mklabel, 4, {}), t({"}", ""}),
         t({"\\end{table}"}),
     }),
 
