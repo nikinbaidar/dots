@@ -56,3 +56,4 @@ vim.api.nvim_create_user_command(
     { desc = "Make title case from the current cursor position to EOL."}
 )
 
+-- so ~/.config/nvim/after/plugin/luasnip.lua
