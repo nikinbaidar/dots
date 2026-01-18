@@ -30,6 +30,10 @@ end
 return {
     parse("ity", "\\infty"),
 
+    s({trig="(%a)([ij%d])([ji%d])", regTrig=true, snippetType="autosnippet", desc=""}, {
+        X(1), t("_{"), X(2), X(3), t("}")
+    }),
+
     ms({
         {trig=";;", snippetType="autosnippet", desc="Inline math"},
         "mi",
@@ -50,10 +54,20 @@ return {
         t({"", "$$"}),
     }),
 
-    s({trig="([td]?)fr", regTrig=true, desc="Fraction"}, {
+    s({trig="([dt]?)fr", regTrig=true, desc="Fraction"}, {
         t("\\"),
         X(1),
         t("frac{"),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}"),
+    }),
+
+    s({trig="([dt]?)bn", regTrig=true, desc="Binomial"}, {
+        t("\\"),
+        X(1),
+        t("binom{"),
         i(1),
         t("}{"),
         i(2),
@@ -92,14 +106,30 @@ return {
         i(2, "x")
     }),
 
-    ms({
-        {trig="sum(%a)(%-?%d+)to(%-?%d+)", regTrig=true, wordTrig=false,},
-        {trig="sum(%a)(%-?%a+)to(%-?%a+)", regTrig=true, wordTrig=false,},
+    s({
+        trig="sum(%a)(%-?[%a%d]+)to(%-?[%a%d]+)",
+        regTrig=true,
+        wordTrig=false,
     }, {
         t("\\sum_{"), X(1), t("="), X(2), t("}"),
         t("^{"),
-        X(3), t("} \\; "),
-        i(1, "fn(x)"),
+        X(3),
+        t("} \\; "),
+        i(1),
+
+    }),
+
+    s({
+        trig="pro(%a)(%-?[%a%d]+)to(%-?[%a%d]+)",
+        regTrig=true,
+        wordTrig=false,
+    }, {
+        t("\\prod_{"), X(1), t("="), X(2), t("}"),
+        t("^{"),
+        X(3),
+        t("} \\; "),
+        i(1),
+
     }),
 
     s({trig="cas", desc=""}, {
@@ -109,7 +139,7 @@ return {
         t({"\\end{cases}", "" })
     }),
 
-    s({trig="(%a)ma", regTrig=true, desc="Matrix"}, {
+    s({trig="([bBpvV]?)mx", regTrig=true, desc="Matrix"}, {
         t("\\begin"),
         d(1, function(_, snip)
             return sn(nil, {
@@ -122,5 +152,13 @@ return {
         d(3, repeat_jumpable_matrix_rows, 2, {}),
         t({"", ""}),
         t("\\end"), rep(1),
+    }),
+
+
+    ms({
+        {trig="\\defeq", snippetType="autosnippet"},
+        {trig="def=", snippetType="autosnippet"},
+    }, {
+        t("\\overset{\\text{def}}{=}")
     }),
 }

@@ -1,10 +1,15 @@
 local item = "\\item "
 
 local function mklabel(args)
-    local x = string.lower(args[1][1])
-    x = string.gsub(x, "%s+", "-")
-    return x
+    -- NOTE: This takes a args then (a) changes args to lowercase,
+    -- (b) keeps only alphnumeric and whitespace characters, and (c) replaces
+    -- all whitespaces with a single '-'
+    local label = string.lower(args[1][1])
+    label = label:gsub("[^%w%s]", "")
+    label = label:gsub("%s+", "-")
+    return label
 end
+
 
 local function recursive_item()
     return sn(nil, c(1, {
@@ -67,21 +72,33 @@ end
 
 
 return {
-    parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
-
-    s({trig="tit", desc="Make Title"}, {
-        t("\\title{"), i(1), t({"}", ""}),
-        t("\\author{"), i(2), t({"}", ""}),
-        t("\\date{"), i(2), t({"}", ""}),
-    }),
 
     s({trig="dcl", snippetType="autosnippet", desc="Set document class"}, {
-        t("\\documentclass[a4 paper,"), i(2), t("]{"), i(1, "article"), t({"}", "", ""}), i(3),
+        t("\\documentclass[a4 paper,"), i(2), t("]{"),
+        i(1, "a"),
+        m(1, "a", "rticle"),
+        m(1, "b", "ook"),
+        m(1, "r", "eport"),
+        t("}"),
     }),
 
     ms({ "use", "up", "pac" }, {
-        t("\\usepackage"), i(2), t("{"), i(1), t("}"),
+        t("\\usepackage"),
+        m(1, "geo", "[margin=1in]"),
+        i(2),
+        t("{"), i(1),
+        m(1, "geo", "metry"),
+        m(1, "ams", "math"),
+        t("}"),
     }),
+
+    s({trig="tit", desc="Make Title"}, {
+        t("\\title{"), i(1), t({"}", ""}),
+        t("\\author{"), i(2, "Nikin Baidar"), t({"}", ""}),
+        t("\\date{"), i(3, "\\today"), t("}"),
+    }),
+
+    parse({trig="mktit", snippetType="autosnippet", desc="Maketitle"}, "\\maketitle"),
 
     s({trig="beg", desc="Begin an environment"}, {
         t"\\begin{", i(1), t"}", i(2), t{"", ""},
@@ -91,58 +108,36 @@ return {
         t{"", "\\end{"}, rep(1), t("}"),
     }),
 
-    s({trig = "cha", desc="Chapter Heading", docTrig="cha"}, {
-        t("\\chapter{"), i(1), t("}"),
-        t({"", "\\label{cha:"}),
-        f(mklabel, 1),
-        t({"}", "", ""}),
+    s({trig = "#(%a+)", regTrig=true, desc="Chapter Heading", docTrig="cha"}, {
+        t("\\"),
+        m(2, "par", "part"),
+        m(2, "cha", "chapter"),
+        m(2, "sec", "section"),
+        m(2, "sub", "subsection"),
+        m(2, "ssu", "subsubsection"),
+        t("{"), i(1), t("} \\label{"), D(2, '1'), t(":"), f(mklabel, 1), t("}"),
     }),
 
-    s({trig = "sec", desc="Section Heading"}, {
-        t("\\section{"), i(1), t("}"),
-        t({"", "\\label{sec:"}),
-        f(mklabel, 1),
-        t({"}", "", ""}),
-    }),
-
-    s({trig = "sub", desc="Sub Section Heading"}, {
-        t("\\subsection{"), i(1), t("}"),
-        t({"", "\\label{sub:"}),
-        f(mklabel, 1),
-        t({"}", "", ""}),
-    }),
-
-    s({trig = "ssub", desc="Sub x2 section heading"}, {
-        t("\\subsubsection{"), i(1), t("}"),
-        t({"", "\\label{ssub:"}),
-        f(mklabel, 1),
-        t({"}", "", ""}),
-    }),
-
-    s({trig="l(%a+)", regTrig=true, desc="Cross reference"}, {
+    s({trig="l(%a+)", regTrig=true, desc="Set labels for cross-referencing"}, {
         t("\\label{"), X(1), t(":"), i(1), t("}")
     }),
 
-    s({trig="r(%a+)", regTrig=true, desc="Cross reference"}, {
-        m(1, "cha", "section~", ""),
-        m(1, "sec", "section~", ""),
-        m(1, "sub", "section~", ""),
-        m(1, "ssub", "section~", ""),
-        m(1, "fig", "Figure~", ""),
-        m(1, "tab", "Table~", ""),
-        m(1, "eq", "Equation~", ""),
-        t("\\ref{"), 
-        d(1, function(_, snip)
-            return sn(nil, {
-                t(snip.captures[1] .. ":"),
-            })
-        end, {}),
+    s({trig="r(%a+)", regTrig=true, desc="Make cross-reference"}, {
+        m(1, "cha", "Chapter"),
+        m(1, "[s][eus][cbu]", "Section"),
+        m(1, "fig", "Figure"),
+        m(1, "tab", "Table"),
+        m(1, "eq", "Equation"),
+        t("~"),
+        t("\\ref{"),
+        D(1, '1'),
+        t(":"),
         i(2),
         t("}")
     }),
 
-    s({trig="pref", desc="Cross reference"}, {
-        t(" on page~\\pageref{"), i(1), t("}")
+    s({trig="pref", desc="Make cross reference to a page number"}, {
+        t("on page~\\pageref{"), i(1), t("}")
     }),
 
     ms({
@@ -180,4 +175,6 @@ return {
         d(1, make_cols , {}),
     }),
 
+    
+    parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
 }

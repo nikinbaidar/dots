@@ -1,7 +1,11 @@
 local ls = require("luasnip")
 local extras = require("luasnip.extras")
 local filetype_functions = require('luasnip.extras.filetype_functions')
+
+local sn = ls.snippet_node
+local t = ls.text_node
 local f = ls.function_node
+local d = ls.dynamic_node
 
 ls.setup({
     history = true,
@@ -11,12 +15,12 @@ ls.setup({
     snip_env = {
         snippet = ls.snippet,
         s = ls.snippet,
-        sn = ls.snippet_node,
-        t = ls.text_node,
+        sn = sn,
+        t = t,
         i = ls.insert_node,
-        f = ls.function_node,
+        f = f,
         c = ls.choice_node,
-        d = ls.dynamic_node,
+        d = d,
         r = ls.restore_node,
         l = require("luasnip.extras").lambda,
         rep = require("luasnip.extras").rep,
@@ -33,9 +37,19 @@ ls.setup({
         trigger = function() return f(function(_, snip) return snip.trigger end, {}) end,
         T = function() return f(function(_, snip) return snip.trigger end, {}) end,
         C = function() return f(function(_, snip) return snip.captures[1] end, {}) end,
+        X = function(c) return f(function(_, snip) return snip.captures[c] end, {}) end,
+        D = function(index, capture_position)
+            return d(index, function(_, snip)
+                return sn(nil, {
+                    t(snip.captures[tonumber(capture_position)]),
+                })
+            end, {})
+        end,
     },
     enable_autosnippets = true,
 })
+
+
 
 local extensions = {
     javascript = {"html", "react"},
@@ -44,7 +58,7 @@ local extensions = {
     makrdown = {"tex", "quarto"}
 }
 
-for ft, ext in pairs(extensions) do 
+for ft, ext in pairs(extensions) do
     ls.filetype_extend(ft, ext)
 end
 
