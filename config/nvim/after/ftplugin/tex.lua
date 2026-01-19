@@ -3,6 +3,12 @@
 -- ░░█░░█▀▀░▄▀▄░░░░█░░░█░█░█▀█
 -- ░░▀░░▀▀▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
 
+
+vim.bo.softtabstop = 2
+vim.bo.tabstop = 2
+vim.bo.shiftwidth = 2
+
+
 local function is_tty()
     return vim.fn.exists('$TERM_PROGRAM') == 0
 end
