@@ -108,14 +108,22 @@ return {
         t{"", "\\end{"}, rep(1), t("}"),
     }),
 
-    s({trig = "#(%a+)", regTrig=true, desc="Chapter Heading", docTrig="cha"}, {
+    s({
+        trig = "([pcs][aheus][racbu])", regTrig=true,
+        docTrig="sec", 
+        desc="Part|Chapter|Section|Subsection|Subsubsection "
+    }, {
         t("\\"),
         m(2, "par", "part"),
         m(2, "cha", "chapter"),
         m(2, "sec", "section"),
         m(2, "sub", "subsection"),
         m(2, "ssu", "subsubsection"),
-        t("{"), i(1), t("} \\label{"), D(2, '1'), t(":"), f(mklabel, 1), t("}"),
+        t("{"), i(1), t("} \\label{"),
+        D(2, '1'),
+        t(":"),
+        f(mklabel, 1),
+        t("}"),
     }),
 
     s({trig="l(%a+)", regTrig=true, desc="Set labels for cross-referencing"}, {
@@ -175,6 +183,6 @@ return {
         d(1, make_cols , {}),
     }),
 
-    
+
     parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
 }
