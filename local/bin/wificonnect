@@ -31,7 +31,9 @@ case $1 in
     fi
     ;;
 
-
+"-i"|"-s"|"--info"|"--stat")
+    echo Connected to \'$(nmcli -t -f NAME connection show --active | head -1)\'
+    ;;
 *)
     display_help
     exit 1
