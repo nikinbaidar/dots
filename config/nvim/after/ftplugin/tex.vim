@@ -24,29 +24,19 @@ function! CompileSource()
 endfunction
 
 function! RunLatex()
-    normal! mh
+    normal! mH
     silent! execute '%s/\v(^|\s)(|[{[(]|)"/\1\2``/g'
     silent! execute '%s/\v(^|\s)(|[{[(]})''/\1\2`/g'
     silent! execute 'g/% Press <C-l> to add \w\+/d'
     silent! execute '%s/\s\+$//e'
     silent! execute '%s/\n\{3,}/\r\r/e'
     update!
-    if expand('%:e') =~ "dn"
-        call AddDevanagari()
-    else
-        let g:documentclass = execute("g/documentclass/z#.1")
-        normal! `hzz
-        if g:documentclass =~ "Pattern not found: documentclass"
-            " Current file is not a source file.
-            call CompileSource()
-        else
-            " Current file is a source file.
-            below split
-            resize 15
-            term lualatex --shell-escape %
-        endif
+    if !empty(getpos("'H"))
+        normal! `Hzz
     endif
-
+    below split
+    resize 15
+    term lualatex --shell-escape %
 endfunction
 
 function! AddDevanagari()
