@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+dev="$(ls /run/media/nikin | fzf)"
+
+mnt=$(findmnt -n -S LABEL="${dev}" -o SOURCE)
+
+if udiskie-umount -d "${mnt}" > /dev/null ; then
+    exit 0
+fi
+
+udiskie-umount -d "${dev}"
+
