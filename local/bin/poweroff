@@ -1,20 +1,18 @@
 #!/bin/bash
 
-function cloudsync() {
-
-    function pushNotes() {
-        pushd ~/notes
-        branch=$(git branch | awk ' /\*/ {print $2} ')
-        if [ -n "$(git status -s)" ]; then
-            git pull
-            git add --all
-            git commit -m "o.O"
-            git push -u origin ${branch} --verbose
-        else
-            echo "nothing to commit, working tree clean"
-        fi
-        popd > /dev/null
-    }
+function pushNotes() {
+    pushd ~/notes
+    branch=$(git branch | awk ' /\*/ {print $2} ')
+    if [ -n "$(git status -s)" ]; then
+        git pull
+        git add --all
+        git commit -m "o.O"
+        git push -u origin ${branch} --verbose
+    else
+        echo "nothing to commit, working tree clean"
+    fi
+    popd > /dev/null
+}
 
 function waitForDropbox() {
     local start=$(date +%s)
@@ -48,18 +46,17 @@ function pushDropbox() {
         fi
         dropbox-cli stop
     fi
-    }
-
-pushNotes
-pushDropbox
-
 }
-
-# mv ${HOME}/notes/Archives/*.pdf ${HOME}/Dropbox/ 2> /dev/null
 
 if ping -c 1 google.com 1> /dev/null || ping -c 1 reddit.com 1> /dev/null
 then
-    cloudsync
+    pushNotes
+    pushDropbox
+else
+    echo "No intenet"
+    exit 0
 fi
 
 shutdown now
+
+
