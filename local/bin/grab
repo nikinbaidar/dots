@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+data="$HOME/notes/data.json"
+key1=$(jq -r 'keys[]' "$data" | fzf) || exit 0
+key2=$(jq -r --arg k1 "$key1" '.[$k1] | keys[]' "$data" | fzf) || exit 0
+
+jq -r --arg k1 "$key1" --arg k2 "$key2" '.[$k1][$k2]' "$data" | xclip -selection clipboard
+
+if [[ "${key1}" == PAN* ]]; then
+    echo -e "$key2\n$(xclip -o -sel clipboard)" | xclip -selection clipboard
+fi
