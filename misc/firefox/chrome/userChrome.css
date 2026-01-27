@@ -43,9 +43,11 @@
   visibility: collapse !important; 
 }
 
-#back-button, #forward-button {
-  display: none !important; 
-}
+/*
+ * #back-button, #forward-button {
+ *   display: none !important; 
+ * }
+*/
 
 /* The following line of code stores a cookie that always starts youtube on
 * theater mode without the need of any kind of third-party plugins
