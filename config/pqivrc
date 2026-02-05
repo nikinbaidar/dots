@@ -7,8 +7,8 @@ sort-key=MTIME
 
 [keybindings]
 d { command(rm .) }
-j { set_scale_level_relative(0.9) }
-k { set_scale_level_relative(1.1) }
+- { set_scale_level_relative(0.9) }
+= { set_scale_level_relative(1.1) }
 n { goto_file_relative(+1) }
 p { goto_file_relative(-1) }
 <Escape> { goto_file_relative(0) }
