@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function display_setup_info() {
     echo If you\'re starting jupyter-lab within a conda env don\'t forget to update the \`jupyter kernelspec list\`.
-    echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`"
-    echo "Then select the appropriate kernel in jupyter lab"
+    echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`" outside the `env`.
+    echo "Then select the appropriate kernel in jupyter-notebook"
+    echo
 }
 
 if [[ "${1}" = "-h" || "${1}" = "--help" ]]
@@ -12,11 +13,9 @@ then
     exit 0
 fi
 
-rm -rf /tmp/jupyterlogs
+rm -rf /tmp/jpserver.logs
 
-jupyter-lab &> /tmp/jupyterlogs &
-
-echo "Starting Jupyter Server..."
+jupyter-lab --no-browser &> /tmp/jpserver.logs &
 
 MAX_WAIT_TIME=30
 start_time=$(date +%s)
@@ -25,22 +24,20 @@ while true
 do
     current_time=$(date +%s)
     elapsed_time=$((current_time - start_time))
-    
+
     # Check if the elapsed time has exceeded the maximum wait time
     if [ "$elapsed_time" -ge "$MAX_WAIT_TIME" ]; then
-        echo "Timeout reached. Jupyter Server did not start in time."
+        echo "Timeout reached. Jupyter Server did not start in 30 seconds."
         exit 1
     fi
-    
-    url=$(cgrep 0 "is running at" 1 /tmp/jupyterlogs -x | awk '{print $NF}')
 
-    if [ "${url:0:7}" = "http://" ]; then
-        echo "${url}" | xclip -selection clipboard
-        echo "Server online @ '${url}'"
-        echo "Took ${elapsed_time} seconds."
-        surf "${url}" > /dev/null 2>&1 &
+    sleep 3
+
+    url=$(grep -m 1 '^[[:space:]]*file' /tmp/jpserver.logs | sed 's/^[[:space:]]*//')
+
+    if [ -n "${url}" ]; then
+        echo \'${url}\'
+        surf ${url} &> /dev/null &
         break
     fi
-
-    sleep 1
 done
