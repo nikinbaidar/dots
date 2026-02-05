@@ -48,7 +48,7 @@ case $1 in
 
   "-i" | "--info")
     current_device_mac=$(bluetoothctl info | awk '/Device/ {device=$2} /Connected: yes/ {print device}')
-    bluetoothctl devices | grep -F -- "${current_device_mac}" | awk '{printf "Connected to %s\n", $3}'
+    bluetoothctl devices | grep -F -- "${current_device_mac}" | awk '{printf "Connected to"; for(i=3;i<=NF;i++) printf " %s", $i; print ""}'
     ;;
 
   *)
