@@ -8,13 +8,13 @@ static const int topbar = 1;
 static const char *fonts[] = {"Adobe Helvetica:size=14"};
 static const char dmenufont[] = "Adobe Helvetica:size=14";
 static const char col_gray1[] = "#222222";
-static const char col_gray3[] = "#959cbd";
+static const char col_gray3[] = "#B5A8D5";
 static const char col_cyan[] = "#373b41";
 static const char col_dmenu[] = "#4c4f57";
 static const char *colors[][3] = {
     /*               fg         bg         border   */
-    [SchemeNorm] = {col_gray3, "#0F111B", "#444444"},
-    [SchemeSel] = {col_gray3, "#232323", "#444444"},
+    [SchemeNorm] = {col_gray3, "#0F111B", "#27293a"},
+    [SchemeSel] = {col_gray3, "#1a1b26", "#27293a"},
 };
 
 typedef struct {
