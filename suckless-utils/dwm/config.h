@@ -46,6 +46,7 @@ static const Rule rules[] = {
     {"st-256color",               NULL,         NULL,     1,            0,           -1},
     {"firefox-developer-edition", NULL,         NULL,     2,            0,           -1},
     {"Display",                   NULL,         NULL,     0,            1,           -1},
+    {"matplotlib",                NULL,         NULL,     0,            1,           -1},
     {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,           -1},
     {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,           -1},
     {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           -1},
