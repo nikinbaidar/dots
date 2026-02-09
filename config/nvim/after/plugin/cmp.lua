@@ -4,7 +4,7 @@ local background = "#03051E"
 
 vim.api.nvim_set_hl(0, "MyCmpCompletion", {bg = background })
 vim.api.nvim_set_hl(0, "MyCmpDocumentation", {bg = background, })
-vim.api.nvim_set_hl(0, "MyCmpCompletionBorder", {bg = background, fg="#393E46"})
+vim.api.nvim_set_hl(0, "MyCmpBorder", {bg = background, fg="#393E46"})
 
 cmp.setup({
     event = { "InsertEnter", "CmdlineEnter" },
@@ -19,12 +19,12 @@ cmp.setup({
     window = {
         completion = cmp.config.window.bordered({
             border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-            winhighlight = "Normal:MyCmpCompletion,FloatBorder:MyCmpCompletionBorder",
+            winhighlight = "Normal:MyCmpCompletion,FloatBorder:MyCmpBorder",
             scrollbar = false
         }),
         documentation = cmp.config.window.bordered({
             border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-            winhighlight = "Normal:MyCmpDocumentation,FloatBorder:MyCmpCompletionBorder",
+            winhighlight = "Normal:MyCmpCompletion,FloatBorder:MyCmpBorder",
             max_width = math.floor(vim.o.columns * 0.9),
         }),
     },
@@ -35,7 +35,9 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         {name = "luasnip", priority= 1000},
+        {name = "nvim_lsp", priority= 100},
         {name = "buffer", priority = 500},
+        {name = "path", priority = 400},
     })
 })
 
