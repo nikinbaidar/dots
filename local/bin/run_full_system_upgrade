@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+/usr/bin/pacman -Syu # --noconfirm >> /var/log/arch-update.log 2>&1
+
+if [ $(hostnamectl hostname) = 'leviathan' ]; then
+    cp --verbose /boot/* /efi/<complete_this_path_later>
+    mkinitcpio -P
+fi
