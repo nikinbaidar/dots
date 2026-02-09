@@ -2,8 +2,7 @@ require("ibl").setup {
     scope = { enabled = false },
 }
 
--- FIX: hint
--- sjflksdjlfksjd
+require("nvim-tree").setup {}
 
 require("todo-comments").setup({
     signs = false, 
