@@ -71,3 +71,5 @@ case "$1" in
 
     *) exit 1 ;;
 esac
+
+cb ~/Pictures/walls/1920x1080-px-bridge-digital-art-fantasy-art-pixel-art-waterfall-anime-gundam-seed-hd-art-wallpaper-3940e89d61da2d9b76d7a85f6021e61d.jpg
