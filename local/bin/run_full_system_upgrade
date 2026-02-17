@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 
-/usr/bin/pacman -Syu # --noconfirm >> /var/log/arch-update.log 2>&1
+# /usr/bin/pacman -Syu --noconfirm >> /var/log/arch-update.log 2>&1
+/usr/bin/pacman -Syu || exit 1 # --noconfirm >> /var/log/arch-update.log 2>&1
 
 if [ $(hostnamectl hostname) = 'leviathan' ]; then
-    cp --verbose /boot/* /efi/<complete_this_path_later>
+    cp -v /boot/* /efi/EFI/arch
+    cp -v /efi/EFI/arch/initramfs-linux.img /efi/EFI/arch/initramfs-linux-fallback.img
     mkinitcpio -P
 fi
+
+read -p "Do you want to reboot now? [N/y] " ans
+
+if [ ${ans} = "y" ]; then
+    /usr/bin/reboot
+fi
+
