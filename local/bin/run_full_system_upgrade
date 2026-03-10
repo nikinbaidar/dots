@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# /usr/bin/pacman -Syu --noconfirm >> /var/log/arch-update.log 2>&1
-/usr/bin/pacman -Syu || exit 1 # --noconfirm >> /var/log/arch-update.log 2>&1
+if ! pacman -Qu linux ; then
+    exit 1
+fi
+
+/usr/bin/pacman -Syu --noconfirm >> /var/log/arch-update.log 2>&1 || exit 1
 
 if [ $(hostnamectl hostname) = 'leviathan' ]; then
     cp -v /boot/* /efi/EFI/arch
@@ -14,4 +17,3 @@ read -p "Do you want to reboot now? [N/y] " ans
 if [ ${ans} = "y" ]; then
     /usr/bin/reboot
 fi
-
