@@ -1,13 +1,13 @@
 local renderer = function(index)
     return d(index, function(arg)
         if getChoice(arg) == "" then
-            return s(nil, s(1, {
+            return sn(nil, sn(1, {
                 t({"() {", "\treturn(", "\t\t<>", "\t\t"}),
                 i(1),
                 t({"", "\t\t</>", "\t);", "}"})
             }))
         end
-        return s(nil, s(1, {
+        return sn(nil, sn(1, {
             t({"(", "\t<>", "\t"}),
             i(1),
             t({"", "\t</>", ")"}),
@@ -20,55 +20,52 @@ return {
 
     parse("ird", "import ReactDOM from 'react-dom/client'"),
 
-    snippet("lazy", fmt("{}: lazy(() => import('./{}')),", {
-        i(1, "Filename"), 
+    s("lazy", fmt("{}: lazy(() => import('./{}')),", {
+        i(1, "Filename"),
         r(1),
-    })), 
+    })),
 
-
-    -- Lifecycle Methods
-    
-    snippet("cdm", fmt([[
+    s("cdm", fmt([[
     componentDidMount({}) {{
         {}
-    }}; 
+    }};
     ]], { i(1), i(2) })),
 
-    snippet("cdup", fmt([[
+    s("cdup", fmt([[
     componentDidUpdate({}) {{
         {}
-    }}; 
+    }};
     ]], { i(1), i(2) })),
 
-    snippet("cwm", fmt([[
+    s("cwm", fmt([[
     componentWillMount({}) {{
         {}
-    }}; 
+    }};
     ]], { i(1), i(2) })),
 
-    snippet("cwr", fmt([[
+    s("cwr", fmt([[
     componentWillReceiveProps(nextProps) {{
         {}
-    }}; 
+    }};
     ]], { i(1) })),
 
-    snippet("cwu", fmt([[
+    s("cwu", fmt([[
     componentWillUnmount({}) {{
         {}
-    }}; 
+    }};
     ]], { i(1), i(2) })),
 
-    snippet("cwup", fmt([[
+    s("cwup", fmt([[
     componentWillUpdate({}) {{
         {}
-    }}; 
+    }};
     ]], { i(1), i(2) })),
 
-    -- Props 
-    
-    snippet("tp", fmt("this.props.{}", { i(1) })),
+    -- Props
 
-    snippet("elem", fmt([[
+    s("tp", fmt("this.props.{}", { i(1) })),
+
+    s("elem", fmt([[
     const elem = {{
         {}
     }};
@@ -76,9 +73,9 @@ return {
         i(1)
     })),
 
-    snippet("com", {
+    s("com", {
         c(1, {
-            s(1, {
+            sn(1, {
                 t "class", t " ",
                 i(1, "name"), t " ",
                 t({ "extends React.Component {", "\t"}),
@@ -87,21 +84,21 @@ return {
                 i(3),
                 t({"", "\t}", "}"})
             }),
-            s(1, {
+            sn(1, {
                 t "function", t " ",
-                i(1, "name"), 
+                i(1, "name"),
                 t("("),
                 i(2),
                 t({") {", "\treturn(",  "\t\t"}),
                 i(3),
                 t({"",  "\t);", "}"})
             }),
-        }), 
+        }),
     }, {
-        condition = conds_expand.line_begin 
+        condition = conds_expand.line_begin
     }),
 
-    snippet("rf", fmt([[
+    s("rf", fmt([[
     <React.Fragment>
     {}
     </React.Fragment>
@@ -109,10 +106,10 @@ return {
         i(1)
     })),
 
-    snippet("ren", fmt("{}render{}", {
+    s("ren", fmt("{}render{}", {
         c(1, {
-            t "", 
-            s(1, { i(1, "root"), t "." }), 
+            t "",
+            sn(1, { i(1, "root"), t "." }),
         }),
         renderer(2),
     })),
