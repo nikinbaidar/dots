@@ -28,7 +28,7 @@ declare -rA bluetooth_devices=(
   ["JBL Clip 4"]="F8:5C:7D:AC:31:F9"
   ["soundcore H30i"]="F4:B6:2D:08:0C:EA"
   ["WI-C100"]="74:B7:E6:29:ED:B2"
-  ["soundcore Liberty 4 NC"]="E8:26:CF:13:FF:DE"
+  ["soundcore Liberty 4 NC"]="E8:26:CF:26:98:1A"
 )
 
 case $1 in
