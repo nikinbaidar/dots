@@ -35,15 +35,16 @@ vim.api.nvim_create_user_command(
 )
 
 vim.api.nvim_create_user_command(
-    "StripTrailingSpaces",
+    "TrimSpaces",
     function()
+        vim.cmd([[%s/\(^\s*\)\@<!  \+\(\s*$\)\@!/ /g]])
         if vim.bo.filetype == "markdown" then
             vim.api.nvim_command("silent! %s/\\s\\+$/  /g")
         else
             vim.api.nvim_command("silent! %s/\\s\\+$//g")
         end
     end,
-    { desc = "Removes trailing spaces in the entire buffer. For makrdown files keeps two trailing spaces."}
+    { desc = "Replace consecutive spaces in the entire buffer. Indentations and trailing spaces stay." }
 )
 
 vim.api.nvim_create_user_command(

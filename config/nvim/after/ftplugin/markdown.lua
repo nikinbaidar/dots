@@ -45,7 +45,7 @@ vim.api.nvim_create_user_command(
 )
 
 vim.api.nvim_create_user_command(
-  'FixTable',
+  'FormatTable',
   "normal! vip :! pandoc -t markdown-simple_tables<CR>",
   {bang = true, desc="titlecase from current point to eol"}
 )
