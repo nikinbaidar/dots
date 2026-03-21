@@ -37,7 +37,7 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
     "TrimSpaces",
     function()
-        vim.cmd([[%s/\(^\s*\)\@<!  \+\(\s*$\)\@!/ /g]])
+        vim.cmd([[silent! %s/\(^\s*\)\@<!  \+\(\s*$\)\@!/ /g]])
         if vim.bo.filetype == "markdown" then
             vim.api.nvim_command("silent! %s/\\s\\+$/  /g")
         else
