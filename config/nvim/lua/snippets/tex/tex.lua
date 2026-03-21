@@ -66,7 +66,7 @@ end
 local function repeat_rows(args)
     return sn(nil, c(1, {
         t("% Press <C-l> to add row"),
-        sn(nil, { i(1), sn(2, t({args[1][1], "\t\t"})),  d(3, repeat_rows, 2, {}) }),
+        sn(nil, { i(1), sn(2, t({args[1][1], "\t\t"})), d(3, repeat_rows, 2, {}) }),
     }))
 end
 
@@ -110,7 +110,7 @@ return {
 
     s({
         trig = "([pcs][aheus][racbu])", regTrig=true,
-        docTrig="sec", 
+        docTrig="sec",
         desc="Part|Chapter|Section|Subsection|Subsubsection "
     }, {
         t("\\"),
