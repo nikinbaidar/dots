@@ -17,3 +17,5 @@ read -p "Do you want to reboot now? [N/y] " ans
 if [ ${ans} = "y" ]; then
     /usr/bin/reboot
 fi
+
+echo "To check update logs check `/var/log/arch-update.log`"
