@@ -13,6 +13,7 @@ require("lazy").setup({
     'rebelot/kanagawa.nvim',
     'tpope/vim-surround',
     'tpope/vim-repeat',
+    {'nikinbaidar/vim-dadbod', dependencies={'kristijanhusak/vim-dadbod-ui'}},
     { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },
     "ibhagwan/fzf-lua",
     'nvim-treesitter/nvim-treesitter',
