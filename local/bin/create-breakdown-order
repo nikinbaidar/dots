@@ -28,13 +28,12 @@ if len(sn) != expected_serial_num_length:
 
 customer = input("Enter customer name: ").strip()
 customer = customer.title() if " " in customer else customer.upper()
-print()
 description = input("Requests needing our support:\n\n")
 breakdown_order = f"""
 Product: {info['Instrument Type']}
 Model: {info['Model']}
 Serial Number: {sn}
-Requests needing out support:
+Requests needing our support:
 
 {description}
 
@@ -45,6 +44,5 @@ Contact Person: Nikin (Service engineer @ GMS)
 Contact: 9700047278
 """
 
-print(breakdown_order)
 pyperclip.copy(breakdown_order)
 print("Breakdown order copied to system clipboard.")
