@@ -10,156 +10,161 @@ Usage:
   sc [OPTIONS]
 
 Options:
-  -b, --begin <file>    Start the screencast. <file> must be a video format.
+  -b, --begin <file> Start the screencast. <file> must be a video format.
                         If an extension is not provided '.mp4' will be used.
 
-  -h, --help            Display this help.
+  -h, --help Display this help.
 
-  -i, --info            Display info about current recording.
+  -i, --info Display info about current recording.
 
-  -m, --mode            Set recording mode.
-                        '0' Record the screen and the sink (default) 
-                        '1' Record screen, sink and input.
+  -m, --mode <mode> Set recording mode with '--begin', and '--resume'.
+                     Needs to be the first argument.
+                     * '0' Record the screen and the sink (default)
+                     * '1' Record screen, sink and source.
 
-  -p, --pause           Pause an ongoing recording.
+  -p, --pause Pause an ongoing recording.
 
-  -r, --resume          Resume a paused recording.
+  -r, --resume Resume a paused recording.
 
-  -s, --stop            Kill all ffmpeg processes.
+  -s, --stop Kill all ffmpeg processes.
 
 EOF
 }
 
 
 start_recording () {
-  if [ -z "${filename}" ]; then
-    echo "Filename not specified. Aborting..."
-    exit 1
-  fi
+    if [ -z "${filename}" ]; then
+        echo "Filename not specified. Aborting..."
+        exit 1
+    fi
 
-  if [[ "$(basename -- "$filename")" != *.* ]]; then
-    echo "No file extension specified; using default '.mp4'."
-    filename="${filename}.mp4"
-  fi
+    if [[ "$(basename -- "$filename")" != *.* ]]; then
+        echo "No file extension specified; using default '.mp4'."
+        filename="${filename}.mp4"
+    fi
 
-  output="${SCREENCAST_DIR}/${filename}"
+    if [ -z "${mode}" ]; then
+        echo "Recording mode not specified defaulting to 0."
+    fi
 
-  if [ -f ${output} ]; then
-    read -r -p "${output} is an existing file. Do you wish to overwrite it? [y/N]? " answer
-    case "$answer" in
-      [yY]) ;;
-      *) exit 1;;
-    esac
-  fi
+    output="${SCREENCAST_DIR}/${filename}"
 
-  resolution=$(xrandr | awk '/\*/ {print $1}')
-  sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
+    if [ -f ${output} ]; then
+        read -r -p "${output} is an existing file. Do you wish to overwrite it? [y/N]? " answer
+        case "$answer" in
+            [yY]) ;;
+            *) exit 1;;
+        esac
+    fi
 
-  if [ -d ${metadata} ]; then
-    msg="Recording resumed"
-  else
-    mkdir -p ${metadata}
-    msg="Recording started"
-  fi
+    resolution=$(xrandr | awk '/\*/ {print $1}')
+    sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
 
-  date +%s > ${metadata}/starttime
-  echo title=${filename} > ${metadata}/info
-  echo resolution=${resolution} >> ${metadata}/info
-  echo filepath=${output} >> ${metadata}/info
-  echo sink=${sink} >> ${metadata}/info
+    if [ -d ${metadata} ]; then
+        msg="Recording resumed"
+    else
+        mkdir -p ${metadata}
+        msg="Recording started"
+    fi
 
-  if [[ $mode = 1 ]]; then
-    # Grabs screen, sink and source
-    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
-    echo source=${source} >> ${metadata}/info
-    ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${source}" \
-      -f pulse -i "${sink}" -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
-      -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental \ 
-      ${output} -hide_banner -loglevel error &
-  else
-    # Screen and sink no source (mic)
-    ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${sink}" \
-      -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac \
-      ${output} -hide_banner -loglevel error &
-  fi
+    date +%s > ${metadata}/starttime
+    echo title=${filename} > ${metadata}/info
+    echo resolution=${resolution} >> ${metadata}/info
+    echo filepath=${output} >> ${metadata}/info
+    echo sink=${sink} >> ${metadata}/info
 
-  echo $msg
+    if [[ "$mode" == '1' ]]; then
+        source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
+        echo source=${source} >> ${metadata}/info
+        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${source}" \
+            -f pulse -i "${sink}" -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
+            -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental \
+            ${output} -hide_banner -loglevel error &
+    else
+        echo "Mode -> ${mode}"
+        # Screen and sink no source (mic)
+        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${sink}" \
+            -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac \
+            ${output} -hide_banner -loglevel error &
+    fi
 
-  if [ -z $quiet ]; then
-    show_status
-  fi
+    echo $msg
+
+    if [ -z $quiet ]; then
+        show_status
+    fi
 }
 
 
 pause_recording() {
-  if [[ -d "$metadata" ]] && pgrep ffmpeg > /dev/null; then
-    pkill ffmpeg
-    echo paused=true >> $metadata/info
-    echo "Recording paused"
-  else
-    echo "Nothing to pause"
-    exit 1
-  fi
+    if [[ -d "$metadata" ]] && pgrep ffmpeg > /dev/null; then
+        pkill ffmpeg
+        echo paused=true >> $metadata/info
+        echo "Recording paused"
+    else
+        echo "Nothing to pause"
+        exit 1
+    fi
 }
 
 
 resume_recording() {
-  if [[ -d "$metadata" ]] && grep -q paused=true ${metadata}/info; then
-    fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
-    echo ${fp} >> ${metadata}/mergelist.txt
-    filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1)_$(date +'%s').mp4"
-    start_recording # again
-  else
-    echo "Nothing to resume"
-    exit 1
-  fi
+    if [[ -d "$metadata" ]] && grep -q paused=true ${metadata}/info; then
+        fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
+        echo ${fp} >> ${metadata}/mergelist.txt
+        filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1)_$(date +'%s').mp4"
+        start_recording # again
+    else
+        echo "Nothing to resume"
+        exit 1
+    fi
 }
 
 
 stop_recording () {
-  if pgrep ffmpeg &> /dev/null; then
-    pkill ffmpeg
-    echo Recording stopped
-  fi 
-
-  if [ -f ${metadata}/mergelist.txt ]; then
-    fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
-    echo ${fp} >> ${metadata}/mergelist.txt
-    sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
-    fp="${SCREENCAST_DIR}/final_$(date +'%s').mp4"
-    if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy "${fp}" -hide_banner -loglevel error; then
-      filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
-      filename="${filename//[\"\']/}"
-      sed 's/^file/rm/g' ${metadata}/mergelist.txt | bash
-      mv ${fp} ${filename}
-      echo Recording finished
-    else 
-      echo Concatnating files with ffmpeg has failed. May require manual intervention.
-      exit 1
+    if pgrep ffmpeg &> /dev/null; then
+        pkill ffmpeg
+        echo Recording stopped
     fi
-  fi
 
-  if [ -d ${metadata} ]; then
-    rm -r ${metadata}
-  else
-    echo "Nothing to stop"
-  fi
+    if [ -f ${metadata}/mergelist.txt ]; then
+        fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
+        echo ${fp} >> ${metadata}/mergelist.txt
+        sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
+        fp="${SCREENCAST_DIR}/final_$(date +'%s').mp4"
+        if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy "${fp}" -hide_banner -loglevel error; then
+            filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
+            filename="${filename//[\"\']/}"
+            sed 's/^file/rm/g' ${metadata}/mergelist.txt | bash
+            mv ${fp} ${filename}
+            echo Recording finished
+        else
+            echo Concatnating files with ffmpeg has failed. May require manual intervention.
+            exit 1
+        fi
+    fi
+
+    if [ -d ${metadata} ]; then
+        rm -r ${metadata}
+    else
+        echo "Nothing to stop"
+    fi
 
 }
 
 
 show_status() {
-  if [ -d ${metadata} ]; then
-    cat ${metadata}/info
-    if [ -f ${metadata}/mergelist.txt ]; then
-      echo
-      echo --- MERGE LIST ---
-      nl ${metadata}/mergelist.txt
+    if [ -d ${metadata} ]; then
+        cat ${metadata}/info
+        if [ -f ${metadata}/mergelist.txt ]; then
+            echo
+            echo --- MERGE LIST ---
+            nl ${metadata}/mergelist.txt
+        fi
+    else
+        echo Nothing to show
+        exit 1
     fi
-  else
-    echo Nothing to show
-    exit 1
-  fi
 
 }
 
@@ -168,49 +173,55 @@ SCREENCAST_DIR="$HOME/Videos/screencasts"
 metadata="/tmp/screencast.$USER"
 
 if [ ! -d ${SCREENCAST_DIR} ]; then
-  mkdir -p ${SCREENCAST_DIR}
+    mkdir -p ${SCREENCAST_DIR}
 fi
 
 while [ -n "$1" ]
-do 
-  case $1 in
-    -b|--begin) 
-      filename="${2//[\"\']/}"
-      shift 2
-      start_recording 
-      ;;
+do
+    case $1 in
+        -b|--begin)
+            filename="${2//[\"\']/}"
+            shift 2
+            start_recording
+            ;;
 
-    -s|--stop) 
-      shift 
-      stop_recording 
-      ;;
+        -s|--stop)
+            shift
+            stop_recording
+            ;;
 
-    -p|--pause) 
-      shift 
-      pause_recording
-      ;;
+        -m|--mode)
+            mode="${2//[\"\']/}"
+            shift 2
+            ;;
 
-    -r|--resume) 
-      shift 
-      resume_recording
-      ;;
+        -p|--pause)
+            shift
+            pause_recording
+            ;;
 
-    -i|--info) 
-      shift
-      show_status
-      ;;
+        -r|--resume)
+            shift
+            resume_recording
+            ;;
 
-    -h|--help) 
-      shift
-      display_help
-      exit 1
-      ;;
+        -i|--info)
+            shift
+            show_status
+            ;;
 
-    --) shift ;;
+        -h|--help)
+            shift
+            display_help
+            exit 1
+            ;;
 
-    *) 
-      display_help
-      exit 1
-      ;;
-  esac
+        --) shift
+            ;;
+
+        *)
+            display_help
+            exit 1
+            ;;
+    esac
 done
