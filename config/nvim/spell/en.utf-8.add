@@ -406,3 +406,7 @@ MongoDB
 mongosh
 nikin
 PostgreSQL
+JSON
+BSON
+ObjectId
+nvim

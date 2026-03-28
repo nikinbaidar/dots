@@ -2,6 +2,7 @@ vim.g.mapleader = ","
 
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>W', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 
 vim.cmd [[
@@ -37,9 +38,9 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
     "TrimSpaces",
     function()
-        vim.cmd([[silent! %s/\(^\s*\)\@<!  \+\(\s*$\)\@!/ /g]])
+        vim.cmd([[silent! %s/\(^\s*\)\@<! \+\(\s*$\)\@!/ /g]])
         if vim.bo.filetype == "markdown" then
-            vim.api.nvim_command("silent! %s/\\s\\+$/  /g")
+            vim.api.nvim_command("silent! %s/\\s\\+$/ /g")
         else
             vim.api.nvim_command("silent! %s/\\s\\+$//g")
         end
