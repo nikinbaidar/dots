@@ -39,11 +39,7 @@ vim.api.nvim_create_user_command(
     "TrimSpaces",
     function()
         vim.cmd([[silent! %s/\(^\s*\)\@<! \+\(\s*$\)\@!/ /g]])
-        if vim.bo.filetype == "markdown" then
-            vim.api.nvim_command("silent! %s/\\s\\+$/ /g")
-        else
-            vim.api.nvim_command("silent! %s/\\s\\+$//g")
-        end
+        vim.api.nvim_command("silent! %s/\\s\\+$//g")
     end,
     { desc = "Replace consecutive spaces in the entire buffer. Indentations and trailing spaces stay." }
 )

@@ -17,3 +17,4 @@ vim.api.nvim_create_autocmd('BufEnter', {
     command = 'nnoremap <leader>r :lua CompileQuarto()<CR>'
 })
 
+vim.opt.spell = true
