@@ -137,12 +137,13 @@ stop_recording () {
         echo ${fp} >> ${metadata}/mergelist.txt
         sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
         fp="${SCREENCAST_DIR}/final_$(date +'%s').mp4"
-        if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error; then
+        if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error
+        then
             filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
             filename="${filename//[\"\']/}"
             sed 's/^file/rm/g' ${metadata}/mergelist.txt | bash
             mv ${fp} ${filename}
-            echo Recording finished
+            echo "Recording saved to '`realpath ${filename}`'"
         else
             echo Concatnating files with ffmpeg has failed. May require manual intervention.
             exit 1
@@ -154,7 +155,6 @@ stop_recording () {
     else
         echo "Nothing to stop"
     fi
-
 }
 
 
