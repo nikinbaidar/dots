@@ -2,6 +2,10 @@
 
 import pandas as pd
 import pyperclip
+import subprocess
+from datetime import datetime
+
+#TODO: Define POSIX compliant filepaths.
 
 machines = pd.read_csv('/home/nikin/manuals/_logs/machines.csv')
 sn = input("Enter machine SN: ").strip().upper()
@@ -14,7 +18,7 @@ except KeyError as k:
     model = input("Enter model: ").strip()
     instrument_type = input("Enter instrument type: ").strip()
     with open('/home/nikin/manuals/_logs/machines.csv', 'a') as f:
-        f.write(f"\n{product_code},{model},{instrument_type}")
+        f.write(f"{product_code},{model},{instrument_type}\n")
     info = {
             'Model': model,
             'Instrument Type': instrument_type
@@ -23,26 +27,86 @@ except KeyError as k:
 expected_serial_num_length = 11 if product_code[-1] == "-" else 12
 
 if len(sn) != expected_serial_num_length:
-    print(f"\n'{sn}' length is {len(sn)}. " \
-          f"It may be invalid for {info['Model']} {info['Instrument Type']}.\n")
+    print(f"Unexpected SN length: {len(sn)}.")
 
-customer = input("Enter customer name: ").strip()
-customer = customer.title() if " " in customer else customer.upper()
-description = input("Requests needing our support:\n\n")
+print("Select a customer: ")
+customer_file_path = "/home/nikin/manuals/_logs/customers.txt"
+with open(customer_file_path, "r") as f:
+    lines = f.read()
+customer = subprocess.run( ["fzf"], input=lines, text=True, capture_output=True)
+customer = customer.stdout.strip()
+if not customer:
+    print("Customer not selected.")
+    customer = input("Enter new customer name: ").strip()
+    with open(customer_file_path, "a") as f:
+        f.write(f"{customer}\n")
+print(customer)
+
+isUnderWarranty = input("Is the machine under warranty? [y/N] ")
+
+if isUnderWarranty in 'yesYES':
+    warranty_status = "(under warranty)"
+else:
+    warranty_status = "(not under warranty)"
+
+description = input("Requests needing our support:\n")
+
+def getSpareParts(count):
+    spare_parts=pd.read_csv("/home/nikin/manuals/_logs/spareparts_partnumber.csv")
+    isSparePartListAvailable = info['Model'] in spare_parts.iloc[:, 2].unique().tolist()
+
+    if isSparePartListAvailable:
+        df = spare_parts[spare_parts.iloc[:, 2] == info['Model']].reset_index(drop=True)
+        print(f"Spare parts of {info['Model']}:\n", df.iloc[:, :2], "\n")
+        selection = list(input(f"Select {count} spare parts:\n"))
+        selection = [ int(item) for item in selection if item != " " ]
+        if 0 < len(selection) <= count:
+            try:
+                df = df.iloc[selection, :2]
+                df.index = [f"{i}." for i in range(1, len(df) + 1)]
+                table = df.to_string(index=True, header=False)
+                indented = "\n".join("    " + line for line in table.splitlines())
+                necessary_spare_parts = f"\nSpare parts required {warranty_status}:\n{indented}"
+                return necessary_spare_parts
+            except IndexError:
+                print("Index error")
+        return None
+    else:
+        return None
+
+isSparePartsRequired = input("Do you need to add any spare parts ? [y/N] ")
+
+try:
+    isSparePartsRequired = int(isSparePartsRequired)
+except ValueError:
+    if isSparePartsRequired in 'YESyes':
+        isSparePartsRequired = 1
+    else:
+        necessary_spare_parts = None
+finally:
+    if isinstance(isSparePartsRequired, int):
+        necessary_spare_parts = getSpareParts(count=isSparePartsRequired)
+
+if necessary_spare_parts:
+    description = description + "\n" + necessary_spare_parts
+
 breakdown_order = f"""
 Product: {info['Instrument Type']}
 Model: {info['Model']}
 Serial Number: {sn}
-Requests needing our support:
-
-{description}
-
 Machine Located Country: Nepal
-Hospital name: {customer}
+Hospital/Institution name: {customer}
 Distributor ID: S200560
 Contact Person: Nikin (Service engineer @ GMS)
-Contact: 9700047278
+Contact: +977 9700047278
+Requests needing our support:
+{description}
 """
 
 pyperclip.copy(breakdown_order)
 print("Breakdown order copied to system clipboard.")
+
+with open("/home/nikin/manuals/_logs/work-orders.md", "a+") as f:
+    f.write(f"Work order created on {datetime.now().strftime("%Y-%m-%d")}\n")
+    f.write(f"Order ID: ")
+    f.write("\n"*2)
