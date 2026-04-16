@@ -38,13 +38,14 @@ static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
 static const Rule rules[] = {
     /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
+     *  WM_CLASS(STRING) = instance, class
+     *  WM_NAME(STRING) = title
      */
     /* class                      instance      title     tags mask     isfloating   monitor */
 
-    {"st-256color",               NULL,         NULL,     1,            0,           -1},
-    {"firefox-developer-edition", NULL,         NULL,     2,            0,           -1},
+    {"st-256color",               NULL,         NULL,     1 << 0,            0,           -1},
+    {"firefox-developer-edition", NULL,         NULL,     1 << 1,            0,           -1},
+    {"Rustdesk",                  NULL,         NULL,     1 << 5,            0,           -1},
     {"Display",                   NULL,         NULL,     0,            1,           -1},
     {"matplotlib",                NULL,         NULL,     0,            1,           -1},
     {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,           -1},
