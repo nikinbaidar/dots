@@ -1,27 +1,28 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", lazypath,
-    })
-end
+local gh = function(plugin) return 'https://github.com/' .. plugin end
 
-vim.opt.rtp:prepend(lazypath)
+vim.pack.add({
+    gh('rebelot/kanagawa.nvim'),
+    gh('tpope/vim-surround'),
+    gh('tpope/vim-repeat'),
 
-require("lazy").setup({
-    'rebelot/kanagawa.nvim',
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
-    {'nikinbaidar/vim-dadbod', dependencies={'kristijanhusak/vim-dadbod-ui'}},
-    { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },
-    "ibhagwan/fzf-lua",
-    'nvim-treesitter/nvim-treesitter',
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-    'lukas-reineke/indent-blankline.nvim',
-    { "L3MON4D3/LuaSnip", version = "2.*", build = "make install_jsregexp" },
-    {'hrsh7th/nvim-cmp', dependencies={ 'hrsh7th/cmp-buffer', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp' }},
-    {"nvim-tree/nvim-tree.lua", dependencies={ "nvim-tree/nvim-web-devicons", }},
-    {"neovim/nvim-lspconfig", dependencies={ "mason-org/mason.nvim", }},
+    gh('nikinbaidar/vim-dadbod'),
+
+    { src = gh('L3MON4D3/LuaSnip'), version='stable', build = "make install_jsregexp" },
+    gh('windwp/nvim-autopairs'),
+    gh('ibhagwan/fzf-lua'),
+    gh('nvim-treesitter/nvim-treesitter'),
+    gh('JoosepAlviste/nvim-ts-context-commentstring'),
+    gh('folke/todo-comments.nvim'),
+    gh('nvim-lua/plenary.nvim'),
+    gh('lukas-reineke/indent-blankline.nvim'),
+
+    gh('hrsh7th/nvim-cmp'),
+    gh('hrsh7th/cmp-buffer'),
+    gh('saadparwaiz1/cmp_luasnip'),
+    gh('hrsh7th/cmp-nvim-lsp'),
+
+    gh("nvim-tree/nvim-tree.lua"),
+    gh("nvim-tree/nvim-web-devicons"),
+    gh("neovim/nvim-lspconfig"),
+    gh("mason-org/mason.nvim"),
 })
