@@ -13,13 +13,13 @@ fi
 
 while true
 do
-    xsetroot -name "  [ $(date +'%Y-%m-%d %r') ]  $(battery)  "
+    xsetroot -name "  [ $(date +'%Y-%m-%d %r') ] "
     sleep 1
 done &
 
 udiskie &
 unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
-moncon --init
+cb ~/Pictures/walls/thinkpad-lenovo-ibm-mountains-logo-hd-wallpaper-02ac182fd15a5c3755a55d5f239dba18.jpg
 export XDG_SESSION_TYPE=x11
 exec dwm
