@@ -4,10 +4,8 @@ vim.pack.add({
     gh('rebelot/kanagawa.nvim'),
     gh('tpope/vim-surround'),
     gh('tpope/vim-repeat'),
-
     gh('nikinbaidar/vim-dadbod'),
-
-    { src = gh('L3MON4D3/LuaSnip'), version='stable', build = "make install_jsregexp" },
+    gh('L3MON4D3/LuaSnip'),
     gh('windwp/nvim-autopairs'),
     gh('ibhagwan/fzf-lua'),
     gh('nvim-treesitter/nvim-treesitter'),
@@ -15,12 +13,10 @@ vim.pack.add({
     gh('folke/todo-comments.nvim'),
     gh('nvim-lua/plenary.nvim'),
     gh('lukas-reineke/indent-blankline.nvim'),
-
     gh('hrsh7th/nvim-cmp'),
     gh('hrsh7th/cmp-buffer'),
     gh('saadparwaiz1/cmp_luasnip'),
     gh('hrsh7th/cmp-nvim-lsp'),
-
     gh("nvim-tree/nvim-tree.lua"),
     gh("nvim-tree/nvim-web-devicons"),
     gh("neovim/nvim-lspconfig"),
