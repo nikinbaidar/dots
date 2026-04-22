@@ -22,7 +22,7 @@ unclutter --timeout 1 --start-hidden --fork
 xset -dpms && xset s off &
 # cb ~/Pictures/walls/thinkpad-lenovo-ibm-mountains-logo-hd-wallpaper-02ac182fd15a5c3755a55d5f239dba18.jpg
 cb ~/Pictures/walls/green-forest.jpg
-xinput set-prop 10 "libinput Accel Speed" -0.6
+xinput set-prop 10 "libinput Accel Speed" -0.1
 
 export XDG_SESSION_TYPE=x11
 exec dwm

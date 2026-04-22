@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=sioyek
+Exec=/home/nikin/.local/bin/sioyek %f
+Type=Application
+Terminal=false
+MimeType=application/pdf;
