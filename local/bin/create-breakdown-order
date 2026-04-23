@@ -6,7 +6,7 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-root = Path("/home/nikin/manuals/_logs")
+root = Path("/home/nikin/manuals/_logs/registry")
 
 machines = pd.read_csv(root/"machines.csv")
 sn = input("Enter machine SN: ").strip().upper()
@@ -106,7 +106,7 @@ Contact: +977 9700047278
 pyperclip.copy(breakdown_order)
 print("Breakdown order copied to system clipboard.")
 
-with open(root/"work-orders.md", "a", encoding="utf-8") as f:
+with open(root/"work-orders.md", "a") as f:
     f.write(f"""---
 Order ID:
 Work order created on {datetime.now().strftime('%Y-%m-%d')}:
