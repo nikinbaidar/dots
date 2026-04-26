@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file=`fd -I --full-path /home/nikin/manuals /home/nikin/manuals --exclude Archives | fzf`
+file=`fd -I -t f --full-path /home/nikin/manuals /home/nikin/manuals --exclude Archives | fzf`
 
 
 if [ -n "${file}" ]
