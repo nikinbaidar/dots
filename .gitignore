@@ -10,4 +10,4 @@ local/bin/stop-ls
 local/bin/downloadvids
 **/surf
 config/nvim/lazy-lock.json
-config/nvim/nvim-pack-lock.json
+

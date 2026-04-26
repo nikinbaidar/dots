@@ -5,7 +5,8 @@
 
 function RunGo()
     vim.api.nvim_command('update!')
-    vim.api.nvim_command('! go run %')
+    vim.api.nvim_command('below split')
+    vim.api.nvim_command('term go run %')
 end
 
 api.nvim_create_autocmd('BufEnter', {

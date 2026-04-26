@@ -56,7 +56,6 @@ local extensions = {
     html = {"css", "javascript"},
     plaintex = {"tex"},
     markdown = {"tex", "quarto"},
-    markdown_inline = {"markdown", "tex", "quarto"},
     quarto = {"markdown"},
 }
 

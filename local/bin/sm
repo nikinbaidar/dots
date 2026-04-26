@@ -1,12 +1,8 @@
 #!/bin/bash
 
-file=`fd -I -t f --full-path /home/nikin/manuals /home/nikin/manuals --exclude Archives | fzf`
+file=`fd --full-path ~/manuals/ /home/nikin | fzf`
 
-
-if [ -n "${file}" ]
-then
-    mime=$(xdg-mime query filetype "$file")
-fi
+mime=$(xdg-mime query filetype "$file")
 
 if [[ "${mime}" == text/* && "${file}" != *.html ]]; then
   /usr/bin/nvim "${file}"

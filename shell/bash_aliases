@@ -13,7 +13,6 @@ alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
 alias sudo="sudo "
 alias pqiv="pqiv 2> /dev/null"
-alias mongosh="mongosh --quiet "
 ## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
 alias figlet="figlet -f /home/nikin/projects/dots/local/share/figlet/pagga.tlf"

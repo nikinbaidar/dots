@@ -24,7 +24,8 @@ end,
 
 function RunJava()
     vim.api.nvim_command('update!')
-    vim.api.nvim_command('! java %')
+    vim.api.nvim_command('below split')
+    vim.api.nvim_command('term java %')
 end
 
 vim.api.nvim_create_autocmd('BufEnter', {

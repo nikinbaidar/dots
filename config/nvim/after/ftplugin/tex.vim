@@ -11,8 +11,9 @@ function! CompileSource()
         let g:source_path = getline(1)[2:]
         if ! empty(expand(glob("./" . g:source_path)))
             " Source in current directory
+            below split
             resize 15
-            execute ("! lualatex --shell-escape") g:source_path
+            execute ("term lualatex --shell-escape") g:source_path
         elseif ! empty(expand(glob("../" .g:source_path)))
             " Source in previous directory
             below split

@@ -1,6 +1,7 @@
 function RunBash()
     vim.api.nvim_command('update!')
-    vim.api.nvim_command('! bash %')
+    vim.api.nvim_command('below split')
+    vim.api.nvim_command('term bash %')
     vim.api.nvim_command('normal! G')
 end
 
