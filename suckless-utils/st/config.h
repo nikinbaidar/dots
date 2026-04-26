@@ -6,9 +6,9 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 
-static char *font = "Source Code Pro Medium:size=12";
+static char *font = "Source Code Pro Medium:size=10";
 static char *font2 =
-    "Hack Regular Nerd Font:pixelsize=10:antialias=true:autohint=true";
+    "Hack Regular Nerd Font:pixelsize=8:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
