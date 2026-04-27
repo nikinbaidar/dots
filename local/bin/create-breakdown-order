@@ -4,10 +4,11 @@ import pandas as pd
 import pyperclip
 import subprocess
 from datetime import datetime
+from pathlib import Path
 
-#TODO: Define POSIX compliant filepaths.
+root = Path("/home/nikin/manuals/_logs/registry")
 
-machines = pd.read_csv('/home/nikin/manuals/_logs/machines.csv')
+machines = pd.read_csv(root/"machines.csv")
 sn = input("Enter machine SN: ").strip().upper()
 product_code = sn[:3]
 
@@ -17,7 +18,7 @@ except KeyError as k:
     print(f"Product Code {k} not found\n")
     model = input("Enter model: ").strip()
     instrument_type = input("Enter instrument type: ").strip()
-    with open('/home/nikin/manuals/_logs/machines.csv', 'a') as f:
+    with open(root/"machines.csv", 'a') as f:
         f.write(f"{product_code},{model},{instrument_type}\n")
     info = {
             'Model': model,
@@ -29,8 +30,8 @@ expected_serial_num_length = 11 if product_code[-1] == "-" else 12
 if len(sn) != expected_serial_num_length:
     print(f"Unexpected SN length: {len(sn)}.")
 
-print("Select a customer: ")
-customer_file_path = "/home/nikin/manuals/_logs/customers.txt"
+print("Select a customer:")
+customer_file_path = root/"customers.txt"
 with open(customer_file_path, "r") as f:
     lines = f.read()
 customer = subprocess.run( ["fzf"], input=lines, text=True, capture_output=True)
@@ -52,7 +53,7 @@ else:
 description = input("Requests needing our support:\n")
 
 def getSpareParts(count):
-    spare_parts=pd.read_csv("/home/nikin/manuals/_logs/spareparts_partnumber.csv")
+    spare_parts=pd.read_csv(root/"spareparts_partnumber.csv")
     isSparePartListAvailable = info['Model'] in spare_parts.iloc[:, 2].unique().tolist()
 
     if isSparePartListAvailable:
@@ -90,23 +91,25 @@ finally:
 if necessary_spare_parts:
     description = description + "\n" + necessary_spare_parts
 
-breakdown_order = f"""
-Product: {info['Instrument Type']}
+breakdown_order = f"""Product: {info['Instrument Type']}
 Model: {info['Model']}
 Serial Number: {sn}
 Machine Located Country: Nepal
 Hospital/Institution name: {customer}
+Requests needing our support:
+{description}
 Distributor ID: S200560
 Contact Person: Nikin (Service engineer @ GMS)
 Contact: +977 9700047278
-Requests needing our support:
-{description}
 """
 
 pyperclip.copy(breakdown_order)
 print("Breakdown order copied to system clipboard.")
 
-with open("/home/nikin/manuals/_logs/work-orders.md", "a+") as f:
-    f.write(f"Work order created on {datetime.now().strftime("%Y-%m-%d")}\n")
-    f.write(f"Order ID: ")
-    f.write("\n"*2)
+with open(root/"work-orders.md", "a") as f:
+    f.write(f"""---
+Order ID:
+Work order created on {datetime.now().strftime('%Y-%m-%d')}:
+
+{breakdown_order}
+""")
