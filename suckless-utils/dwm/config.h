@@ -23,8 +23,8 @@ typedef struct {
 } Sp;
 
 const char *spcmd0[] = {"keepassxc", NULL};
-const char *spcmd1[] = {"st", "-c", "st-floating", "-n", "spterm", "-g", "144x41", NULL};
-const char *spcmd2[] = {"st", "-c", "st-floating", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL};
+const char *spcmd1[] = {"st", "-c", "st-floating", "-n", "spterm", "-g", "90x20", NULL};
+const char *spcmd2[] = {"st", "-c", "st-floating", "-n", "spfm", "-g", "144x40", "-e", "lf", NULL};
 
 static Sp scratchpads[] = {
     /* name          cmd  */

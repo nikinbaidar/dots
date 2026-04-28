@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -- $(getopt -o b:m:siprh -l begin:,mode:,stop,pause,resume,info,help -- "$@")
+set -- $(getopt -o b:m:siprhw -l begin:,mode:,stop,pause,resume,info,help,watch -- "$@")
 
 display_help() {
   cat << 'EOF'
@@ -11,16 +11,16 @@ Usage:
 
 Options:
   -b, --begin <file> Start the screencast. <file> must be a video format.
-                        If an extension is not provided '.mp4' will be used.
+                     If an extension is not provided '.mp4' will be used.
 
   -h, --help Display this help.
 
   -i, --info Display info about current recording.
 
   -m, --mode <mode> Set recording mode with '--begin', and '--resume'.
-                     Needs to be the first argument.
-                     * '0' Record the screen and the sink (default)
-                     * '1' Record screen, sink and source.
+                    Needs to be the first argument.
+                      * '0' Record the screen and the sink (default)
+                      * '1' Record screen, sink and source.
 
   -p, --pause Pause an ongoing recording.
 
@@ -28,7 +28,14 @@ Options:
 
   -s, --stop Kill all ffmpeg processes.
 
+  -w, --watch Watch a screencast.
 EOF
+}
+
+
+watch_recording() {
+    selection=$(fd -I -t f . "$SCREENCAST_DIR" -x basename | fzf) || exit 1
+    mpv "${SCREENCAST_DIR}/${selection}" &
 }
 
 
@@ -222,6 +229,11 @@ do
             shift
             display_help
             exit 1
+            ;;
+
+        -w|--watch)
+            shift
+            watch_recording
             ;;
 
         --) shift
