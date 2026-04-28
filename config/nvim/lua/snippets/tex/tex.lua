@@ -183,6 +183,5 @@ return {
         d(1, make_cols , {}),
     }),
 
-
     parse({trig="latex", snippetType="autosnippet", desc="LaTeX"}, "\\LaTeX{}"),
 }
