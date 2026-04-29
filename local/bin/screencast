@@ -11,7 +11,7 @@ Usage:
 
 Options:
   -b, --begin <file> Start the screencast. <file> must be a video format.
-                     If an extension is not provided '.mp4' will be used.
+                     If an extension is not provided '.mkv' will be used.
 
   -h, --help Display this help.
 
@@ -48,13 +48,7 @@ start_recording () {
 
     if [[ "$(basename -- "$filename")" != *.* ]]
     then
-        echo "No file extension specified, using '.mp4'."
-        filename="${filename}.mp4"
-    fi
-
-    if [ -z "${mode}" ]
-    then
-        echo "Recording mode not specified defaulting to 0."
+        filename="${filename}.mkv"
     fi
 
     output="${SCREENCAST_DIR}/${filename}"
@@ -91,7 +85,8 @@ start_recording () {
             -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental \
             ${output} -hide_banner -loglevel error &
     else
-        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${sink}" \
+        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 \
+            -f pulse -i "${sink}" \
             -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac \
             ${output} -hide_banner -loglevel error &
     fi
@@ -120,7 +115,7 @@ resume_recording() {
     then
         fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
         echo ${fp} >> ${metadata}/mergelist.txt
-        filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1 | cut -d '_' -f 1)_$(date +'%s').mp4"
+        filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1 | cut -d '_' -f 1)_$(date +'%s').mkv"
         grep -q 'source=' ${metadata}/info && mode=1 || mode=0
         start_recording # again
     else
@@ -143,7 +138,7 @@ stop_recording () {
         fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
         echo ${fp} >> ${metadata}/mergelist.txt
         sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
-        fp="${SCREENCAST_DIR}/final_$(date +'%s').mp4"
+        fp="${SCREENCAST_DIR}/final_$(date +'%s').mkv"
         if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error
         then
             filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
