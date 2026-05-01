@@ -20,13 +20,13 @@ externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}
 setResolution() {
     case "$externalMonitor" in
         "DP-1") resolution="1920x1080" ;;
-        "DP-2") resolution="1366x768" ;;
+        "DP-2") resolution="2560x1440" ;;
         *) resolution="$DEFAULT_RESOLUTION" ;;
     esac
 }
 
-# setResolution
-resolution="${DEFAULT_RESOLUTION}"
+setResolution
+# resolution="${DEFAULT_RESOLUTION}"
 
 # Handle script arguments
 case "$1" in

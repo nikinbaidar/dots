@@ -66,7 +66,7 @@ then
     F='\[\e[0m\]'     # Reset
 fi
 
-PS1="${R}[${G}\u${B}@${C}\h${W}: ${Y}\w${R}]${P}\$${F} "
+PS1="${R}[${G}\u${B}@${C}\h${W}: ${Y}\W${R}]${P}\$${F} "
 
 
 export NODE_OPTIONS=--openssl-legacy-provider
