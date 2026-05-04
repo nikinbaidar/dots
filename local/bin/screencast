@@ -62,7 +62,9 @@ start_recording () {
         esac
     fi
 
-    resolution=$(xrandr | awk '/\*/ {print $1; exit}')
+
+    read W H X Y <<< $(xrandr | awk '/ primary / { split($4,a,"[+x]"); print a[1], a[2], a[3], a[4] }')
+
     sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
 
     if [ -d ${metadata} ]; then
@@ -73,19 +75,31 @@ start_recording () {
     fi
 
     echo title=${filename} > ${metadata}/info
-    echo resolution=${resolution} >> ${metadata}/info
+    echo resolution=${W}x${H} >> ${metadata}/info
     echo filepath=${output} >> ${metadata}/info
-    echo sink=${sink} >> ${metadata}/info
+    sink=${sink} >> ${metadata}/info
+    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
 
     if [[ "$mode" == '1' ]]; then
-        source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
         echo source=${source} >> ${metadata}/info
-        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 -f pulse -i "${source}" \
+        echo sink=${sink} >> ${metadata}/info
+        ffmpeg -y -f x11grab -r 30 -s ${W}x${H} -i :0.0+${X},${Y} -f pulse -i "${source}" \
             -f pulse -i "${sink}" -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
             -map 0:v -map "[a]" -c:v libx264 -preset ultrafast -c:a aac -strict experimental \
             ${output} -hide_banner -loglevel error &
+    elif [[ "$mode" == 2 ]]; then
+        echo source=${source} >> ${metadata}/info
+        ffmpeg -y \
+            -f x11grab -r 30 -s "${W}x${H}" -i :0.0+${X},${Y} \
+            -f pulse -i "${source}" \
+            -map 0:v -map 1:a \
+            -c:v libx264 -preset ultrafast \
+            -c:a aac \
+            "${output}" \
+            -hide_banner -loglevel error &
     else
-        ffmpeg -y -f x11grab -r 30 -s ${resolution} -i :0.0 \
+        echo sink=${sink} >> ${metadata}/info
+        ffmpeg -y -f x11grab -r 30 -s ${W}x${H} -i :0.0+${X},${Y} \
             -f pulse -i "${sink}" \
             -map 0:v -map 1:a -c:v libx264 -preset ultrafast -c:a aac \
             ${output} -hide_banner -loglevel error &
