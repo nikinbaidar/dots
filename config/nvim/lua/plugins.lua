@@ -16,7 +16,7 @@ require("lazy").setup({
     {'nikinbaidar/vim-dadbod', dependencies={'kristijanhusak/vim-dadbod-ui'}},
     { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },
     "ibhagwan/fzf-lua",
-    -- 'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter',
     'JoosepAlviste/nvim-ts-context-commentstring',
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     'lukas-reineke/indent-blankline.nvim',

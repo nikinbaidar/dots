@@ -21,7 +21,7 @@ vim.opt.confirm = false
 vim.opt.path:append("**,")
 vim.opt.textwidth = 80
 vim.opt.formatoptions = "jcrqltn" -- implement this from autocmds
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.listchars = "trail:␣"
 vim.opt.spellsuggest = "best,10"
 vim.opt.spelllang = "en_us"

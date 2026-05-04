@@ -50,7 +50,6 @@ ls.setup({
 })
 
 
-
 local extensions = {
     javascript = {"html", "react"},
     html = {"css", "javascript"},
