@@ -15,6 +15,7 @@ alias sudo="sudo "
 alias pqiv="pqiv 2> /dev/null"
 ## Works with .pptx and .docx POST DEPRECATION
 alias convert2pdf="soffice --headless --convert-to pdf"
+alias py2nb="jupytext --to notebook"
 alias figlet="figlet -f /home/nikin/projects/dots/local/share/figlet/pagga.tlf"
 
 

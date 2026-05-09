@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
 
+pkill jupyter-lab
+rm -rf /tmp/jpserver.logs
+
 function display_setup_info() {
-    echo If you\'re starting jupyter-lab within a conda env don\'t forget to update the \`jupyter kernelspec list\`.
-    echo "Run \`python -m ipykernel install --user --name=env --display-name \"Python 3.X\"\`" outside the `env`.
-    echo "Then select the appropriate kernel in jupyter-notebook"
+    echo 
+    echo 
+    echo 
     echo
 }
+display_help() {
+  cat << 'EOF'
+If you're starting jupyter-lab within a conda environment don't forget to update the `jupyter kernelspec list`.
+Run `python -m ipykernel install --user --name=env --display-name "Python 3.X"` outside the conda environment first.
+Then select the appropriate kernel in jupyter-notebook.
+EOF
+}
+
 
 if [[ "${1}" = "-h" || "${1}" = "--help" ]]
 then
-    display_setup_info
+    display_help
     exit 0
 fi
 
-rm -rf /tmp/jpserver.logs
-
 jupyter-lab --no-browser &> /tmp/jpserver.logs &
 
-MAX_WAIT_TIME=30
+MAX_WAIT_TIME=15 # Seconds
 start_time=$(date +%s)
 
 while true
@@ -27,16 +36,16 @@ do
 
     # Check if the elapsed time has exceeded the maximum wait time
     if [ "$elapsed_time" -ge "$MAX_WAIT_TIME" ]; then
-        echo "Timeout reached. Jupyter Server did not start in 30 seconds."
+        echo "Timeout reached. Jupyter Server did not start in ${MAX_WAIT_TIME} seconds."
         exit 1
     fi
 
-    sleep 3
+    sleep 1
 
-    url=$(grep -m 1 '^[[:space:]]*file' /tmp/jpserver.logs | sed 's/^[[:space:]]*//')
+    url=$(grep -oE 'http://127.0.0.1[^ ]+' /tmp/jpserver.logs)
 
     if [ -n "${url}" ]; then
-        echo \'${url}\'
+        echo ${url}
         surf ${url} &> /dev/null &
         break
     fi

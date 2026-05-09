@@ -4,7 +4,7 @@ set -- $(getopt -o b:m:siprhw -l begin:,mode:,stop,pause,resume,info,help,watch 
 
 display_help() {
   cat << 'EOF'
-'sc' - Screen recording with ffmpeg.
+'sc' - Screencast with ffmpeg.
 
 Usage:
   sc [OPTIONS]
@@ -18,9 +18,10 @@ Options:
   -i, --info Display info about current recording.
 
   -m, --mode <mode> Set recording mode with '--begin', and '--resume'.
-                    Needs to be the first argument.
-                      * '0' Record the screen and the sink (default)
+                    **Needs to be the first argument.**
+                      * '0' Record screen and sink (default).
                       * '1' Record screen, sink and source.
+                      * '2' Record screen, and source.
 
   -p, --pause Pause an ongoing recording.
 
@@ -62,23 +63,22 @@ start_recording () {
         esac
     fi
 
-
     read W H X Y <<< $(xrandr | awk '/ primary / { split($4,a,"[+x]"); print a[1], a[2], a[3], a[4] }')
 
     sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
+    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
 
-    if [ -d ${metadata} ]; then
+    if [ -d "${metadata}" ]
+    then
         msg="Recording resumed"
     else
-        mkdir -p ${metadata}
+        mkdir -p "${metadata}"
         msg="Recording started"
     fi
 
     echo title=${filename} > ${metadata}/info
     echo resolution=${W}x${H} >> ${metadata}/info
     echo filepath=${output} >> ${metadata}/info
-    sink=${sink} >> ${metadata}/info
-    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
 
     if [[ "$mode" == '1' ]]; then
         echo source=${source} >> ${metadata}/info
