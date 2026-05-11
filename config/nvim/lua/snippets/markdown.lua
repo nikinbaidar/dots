@@ -12,6 +12,17 @@ local function L(index)
     end, {})
 end
 
+local function recursive_tag()
+    return sn(nil, c(1, {
+        t("% Press <C-l><C-s> to add a tag"),
+        sn(nil, {
+            t("- "),
+            i(1),
+            t({"", "\t"}),
+            d(2, recursive_tag, {}),
+        }),
+    }))
+end
 
 return {
 
@@ -33,8 +44,20 @@ return {
         i(4),
     }),
 
-    s("e-", fmt("{}", {
-        t("$e^-$")
-    })),
+    s({trig="randdate", desc="Insert a random date between 2019-2026"}, {
+        t(io.popen('date -d "2019-01-01 + $((RANDOM % 2192)) days" "+%Y-%m-%d"'):read("*l"))
+    }),
+
+    s("yaml", {
+        t({"---", ""}),
+        t("title: \""),
+        i(1),
+        t({"\"", ""}),
+        t({"tags:", "\t"}),
+        d(2, recursive_tag),
+        t({"", "date: "}),
+        i(3),
+        t({"", "---", ""})
+    }),
 
 }

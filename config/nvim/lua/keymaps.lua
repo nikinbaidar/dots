@@ -1,7 +1,10 @@
 vim.g.mapleader = ","
 
+vim.api.nvim_set_keymap('n', '<leader>R', ':restart<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>W', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 
@@ -53,5 +56,22 @@ vim.api.nvim_create_user_command(
     end,
     { desc = "Make title case from the current cursor position to EOL."}
 )
+
+vim.keymap.set('i', '<C-s>', function()
+    require('fzf-lua').fzf_exec('cat /home/nikin/notes/tags.txt', {
+        winopts = {
+            height = 20,
+            width = 80,
+        },
+        actions = {
+            ['default'] = function(selected)
+                vim.schedule(function()
+                    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                    vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { selected[1] })
+                end)
+            end
+        }
+    })
+end, { desc = "Pick and insert tag at cursor" })
 
 -- so ~/.config/nvim/after/plugin/luasnip.lua

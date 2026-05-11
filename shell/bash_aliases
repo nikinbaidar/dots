@@ -112,6 +112,18 @@ function def() {
     }
 
 
+function previewnotes() {
+    local notes_dir="$HOME/notes"
+    [[ -d ~/notes ]] || return 1
 
+    cd ${notes_dir}
+
+    if [ $(git branch --show-current) = "main" ]; then
+        nohup quarto preview >/dev/null 2>&1 & disown
+    else
+        return 1
+    fi
+    return 0
+}
 
 

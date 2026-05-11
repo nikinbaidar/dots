@@ -22,6 +22,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
     command = 'startinsert'
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "/home/nikin/notes/tags.txt",
+    callback = function()
+        vim.cmd("silent !sort -o % %")
+    end,
+})
+
 vim.api.nvim_create_autocmd('VimLeave', {
     pattern = '*.tex',
     desc = 'Removes auxillary tex files on exit',
