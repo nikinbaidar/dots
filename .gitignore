@@ -10,4 +10,10 @@ local/bin/stop-ls
 local/bin/downloadvids
 **/surf
 config/nvim/lazy-lock.json
-
+**/*.o
+**/*.orig
+**/*.rej
+dwm
+st
+dmenu_path
+dmenu_run
