@@ -14,7 +14,7 @@ end
 
 local function recursive_tag()
     return sn(nil, c(1, {
-        t("% Press <C-l><C-s> to add a tag"),
+        t("# Press <C-l><C-s> to add a tag"),
         sn(nil, {
             t("- "),
             i(1),

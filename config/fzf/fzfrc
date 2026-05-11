@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/usr/bin/env bash
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_DEFAULT_OPTS="--height=70% --reverse"
-export FZF_DEFAULT_COMMAND="fd --absolute-path -L -td -tf --base-directory $HOME"
+export FZF_DEFAULT_COMMAND='fd --absolute-path --strip-cwd-prefix \
+    -L -tf -E "_site" --base-directory "$HOME"'
