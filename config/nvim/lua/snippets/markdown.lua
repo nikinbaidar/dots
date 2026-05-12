@@ -53,8 +53,9 @@ return {
         t("title: \""),
         i(1),
         t({"\"", ""}),
-        t({"tags:", "\t"}),
+        t({"tags: &labels", "\t"}),
         d(2, recursive_tag),
+        t({"", "categories: *labels"}),
         t({"", "date: "}),
         i(3),
         t({"", "---", ""})
