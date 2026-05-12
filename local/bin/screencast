@@ -73,7 +73,9 @@ start_recording () {
         msg="Recording resumed"
     else
         mkdir -p "${metadata}"
+        echo "Don't forget to increase font size"
         msg="Recording started"
+
     fi
 
     echo title=${filename} > ${metadata}/info
@@ -93,7 +95,7 @@ start_recording () {
             -f x11grab -r 30 -s "${W}x${H}" -i :0.0+${X},${Y} \
             -f pulse -i "${source}" \
             -map 0:v -map 1:a \
-            -c:v libx264 -preset ultrafast \
+            -c:v libx264 -preset ultrafast -pix_fmt yuv420p \
             -c:a aac \
             "${output}" \
             -hide_banner -loglevel error &
