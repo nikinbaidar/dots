@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Remove LaTeX auxiliary files
+count=$(fd -tf --no-ignore -e aux -e bbl -e blg -e brf -e fls -e idx -e ind -e lof -e log -e lot \
+   -e nav -e out -e pdfsync -e snm -e toc -e fdb_latexmk -e run.xml -e bcf \
+   -e xdy -e acr -e acn -e alg -e glg -e glo -e gls -e ist -e loa -e maf \
+   -e mtc -e mtc0 -e nlg -e nlo -e not -e slg -e slo -e sty.bak -e tdo \
+   -e xdv -e upa -e upb | tee >(xargs rm -f) | wc -l)
+
+echo "Cleaned $count auxiliary file(s)."
