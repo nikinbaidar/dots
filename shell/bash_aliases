@@ -48,63 +48,6 @@ function weather() {
 }
 
 
-function cloudsync() {
-
-    function pushNotes() {
-        pushd ~/notes
-        branch=$(git branch | awk ' /\*/ {print $2} ')
-        if [ -n "$(git status -s)" ]; then
-            git pull
-            git add --all
-            git commit -m "o.O"
-            git push -u origin ${branch} --verbose
-        else
-            echo "nothing to commit, working tree clean"
-        fi
-        popd > /dev/null
-    }
-
-function waitForDropbox() {
-    local start=$(date +%s)
-    local TIMEOUT=10
-    while [ "$(dropbox-cli status)" != "Up to date" ]; do
-        sleep 1
-        local now=$(date +%s)
-        local elapsed=$((now - start))
-        if [ "${elapsed}" -ge "${TIMEOUT}" ]; then
-            return 1  # timeout
-        fi
-    done
-    echo "Up to date."
-    return 0
-}
-
-function pushDropbox() {
-    dropbox-cli start > /dev/null 2>&1
-    if [ "$(dropbox-cli status)" = "Up to date" ]; then
-        echo "Up to date."
-    else
-        echo "Synchronization in progress..."
-        if ! waitForDropbox; then
-            dropbox-cli update
-            if ! waitForDropbox ; then
-                echo "Dropbox did not sync."
-                echo "Press any key to shutdown now."
-                read x
-                exit 1
-            fi
-        fi
-        dropbox-cli stop
-    fi
-}
-
-case $1 in 
-    -n) pushNotes ;;
-    -d) pushDropbox ;;
-    *) pushNotes && pushDropbox ;;
-esac
-}
-
 function def() {
     sdcv -n --utf8-output --color "$@" 2>&1 | \
         fold --width=$(tput cols) | \
@@ -112,18 +55,40 @@ function def() {
     }
 
 
-function previewnotes() {
-    local notes_dir="$HOME/notes"
-    [[ -d ~/notes ]] || return 1
+function notes() {
+    local PORT=5900
+    local NOTES_DIR=~/notes
 
-    cd ${notes_dir}
-
-    if [ $(git branch --show-current) = "main" ]; then
-        nohup quarto preview >/dev/null 2>&1 & disown
-    else
-        return 1
-    fi
-    return 0
+    case $1 in
+        -s|--sync)
+            pushd "$NOTES_DIR"
+            local branch
+            branch=$(git symbolic-ref --short HEAD)
+            if [[ -n "$(git status -s)" ]]
+            then
+                git pull --rebase
+                git add --all
+                git commit -m "o.O"
+                git push -U origin "$branch" --verbose
+            else
+                echo "Nothing to synchornize."
+            fi
+            popd > /dev/null
+            ;;
+        -p|--preview)
+            pushd "$NOTES_DIR"
+            if fuser "$PORT/tcp" > /dev/null 2>&1 ; then
+                fuser -k -9 "$PORT/tcp" > /dev/null 2>&1
+                quarto preview --port ${PORT} --no-browser
+            else
+                quarto preview --port ${PORT}
+            fi
+            popd > /dev/null
+            ;;
+        -h|--help)
+            echo "Usage: notes [-s | --sync] [-p | --preview] [-h | --help]"
+            ;;
+        *)
+            cd "$NOTES_DIR"
+    esac
 }
-
-
