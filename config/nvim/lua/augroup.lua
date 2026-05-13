@@ -3,8 +3,10 @@ vim.api.nvim_create_autocmd({'BufWritePost'}, {
         "init.lua",
         "options.lua",
         "colors.lua",
-        "keymaps.lua", "augroup.lua",
+        "keymaps.lua",
+        "augroup.lua",
         "cmp.lua",
+        "fzf.lua"
     },
     desc = "Automatically source this file after saving",
     command = "so"
