@@ -55,40 +55,21 @@ function def() {
     }
 
 
-function notes() {
-    local PORT=5900
-    local NOTES_DIR=~/notes
+function previewnotes() {
+<<'COMMENT'
+Starts a Quarto live preview server on port 5900 for the current project.
+If another process is already using the port, it forcefully terminates the
+existing process and restarts the preview without opening a browser. Also
+performs a basic check to ensure the current directory is a Quarto project
+otherwise falls back to $HOME/notes.
+COMMENT
 
-    case $1 in
-        -s|--sync)
-            pushd "$NOTES_DIR"
-            local branch
-            branch=$(git symbolic-ref --short HEAD)
-            git pull
-            if [[ -n "$(git status -s)" ]]
-            then
-                git add --all
-                git commit -m "o.O"
-                git push -U origin "$branch" --verbose
-            else
-                echo "Nothing to push."
-            fi
-            popd > /dev/null
-            ;;
-        -p|--preview)
-            pushd "$NOTES_DIR"
-            if fuser "$PORT/tcp" > /dev/null 2>&1 ; then
-                fuser -k -9 "$PORT/tcp" > /dev/null 2>&1
-                quarto preview --port ${PORT} --no-browser
-            else
-                quarto preview --port ${PORT}
-            fi
-            popd > /dev/null
-            ;;
-        -h|--help)
-            echo "Usage: notes [-s | --sync] [-p | --preview] [-h | --help]"
-            ;;
-        *)
-            cd "$NOTES_DIR"
-    esac
+    local PORT=5900
+    [[ -d .quarto ]] || cd ~/notes
+    if fuser "$PORT/tcp" > /dev/null 2>&1 ; then
+        fuser -k -9 "$PORT/tcp" > /dev/null 2>&1
+        quarto preview --port ${PORT} --no-browser
+    else
+        quarto preview --port ${PORT}
+    fi
 }
