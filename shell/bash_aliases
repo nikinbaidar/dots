@@ -64,14 +64,14 @@ function notes() {
             pushd "$NOTES_DIR"
             local branch
             branch=$(git symbolic-ref --short HEAD)
+            git pull
             if [[ -n "$(git status -s)" ]]
             then
-                git pull --rebase
                 git add --all
                 git commit -m "o.O"
                 git push -U origin "$branch" --verbose
             else
-                echo "Nothing to synchornize."
+                echo "Nothing to push."
             fi
             popd > /dev/null
             ;;
