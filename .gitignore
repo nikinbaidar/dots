@@ -9,6 +9,7 @@
 local/bin/stop-ls
 local/bin/downloadvids
 **/surf
+suckless-programs/dwm/dwm
 config/nvim/lazy-lock.json
 **/*.o
 **/*.orig
