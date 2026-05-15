@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-cd ~/notes
+set -e
+
+cd /home/nikin/notes
+
 git pull
 
 if [[ -n "$(git status -s)" ]]
 then
     git add --all
-    git commit -m "syncnotes"
+    git commit -m "syncnotes $(date '+%Y-%m-%d %H:%M')"
     git push origin main
 fi
 
-date > _date.txt
+date '+%Y-%m-%d %H:%M' > _date.txt
