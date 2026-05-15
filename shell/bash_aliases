@@ -54,6 +54,11 @@ function def() {
         less --quit-if-one-screen -RX
     }
 
+function shutdown() {
+    syncnotes
+    /usr/bin/shutdown $1    
+}
+
 function syncnotes() {
     pushd /home/nikin/notes > /dev/null
 
