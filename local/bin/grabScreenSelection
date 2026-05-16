@@ -1,77 +1,48 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 function openFilePickerDialog() {
+    local CAPTURE=/tmp/screenshot.png
+    local fnames=/tmp/fnames 
+    local output
+    local sub_dir
+    local p="\e[00;33m"
+    local w="\e[00;37m"
 
+    echo -e "\n${p}:: Select destination file:${w}\n"
 
-    function showArtWork() {
-        [[ -f ${DOTS}/shell/prompt_colors ]] \
-            && . ${DOTS}/shell/prompt_colors
+    # NOTE: Optimize the find block as much as possible.
+    fd --absolute-path -i -t d -E "_site" --base-directory "$HOME" > $fnames
+    fd --absolute-path -i -t f -e png -e jpg -e jpeg -e webp -e gif \
+        -e bmp -e tif -e tiff -e avif -e heic -e heif \
+        -E "_site" --base-directory "$HOME" >> $fnames
 
-        echo -e "${p}" 
-        echo -ne "Lehte" | figlet -f /home/nikin/projects/dots/local/share/figlet/pagga.tlf
-        echo 
-    }
+    output=$(fzf < $fnames)
+    rm -f $fnames
 
+    if [[ -z "$output" ]]; then
+        rm "$CAPTURE"
+        return 1
+    fi
 
-    function createNewFile() {
-        echo -en "\n:: Enter a new filename: ${_g}${input}" 
-        read filename
-        echo -e "${w}"
-        input="${input}"/"${filename}"
-        # Just in case user decided to add a sub directory in path.
-        sub_dir=$(echo "${input}" | awk 'BEGIN { FS = "/" } {
-        for(i=1; i<NF; i++) 
-            printf $i"/"
-        }')
-    }
+    if [[ -d "$output" ]]; then
+        echo -en "${p}:: Enter new filename: ${w}${output}" 
+        read -r filename
+        echo
+        output="${output}/${filename}"
+        sub_dir=$(dirname "$output")
+        [[ ! -d $sub_dir ]] && mkdir -p "$sub_dir"
 
+    fi
 
-    function moveCapturedImageToSelectedPath() {
-        if [ -f "${input}" ] ; then
-            echo -en ":: Proceed and overwrite '${input}' ? [Y/n] "
-            read response
-            if [ "${response}" = 'n' ] ; then
-                clear 
-                showArtWork
-                echo -n ":: Do you want to select another file? [N/y] "
-                read b
-                if [ "${b}" = 'y' ] ; then
-                    clear
-                    main
-                else
-                    echo -en "\n${r}Failed to save captured image!"
-                    sleep 1.5
-                    exit 1
-                fi
-            fi
-        else
-            if ! [ -d "${sub_dir}" ]; then
-                mkdir "${sub_dir}"
-            fi
-        fi
-
-        mv /tmp/temporary.png "${input}"
-        exit 0
-    }
-
-
-    function main() {
-        showArtWork
-        echo -e "Select the destination file:${w}\n"
-        input=$(fzf)
-        [[ -d "${input}" ]] && createNewFile
-        moveCapturedImageToSelectedPath
-    }
-
-    main
+    mv -i $CAPTURE "${output}"
 }
 
-maim --select /tmp/temporary.png 2> /dev/null
+CAPTURE=/tmp/screenshot.png
 
-if [ -f /tmp/temporary.png ] ; then
+shotgun --geometry "$(slop -ln --bordersize=0 -c 0.5,0.5,0.5,0.7)" - | satty -f -
+
+if [ -f $CAPTURE ] ; then
     export -f openFilePickerDialog
     st -c "Lehte" -T "Lehte - Terminal File Picker"\
-        -g 150x34 sh -c 'openFilePickerDialog'
+        -g 95x27 sh -c 'openFilePickerDialog'
 fi
-
-rm -f /tmp/temporary.png

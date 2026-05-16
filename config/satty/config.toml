@@ -1,0 +1,40 @@
+[general]
+initial-tool = "highlight"
+output-filename = "/tmp/screenshot.png"
+early-exit = true
+early-exit-save-as = true
+default-hide-toolbars = true
+disable-notifications = true
+corner-roundness = 0
+resize = { mode="smart" }
+floating-hack = true
+annotation-size-factor = 2
+primary-highlighter = "block"
+actions-on-enter = ["save-to-file"]
+actions-on-right-click = ["save-to-clipboard"]
+copy-command = "xclip -selection clipboard -t image/png"
+
+# Tool selection keyboard shortcuts (since 0.20.0)
+[keybinds]
+pointer = "p"
+crop = "c"
+brush = "b"
+line = "i"
+arrow = "z"
+rectangle = "r"
+ellipse = "e"
+text = "t"
+marker = "m"
+blur = "u"
+highlight = "h"
+
+# Custom colours for the colour palette
+[color-palette]
+palette = [
+    "#ffd700",
+    "#00ffff",
+    "#a52a2a",
+    "#dc143c",
+    "#ff1493",
+    "#008000",
+]

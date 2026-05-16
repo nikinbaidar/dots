@@ -45,6 +45,8 @@ static const Rule rules[] = {
 
     {"st-256color",               NULL,         NULL,     0,            0,           -1},
     {"firefox-developer-edition", NULL,         NULL,     0,            0,           -1},
+    {"Lehte",                     NULL,         NULL,     0,            1,           -1},
+    {"satty",                     NULL,         NULL,     0,            1,           -1},
     {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,           -1},
     {"Display",                   NULL,         NULL,     0,            1,           -1},
     {"matplotlib",                NULL,         NULL,     0,            1,           -1},
@@ -56,10 +58,8 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints =
-    0; /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen =
-    0; /* 1 will force focus on the fullscreen window */
+static const int resizehints = 0; /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
