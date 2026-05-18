@@ -37,12 +37,6 @@ vim.api.nvim_create_autocmd('VimLeave', {
     command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
-vim.api.nvim_create_autocmd('VimLeave', {
-    pattern = 'bash_aliases',
-    desc = 'Source bashrc when aliases are modified.',
-    command = '! source $HOME/.bashrc'
-})
-
 vim.cmd[[
 if has('autocmd')
     " Save and restore cursor position

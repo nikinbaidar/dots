@@ -7,8 +7,8 @@
 
 alias vi="/usr/bin/nvim"
 alias dbworkbench="/usr/bin/nvim -c \"DBUI\""
-alias ls="ls -v --color=always --group-directories-first -1"
-alias grep="grep --color=always"
+alias ls="ls -v --color=auto --group-directories-first -1"
+alias grep="grep --color=auto"
 alias less="less --quit-if-one-screen -X --RAW-CONTROL-CHARS"
 alias octave="octave --silent"
 alias sudo="sudo "
