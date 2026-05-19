@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+cd /home/nikin/notes
+
+function pull() {
+    timeout 30 bash -c 'until git pull; do sleep 1; done'
+    return 0
+}
+
+
+function push() {
+    git add --all
+    git commit -m "syncnotes $(date +'%F %R')"
+    git push 
+
+    return 0
+}
+
+case $1 in
+    -p) pull ;;
+    *) push ;;
+esac
