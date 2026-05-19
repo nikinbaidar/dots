@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+cd /home/nikin/notes
+
+case $1 in
+    -p) 
+        timeout 30 bash -c 'until git pull; do sleep 1; done'
+        ;;
+    *) 
+        if [[ -n "$(git status -s)" ]]; then
+            git add .
+            git commit -m "syncnotes $(date +'%F %R')"
+            git push
+        else
+            echo "Noting to push"
+        fi
+        ;;
+esac

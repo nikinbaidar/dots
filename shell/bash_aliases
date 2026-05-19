@@ -59,22 +59,6 @@ function shutdown() {
     /usr/bin/shutdown $1    
 }
 
-function syncnotes() {
-    pushd /home/nikin/notes > /dev/null
-
-    if [[ -n "$(git status -s)" ]]
-    then
-        git pull
-        git add .
-        git commit -m "syncnotes $(date '+%Y-%m-%d %H:%M')"
-        git push
-    else
-        echo "Noting to push"
-    fi
-
-    popd > /dev/null
-}
-
 
 function previewnotes() {
 <<'COMMENT'
