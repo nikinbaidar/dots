@@ -1,20 +1,23 @@
-#!/bin/sh
-#
-function DisplayMessage() {
-    local padding=$(( ( (50 - ${#1}) + 1 ) / 2 ))
-    echo 
-    # Print spaces to center the message
-    printf "%*s\n" $padding " "
-    # Print the centered message without a new line
-    printf "%*s" $((padding + ${#1})) "$1"
-    # Hide the cursor
+#!/usr/bin/env bash
+
+DisplayMessage() {
+    local padstr=$(printf '%*s' "1" '')
+
+    echo
+    while IFS= read -r line; do
+        echo "${padstr}${line}"
+    done <<< "$DISPLAY_MSG"
     tput civis
-    read -n 1 
+    read -rn 1 -t 5
 }
 
+readonly COLS=30
+
+DISPLAY_MSG=$(fold -s -w $COLS <<< "$1")
+ROWS=$(( $(wc -l <<< "$DISPLAY_MSG") + 2 ))
+
 export -f DisplayMessage
+export DISPLAY_MSG
 
-message="DisplayMessage \"$1\""
-
-st -c "Display message" -T "Display message" -g 50x5 sh -c "$message"
-
+st -c "Display message" -T "Display message" -z 20 \
+    -g ${COLS}x${ROWS} bash -c 'DisplayMessage "$DISPLAY_MSG"'

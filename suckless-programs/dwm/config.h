@@ -40,23 +40,21 @@ static const Rule rules[] = {
     /* xprop(1):
      *  WM_CLASS(STRING) = instance, class
      *  WM_NAME(STRING) = title
-     */
-    /* class                      instance      title     tags mask     isfloating   monitor */
+     * 
+ 	 * class                      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx */
 
-    {"st-256color",               NULL,         NULL,     0,            0,           -1},
-    {"firefox-developer-edition", NULL,         NULL,     0,            0,           -1},
-    {"Lehte",                     NULL,         NULL,     0,            1,           -1},
-    {"satty",                     NULL,         NULL,     0,            1,           -1},
-    {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,           -1},
-    {"Display",                   NULL,         NULL,     0,            1,           -1},
-    {"matplotlib",                NULL,         NULL,     0,            1,           -1},
-    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,           -1},
-    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,           -1},
-    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           -1},
+    {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,           -1,         -1,              -1 },
+    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,           -1,         -1,              -1 },
+    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,           -1,         -1,-1,-1,-1,     -1 },
+    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           -1,         -1,-1,-1,-1,     -1 },
+    {"Lehte",                     NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
+    {"satty",                     NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
+    {"Display",                   NULL,         NULL,     0,            1,           -1,         1485,50,390,-1,  -1 },
+    {"matplotlib",                NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
 };
 
 /* layout(s) */
-static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
 static const int resizehints = 0; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
