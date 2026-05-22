@@ -11,8 +11,9 @@ case $1 in
             git add .
             git commit -m "syncnotes $(date +'%F %R')"
             git push
+            dm "Syncnotes complete!" &
         else
-            echo "Noting to push"
+            dm "Noting to push" &
         fi
         ;;
 esac

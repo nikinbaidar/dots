@@ -49,7 +49,7 @@ static const Rule rules[] = {
     {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           -1,         -1,-1,-1,-1,     -1 },
     {"Lehte",                     NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
     {"satty",                     NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
-    {"Display",                   NULL,         NULL,     0,            1,           -1,         1485,50,390,-1,  -1 },
+    {"Display",                   NULL,         NULL,     0,            1,           -1,         1480,50,-1,-1,  -1 },
     {"matplotlib",                NULL,         NULL,     0,            1,           -1,         -1,-1,-1,-1,     -1 },
 };
 

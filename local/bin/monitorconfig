@@ -58,7 +58,7 @@ case "$1" in
         else
             xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off
-            [[ "$1" != "--init" ]] && dm "External monitor not connected!" &
+            [[ "$1" != "--init" ]] && dm " External monitor not connected!" &
         fi
         ;;
 
@@ -68,7 +68,7 @@ case "$1" in
                 --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
                 --rotate normal --brightness 1.0 --right-of "$externalMonitor"
         else
-            dm "External monitor not connected!" &
+            dm " External monitor not connected!" &
             xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off 
         fi

@@ -8,16 +8,23 @@ DisplayMessage() {
         echo "${padstr}${line}"
     done <<< "$DISPLAY_MSG"
     tput civis
-    read -rn 1 -t 5
+    read -rn 1 -t 30
+
+    return 0
 }
 
-readonly COLS=30
+readonly COLS=35
 
-DISPLAY_MSG=$(fold -s -w $COLS <<< "$1")
+if [ -z "$1" ]; then
+    message="A quick brown fox jumps over the lazy dog."
+else
+    message="$1"
+fi
+DISPLAY_MSG=$(fold -s -w $COLS <<< "$message")
 ROWS=$(( $(wc -l <<< "$DISPLAY_MSG") + 2 ))
 
 export -f DisplayMessage
 export DISPLAY_MSG
 
-st -c "Display message" -T "Display message" -z 20 \
-    -g ${COLS}x${ROWS} bash -c 'DisplayMessage "$DISPLAY_MSG"'
+st -c "Display message" -T "Display message" -z 19 \
+    -g ${COLS}x${ROWS} bash -c 'DisplayMessage "$DISPLAY_MSG"' &
