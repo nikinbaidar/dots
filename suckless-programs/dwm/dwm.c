@@ -374,16 +374,15 @@ applyrules(Client *c)
 			c->isfloating = r->isfloating;
             c->canfocus = r->canfocus;
 			c->tags |= r->tags;
-			// if ((r->tags & SPTAGMASK) && r->isfloating) {
-			// 	c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-			// 	c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
-			// }
 			if (r->floatborderpx >= 0) {
 				c->floatborderpx = r->floatborderpx;
 				c->hasfloatbw = 1;
 			}
 			if (r->isfloating) {
-				if (r->floatx >= 0) c->x = c->mon->mx + r->floatx;
+				if (r->floatx >= 0) 
+                    c->x = c->mon->mx + r->floatx;
+                else if (r->floatx == -2) 
+                    c->x = c->mon->mw - 420;
 				if (r->floaty >= 0) c->y = c->mon->my + r->floaty;
 				if (r->floatw >= 0) c->w = r->floatw;
 				if (r->floath >= 0) c->h = r->floath;
