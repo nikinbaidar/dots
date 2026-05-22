@@ -8,7 +8,7 @@ DisplayMessage() {
         echo "${padstr}${line}"
     done <<< "$DISPLAY_MSG"
     tput civis
-    read -rn 1 -t 30
+    sleep 2
 
     return 0
 }
@@ -20,6 +20,7 @@ if [ -z "$1" ]; then
 else
     message="$1"
 fi
+
 DISPLAY_MSG=$(fold -s -w $COLS <<< "$message")
 ROWS=$(( $(wc -l <<< "$DISPLAY_MSG") + 2 ))
 
