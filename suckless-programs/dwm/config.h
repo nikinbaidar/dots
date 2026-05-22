@@ -41,16 +41,15 @@ static const Rule rules[] = {
      *  WM_CLASS(STRING) = instance, class
      *  WM_NAME(STRING) = title
      * 
- 	 * class                      instance    title       tags mask     isfloating   canfocus, monitor    float x,y,w,h     floatborderpx */
+ 	 * class                      instance      title     tags mask     iscentered  isfloating   canfocus, monitor    float x,y,w,h     floatborderpx */
 
-    {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,           1,        -1,         -1,              -1 },
-    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,           1,        -1,         -1,              -1 },
-    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,           1,        -1,         -1,-1,-1,-1,     -1 },
-    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,           1,        -1,         -1,-1,-1,-1,     -1 },
-    {"Lehte",                     NULL,         NULL,     0,            1,           1,        -1,         -1,-1,-1,-1,     -1 },
-    {"satty",                     NULL,         NULL,     0,            1,           1,        -1,         -1,-1,-1,-1,     -1 },
-    {"Display",                   NULL,         NULL,     0,            1,           0,        -1,         1480,50,-1,-1,   -1 },
-    {"matplotlib",                NULL,         NULL,     0,            1,           1,        -1,         -1,-1,-1,-1,     -1 },
+    {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,          0,           1,        -1,         -1,              -1 },
+    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,          0,           1,        -1,         -1,              -1 },
+    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
+    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
+    {"Lehte",                     NULL,         NULL,     0,            1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
+    {"satty",                     NULL,         NULL,     0,            1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
+    {"Display",                   NULL,         NULL,     0,            0,          1,           0,        -1,         1480,50,-1,-1,   -1 },
 };
 
 /* layout(s) */
