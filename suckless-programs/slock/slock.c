@@ -19,6 +19,8 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <Imlib2.h>
+#include <dirent.h>
+#include <time.h>
 
 #include "arg.h"
 #include "util.h"
@@ -49,6 +51,7 @@ struct xrandr {
 #include "config.h"
 
 Imlib_Image image;
+Imlib_Image original;
 
 static void
 die(const char *errstr, ...)
@@ -322,6 +325,49 @@ usage(void)
 	die("usage: slock [-v] [cmd [arg ...]]\n");
 }
 
+static const char *
+get_path(const char *dirpath) {
+#define MAX_FILES 1024
+
+    char files[MAX_FILES][PATH_MAX];
+    int count = 0;
+
+    DIR *dir = opendir(dirpath);
+
+    if (!dir) 
+        return NULL;
+
+    struct dirent *entry;
+
+    while ((entry = readdir(dir)) && count < MAX_FILES) {
+
+        if (entry->d_type == DT_REG) {
+
+            snprintf(files[count], PATH_MAX, "%s/%s",
+                    dirpath, entry->d_name);
+
+            count++;
+        }
+    }
+
+    closedir(dir);
+
+    srand(time(NULL));
+    int idx = rand() % count;
+
+    char *result = malloc(PATH_MAX);
+    if (!result)
+        return NULL;
+
+    strncpy(result, files[idx], PATH_MAX);
+    result[PATH_MAX - 1] = '\0';
+
+    return result;
+
+#undef MAX_FILES
+}
+
+
 int
 main(int argc, char **argv) {
 	struct xrandr rr;
@@ -374,14 +420,44 @@ main(int argc, char **argv) {
 	if (setuid(duid) < 0)
 		die("slock: setuid: %s\n", strerror(errno));
 
-	/*Create screenshot Image*/
-	Screen *scr = ScreenOfDisplay(dpy, DefaultScreen(dpy));
-	image = imlib_create_image(scr->width,scr->height);
-	imlib_context_set_image(image);
-	imlib_context_set_display(dpy);
-	imlib_context_set_visual(DefaultVisual(dpy,0));
-	imlib_context_set_drawable(RootWindow(dpy,XScreenNumberOfScreen(scr)));	
-	imlib_copy_drawable_to_image(0,0,0,scr->width,scr->height,0,0,1);
+    Screen *scr = ScreenOfDisplay(dpy, DefaultScreen(dpy));
+
+    const char *imgpath = get_path(dirpath);
+    // static const char *imgpath = "./minato_lands_rasengan.jpg";
+
+    if (access(imgpath, R_OK) != 0) {
+        perror("Image not accessible");
+        return 1;
+    }
+
+    if (!imgpath) {
+        printf("%s\n", dirpath);
+        printf("No image found\n");
+        return 1;
+    }
+
+    original = imlib_load_image(imgpath);
+
+    if (!original) {
+        fprintf(stderr, "Failed to load image: %s\n", imgpath);
+        return 1;
+    }
+
+    /* Resize image to screen size */
+    imlib_context_set_image(original);
+
+    image = imlib_create_cropped_scaled_image(
+        0, 0,
+        imlib_image_get_width(),
+        imlib_image_get_height(),
+        scr->width,
+        scr->height
+    );
+
+    imlib_free_image();
+
+    /* Use resized image */
+    imlib_context_set_image(image);
 
 #ifdef BLUR
 

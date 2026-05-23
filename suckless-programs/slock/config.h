@@ -1,5 +1,5 @@
 /* user and group to drop privileges to */
-static const char *user  = "nobody";
+static const char *user  = "nikin";
 static const char *group = "nobody";
 
 static const char *colorname[NUMCOLS] = {
@@ -10,6 +10,8 @@ static const char *colorname[NUMCOLS] = {
 
 /* treat a cleared input like a wrong password (color) */
 static const int failonclear = 1;
+
+static const char *dirpath = "/home/nikin/Pictures/walls";
 
 /*Enable blur*/
 #define BLUR
