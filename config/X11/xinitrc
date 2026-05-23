@@ -13,7 +13,7 @@ fi
 
 while true
 do
-    xsetroot -name "  [ $(date +'%Y-%m-%d %r') ]  $(battery)  "
+    xsetroot -name "  [ $(date +'%F %r') ]  $(battery)  "
     sleep 1
 done &
 

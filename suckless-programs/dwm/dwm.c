@@ -379,10 +379,7 @@ applyrules(Client *c)
 				c->hasfloatbw = 1;
 			}
 			if (r->isfloating) {
-				if (r->floatx >= 0) 
-                    c->x = c->mon->mx + r->floatx;
-                else if (r->floatx == -2) 
-                    c->x = c->mon->mw - 420;
+				if (r->floatx >= 0) c->x = c->mon->mw - r->floatx;
 				if (r->floaty >= 0) c->y = c->mon->my + r->floaty;
 				if (r->floatw >= 0) c->w = r->floatw;
 				if (r->floath >= 0) c->h = r->floath;

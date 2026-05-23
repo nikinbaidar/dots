@@ -36,6 +36,12 @@ static Sp scratchpads[] = {
 /* tagging */
 static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
+/* This dwm configures the floatx variable differently from what the original
+ * author of the patch intended. It calculates the 'x' position from the right
+ * edge of the screen and subtracts the floatx value.
+ * Optimize later for multimonitor setups.
+ */
+
 static const Rule rules[] = {
     /* xprop(1):
      *  WM_CLASS(STRING) = instance, class
@@ -49,7 +55,7 @@ static const Rule rules[] = {
     {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
     {"Lehte",                     NULL,         NULL,     0,            1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
     {"satty",                     NULL,         NULL,     0,            1,          1,           1,        -1,         -1,-1,-1,-1,     -1 },
-    {"Display",                   NULL,         NULL,     0,            0,          1,           0,        -1,         -2,50,-1,-1,   -1 },
+    {"Display",                   NULL,         NULL,     0,            0,          1,           0,        -1,         420,50,-1,-1,   -1 },
 };
 
 /* layout(s) */

@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Run custom post-upgrade script
+When = PostTransaction
+Exec = /usr/local/bin/post-upgrade.sh
