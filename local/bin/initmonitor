@@ -5,7 +5,7 @@
 # ░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀░▀
 
 
-DEFAULT_RESOLUTION="1920x1080"
+DEFAULT_RESOLUTION="2560x1440"
 
 externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
 
@@ -17,8 +17,8 @@ setResolution() {
     esac
 }
 
-setResolution
-# resolution="${DEFAULT_RESOLUTION}"
+# setResolution
+resolution="${DEFAULT_RESOLUTION}"
 
 # Handle script arguments
 case "$1" in
