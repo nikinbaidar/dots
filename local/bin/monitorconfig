@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ░▄█▄█▄░█▄█░█▀█░█▀█░▀█▀░▀█▀░█▀█░█▀▄░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
 # ░▄█▄█▄░█░█░█░█░█░█░░█░░░█░░█░█░█▀▄░█░░░█░█░█░█░█▀▀░░█░░█░█
@@ -27,33 +27,31 @@ Options:
 EOF
 }
 
-DEFAULT_RESOLUTION="1920x1080"
+DEFAULT_RESOLUTION="2560x1440"
 
 if [[ "`uname -n`" = "limitless" ]]
 then
 	LAPTOP_RESOLUTION="1920x1200"
 else
-	LAPTOP_RESOLUTION="1600x900"
+	LAPTOP_RESOLUTION="1920x1200"
 fi
 
-# Detect external monitor
 externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
 
 setResolution() {
     case "$externalMonitor" in
-        "DP-1") resolution="2560x1440" ;;
-        "DP-2") resolution="1366x768" ;;
-        *) resolution="$DEFAULT_RESOLUTION" ;;
+        "DP-1") DEFAULT_RESOLUTION="" ;;
+        "DP-2") DEFAULT_RESOLUTION="2560x1440" ;;
     esac
 }
 
-setResolution
-#resolution="${DEFAULT_RESOLUTION}"
+# setResolution
 
+# Handle script arguments
 case "$1" in
     "--init" | "-e" | "--external" ) 
         if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
+            xrandr --output "$externalMonitor" --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
             xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
@@ -64,12 +62,13 @@ case "$1" in
 
     "-d" | "--dual" )
         if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$resolution" --pos 0x0 \
-                --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
+            xrandr --output "$externalMonitor" --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+                --rotate normal --output eDP-1 --mode "$DEFAULT_RESOLUTION" \
                 --rotate normal --brightness 1.0 --right-of "$externalMonitor"
+            cb
         else
             dm " External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+            xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off 
         fi
         ;;
@@ -85,10 +84,13 @@ case "$1" in
             --rotate normal --output "$externalMonitor" --off
         ;;
 
-    *) 
+    "-h" | "--help")
         display_help
-        exit 1 
         ;;
+
+    *) exit 1 ;;
 esac
 
-cb /home/nikin/Pictures/walls/1920x1080-px-bridge-digital-art-fantasy-art-pixel-art-waterfall-anime-gundam-seed-hd-art-wallpaper-3940e89d61da2d9b76d7a85f6021e61d.jpg
+cb ~/Pictures/walls/1920x1080-px-bridge-digital-art-fantasy-art-pixel-art-waterfall-anime-gundam-seed-hd-art-wallpaper-3940e89d61da2d9b76d7a85f6021e61d.jpg
+
+cb ~/Pictures/walls/$(hostname).* || exit 1
