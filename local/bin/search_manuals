@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+MANUALS_DIRECTORY="$HOME/Documents/manuals"
+
+file=$(fd -I -t f . ${MANUALS_DIRECTORY} --exclude Archives | fzf)
+
+# Exit if nothing selected
+[ -z "${file}" ] && exit 0
+
+
+mime=$(xdg-mime query filetype "$file")
+
+if [[ "${mime}" == text/* && "${file}" != *.html ]]; then
+  /usr/bin/nvim "${file}"
+else
+  xdg-open "${file}" &
+fi
