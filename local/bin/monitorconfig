@@ -27,25 +27,17 @@ Options:
 EOF
 }
 
-DEFAULT_RESOLUTION="2560x1440"
+DEFAULT_RESOLUTION="2560x1440" # <- For DELL
 
-if [[ "`uname -n`" = "limitless" ]]
-then
+host=$(uname -n)
+
+if [ "${host}" = "limitless" ]; then
 	LAPTOP_RESOLUTION="1920x1200"
-else
-	LAPTOP_RESOLUTION="1920x1200"
+elif [ "${host}" = "leviathan" ]; then
+	LAPTOP_RESOLUTION="1920x1080"
 fi
 
-externalMonitor=$(xrandr | awk '$1 ~ /^DP-[12]$/ && $2 == "connected" {print $1}')
-
-setResolution() {
-    case "$externalMonitor" in
-        "DP-1") DEFAULT_RESOLUTION="" ;;
-        "DP-2") DEFAULT_RESOLUTION="2560x1440" ;;
-    esac
-}
-
-# setResolution
+externalMonitor=$(xrandr | awk '$1 ~ /^(DP|HDMI)-[12]$/ && $2 == "connected" {print $1}')
 
 # Handle script arguments
 case "$1" in
@@ -63,9 +55,8 @@ case "$1" in
     "-d" | "--dual" )
         if [[ -n "$externalMonitor" ]]; then
             xrandr --output "$externalMonitor" --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
-                --rotate normal --output eDP-1 --mode "$DEFAULT_RESOLUTION" \
+                --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
                 --rotate normal --brightness 1.0 --right-of "$externalMonitor"
-            cb
         else
             dm " External monitor not connected!" &
             xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
@@ -91,6 +82,10 @@ case "$1" in
     *) exit 1 ;;
 esac
 
-cb ~/Pictures/walls/1920x1080-px-bridge-digital-art-fantasy-art-pixel-art-waterfall-anime-gundam-seed-hd-art-wallpaper-3940e89d61da2d9b76d7a85f6021e61d.jpg
+wallpaper=$HOME/Pictures/walls/$(hostname).jpg
 
-cb ~/Pictures/walls/$(hostname).* || exit 1
+if [[ -f $wallpaper ]]; then
+    cb ${wallpaper}
+else
+    cb
+fi
