@@ -3,7 +3,7 @@ initial-tool = "highlight"
 output-filename = "/tmp/screenshot.png"
 early-exit = true
 early-exit-save-as = true
-default-hide-toolbars = false
+default-hide-toolbars = true
 disable-notifications = true
 corner-roundness = 0
 resize = { mode="smart" }

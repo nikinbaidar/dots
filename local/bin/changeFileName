@@ -1,77 +1,22 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-# This script will rename files that fall under a specific criteria as
-# specified by the user. At the moment the criteria needs to
-# be set manually but will be automated in the future.
+# Recursively renames files and directories in the current directory.
+# Renaming rules:
+#   - Regular files : replaces all '-' characters with '_'
+#   - Directories   : replaces all '_' characters with '-'
+# Keeps anything else as is.
 
-# Examples of  various criterias for which files to change
+find . -depth -mindepth 1 | while read -r f; do
+  base=$(basename "$f")
+  dir=$(dirname "$f")
 
-##########################
-# Change file extension: #
-##########################
+  if [ -f "$f" ]; then
+    newbase="${base//-/_}"
+  elif [ -d "$f" ]; then
+    newbase="${base//_/-}"
+  else
+    continue
+  fi
 
-function extension_only() {
-
-echo Enter extension to change from
-read extension2changeFrom
-echo Enter extension to change to
-read extension2changeTo
-
-for file in $(ls *.${extension2changeFrom} .*.${extension2changeFrom}) ; do
-    if [ -f ${file} ] ; then
-        mv --interactive "${file}" \
-            "$(basename -s .${extension2changeFrom} ${file}).${extension2changeTo}"
-    fi
-done
-}
-
-
-###############################
-# Rename files created today. #
-###############################
-
-function created_today() {
-
-IFS_OLD=${IFS}
-IFS=$'\n'
-
-for file in $(find ./* -daystart -ctime 0 -print) ; do
-    clear -x
-    echo Current selection: ${file}
-    echo -n "Enter a new filename or Press 0 to skip: " ; read newFileName
-
-    if [[ ${newFileName} = 0 || "${newFileName}" = "$(basename ${file})"  ]]
-    then
-        echo "Skipping renaming..."
-        continue
-    fi
-
-    mv --interactive "${file}" "${newFileName}" # prompt before overwriting
-    sleep 2
-done
-
-# if [ -f $hiddenFilename ]; then
-#     for file in .*.wiki;
-#     do
-#         mv "$file" "$(basename "$file" .wiki).md"
-#     done
-# fi
-
-IFS=${IFS_OLD}
-}
-
-if [ $# != 1 ] ;then
-    echo "Invalid number of arguments, try again"
-    exit 1
-fi
-
-
-while [ -n "$"1 ]
-do
-    case $1 in
-        -ex) extension_only ;;
-        -today) created_today ;;
-        *) echo "'$1' is not an option"
-    esac
-    shift
+  [ "$base" != "$newbase" ] && mv "$f" "$dir/$newbase"
 done
