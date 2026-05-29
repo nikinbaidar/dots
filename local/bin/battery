@@ -1,3 +1,3 @@
 #!/bin/bash
 
-grep -oP '(CAPACITY|STATUS)=\S+' /sys/class/power_supply/BAT0/uevent | awk -F '=' '{printf " %s", tolower($2)} END{print "% "}'
+grep -oP '(CAPACITY|STATUS)=.+' /sys/class/power_supply/BAT0/uevent | awk -F '=' '{printf " %s", tolower($2)} END{print "% "}'
