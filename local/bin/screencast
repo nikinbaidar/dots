@@ -136,7 +136,7 @@ start_recording () {
             -loglevel error &
     fi
 
-    dm "${msg} on $(date)"
+    dm -m "${msg} on $(date)" -d 4
     show_status
 }
 
