@@ -14,6 +14,9 @@ DisplayMessage() {
     return 0
 }
 
+message="A quick brown fox and jumped over the lazy dog"
+delay=2
+
 while [[ -n "$1" ]]; do
     case "$1" in
         --)
@@ -21,7 +24,6 @@ while [[ -n "$1" ]]; do
             ;;
         -m|--msg) 
             message="$2" 
-            delay=2
             shift 2 
             ;;
         -d|--delay) 
@@ -30,16 +32,10 @@ while [[ -n "$1" ]]; do
             ;;
         *)
             message="$1"
-            delay=2
             shift
             ;;
     esac
 done
-
-if [ -z "$message" ]; then
-    message="A quick brown fox and jumped over the lazy dog"
-    delay=2
-fi
 
 readonly COLS=35
 
