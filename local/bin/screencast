@@ -18,7 +18,6 @@ Options:
   -i, --info Display info about current recording.
 
   -m, --mode <mode> Set recording mode with '--begin', and '--resume'.
-                    **Needs to be the first argument.**
                       * '0' Record screen and sink (default).
                       * '1' Record screen, sink and source.
                       * '2' Record screen, and source.
@@ -73,7 +72,6 @@ start_recording () {
         msg="Recording resumed"
     else
         mkdir -p "${metadata}"
-        echo "Don't forget to increase font size"
         msg="Recording started"
 
     fi
@@ -82,8 +80,7 @@ start_recording () {
     echo resolution=${W}x${H} >> ${metadata}/info
     echo filepath=${output} >> ${metadata}/info
 
-    if [[ "$mode" == '1' ]]
-    then
+    if [[ "$mode" == '1' ]]; then
         echo source=${source} >> ${metadata}/info
         echo sink=${sink} >> ${metadata}/info
         ffmpeg -y \
@@ -104,8 +101,7 @@ start_recording () {
             -hide_banner \
             -loglevel error &
 
-    elif [[ "$mode" == 2 ]]
-    then
+    elif [[ "$mode" == 2 ]]; then
         echo source=${source} >> ${metadata}/info
         ffmpeg -y \
             -f x11grab \
@@ -140,7 +136,7 @@ start_recording () {
             -loglevel error &
     fi
 
-    echo ${msg} on `date`
+    dm "${msg} on $(date)"
     show_status
 }
 
@@ -151,9 +147,9 @@ pause_recording() {
         pkill ffmpeg
         while pgrep ffmpeg > /dev/null; do sleep 0.1; done
         echo paused=true >> $metadata/info
-        echo "Recording paused"
+        dm "Recording paused"
     else
-        echo "Nothing to pause"
+        dm "Nothing to pause"
         exit 1
     fi
 }
@@ -168,7 +164,7 @@ resume_recording() {
         grep -q 'source=' ${metadata}/info && mode=1 || mode=0
         start_recording # again
     else
-        echo "Nothing to resume"
+        dm "Nothing to resume"
         exit 1
     fi
 }
@@ -179,7 +175,7 @@ stop_recording () {
     then
         pkill ffmpeg
         while pgrep ffmpeg > /dev/null; do sleep 0.1; done
-        echo "Recording stopped"
+        dm "Recording stopped"
     fi
 
     if [ -f ${metadata}/mergelist.txt ]
@@ -188,7 +184,8 @@ stop_recording () {
         echo ${fp} >> ${metadata}/mergelist.txt
         sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
         fp="${SCREENCAST_DIR}/final_$(date +'%s').mkv"
-        if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error
+        if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt \
+            -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error
         then
             filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
             filename="${filename//[\"\']/}"
@@ -204,7 +201,7 @@ stop_recording () {
     if [ -d ${metadata} ]; then
         rm -r ${metadata}
     else
-        echo "Nothing to stop"
+        dm "Nothing to stop"
     fi
 }
 
@@ -220,7 +217,7 @@ show_status() {
             nl ${metadata}/mergelist.txt
         fi
     else
-        echo Nothing to show
+        dm "Nothing to show"
         exit 1
     fi
 
@@ -235,57 +232,77 @@ then
     mkdir -p "${SCREENCAST_DIR}"
 fi
 
-while [ -n "$1" ]
-do
-    case $1 in
-        -b|--begin)
+set_action() {
+    if [ -n "$action" ]; then 
+         echo "Error: conflicting actions '$action' and '$1'"
+         exit 1
+    fi
+
+    action="$1"
+}
+
+
+while [ -n "$1" ]; do
+    case "$1" in
+        -b|--begin)  
+            set_action "begin"
             filename="${2//[\"\']/}"
-            shift 2
-            start_recording
+            shift 2 
             ;;
 
-        -s|--stop)
-            shift
-            stop_recording
+        -m|--mode)   
+            mode="${2//[\"\']/}";
+            shift 2 
             ;;
 
-        -m|--mode)
-            mode="${2//[\"\']/}"
-            shift 2
+        -s|--stop)   
+            set_action "stop"
+            shift 
             ;;
 
-        -p|--pause)
-            shift
-            pause_recording
+        -p|--pause)  
+            set_action "pause"
+            shift 
             ;;
 
-        -r|--resume)
-            shift
-            resume_recording
+        -r|--resume) 
+            set_action "resume"
+            shift 
             ;;
 
         -i|--info)
-            shift
-            show_status
-            ;;
-
-        -h|--help)
-            shift
-            display_help
-            exit 1
+            set_action "info"
+            shift 
             ;;
 
         -w|--watch)
-            shift
-            watch_recording
+            set_action "watch"
+            shift 
             ;;
 
-        --) shift
+        -h|--help)   
+            display_help
+            exit 0 
             ;;
 
+        --)
+            shift 
+            break
+            ;;
         *)
             display_help
-            exit 1
+            exit 1 
             ;;
     esac
 done
+
+declare -A actions=(
+    [begin]="start_recording"
+    [stop]="stop_recording"
+    [pause]="pause_recording"
+    [resume]="resume_recording"
+    [info]="show_status"
+    [watch]="watch_recording"
+)
+
+${actions[$action]}

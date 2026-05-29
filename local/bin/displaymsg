@@ -1,31 +1,55 @@
 #!/usr/bin/env bash
 
+parsed=$(getopt -o m:d: -l msg:,delay: -- "$@") || exit 1
+
+eval set -- "$parsed"
+
 DisplayMessage() {
-    local padstr=$(printf '%*s' "1" '')
-
-    echo
-    while IFS= read -r line; do
-        echo "${padstr}${line}"
-    done <<< "$DISPLAY_MSG"
     tput civis
-    sleep 2
-
+    printf '\n'
+    while IFS= read -r line; do
+        printf ' %s\n' "${line}"
+    done <<< "$DISPLAY_MSG"
+    sleep $delay
     return 0
 }
 
-readonly COLS=35
+while [[ -n "$1" ]]; do
+    case "$1" in
+        --)
+            shift
+            ;;
+        -m|--msg) 
+            message="$2" 
+            delay=2
+            shift 2 
+            ;;
+        -d|--delay) 
+            delay="$2" 
+            shift 2 
+            ;;
+        *)
+            message="$1"
+            delay=2
+            shift
+            ;;
+    esac
+done
 
-if [ -z "$1" ]; then
-    message="A quick brown fox jumps over the lazy dog."
-else
-    message="$1"
+if [ -z "$message" ]; then
+    message="A quick brown fox and jumped over the lazy dog"
+    delay=2
 fi
 
+readonly COLS=35
+
+
 DISPLAY_MSG=$(fold -s -w $COLS <<< "$message")
-ROWS=$(( $(wc -l <<< "$DISPLAY_MSG") + 2 ))
+ROWS=$(printf '%s\n' "$DISPLAY_MSG" | awk 'END{print NR+2}')
 
 export -f DisplayMessage
 export DISPLAY_MSG
+export delay
 
 st -c "Display message" -T "Display message" -z 19 \
-    -g ${COLS}x${ROWS} bash -c 'DisplayMessage "$DISPLAY_MSG"' &
+    -g ${COLS}x${ROWS} bash -c 'DisplayMessage "$DISPLAY_MSG" $delay' &
