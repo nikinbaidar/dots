@@ -11,7 +11,11 @@ static const char *colorname[NUMCOLS] = {
 /* treat a cleared input like a wrong password (color) */
 static const int failonclear = 1;
 
+static const unsigned short int randomize = 0;
+
 static const char *dirpath = "/home/nikin/Pictures/walls";
+
+static char *imgpath = "/home/nikin/Pictures/walls/thumb-1920-1185028.jpg";
 
 /*Enable blur*/
 #define BLUR

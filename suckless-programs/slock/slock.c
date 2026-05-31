@@ -422,8 +422,8 @@ main(int argc, char **argv) {
 
     Screen *scr = ScreenOfDisplay(dpy, DefaultScreen(dpy));
 
-    const char *imgpath = get_path(dirpath);
-    // static const char *imgpath = "./minato_lands_rasengan.jpg";
+    if (randomize == 1)
+        imgpath = (char *)get_path(dirpath);
 
     if (access(imgpath, R_OK) != 0) {
         perror("Image not accessible");
