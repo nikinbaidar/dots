@@ -13,7 +13,7 @@ case $1 in
             git push
             dm "Syncnotes complete!" &
         else
-            dm "Noting to push" &
+            dm "Nothing to push" &
         fi
         ;;
 esac

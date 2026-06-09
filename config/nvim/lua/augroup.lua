@@ -31,6 +31,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*.md", "*.qmd" },
+    callback = function()
+        vim.cmd("normal! mz")
+        vim.cmd([[silent! g/# Press <C-l><C-s> to add a tag/d]])
+        vim.cmd("normal! `z")
+    end,
+})
+
 vim.api.nvim_create_autocmd('VimLeave', {
     pattern = '*.tex',
     desc = 'Removes auxillary tex files on exit',
@@ -47,3 +56,4 @@ if has('autocmd')
     augroup END
     endif
 ]]
+
