@@ -19,7 +19,11 @@ done &
 
 udiskie &
 unclutter --timeout 1 --start-hidden --fork
-xset -dpms && xset s off &
 moncon --init
+
+xmodmap -e "clear lock"
+xmodmap -e "keycode 9 = grave asciitilde"
+xset -dpms && xset s off &
+
 export XDG_SESSION_TYPE=x11
 exec dwm
