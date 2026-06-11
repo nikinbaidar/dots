@@ -910,7 +910,8 @@ focus(Client *c)
                         wc.stack_mode = Below;
                         XConfigureWindow(dpy, c->win, CWSibling | CWStackMode, &wc);
                 }
-		setfocus(c);
+        if (strcmp(c->name, "Display message"))
+            setfocus(c);
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
