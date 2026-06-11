@@ -904,12 +904,12 @@ focus(Client *c)
 		attachstack(c);
 		grabbuttons(c, 1);
 		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
-                if (!selmon->pertag->drawwithgaps[selmon->pertag->curtag] && !c->isfloating) {
-			XWindowChanges wc;
-                        wc.sibling = selmon->barwin;
-                        wc.stack_mode = Below;
-                        XConfigureWindow(dpy, c->win, CWSibling | CWStackMode, &wc);
-                }
+        if (!selmon->pertag->drawwithgaps[selmon->pertag->curtag] && !c->isfloating) {
+            XWindowChanges wc;
+            wc.sibling = selmon->barwin;
+            wc.stack_mode = Below;
+            XConfigureWindow(dpy, c->win, CWSibling | CWStackMode, &wc);
+        }
         if (strcmp(c->name, "Display message"))
             setfocus(c);
 	} else {
