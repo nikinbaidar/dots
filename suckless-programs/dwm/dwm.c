@@ -912,6 +912,8 @@ focus(Client *c)
         }
         if (strcmp(c->name, "Display message"))
             setfocus(c);
+        else 
+            return;
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
