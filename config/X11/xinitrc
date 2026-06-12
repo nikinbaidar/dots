@@ -24,6 +24,7 @@ moncon --init
 xmodmap -e "clear lock"
 xmodmap -e "keycode 9 = grave asciitilde"
 xset -dpms && xset s off &
+sg keyd -c "keyd-application-mapper -d" &
 
 export XDG_SESSION_TYPE=x11
 exec dwm

@@ -10,6 +10,7 @@ local/bin/stop-ls
 local/bin/downloadvids
 **/surf
 /suckless-programs/dwm/dwm
+/suckless-programs/st/st
 /suckless-programs/slock/slock
 /config/nvim/lazy-lock.json
 **/*.o
