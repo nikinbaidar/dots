@@ -16,4 +16,5 @@ local/bin/downloadvids
 **/*.o
 **/*.orig
 **/*.rej
-
+/config/keyd/app.lock
+/config/keyd/app.log
