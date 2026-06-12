@@ -7,6 +7,25 @@ vim.bo.shiftwidth = 0
 vim.bo.tabstop = 2
 vim.bo.softtabstop = 2
 
+vim.keymap.set('i', '<C-s>', function()
+    require('fzf-lua').fzf_exec('cat /home/nikin/notes/tags.txt', {
+        winopts = {
+            height = 20,
+            width = 80,
+        },
+        actions = {
+            ['default'] = function(selected)
+                vim.schedule(function()
+                    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                    vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { selected[1] .. " " })
+                    vim.api.nvim_win_set_cursor(0, { row, col + #selected[1] })
+                    vim.defer_fn(function() vim.cmd('startinsert') end, 5)
+                end)
+            end
+        }
+    })
+end, { desc = "Pick and insert tag at cursor" })
+
 vim.api.nvim_create_user_command(
   'Table',
   function (args)

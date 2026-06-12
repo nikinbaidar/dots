@@ -57,21 +57,4 @@ vim.api.nvim_create_user_command(
     { desc = "Make title case from the current cursor position to EOL."}
 )
 
-vim.keymap.set('i', '<C-s>', function()
-    require('fzf-lua').fzf_exec('cat /home/nikin/notes/tags.txt', {
-        winopts = {
-            height = 20,
-            width = 80,
-        },
-        actions = {
-            ['default'] = function(selected)
-                vim.schedule(function()
-                    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-                    vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { selected[1] })
-                end)
-            end
-        }
-    })
-end, { desc = "Pick and insert tag at cursor" })
-
 -- so ~/.config/nvim/after/plugin/luasnip.lua

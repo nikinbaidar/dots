@@ -57,7 +57,10 @@ return {
         d(2, recursive_tag),
         t({"", "categories: *labels"}),
         t({"", "date: "}),
-        i(3),
+        c(3, {
+            t(os.date('%Y-%m-%d')),
+            i(3),
+        }),
         t({"", "---", ""})
     }),
 
