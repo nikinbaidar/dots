@@ -13,16 +13,13 @@ fi
 
 while true
 do
-    xsetroot -name "  [ $(date +'%F %r') ]  $(battery)  "
+    xsetroot -name "  [ $(date +'%A %F %r') ]  $(battery)  "
     sleep 1
 done &
 
 udiskie &
 unclutter --timeout 1 --start-hidden --fork
 moncon --init
-
-xmodmap -e "clear lock"
-xmodmap -e "keycode 9 = grave asciitilde"
 xset -dpms && xset s off &
 keyd-application-mapper -d
 
