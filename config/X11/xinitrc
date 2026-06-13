@@ -11,10 +11,9 @@ if [[ -f /usr/bin/picom ]]; then
     picom --backend xrender &
 fi
 
-while true
+while sleep 1
 do
     xsetroot -name "  [ $(date +'%A %F %r') ]  $(battery)  "
-    sleep 1
 done &
 
 udiskie &
