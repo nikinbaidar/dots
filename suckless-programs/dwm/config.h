@@ -102,20 +102,16 @@ static const char *reattach_all[] = {"hlock", "-a", NULL};
 static const char *dualmon[] = {"moncon", "-d", NULL};
 static const char *externalmon[] = {"moncon", "-e", NULL};
 static const char *lapmon[] = {"moncon", "-l", NULL};
-static const char *capturestop[] = {"screencast", "--stop", NULL};
-static const char *captureprogress[] = {"screencast", "--progress", NULL};
-static const char *mute[] = {"screencast", "--mute", NULL};
-static const char *unmute[] = {"screencast", "--unmute", NULL};
+static const char *capturestop[] = {"sc", "-s", NULL};
+static const char *capturepause[] = {"sc", "-p", NULL};
 
 static const Key keys[] = {
     /* modifier           key              function        argument */
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_bracketright, spawn, {.v = lapmon}},
-    {MODKEY, XK_c, spawn, {.v = captureprogress}},
-    {MODKEY | ShiftMask, XK_c, spawn, {.v = capturestop}},
-    {MODKEY | ShiftMask, XK_m, spawn, {.v = mute}},
-    {MODKEY | ShiftMask, XK_u, spawn, {.v = unmute}},
+    {MODKEY, XK_F2, spawn, {.v = capturepause}},
+    {MODKEY, XK_F1, spawn, {.v = capturestop}},
     {MODKEY, XK_bracketleft, spawn, {.v = externalmon}},
     {MODKEY | ShiftMask, XK_bracketright, spawn, {.v = dualmon}},
     {MODKEY | ShiftMask, XK_bracketleft, spawn, {.v = dualmon}},
