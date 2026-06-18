@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cp /boot/* /efi/EFI/arch
-# cp /efi/EFI/arch/initramfs-linux.img /efi/EFI/arch/initramfs-linux-fallback.img
-mkinitcpio -P
-echo "$(date '+%F %T'): system upgraded $(uname -r) -> $(pacman -Q linux | awk '{print $2}')" >> /var/log/post-upgrade.log
+if [[ $(hostnamectl hostname) = 'leviathan' ]]; then
+    cp /boot/* /efi/EFI/arch
+    mkinitcpio -P
+fi
+kernel_version=$(pacman -Q linux | awk '{print $2}')
+echo "[$(date '+%F %T')] system upgraded -> ${kernel_version}" >> /var/log/post-upgrade.log
