@@ -99,9 +99,9 @@ static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
                                 "-5%", NULL};
 static const char *detach_all[] = {"hlock", "-m", NULL};
 static const char *reattach_all[] = {"hlock", "-a", NULL};
-static const char *dualmon[] = {"moncon", "-d", NULL};
-static const char *externalmon[] = {"moncon", "-e", NULL};
-static const char *lapmon[] = {"moncon", "-l", NULL};
+static const char *dualmon[] = {"moncon", "--dual", NULL};
+static const char *externalmon[] = {"moncon", "--init", NULL};
+static const char *lapmon[] = {"moncon", "--laptop", NULL};
 static const char *capturestop[] = {"sc", "-s", NULL};
 static const char *capturepause[] = {"sc", "-p", NULL};
 

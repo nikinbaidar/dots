@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# ░▄█▄█▄░█▄█░█▀█░█▀█░▀█▀░▀█▀░█▀█░█▀▄░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
-# ░▄█▄█▄░█░█░█░█░█░█░░█░░░█░░█░█░█▀▄░█░░░█░█░█░█░█▀▀░░█░░█░█
-# ░░▀░▀░░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀
-
 display_help() {
     cat << 'EOF'
 'monitorconfig' — Configure monitor layout with xrandr.
@@ -12,96 +8,134 @@ Usage:
   monitorconfig [OPTION]
 
 Options:
-  --init, -e        Initial setup. If an external monitor is detected,
-                    start with the external monitor only.
+  --init, -i        Initial setup. If an external monitor is detected,
+                    use the external monitor only.
 
-  --dual, -d        Dual-monitor mode. If an external monitor is detected,
-                    start with the external monitor only.
+  --dual, -d        Dual-monitor mode.
 
   --present, -p     Presentation mode. Same as --dual, but displays are mirrored.
 
   --laptop, -l      Laptop-only mode.
 
-  --table, -t       Laptop on table, monitor above
+  --table, -t       Laptop on table, monitor above.
 
   --help, -h        Display this help.
 
 EOF
 }
 
-monitorResolution="2560x1440" # <- For DELL
+hostname=$(uname -n)
 
-host=$(uname -n)
-
-if [ "${host}" = "limitless" ]; then
-	laptopResolution="1920x1200"
-elif [ "${host}" = "leviathan" ]; then
-	laptopResolution="1920x1080"
-    touchscreen="ELAN2097:00 04F3:2505" 
+if [ "${hostname}" = "limitless" ]; then
+    LAPTOP_RESOLUTION="1920x1200"
+elif [ "${hostname}" = "leviathan" ]; then
+    LAPTOP_RESOLUTION="1920x1080"
+    TOUCHSCREEN="ELAN2097:00 04F3:2505" 
 fi
 
+external_monitor=$(xrandr | awk '$1 ~ /^(DP|HDMI)-[12]$/ && $2 == "connected" {print $1}')
 
-
-
-externalMonitor=$(xrandr | awk '$1 ~ /^(DP|HDMI)-[12]$/ && $2 == "connected" {print $1}')
+[[ -n $external_monitor ]] && MONITOR_RESOLUTION="2560x1440" # For DELL
 
 # Handle script arguments
-case "$1" in
-    "--init" | "-e" | "--external" ) 
-        if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$monitorResolution" --pos 0x0 \
-                --rotate normal --output eDP-1 --off
+case "${1}" in
+    "-i" | "--init") 
+        if [[ -n "$external_monitor" ]]; then
+            xrandr --output "$external_monitor" \
+                --primary  \
+                --mode "$MONITOR_RESOLUTION" \
+                --pos 0x0 \
+                --rotate normal \
+                --output eDP-1 --off
         else
-            xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
-                --rotate normal --output "$externalMonitor" --off
-            [[ "$1" != "--init" ]] && dm " External monitor not connected!" &
+            dm -m " Exteral monitor not connected!" &
+            xrandr --output eDP-1 \
+                --primary \
+                --mode "$LAPTOP_RESOLUTION" \
+                --pos 0x0 \
+                --rotate normal \
+                --output DP-1 --off \
+                --output DP-2 --off \
+                --output HDMI-1 --off
         fi
         ;;
 
     "-d" | "--dual" )
-        if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$monitorResolution" --pos 0x0 \
-                --rotate normal --output eDP-1 --mode "$laptopResolution" \
-                --rotate normal --brightness 1.0 --right-of "$externalMonitor"
+        if [[ -n "$external_monitor" ]]; then
+            xrandr --output "$external_monitor" \
+                --primary \
+                --mode "$MONITOR_RESOLUTION" \
+                --pos 0x0 \
+                --rotate normal \
+                --output eDP-1 \
+                --mode "$LAPTOP_RESOLUTION" \
+                --right-of "$external_monitor" \
+                --rotate normal \
+                --brightness 1.0
+            [[ -n "$TOUCHSCREEN" ]] && xinput map-to-output "$TOUCHSCREEN" eDP-1
 
-            [[ -n "$touchscreen" ]] && xinput map-to-output "$touchscreen" eDP-1
         else
-            dm " External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode "$monitorResolution" --pos 0x0 \
-                --rotate normal --output "$externalMonitor" --off 
+            dm -m " External monitor not connected!" &
+            xrandr --output eDP-1 \
+                --primary \
+                --mode "$MONITOR_RESOLUTION" \
+                --pos 0x0 \
+                --rotate normal \
+                --output DP-1 --off \
+                --output DP-2 --off \
+                --output HDMI-1 --off 
         fi
         ;;
 
     "-p" | "--presentation")
-        xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
-            --rotate normal --output "$externalMonitor" --mode "$monitorResolution" --pos 0x0 \
-            --rotate normal --output "$externalMonitor" --off --output HDMI-1 --off
+        # Choose a resolution everyone can handle
+        xrandr --output eDP-1 \
+            --primary \
+            --mode "$LAPTOP_RESOLUTION" \
+            --pos 0x0 \
+            --rotate normal \
+            --output "$external_monitor" \
+            --mode "$LAPTOP_RESOLUTION" \
+            --same-as eDP-1 \
+            --output HDMI-1 --off
         ;;
 
     "-l" | "--laptop")
-        xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
-            --rotate normal --output "$externalMonitor" --off
+        xrandr --output eDP-1 \
+            --primary \
+            --mode "$LAPTOP_RESOLUTION" \
+            --pos 0x0 \
+            --rotate normal \
+            --output DP-1 --off \
+            --output DP-2 --off \
+            --output HDMI-1 --off
         ;;
 
     "-t" | "--table")
-        xrandr --output "$externalMonitor" --primary --mode "$monitorResolution" --pos 0x0 \
-            --rotate normal --output eDP-1 --mode "$laptopResolution" \
-            --rotate normal --brightness 1.0 --below "$externalMonitor"
+        xrandr --output "$external_monitor" \
+            --primary \
+            --mode "$MONITOR_RESOLUTION" \
+            --pos 0x0 \
+            --rotate normal \
+            --output eDP-1 \
+            --mode "$LAPTOP_RESOLUTION" \
+            --below "$external_monitor" \
+            --rotate normal \
+            --brightness 1.0 
 
-        [[ -n "$touchscreen" ]] && xinput map-to-output "$touchscreen" eDP-1
+        [[ -n "$TOUCHSCREEN" ]] && xinput map-to-output "$TOUCHSCREEN" eDP-1
         ;;
 
     "-h" | "--help")
         display_help
         ;;
 
-    *) exit 1 ;;
+    *) 
+        display_help
+        exit 1 
+        ;;
 esac
 
 wallpaper=$HOME/Pictures/walls/$(hostname).jpg
 
-if [[ -f $wallpaper ]]; then
-    cb ${wallpaper}
-else
-    cb
-fi
+[[ -f "$wallpaper" ]] && cb "$wallpaper" || cb
