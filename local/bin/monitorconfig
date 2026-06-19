@@ -22,19 +22,21 @@ Options:
 
   --laptop, -l      Laptop-only mode.
 
+  --table, -t       Laptop on table, monitor above
+
   --help, -h        Display this help.
 
 EOF
 }
 
-DEFAULT_RESOLUTION="2560x1440" # <- For DELL
+monitorResolution="2560x1440" # <- For DELL
 
 host=$(uname -n)
 
 if [ "${host}" = "limitless" ]; then
-	LAPTOP_RESOLUTION="1920x1200"
+	laptopResolution="1920x1200"
 elif [ "${host}" = "leviathan" ]; then
-	LAPTOP_RESOLUTION="1920x1080"
+	laptopResolution="1920x1080"
 fi
 
 externalMonitor=$(xrandr | awk '$1 ~ /^(DP|HDMI)-[12]$/ && $2 == "connected" {print $1}')
@@ -43,10 +45,10 @@ externalMonitor=$(xrandr | awk '$1 ~ /^(DP|HDMI)-[12]$/ && $2 == "connected" {pr
 case "$1" in
     "--init" | "-e" | "--external" ) 
         if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+            xrandr --output "$externalMonitor" --primary --mode "$monitorResolution" --pos 0x0 \
                 --rotate normal --output eDP-1 --off
         else
-            xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+            xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off
             [[ "$1" != "--init" ]] && dm " External monitor not connected!" &
         fi
@@ -54,25 +56,38 @@ case "$1" in
 
     "-d" | "--dual" )
         if [[ -n "$externalMonitor" ]]; then
-            xrandr --output "$externalMonitor" --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
-                --rotate normal --output eDP-1 --mode "$LAPTOP_RESOLUTION" \
+            xrandr --output "$externalMonitor" --primary --mode "$monitorResolution" --pos 0x0 \
+                --rotate normal --output eDP-1 --mode "$laptopResolution" \
                 --rotate normal --brightness 1.0 --right-of "$externalMonitor"
         else
             dm " External monitor not connected!" &
-            xrandr --output eDP-1 --primary --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+            xrandr --output eDP-1 --primary --mode "$monitorResolution" --pos 0x0 \
                 --rotate normal --output "$externalMonitor" --off 
         fi
         ;;
 
     "-p" | "--presentation")
-        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
-            --rotate normal --output "$externalMonitor" --mode "$DEFAULT_RESOLUTION" --pos 0x0 \
+        xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
+            --rotate normal --output "$externalMonitor" --mode "$monitorResolution" --pos 0x0 \
             --rotate normal --output "$externalMonitor" --off --output HDMI-1 --off
         ;;
 
     "-l" | "--laptop")
-        xrandr --output eDP-1 --primary --mode "$LAPTOP_RESOLUTION" --pos 0x0 \
+        xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos 0x0 \
             --rotate normal --output "$externalMonitor" --off
+        ;;
+
+    "-t" | "--table")
+        # Calculate x and y position for laptop
+
+        x=$(( (${monitorResolution%x*} - ${laptopResolution%x*}) / 2 ))
+        y=${monitorResolution#*x}
+        laptopPosition="${x}x${y}"
+
+        xrandr --output eDP-1 --primary --mode "$laptopResolution" --pos $laptopPosition \
+            --rotate normal --output "$externalMonitor" --mode "$monitorResolution" \
+            --pos 0x0 --rotate normal 
+
         ;;
 
     "-h" | "--help")
