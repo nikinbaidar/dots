@@ -109,11 +109,11 @@ static const Key keys[] = {
     /* modifier           key              function        argument */
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, XK_bracketright, spawn, {.v = lapmon}},
+    {MODKEY | ShiftMask, XK_bracketright, spawn, {.v = lapmon}},
     {MODKEY, XK_F2, spawn, {.v = capturepause}},
     {MODKEY, XK_F1, spawn, {.v = capturestop}},
     {MODKEY, XK_bracketleft, spawn, {.v = externalmon}},
-    {MODKEY | ShiftMask, XK_bracketright, spawn, {.v = dualmon}},
+    {MODKEY, XK_bracketright, spawn, {.v = dualmon}},
     {MODKEY | ShiftMask, XK_bracketleft, spawn, {.v = dualmon}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
     {MODKEY, XK_Up, spawn, {.v = blightup}},
