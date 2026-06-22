@@ -22,5 +22,7 @@ moncon --init
 xset -dpms && xset s off &
 keyd-application-mapper -d
 
+st -c "st-floating" -n "spnotes" -e "previewnotes" &
+
 export XDG_SESSION_TYPE=x11
 exec dwm

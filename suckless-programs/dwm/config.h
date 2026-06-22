@@ -23,14 +23,14 @@ typedef struct {
 } Sp;
 
 const char *spcmd0[] = {"keepassxc", NULL};
-const char *spcmd1[] = {"st", "-c", "st-floating", "-n", "spterm", "-g", "90x20", NULL};
-const char *spcmd2[] = {"st", "-c", "st-floating", "-n", "spfm", "-g", "144x40", "-e", "lf", NULL};
+const char *spcmd1[] = {"st", "-c", "st-floating", "-T", "Notes Server", "-n", "spnotes", "-e", "previewnotes", NULL};
+const char *spcmd2[] = {"st", "-c", "st-floating", "-T", "Terminal", "-n", "spterm", "-g", "-e", NULL};
 
 static Sp scratchpads[] = {
     /* name          cmd  */
     {"keepassxc", spcmd0},
-    {"spterm", spcmd1},
-    {"spfm", spcmd2},
+    {"spnotes", spcmd1},
+    {"spterm", spcmd2},
 };
 
 /* tagging */
@@ -51,11 +51,11 @@ static const Rule rules[] = {
 
     {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,          0,           -1,         -1,              -1 },
     {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,          0,           -1,         -1,              -1 },
-    {"st-floating",               "spterm",     NULL,     SPTAG(1),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"st-floating",               "spfm",       NULL,     SPTAG(2),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
+    {"st-floating",               "spnotes",    NULL,     SPTAG(1),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
+    {"st-floating",               "spterm",     NULL,     SPTAG(2),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
     {"Lehte",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
     {"satty",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"Display",                   NULL,         NULL,     0,            0,          1,           -1,         420,50,-1,-1,   -1 },
+    {"Display",                   NULL,         NULL,     0,            0,          1,           -1,         420,50,-1,-1,    -1 },
 };
 
 /* layout(s) */
@@ -100,7 +100,7 @@ static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
 static const char *detach_all[] = {"hlock", "-m", NULL};
 static const char *reattach_all[] = {"hlock", "-a", NULL};
 static const char *dualmon[] = {"moncon", "--dual", NULL};
-static const char *externalmon[] = {"moncon", "--init", NULL};
+static const char *externalmon[] = {"moncon", "-i", NULL};
 static const char *lapmon[] = {"moncon", "--laptop", NULL};
 static const char *capturestop[] = {"sc", "-s", NULL};
 static const char *capturepause[] = {"sc", "-p", NULL};
@@ -141,7 +141,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
     {MODKEY, XK_x, togglescratch, {.ui = 0}},
-    {MODKEY, XK_y, togglescratch, {.ui = 1}},
+    {MODKEY, XK_n, togglescratch, {.ui = 1}},
     {MODKEY, XK_z, togglescratch, {.ui = 2}},
     {MODKEY, XK_minus, setgaps, {.i = -5}},
     {MODKEY, XK_equal, setgaps, {.i = +5}},

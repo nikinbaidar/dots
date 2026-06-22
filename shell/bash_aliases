@@ -58,23 +58,3 @@ function shutdown() {
     syncnotes
     /usr/bin/shutdown $1    
 }
-
-
-function previewnotes() {
-<<'COMMENT'
-Starts a Quarto live preview server on port 5900 for the current project.
-If another process is already using the port, it forcefully terminates the
-existing process and restarts the preview without opening a browser. Also
-performs a basic check to ensure the current directory is a Quarto project
-otherwise falls back to $HOME/notes.
-COMMENT
-
-    local PORT=5900
-    [[ -d .quarto ]] || cd ~/notes
-    if fuser "$PORT/tcp" > /dev/null 2>&1 ; then
-        fuser -k -9 "$PORT/tcp" > /dev/null 2>&1
-        quarto preview --port ${PORT} --no-browser
-    else
-        quarto preview --port ${PORT}
-    fi
-}
