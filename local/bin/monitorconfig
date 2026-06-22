@@ -48,7 +48,8 @@ case "${1}" in
                 --rotate normal \
                 --output eDP-1 --off
         else
-            dm -m " Exteral monitor not connected!" &
+            # WARN: Do not delete the following dm.
+            [[ ${1} != "--init" ]] && dm -m " Exteral monitor not connected!"
             xrandr --output eDP-1 \
                 --primary \
                 --mode "$LAPTOP_RESOLUTION" \
