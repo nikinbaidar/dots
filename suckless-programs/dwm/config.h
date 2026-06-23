@@ -54,6 +54,7 @@ static const Rule rules[] = {
     {"st-floating",               "spnotes",    NULL,     SPTAG(1),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
     {"st-floating",               "spterm",     NULL,     SPTAG(2),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
     {"Lehte",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
+    {"Interactive User Input",    NULL,         NULL,     0,            1,          1,           -1,         -1,-1,900,320,     -1 },
     {"satty",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
     {"Display",                   NULL,         NULL,     0,            0,          1,           -1,         420,50,-1,-1,    -1 },
 };
@@ -90,6 +91,7 @@ static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray3, NULL};
 static const char *termcmd[] = {"st", "lterm", NULL};
+static const char *elapsedcmd[] = {"record_time.sh", NULL};
 static const char *screenshotcmd[] = {"grabScreenSelection", NULL};
 static const char *blightup[] = {"blight", "set", "+10%", NULL};
 static const char *blightdown[] = {"blight", "set", "-5%", NULL};
@@ -116,6 +118,7 @@ static const Key keys[] = {
     {MODKEY, XK_bracketright, spawn, {.v = dualmon}},
     {MODKEY | ShiftMask, XK_bracketleft, spawn, {.v = dualmon}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
+    {MODKEY, XK_e, spawn, {.v = elapsedcmd}},
     {MODKEY, XK_Up, spawn, {.v = blightup}},
     {MODKEY, XK_Down, spawn, {.v = blightdown}},
     {MODKEY | ShiftMask, XK_k, spawn, {.v = volup}},
