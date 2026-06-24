@@ -73,7 +73,6 @@ start_recording () {
     else
         mkdir -p "${metadata}"
         msg="Recording started"
-
     fi
 
     echo title=${filename} > ${metadata}/info
@@ -140,20 +139,44 @@ start_recording () {
             -loglevel error &
     fi
 
-    dm -m "${msg} on $(date)" -d 4
-    show_status
+    echo $(date +'%s') > ${metadata}/starttime
+
+    dm -msg "$msg"
+
+    if [[ -f $metadata/elapsedtime ]]; then
+        screencast_rec_timer.sh $(cat $metadata/elapsedtime) &
+    else
+        screencast_rec_timer.sh &
+    fi
+
+    REVERSETIMER_PID=$!
+    echo $REVERSETIMER_PID > $metadata/rec.pid
+
 }
 
 
 pause_recording() {
     if [[ -d "$metadata" ]] && pgrep ffmpeg > /dev/null
     then
+        if [[ -f $metadata/elapsedtime ]]; then
+            elapsed_time=$(( $(date +'%s') - $(< $metadata/starttime) + $(< $metadata/elapsedtime) ))
+        else
+            elapsed_time=$(( $(date +'%s') - $(< $metadata/starttime) ))
+        fi
+        echo $elapsed_time > $metadata/elapsedtime
         pkill ffmpeg
         while pgrep ffmpeg > /dev/null; do sleep 0.1; done
+        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
+
+        dm -msg "Recording paused"
+
+        screencast_rec_timer.sh -P $(cat $metadata/elapsedtime) &
+        REVERSETIMER_PID=$!
+        echo $REVERSETIMER_PID > $metadata/rec.pid
+
         echo paused=true >> $metadata/info
-        dm "Recording paused"
     else
-        dm "Nothing to pause"
+        dm -msg "Nothing to pause"
         exit 1
     fi
 }
@@ -166,6 +189,7 @@ resume_recording() {
         echo ${fp} >> ${metadata}/mergelist.txt
         filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1 | cut -d '_' -f 1)_$(date +'%s').mkv"
         grep -q 'source=' ${metadata}/info && mode=1 || mode=0
+        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
         start_recording # again
     else
         dm "Nothing to resume"
@@ -179,6 +203,7 @@ stop_recording () {
     then
         pkill ffmpeg
         while pgrep ffmpeg > /dev/null; do sleep 0.1; done
+        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
         dm "Recording stopped"
     fi
 
