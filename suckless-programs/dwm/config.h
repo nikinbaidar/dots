@@ -36,27 +36,40 @@ static Sp scratchpads[] = {
 /* tagging */
 static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-/* This dwm configures the floatx variable differently from what the original
- * author of the patch intended. It calculates the 'x' position from the right
- * edge of the screen and subtracts the floatx value.
- * Optimize later for multimonitor setups.
- */
-
-static const Rule rules[] = {
-    /* xprop(1):
-     *  WM_CLASS(STRING) = instance, class
-     *  WM_NAME(STRING) = title
-     * 
- 	 * class                      instance      title     tags mask     iscentered  isfloating   monitor    float x,y,w,h     floatborderpx */
-
-    {"Rustdesk",                  NULL,         NULL,     1 << 5,       0,          0,           -1,         -1,              -1 },
-    {NULL,                        "keepassxc",  NULL,     SPTAG(0),     0,          0,           -1,         -1,              -1 },
-    {"st-floating",               "spnotes",    NULL,     SPTAG(1),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"st-floating",               "spterm",     NULL,     SPTAG(2),     1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"Lehte",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"Interactive User Input",    NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,320,     -1 },
-    {"satty",                     NULL,         NULL,     0,            1,          1,           -1,         -1,-1,-1,-1,     -1 },
-    {"Display",                   NULL,         NULL,     0,            0,          1,           -1,         420,50,-1,-1,    -1 },
+                                                                                                         
+static const Rule rules[] = {                                                                                                         
+    /* xprop(1):                                                                                                         
+     *  WM_CLASS(STRING) = instance, class                                                                                                         
+     *  WM_NAME(STRING) = title                                                                                                         
+     *                                                                                                          
+     *
+     * WARN: This dwm configures the floatx variable differently from what the
+     * original author of the patch intended. It calculates the 'x' position
+     * from the right edge of the screen and subtracts the floatx value.
+     *
+     * TODO: Optimize later for multimonitor setups.                                                                                                         
+     *
+ 	 * { class,
+     *   instance,
+     *   title, 
+     *   tags mask,
+     *   iscentered,
+     *   isfloating,
+     *   monitor,
+     *   float x,y,w,h,
+     *   floatborderpx ,
+     *
+     *                                                                  C  F       x,  y,  r,  b   */
+    {"Rustdesk",                  NULL,         NULL,     1 << 5,   -1, 0, 0,     -1, },
+    {NULL,                        "keepassxc",  NULL,     SPTAG(0), -1, 0, 0,     -1, },
+    {"st-floating",               "spnotes",    NULL,     SPTAG(1), -1, 1, 1,     -1, },
+    {"st-floating",               "spterm",     NULL,     SPTAG(2), -1, 1, 1,     -1, },
+    {"Lehte",                     NULL,         NULL,     0,        -1, 1, 1,     -1, },
+    {"Interactive User Input",    NULL,         NULL,     0,        -1, 1, 1,     -1, },
+    {"satty",                     NULL,         NULL,     0,        -1, 1, 1,     -1, },
+    {"Display",                   NULL,         NULL,     0,        -1, 0, 1,    425,  50,  1, -1 },
+    {"Display",                   NULL,         "Timer",  0,        -1, 0, 1,    175,  75,  1,  1 },
+    {"Display",                   "REC",         NULL,    0,          -1, 0, 1,  250,  75,  1,  1 },
 };
 
 /* layout(s) */

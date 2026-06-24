@@ -1,51 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-source ${DOTS}/shell/prompt_colors
-
-audio_file="/home/nikin/Music/SPECIALZ.m4a"
-
-function play_audio {
-        timeout 10 mpv --no-video "$audio_file"  2&> /dev/null  # Run mpv to play the audio
-}
-
-hours=0
 minutes=0
 seconds=0
 
 while [ -n "${1}" ] ; do
     case "${1}" in 
-        -h) hours="${2}" ;;
         -m) minutes="${2}" ;;
         -s) seconds="${2}" ;;
     esac
     shift
 done
 
-duration=$(( (${hours} * 3600) + (${minutes} * 60) + ${seconds} ))
+duration=$(( $(( $minutes * 60)) + ${seconds} ))
 
-# Trap Ctrl+C to stop the loop and exit gracefully
-trap 'break' SIGINT
+function display_remaining() {
+    duration=$1
+    audio_file="/home/nikin/Music/Cyberpunk 2077 Incoming Call HQ Ringtone-cerCH5Kt8Ng.mp3"
+    tput civis
 
-tput civis
+    while [ $duration -ge 0 ]; do
+        # Calculate minutes, and seconds
+        M=$(( (duration % 3600) / 60 ))
+        S=$((duration % 60))
+        # Format things to look a bit more nicer.
+        M=$(printf "%02d" "$((M % 60))")
+        S=$(printf "%02d" "$((S % 60))")
+        # Display countdown
+        echo -en "  ${M}:${S}\r"
+        sleep 1
+        duration=$((duration - 1))
+    done
 
-while [ $duration -ge 0 ]; do
-    # Calculate hours, minutes, and seconds
-    H=$((duration / 3600))
-    M=$(( (duration % 3600) / 60 ))
-    S=$((duration % 60))
-    # Format things to look a bit more nicer.
-    H=$(printf "%02d" "$H")
-    M=$(printf "%02d" "$((M % 60))")
-    S=$(printf "%02d" "$((S % 60))")
-    # Display countdown
-    echo -ne "Countdown ${_g}${H}:${M}:${S}${w} \r"
-    sleep 1
-    duration=$((duration - 1))
-done
-#echo -ne "Countdown ${_g}${H}:${M}:${S}${w} ${r}Time Up!${w} "
+    # Timer done now play audio
+    mpv --no-video --loop=inf "$audio_file" &
+    mpv_pid=$!
+    
+    # Make sure the audio length is atleast equal out the timeout below 
+    sleep 30
+    kill -TERM $mpv_pid 2>/dev/null
+}
 
-tput cnorm
+export -f display_remaining 
 
-play_audio
-
-echo
+st -c "Display" -T "Timer" -z 22 \
+    -g 9x1 bash -c "display_remaining '$duration'" &

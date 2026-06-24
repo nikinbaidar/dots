@@ -30,6 +30,7 @@ function interactive_input() {
 export -f interactive_input
 
 st -c "Interactive User Input" -T "Interactive User Input" \
+    -g 80x16 \
     sh -c "interactive_input '$1'"
 
 if [[ -f /tmp/interactive_input.txt ]]; then
