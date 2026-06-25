@@ -24,13 +24,12 @@ typedef struct {
 
 const char *spcmd0[] = {"keepassxc", NULL};
 const char *spcmd1[] = {"st", "-c", "st-floating", "-T", "Notes Server", "-n", "spnotes", "-e", "previewnotes", NULL};
-const char *spcmd2[] = {"st", "-c", "st-floating", "-T", "Terminal", "-n", "spterm", "-g", "-e", NULL};
 
 static Sp scratchpads[] = {
     /* name          cmd  */
     {"keepassxc", spcmd0},
     {"spnotes", spcmd1},
-    {"spterm", spcmd2},
+    {"spterm", NULL},
 };
 
 /* tagging */

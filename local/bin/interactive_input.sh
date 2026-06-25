@@ -2,7 +2,7 @@
 
 function interactive_input() {
     local input rows cols width
-    local footer="press enter to confirm · Ctrl-c to cancel"
+    local footer="press enter to confirm · Ctrl-c to cancel · Super-z to hide"
     
     cols=$(tput cols)
 
@@ -29,8 +29,8 @@ function interactive_input() {
 
 export -f interactive_input
 
-st -c "Interactive User Input" -T "Interactive User Input" \
-    -g 80x16 \
+st -c "st-floating" -T "Interactive User Input" \
+    -n "spterm" -g 80x16 \
     sh -c "interactive_input '$1'"
 
 if [[ -f /tmp/interactive_input.txt ]]; then
@@ -38,5 +38,4 @@ if [[ -f /tmp/interactive_input.txt ]]; then
     rm /tmp/interactive_input.txt
     echo "$input"
 fi
-
 
