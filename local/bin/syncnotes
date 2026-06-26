@@ -2,12 +2,16 @@
 
 cd /home/nikin/notes
 
+
 case $1 in
     -p) 
         timeout 30 bash -c 'until git pull; do sleep 1; done'
         ;;
     *) 
         if [[ -n "$(git status -s)" ]]; then
+            cd Extras
+            /home/nikin/notes/Extras/logreading.py
+            cd ..
             git add .
             git commit -m "syncnotes $(date +'%F %R')"
             git push
