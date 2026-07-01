@@ -19,6 +19,8 @@ Options:
 
   --table, -t       Laptop on table, monitor above.
 
+  -lgtv             LG TV
+
   --help, -h        Display this help.
 
 EOF
@@ -126,6 +128,13 @@ case "${1}" in
 
         [[ -n "$TOUCHSCREEN" ]] && xinput map-to-output "$TOUCHSCREEN" eDP-1
         ;;
+
+
+    "-lgtv")
+
+        xrandr --output eDP-1 --off --output HDMI-1 --primary \
+            --mode 3840x2160 --pos 0x0 --rotate normal --output DP-1 --off --output DP-2 --off
+
 
     "-h" | "--help")
         display_help
