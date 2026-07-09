@@ -116,11 +116,11 @@ case "${1}" in
 
     "-t" | "--table")
         xrandr --output "$external_monitor" \
-            --primary \
             --mode "$MONITOR_RESOLUTION" \
             --pos 0x0 \
             --rotate normal \
             --output eDP-1 \
+            --primary \
             --mode "$LAPTOP_RESOLUTION" \
             --below "$external_monitor" \
             --rotate normal \
