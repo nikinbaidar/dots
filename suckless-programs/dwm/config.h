@@ -48,18 +48,9 @@ static const Rule rules[] = {
      *
      * TODO: Optimize later for multimonitor setups.                                                                                                         
      *
- 	 * { class,
-     *   instance,
-     *   title, 
-     *   tags mask,
-     *   iscentered,
-     *   isfloating,
-     *   monitor,
-     *   float x,y,w,h,
-     *   floatborderpx ,
-     *
-     *                                                                  C  F       x,  y,  r,  b   */
+     *                                                               M  C  F       x,  y,  r,  b   */
     {"Rustdesk",                  NULL,         NULL,     1 << 5,   -1, 0, 0,     -1, },
+    {"sent",                      NULL,         NULL,     1 << 8,   -1, 0, 0,     -1, },
     {NULL,                        "keepassxc",  NULL,     SPTAG(0), -1, 0, 0,     -1, },
     {"st-floating",               "spnotes",    NULL,     SPTAG(1), -1, 1, 1,     -1, },
     {"st-floating",               "spterm",     NULL,     SPTAG(2), -1, 1, 1,     -1, },
@@ -107,10 +98,6 @@ static const char *elapsedcmd[] = {"record_time.sh", NULL};
 static const char *screenshotcmd[] = {"grabScreenSelection", NULL};
 static const char *blightup[] = {"blight", "set", "+10%", NULL};
 static const char *blightdown[] = {"blight", "set", "-5%", NULL};
-static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
-                              "+5%", NULL};
-static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
-                                "-5%", NULL};
 static const char *detach_all[] = {"hlock", "-m", NULL};
 static const char *reattach_all[] = {"hlock", "-a", NULL};
 static const char *dualmon[] = {"moncon", "--dual", NULL};
@@ -118,6 +105,7 @@ static const char *externalmon[] = {"moncon", "-i", NULL};
 static const char *lapmon[] = {"moncon", "--laptop", NULL};
 static const char *capturestop[] = {"sc", "-s", NULL};
 static const char *capturepause[] = {"sc", "-p", NULL};
+static const char *dict[] = {"define", NULL};
 
 static const Key keys[] = {
     /* modifier           key              function        argument */
@@ -133,8 +121,6 @@ static const Key keys[] = {
     {MODKEY, XK_e, spawn, {.v = elapsedcmd}},
     {MODKEY, XK_Up, spawn, {.v = blightup}},
     {MODKEY, XK_Down, spawn, {.v = blightdown}},
-    {MODKEY | ShiftMask, XK_k, spawn, {.v = volup}},
-    {MODKEY | ShiftMask, XK_j, spawn, {.v = voldown}},
     {MODKEY, XK_semicolon, spawn, {.v = detach_all}},
     {MODKEY | ShiftMask, XK_semicolon, spawn, {.v = reattach_all}},
     {MODKEY, XK_m, zoom, {0}},
@@ -171,6 +157,7 @@ static const Key keys[] = {
 static Button buttons[] = {
     /* click          event mask    button          function        argument */
     {ClkClientWin, MODKEY, Button1, movemouse, {0}},
+    {ClkClientWin, 0, Button2, spawn, {.v = dict}},
     {ClkClientWin, MODKEY, Button3, resizemouse, {0}},
     {ClkTagBar, 0, Button1, view, {0}},
 };
