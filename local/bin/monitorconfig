@@ -17,8 +17,6 @@ Options:
 
   --laptop, -l      Laptop-only mode.
 
-  --table, -t       Laptop on table, monitor above.
-
   -lgtv             LG TV
 
   --help, -h        Display this help.
@@ -113,22 +111,6 @@ case "${1}" in
             --output DP-2 --off \
             --output HDMI-1 --off
         ;;
-
-    "-t" | "--table")
-        xrandr --output "$external_monitor" \
-            --mode "$MONITOR_RESOLUTION" \
-            --pos 0x0 \
-            --rotate normal \
-            --output eDP-1 \
-            --primary \
-            --mode "$LAPTOP_RESOLUTION" \
-            --below "$external_monitor" \
-            --rotate normal \
-            --brightness 1.0 
-
-        [[ -n "$TOUCHSCREEN" ]] && xinput map-to-output "$TOUCHSCREEN" eDP-1
-        ;;
-
 
     "-lgtv")
 
