@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+function show_definition() {
+    local word
+
+    word=$(xclip -o -selection clipboard | xargs)
+
+    if [[ -n $word ]]; then
+        local word_enc query rows cols width footer indent wrap_width pad
+        word_enc=$(jq -rn --arg w "$word" '$w|@uri')
+        query=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc")
+        if [[ -z $query ]]; then
+            echo -e "${pad}Network error — could not reach dictionary API."
+        else 
+            rows=$(tput lines)
+            cols=$(tput cols)
+            width=$((cols - 4))
+            indent=4
+            wrap_width=$((width - indent))
+            pad="  "
+
+            tput civis
+            {
+            echo
+            echo -e "${pad}${word,,}\n"
+            if echo "$query" | jq -e 'type == "object"' >/dev/null 2>&1; then
+                echo -e "${pad}No definitions found.\e[0m"
+            else
+                echo "$query" | jq \
+                    -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
+                while IFS=$'\001' read -r pos def; do
+                    echo "${pad}${pos^^}"
+                    echo "$def" | fold -s -w "$wrap_width" | awk \
+                        -v bullet="${pad}${pad}• " \
+                        -v cont="${pad}${pad}${pad}" '
+                        NR==1 { print bullet $0; next }
+                        { print cont $0 }
+                    '
+                    echo
+                done
+            fi
+            } | most
+        fi
+
+    fi
+}
+
+export -f show_definition
+
+old_clip=$(xclip -o -selection clipboard 2>/dev/null)
+
+wid=$(xdotool getmouselocation --shell | awk -F= '/WINDOW/{print $2}')
+wid=$(xprop -id "$wid" WM_CLASS | awk '{print $NF}')
+wid=${wid//\"/}
+
+echo $wid > /tmp/wid
+case "$wid" in
+    st*)
+        xdotool key --clearmodifiers yiw
+        ;;
+    *)
+        xdotool key --clearmodifiers ctrl+c
+        ;;
+esac
+
+sleep 0.5
+
+word="$(xclip -o -selection clipboard 2>/dev/null | tr -d '\n' | xargs)"
+
+[[ -z $word ]] && exit 0
+
+st -c "Lehte" -T "Lehte" -n "Terminal" -g 80x20 \
+    bash -c "show_definition"
+
+# Restore the user's previous clipboard contents so we don't clobber it.
+if [[ -n $old_clip ]]; then
+    printf '%s' "$old_clip" | xclip -selection clipboard
+fi
