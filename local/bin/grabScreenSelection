@@ -39,9 +39,12 @@ function openFilePickerDialog() {
 
 CAPTURE=/tmp/screenshot.png
 
-shotgun --geometry "$(slop -ln --bordersize=0 -c 0.5,0.5,0.5,0.7)" - | satty -f -
+slop_args=(-n -c 0.5,0.5,0.5,0.7)
+[[ -x /usr/bin/picom ]] && slop_args+=(-l --bordersize=0)
 
-if [ -f $CAPTURE ] ; then
+shotgun --geometry "$(slop "${slop_args[@]}")" - | satty -f -
+
+if [ -f $CAPTURE ]; then
     export -f openFilePickerDialog
     st -c "Lehte" -T "Lehte - Terminal File Picker"\
         -g 95x27 sh -c 'openFilePickerDialog'
