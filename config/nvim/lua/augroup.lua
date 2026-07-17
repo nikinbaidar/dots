@@ -13,9 +13,8 @@ vim.api.nvim_create_autocmd({'BufWritePost'}, {
 }) 
 
 vim.api.nvim_create_autocmd('VimLeave', {
-    pattern = '*.*',
-    desc = 'Echo nothing on exit',
-    command = 'echo ""'
+    desc = 'Clear command line',
+    command = "echo ''"
 })
 
 vim.api.nvim_create_autocmd('TermOpen', {

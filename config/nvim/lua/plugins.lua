@@ -1,3 +1,4 @@
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -11,8 +12,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     'rebelot/kanagawa.nvim',
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
     {'nikinbaidar/vim-dadbod', dependencies={'kristijanhusak/vim-dadbod-ui'}},
     { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },
     "ibhagwan/fzf-lua",

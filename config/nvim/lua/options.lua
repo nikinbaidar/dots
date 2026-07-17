@@ -1,9 +1,8 @@
-vim.g.loaded_netrw       = 1
+vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.clipboard = "unnamedplus"
 vim.opt.swapfile = false
 vim.opt.autochdir = true
-vim.opt.laststatus = 0
 vim.opt.timeoutlen = 300
 vim.opt.hlsearch = false
 vim.opt.number = true
@@ -26,3 +25,4 @@ vim.opt.listchars = "trail:␣"
 vim.opt.spellsuggest = "best,10"
 vim.opt.spelllang = "en_us"
 vim.opt.lazyredraw = true
+vim.opt.statusline = "%{expand('%:p:h:t')}/%{expand('%:t')}"
