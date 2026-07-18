@@ -17,6 +17,7 @@ function openFilePickerDialog() {
         -E "_site" --base-directory "$HOME" >> $fnames
 
     output=$(fzf < $fnames)
+    echo $output
     rm -f $fnames
 
     if [[ -z "$output" ]]; then
@@ -28,7 +29,7 @@ function openFilePickerDialog() {
         echo -en "${p}:: Enter new filename: ${w}${output}" 
         read -r filename
         echo
-        output="${output}/${filename}"
+        output="${output%/}/${filename}"
         sub_dir=$(dirname "$output")
         [[ ! -d $sub_dir ]] && mkdir -p "$sub_dir"
     fi
