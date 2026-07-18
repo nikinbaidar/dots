@@ -5,7 +5,7 @@ local gh = function(x) return 'https://github.com/' .. x end
 -- TODO: Migrate the following plugsin as well?
 --     * [ ] 'nikinbaidar/vim-dadbod',
 --     * [ ] 'kristijanhusak/vim-dadbod-ui',
---     * [ ] 0.12 natively supports TreeSitter
+--
 -- })
 
 vim.pack.add({
@@ -19,6 +19,8 @@ vim.pack.add({
     gh('lukas-reineke/indent-blankline.nvim'),
     { src = gh('kylechui/nvim-surround'), version = vim.version.range("4.x") },
     gh('saghen/blink.lib'), gh('saghen/blink.cmp'),
+    gh('jmbuhr/otter.nvim'),
+    gh('nvim-treesitter/nvim-treesitter'),
 })
 
 --  NOTE: 
@@ -35,12 +37,14 @@ vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
 require("mason").setup()
 require("mini.pairs").setup()
 require("todo-comments").setup({signs=false})
-require("ibl").setup()
+require("ibl").setup({scope={enabled=false}})
 
 require("plugins.blink")
 require("plugins.fzf")
 require("plugins.lsp")
 require("plugins.luasnip")
+require("plugins.treesitter")
+require("plugins.otter")
 
 -- WARN:
 -- If you want to use regex transformations in LuaSnip snippets, you need to
