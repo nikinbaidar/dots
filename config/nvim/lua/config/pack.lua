@@ -5,7 +5,7 @@ local gh = function(x) return 'https://github.com/' .. x end
 -- TODO: Migrate the following plugsin as well?
 --     * [ ] 'nikinbaidar/vim-dadbod',
 --     * [ ] 'kristijanhusak/vim-dadbod-ui',
---     * [ ] Do TreeSitter all over with the native LSP in mind
+--     * [ ] 0.12 natively supports TreeSitter
 -- })
 
 vim.pack.add({
@@ -24,8 +24,10 @@ vim.pack.add({
 --  NOTE: 
 -- * Execute `vim.pack.update()` to update all plugins with new changes.
 -- * Execute `vim.pack.del({"vim-surround"})` to delete an installed package.
--- * If the setup of any of the above plugins include more than one line, then
---   place them inside `/after/plugin` otherwise place them below.
+
+
+-- NOTE: If the setup of any of the above plugins include more than one line, then
+-- place them inside `/config/plugin` otherwise place them directly below.
 
 vim.cmd.colorscheme("ayu-dark")
 vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
@@ -33,7 +35,12 @@ vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
 require("mason").setup()
 require("mini.pairs").setup()
 require("todo-comments").setup({signs=false})
-require("ibl").setup({scope={enabled=false}})
+require("ibl").setup()
+
+require("plugins.blink")
+require("plugins.fzf")
+require("plugins.lsp")
+require("plugins.luasnip")
 
 -- WARN:
 -- If you want to use regex transformations in LuaSnip snippets, you need to

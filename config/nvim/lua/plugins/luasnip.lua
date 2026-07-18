@@ -82,7 +82,7 @@ local change_choice = function()
         ls.change_choice(1)
     end
 end
---
+
 vim.keymap.set({ "i", "s" }, "<C-j>", expand_or_jump, { noremap = true, silent = true })
 vim.keymap.set({ "i", "s" }, "<C-k>", jump_previous, { noremap = true, silent = true })
 vim.keymap.set({ "i", "s" }, "<C-l>", change_choice, { noremap = true, silent = true })
