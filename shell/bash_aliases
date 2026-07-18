@@ -5,7 +5,7 @@
 # ░▀▀░░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
 
 
-alias vi="/usr/bin/nvim"
+alias vi="TERM=st-256color /usr/bin/nvim"
 alias dbworkbench="/usr/bin/nvim -c \"DBUI\""
 alias ls="ls -v --color=auto --group-directories-first -1"
 alias grep="grep --color=auto"
