@@ -19,11 +19,10 @@ vim.o.confirm = false
 vim.opt.path:append("**,")
 vim.o.textwidth = 80
 vim.o.linebreak = true
-vim.o.formatoptions = "jcrqltn" -- implement this from autocmds
+vim.o.formatoptions = "jcrqltn"
 vim.o.list = false
 vim.o.listchars = "trail:␣"
 vim.o.spellsuggest = "best,10"
 vim.o.spelllang = "en_us"
 vim.o.lazyredraw = true
 vim.o.statusline = "%{expand('%:p:h:t')}/%{expand('%:t')}"
-vim.o.autocomplete = true
