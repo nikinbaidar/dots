@@ -18,4 +18,5 @@ require("fzf-lua").setup {
     },
 }
 
-vim.api.nvim_set_keymap('n', '<leader>f', ':FzfLua<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>c', ':FzfLua<CR>', {desc = "Commands", noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>f', ':FzfLua files<CR>', { desc = "Files", noremap = true })

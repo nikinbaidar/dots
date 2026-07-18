@@ -72,6 +72,39 @@ vim.api.nvim_create_user_command(
 vim.keymap.set('v', '<leader>t', '!pandoc -t markdown-simple_tables<CR>',
   { silent = true, desc = 'Align selected md table using pandoc' })
 
+local function split_code_block()
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+    -- Find the nearest previous opening fence
+    local fence
+    for i = row, 1, -1 do
+        if lines[i]:match("^```") then
+            fence = lines[i]
+            break
+        end
+    end
+
+    if not fence then
+        vim.notify("No code fence found", vim.log.levels.WARN)
+        return
+    end
+
+    -- Insert after the current line
+    vim.api.nvim_buf_set_lines(0, row-1, row-1, false, {
+        "```",
+        "",
+        fence,
+    })
+
+    -- Put cursor at the first line of the new code block
+    vim.api.nvim_win_set_cursor(0, { row + 3, 0 })
+end
+
+vim.keymap.set("n", "-", split_code_block, {
+    desc = "Split fenced code block",
+})
+
 vim.cmd [[ 
 "setlocal spell
 setlocal spellcapcheck=\_[\])'"   ]\+

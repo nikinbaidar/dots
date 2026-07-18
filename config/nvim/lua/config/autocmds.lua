@@ -45,6 +45,15 @@ vim.api.nvim_create_autocmd('VimLeave', {
     command = '! ${HOME}/.local/bin/removeTexDependencies'
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown, quarto",
+  callback = function()
+    require("otter").activate()
+  end,
+})
+
+
+
 vim.cmd[[
 if has('autocmd')
     " Save and restore cursor position

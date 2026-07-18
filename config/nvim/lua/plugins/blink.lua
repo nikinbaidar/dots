@@ -9,5 +9,3 @@ cmp.setup({
         default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
 })
-
-

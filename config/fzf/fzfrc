@@ -2,4 +2,7 @@
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 export FZF_DEFAULT_OPTS="--height=70% --reverse"
 export FZF_DEFAULT_COMMAND='fd -i --absolute-path --strip-cwd-prefix \
-    -L -E "_site" --base-directory "$HOME"'
+    -L \
+    --exclude "_site" \
+    --exclude "Dropbox/sioyek" \
+    --base-directory "$HOME"'

@@ -8,7 +8,9 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader><Space>', ':NvimTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Esc>', ':nohl<CR>', { noremap = true })
+vim.cmd[[imap <C-h> <BS>]]
+
+
 
 vim.cmd [[
 function! CopyMatches(reg, start, end) range
@@ -58,5 +60,10 @@ vim.api.nvim_create_user_command(
     end,
     { desc = "Make title case from the current cursor position to EOL."}
 )
+
+
+
+
+
 
 -- so ~/.config/nvim/after/plugin/luasnip.lua
