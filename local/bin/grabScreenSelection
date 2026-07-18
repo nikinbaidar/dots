@@ -31,10 +31,14 @@ function openFilePickerDialog() {
         output="${output}/${filename}"
         sub_dir=$(dirname "$output")
         [[ ! -d $sub_dir ]] && mkdir -p "$sub_dir"
-
     fi
 
-    mv -i $CAPTURE "${output}"
+
+    if mv -i "$CAPTURE" "$output"; then
+         printf '![%s](%s)' "$(basename "${output%.*}")" "$output" \
+             | setsid -f xclip -selection primary >/dev/null 2>&1
+    fi
+
 }
 
 CAPTURE=/tmp/screenshot.png
