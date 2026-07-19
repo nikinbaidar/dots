@@ -17,12 +17,6 @@ vim.api.nvim_create_autocmd('VimLeave', {
     command = "echo ''"
 })
 
-vim.api.nvim_create_autocmd('TermOpen', {
-    pattern = 'term://*',
-    desc = 'Open built-in terminal in insert mode.',
-    command = 'startinsert'
-})
-
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "/home/nikin/notes/tags.txt",
     callback = function()
@@ -64,4 +58,3 @@ if has('autocmd')
     augroup END
     endif
 ]]
-

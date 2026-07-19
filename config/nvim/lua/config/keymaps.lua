@@ -8,9 +8,11 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader><Space>', ':NvimTreeToggle<CR>', { noremap = true })
-vim.cmd[[imap <C-h> <BS>]]
 
-
+vim.cmd[[
+imap <C-h> <BS>
+tnoremap <Esc> <C-\><C-n>
+]]
 
 vim.cmd [[
 function! CopyMatches(reg, start, end) range
@@ -22,12 +24,10 @@ let range = (a:start == a:end) ? '%' : a:start.','.a:end
 execute range.'s//\=len(add(hits, submatch(0))) ? submatch(0) : ""/gne'
 execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
-
 ]]
 
 vim.cmd([[
 command! CopyWorkingDir let @+ = getcwd()
-command! ReloadNvim source $MYVIMRC
 command! -nargs=* -range -register CopyMatches call CopyMatches(<q-reg>, <line1>, <line2>)
 ]])
 
