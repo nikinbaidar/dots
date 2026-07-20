@@ -206,4 +206,4 @@ local function wrap_selection_in_fence()
   end)
 end
 
-vim.keymap.set('x', '<leader>mf', wrap_selection_in_fence, { desc = 'Wrap selection in markdown fence' })
+vim.keymap.set('x', '+', wrap_selection_in_fence, { desc = 'Wrap selection in markdown fence' })
