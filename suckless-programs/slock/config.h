@@ -15,7 +15,7 @@ static const unsigned short int randomize = 0;
 
 static const char *dirpath = "/home/nikin/Pictures/walls";
 
-static char *imgpath = "/home/nikin/Pictures/walls/thumb-1920-1185028.jpg";
+static char *imgpath = "/home/nikin/Pictures/walls/leviathan.jpg";
 
 /*Enable blur*/
 #define BLUR

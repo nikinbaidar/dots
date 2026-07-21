@@ -16,8 +16,8 @@ if [[ -f /tmp/now.datetime ]]; then
     timediff=$(( $now - $(< /tmp/now.datetime) ))
     timediff_formatted=$(format_time $timediff)
     dm -msg "Reading completed in $timediff_formatted" -d 6
-    logs=$(interactive_input.sh "Reading completed in $timediff_formatted.\nEnter details:")
-    echo "[$(date +'%F')] ${logs%|*}-> $timediff_formatted | ${logs#*|}" >> ~/notes/Extras/readingspeed.log
+    logs=$(interactive_input.sh "Reading completed in $timediff_formatted.\nEnter details: Page,Chapter,Selection,WPM")
+    echo "$(date +'%F'),${logs%,*},${timediff_formatted},${logs##*,}" >> ~/notes/Extras/readingspeed.csv
     rm /tmp/now.datetime
 else
     dm -msg "Begin reading"

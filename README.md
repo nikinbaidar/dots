@@ -9,7 +9,6 @@ pythonc.InteractiveShell.colors = 'Linux'
 c.TerminalInteractiveShell.colors = 'Linux'
 ```
 
-
 ## keyd
 
 Install `keyd` then ~~create symlink~~ copy `/misc/HARDWARE/keyd/` to `/etc` and
