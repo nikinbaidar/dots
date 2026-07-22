@@ -34,6 +34,7 @@ vim.pack.add({
 
 vim.cmd.colorscheme("ayu-dark")
 vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
+vim.cmd[[ hi! SpellCap gui=None ]]
 
 vim.cmd [[
 let g:terminal_color_3 = '#0b0e14'

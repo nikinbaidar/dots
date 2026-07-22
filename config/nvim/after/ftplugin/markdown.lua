@@ -207,3 +207,51 @@ local function wrap_selection_in_fence()
 end
 
 vim.keymap.set('x', '+', wrap_selection_in_fence, { desc = 'Wrap selection in markdown fence' })
+
+local function copy_code_fences()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local blocks = {}
+  local current_block = nil
+  local in_fence = false
+
+  for _, line in ipairs(lines) do
+    local fence_open = line:match("^%s*```{?[%w_-]*}?%s*$")
+
+    if not in_fence and fence_open then
+      in_fence = true
+      current_block = {}
+    elseif in_fence and line:match("^%s*```%s*$") then
+      in_fence = false
+      table.insert(blocks, table.concat(current_block, "\n"))
+      current_block = nil
+    elseif in_fence then
+      -- skip lines that are just plt.show() (allowing surrounding whitespace)
+      if not line:match("^%s*plt%.show%(%)%s*$") then
+        table.insert(current_block, line)
+      end
+    end
+  end
+
+  if #blocks == 0 then
+    vim.notify("No code fences found in this file.", vim.log.levels.WARN)
+    return
+  end
+
+  local result = table.concat(blocks, "\n")
+
+  -- Only append plt.close('all') if matplotlib is actually imported somewhere
+  local uses_matplotlib = result:match("import%s+matplotlib")
+      or result:match("from%s+matplotlib")
+      or result:match("import%s+matplotlib%.pyplot%s+as%s+plt")
+
+  if uses_matplotlib then
+    result = result .. "\nplt.close('all')\n"
+  end
+
+  vim.fn.setreg("+", result)
+  vim.fn.setreg('"', result)
+
+  vim.notify(("Copied code from %d fence(s) to clipboard."):format(#blocks))
+end
+
+vim.api.nvim_create_user_command("CopyCode", copy_code_fences, {})

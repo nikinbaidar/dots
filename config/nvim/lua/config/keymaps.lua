@@ -6,6 +6,7 @@ vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
+vim.keymap.set("i", "<C-z>", "<Esc>mx[s1z=`xa", { desc = "Correct previous misspelled word" })
 vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader><Space>', ':NvimTreeToggle<CR>', { noremap = true })
 
