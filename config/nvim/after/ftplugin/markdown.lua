@@ -74,22 +74,7 @@ vim.keymap.set('v', '<leader>t', '!pandoc -t markdown-simple_tables<CR>',
 
 local D = require("utils.datascience")
 
-vim.keymap.set('n', '<leader>r', D.yank_code_fence, { desc="Send code fence to an ipython session", buffer=true })
+vim.keymap.set('n', '<leader>r', D.yank_code_fence, { desc="Send code fence to console", buffer=true })
+vim.keymap.set('v', '<leader>r', D.run_selection , { desc="Send visual selection to console", buffer=true })
 vim.keymap.set('n', '-', D.split_code_block, { desc="Split fenced code block", buffer=true })
 vim.keymap.set('x', '+', D.wrap_selection_in_fence, { desc="Wrap selection inside a code fence", buffer=true })
-
--- TODO: 
--- Incorporate this within the `yank_code_fence` function later?
-vim.api.nvim_create_user_command("CopyCode", D.copy_code_fences, {})
-
-local keys = vim.api.nvim_replace_termcodes(
-    '<C-w>w"qpA<CR><C-\\><C-n><C-w>p',
-    true, false, true
-)
-
-vim.keymap.set('v', '<leader>r', function()
-    vim.cmd('normal! "qy')
-    vim.fn.setreg('q', vim.fn.getreg('q') .. '\n')
-    vim.api.nvim_feedkeys(keys, "n", false)
-end, { desc = 'Yank selection, append newline, switch pane, paste' })
-

@@ -1,9 +1,7 @@
-local M = {}
+#!/usr/bin/env lua
 
-local keys = vim.api.nvim_replace_termcodes(
-    '<C-w>w"qpA<CR><C-\\><C-n><C-w>p',
-    true, false, true
-)
+local M = {}
+local keys = vim.api.nvim_replace_termcodes('<C-w>w"qpA<CR><C-\\><C-n><C-w>p', true, false, true)
 
 local function find_enclosing_fence()
     local cur = vim.fn.line(".")
@@ -27,86 +25,7 @@ local function find_enclosing_fence()
 end
 
 
-function M.yank_code_fence()
-    local top, bottom = find_enclosing_fence()
-
-    if not top then
-        vim.notify("Not inside a code fence", vim.log.levels.WARN)
-        return
-    end
-
-    if bottom - top < 2 then
-        vim.notify("Code fence is empty", vim.log.levels.WARN)
-        return
-    end
-
-    vim.api.nvim_win_set_cursor(0, { top + 1, 0 })
-    vim.cmd("normal! V")
-    vim.api.nvim_win_set_cursor(0, { bottom - 1, 0 })
-    vim.cmd('normal! "qy')
-
-    local reg = vim.fn.getreg("q")
-    if not reg:match("\n\n$") then
-        vim.fn.setreg("q", reg .. "\n")
-    end
-
-    vim.api.nvim_feedkeys(keys, "n", false)
-end
-
-
-function M.split_code_block()
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-  -- Find the nearest previous opening fence
-  local fence
-  for i = row, 1, -1 do
-    if lines[i]:match("^```") then
-      fence = lines[i]
-      break
-    end
-  end
-
-  if not fence then
-    vim.notify("No code fence found", vim.log.levels.WARN)
-    return
-  end
-
-  vim.api.nvim_buf_set_lines(0, row-1, row-1, false, {
-    "```",
-    "",
-    fence,
-  })
-
-  vim.api.nvim_win_set_cursor(0, { row + 3, 0 })
-end
-
-
-function M.wrap_selection_in_fence()
-    -- exit visual mode so marks '< and '> are set
-    vim.cmd('normal! \27')  -- <Esc>
-
-    local start_pos = vim.fn.getpos("'<")
-    local end_pos = vim.fn.getpos("'>")
-    local start_line = start_pos[2] - 1  -- 0-indexed
-    local end_line = end_pos[2] - 1
-
-    vim.ui.input({ prompt = 'Language: ', default = "python" }, function(lang)
-        if lang == nil then
-            lang = ""
-        end
-
-        local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line + 1, false)
-
-        local fenced = { '```' .. lang }
-        vim.list_extend(fenced, lines)
-        table.insert(fenced, '```')
-
-        vim.api.nvim_buf_set_lines(0, start_line, end_line + 1, false, fenced)
-    end)
-end
-
-
-function M.copy_code_fences()
+local function copy_code_fences()
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     local blocks = {}
     local current_block = nil
@@ -146,12 +65,98 @@ function M.copy_code_fences()
         result = result .. "\nplt.close('all')\n"
     end
 
-    vim.fn.setreg("+", result)
-    vim.fn.setreg('"', result)
-
+    vim.fn.setreg("q", result)
     vim.notify(("Copied code from %d fence(s) to clipboard."):format(#blocks))
+    vim.api.nvim_feedkeys(keys, "n", false)
 end
 
+
+function M.yank_code_fence()
+    local top, bottom = find_enclosing_fence()
+
+    if not top then
+        vim.notify("Not inside a code fence", vim.log.levels.WARN)
+        copy_code_fences()
+        return
+    end
+
+    if bottom - top < 2 then
+        vim.notify("Code fence is empty", vim.log.levels.WARN)
+        return
+    end
+
+    vim.api.nvim_win_set_cursor(0, { top + 1, 0 })
+    vim.cmd("normal! V")
+    vim.api.nvim_win_set_cursor(0, { bottom - 1, 0 })
+    vim.cmd('normal! "qy')
+
+    local reg = vim.fn.getreg("q")
+    if not reg:match("\n\n$") then
+        vim.fn.setreg("q", reg .. "\n")
+    end
+    vim.api.nvim_feedkeys(keys, "n", false)
+end
+
+
+function M.run_selection()
+    vim.cmd('normal! "qy')
+    local reg = vim.fn.getreg("q")
+    if not reg:match("\n\n$") then
+        vim.fn.setreg("q", reg .. "\n")
+    end
+    vim.api.nvim_feedkeys(keys, "n", false)
+end
+
+
+function M.split_code_block()
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  -- Find the nearest previous opening fence
+  local fence
+  for i = row, 1, -1 do
+    if lines[i]:match("^```") then
+      fence = lines[i]
+      break
+    end
+  end
+
+  if not fence then
+    vim.notify("No code fence found", vim.log.levels.WARN)
+    return
+  end
+
+  vim.api.nvim_buf_set_lines(0, row-1, row-1, false, {
+    "```",
+    "",
+    fence,
+  })
+
+  vim.api.nvim_win_set_cursor(0, { row + 3, 0 })
+end
+
+
+function M.wrap_selection_in_fence()
+    vim.cmd('normal! \27')
+
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+    local start_line = start_pos[2] - 1  -- 0-indexed
+    local end_line = end_pos[2] - 1
+
+    vim.ui.input({ prompt = "Language: ", default = "python" }, function(lang)
+        if lang == nil then
+            lang = ""
+        end
+
+        local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line + 1, false)
+
+        local fenced = { "```" .. lang }
+        vim.list_extend(fenced, lines)
+        table.insert(fenced, "```")
+
+        vim.api.nvim_buf_set_lines(0, start_line, end_line + 1, false, fenced)
+    end)
+end
 
 
 return M
