@@ -1,19 +1,14 @@
 vim.g.mapleader = ","
 
-vim.api.nvim_set_keymap('n', '<leader>R', ':restart<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>W', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>z', '[s1z=', { noremap = true })
-vim.keymap.set("i", "<C-z>", "<Esc>mx[s1z=`xa", { desc = "Correct previous misspelled word" })
-vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader><Space>', ':NvimTreeToggle<CR>', { noremap = true })
+vim.api.nvim_set_keymap('!', '<C-d>', '<Del>', { desc="Delete", noremap=true })
+vim.api.nvim_set_keymap('!', '<C-h>', '<BS>', { desc="Backspace", noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>W', { desc="Previous window", noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { desc="Next window", noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', { desc="Previous buffer", noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { desc="Next buffer", noremap=true })
+vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>mx[s1z=`xa', { desc="Correct previous misspelled word" })
 
-vim.cmd[[
-imap <C-h> <BS>
-tnoremap <Esc> <C-\><C-n>
-]]
+vim.cmd [[ tnoremap <Esc> <C-\><C-n> ]]
 
 vim.cmd [[
 function! CopyMatches(reg, start, end) range
@@ -40,7 +35,7 @@ vim.api.nvim_create_user_command(
         vim.api.nvim_command("silent! %s/[‘’]/\'/g")
         vim.api.nvim_command('normal! `z')
     end,
-    {desc = "Replaces funny quotes with proper ones."}
+    { desc = "Replaces funny quotes with proper ones." }
 )
 
 vim.api.nvim_create_user_command(
@@ -59,12 +54,7 @@ vim.api.nvim_create_user_command(
         vim.api.nvim_command("s#\\v(\\w)(\\S*)#\\u\\1\\L\\2#g")
         vim.api.nvim_command("normal! kJ")
     end,
-    { desc = "Make title case from the current cursor position to EOL."}
+    { desc = "Make title case from the current cursor position to EOL." }
 )
-
-
-
-
-
 
 -- so ~/.config/nvim/after/plugin/luasnip.lua

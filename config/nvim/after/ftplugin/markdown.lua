@@ -1,8 +1,4 @@
---
--- ░█▄█░█▀█░█▀▄░█░█░█▀▄░█▀█░█░█░█▀█░░░░█░░░█░█░█▀█
--- ░█░█░█▀█░█▀▄░█▀▄░█░█░█░█░█▄█░█░█░░░░█░░░█░█░█▀█
--- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░░▀▀▀░▀▀▀░▀░▀
-
+#!/usr/bin/env lua
 
 vim.o.spell = true
 vim.bo.shiftwidth = 0
@@ -78,12 +74,12 @@ vim.keymap.set('v', '<leader>t', '!pandoc -t markdown-simple_tables<CR>',
 
 local D = require("utils.datascience")
 
-vim.keymap.set("n", "-", D.split_code_block, {desc="Split fenced code block", buffer=true})
-vim.keymap.set('x', '+', D.wrap_selection_in_fence, {desc='Wrap selection inside a code fence', buffer=true})
-vim.keymap.set("n", "<leader>r", D.yank_code_fence, {desc="Send code fence to an ipython session", buffer=true})
+vim.keymap.set('n', '<leader>r', D.yank_code_fence, { desc="Send code fence to an ipython session", buffer=true })
+vim.keymap.set('n', '-', D.split_code_block, { desc="Split fenced code block", buffer=true })
+vim.keymap.set('x', '+', D.wrap_selection_in_fence, { desc="Wrap selection inside a code fence", buffer=true })
 
 -- TODO: 
--- Incorporate this within the `yank_code_fence` function later.
+-- Incorporate this within the `yank_code_fence` function later?
 vim.api.nvim_create_user_command("CopyCode", D.copy_code_fences, {})
 
 local keys = vim.api.nvim_replace_termcodes(
