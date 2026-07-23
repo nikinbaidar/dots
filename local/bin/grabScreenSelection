@@ -2,11 +2,13 @@
 
 function openFilePickerDialog() {
     local CAPTURE=/tmp/screenshot.png
+    local default_screenshot_dir="$HOME/Pictures/screenshots/"
     local fnames=/tmp/fnames 
+    # Define Colors
+    local p=$'\001\e[00;33m\002'
+    local w=$'\001\e[00;37m\002'
     local output
     local sub_dir
-    local p="\e[00;33m"
-    local w="\e[00;37m"
 
     echo -e "\n${p}:: Select destination file:${w}\n"
 
@@ -16,27 +18,29 @@ function openFilePickerDialog() {
         -e bmp -e tif -e tiff -e avif -e heic -e heif \
         -E "_site" --base-directory "$HOME" >> $fnames
 
-    output=$(fzf < $fnames)
-    echo $output
+    output=$(fzf < "$fnames")
     rm -f $fnames
 
-    if [[ -z "$output" ]]; then
-        rm "$CAPTURE"
-        return 1
+    if [ -z "$output" ]; then
+        # If no file is selected, fallback to `default_screenshot_dir`
+        [ ! -d "${default_screenshot_dir}" ] && mkdir -p "${default_screenshot_dir}"
+        output="${default_screenshot_dir}"
     fi
 
-    if [[ -d "$output" ]]; then
-        echo -en "${p}:: Enter new filename: ${w}${output}" 
-        read -r filename
+    echo "The screenshot will be saved in '${output}'"
+    echo
+
+    if [ -d "$output" ]; then
+        read -er -p "${p}:: Enter new filename: ${w}" filename
         echo
+        ## TODO Guard against empty filenames?
         output="${output%/}/${filename}"
         sub_dir=$(dirname "$output")
         [[ ! -d $sub_dir ]] && mkdir -p "$sub_dir"
     fi
 
-
     if mv -i "$CAPTURE" "$output"; then
-         printf '![%s](%s)' "$(basename "${output%.*}")" "$output" \
+         printf '![%s](./%s)' "$output" "$(basename "${output}")" \
              | setsid -f xclip -selection primary >/dev/null 2>&1
     fi
 
