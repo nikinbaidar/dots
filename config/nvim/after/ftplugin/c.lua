@@ -1,15 +1,8 @@
---
--- ░█▀▀░░░░█░░░█░█░█▀█
--- ░█░░░░░░█░░░█░█░█▀█
--- ░▀▀▀░▀░░▀▀▀░▀▀▀░▀░▀
+#!/usr/bin/env lua
 
-function RunC()
-    vim.api.nvim_command('update!')
-    -- vim.api.nvim_command('below split')
-    vim.api.nvim_command('! gcc -o /tmp/a.out -lm % && /tmp/a.out ')
+local function run_c()
+    vim.cmd("update")
+    vim.cmd('! gcc -o /tmp/a.out -lm % && /tmp/a.out ')
 end
 
-vim.api.nvim_create_autocmd('BufEnter', {
-    pattern = '*.c',
-    command = 'nnoremap <leader>r :lua RunC()<CR>'
-})
+vim.keymap.set("n", "<leader>r", run_c, {desc="Compile and run C with gcc", buffer=true})
