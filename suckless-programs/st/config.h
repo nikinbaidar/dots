@@ -7,7 +7,6 @@
  */
 
 static char *font = "Hack Nerd Font:style=Regular:size=14";
-static char *font2 = "Hack Regular Nerd Font:pixelsize=10:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
