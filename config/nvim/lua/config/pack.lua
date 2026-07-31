@@ -16,6 +16,8 @@ vim.pack.add({
     gh('ibhagwan/fzf-lua'),
     gh('L3MON4D3/LuaSnip'),
     gh('nvim-mini/mini.pairs'),
+    gh('nvim-mini/mini.icons'),
+    gh('stevearc/oil.nvim'),
     gh('lukas-reineke/indent-blankline.nvim'),
     { src = gh('kylechui/nvim-surround'), version = vim.version.range("4.x") },
     gh('saghen/blink.lib'),
@@ -42,6 +44,8 @@ let g:terminal_color_3 = '#0b0e14'
 
 require("mason").setup()
 require("mini.pairs").setup()
+require("mini.icons").setup()
+require("oil").setup()
 require("todo-comments").setup({signs=false})
 require("ibl").setup({scope={enabled=false}})
 
