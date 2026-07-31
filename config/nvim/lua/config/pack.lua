@@ -16,8 +16,6 @@ vim.pack.add({
     gh('ibhagwan/fzf-lua'),
     gh('L3MON4D3/LuaSnip'),
     gh('nvim-mini/mini.pairs'),
-    gh('nvim-mini/mini.icons'),
-    gh('stevearc/oil.nvim'),
     gh('lukas-reineke/indent-blankline.nvim'),
     { src = gh('kylechui/nvim-surround'), version = vim.version.range("4.x") },
     gh('saghen/blink.lib'),
@@ -36,10 +34,7 @@ vim.pack.add({
 
 vim.cmd.colorscheme("ayu-dark")
 vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
-vim.cmd[[ 
-    hi! SpellCap  gui=None 
-    hi! IncSearch gui=reverse 
-]]
+vim.cmd[[ hi! SpellCap gui=None ]]
 
 vim.cmd [[
 let g:terminal_color_3 = '#0b0e14'
@@ -47,10 +42,8 @@ let g:terminal_color_3 = '#0b0e14'
 
 require("mason").setup()
 require("mini.pairs").setup()
-require("mini.icons").setup()
 require("todo-comments").setup({signs=false})
 require("ibl").setup({scope={enabled=false}})
-require("oil").setup()
 
 require("plugins.luasnip")
 require("plugins.blink")
