@@ -6,7 +6,7 @@ vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>W', { desc="Previous window", no
 vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>w', { desc="Next window", noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', { desc="Previous buffer", noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { desc="Next buffer", noremap=true })
-vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>mx[s1z=`xa', { desc="Correct previous misspelled word" })
+vim.api.nvim_set_keymap('i', '<C-z>', '<Esc>mx[s1z=`xA', { desc="Correct previous misspelled word" })
 
 vim.cmd [[ tnoremap <Esc> <C-\><C-n> ]]
 
@@ -20,31 +20,26 @@ let range = (a:start == a:end) ? '%' : a:start.','.a:end
 execute range.'s//\=len(add(hits, submatch(0))) ? submatch(0) : ""/gne'
 execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
-]]
 
-vim.cmd([[
 command! CopyWorkingDir let @+ = getcwd()
 command! -nargs=* -range -register CopyMatches call CopyMatches(<q-reg>, <line1>, <line2>)
-]])
+]]
 
+-- WARN: DO NOT RUN `FixFormatting` on this file.
 vim.api.nvim_create_user_command(
-    "FixQuotes",
+    "FixFormatting",
     function()
         vim.api.nvim_command('normal! mz')
         vim.api.nvim_command("silent! %s/[“”]/\"/g")
         vim.api.nvim_command("silent! %s/[‘’]/\'/g")
+        vim.cmd([[
+            silent! %s/\(^\s*\)\@<! \+\(\s*$\)\@!/ /g
+            silent! %s/\s\+$//g
+            silent! %s/[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]//g
+        ]])
         vim.api.nvim_command('normal! `z')
     end,
-    { desc = "Replaces funny quotes with proper ones." }
-)
-
-vim.api.nvim_create_user_command(
-    "TrimSpaces",
-    function()
-        vim.cmd([[silent! %s/\(^\s*\)\@<! \+\(\s*$\)\@!/ /g]])
-        vim.api.nvim_command("silent! %s/\\s\\+$//g")
-    end,
-    { desc = "Replace consecutive spaces in the entire buffer. Indentations and trailing spaces stay." }
+    { desc = "Fix formatting: Replace funny quotes, collapse spaces while preserving indentations, remove trailing whitespace and unwanted ASCII control characters from the entire file." }
 )
 
 vim.api.nvim_create_user_command(
