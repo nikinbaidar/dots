@@ -5,6 +5,7 @@ vim.o.undofile = true
 vim.o.clipboard = "unnamedplus"
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.incsearch = true
 vim.o.hlsearch = false
 vim.o.number = true
 vim.o.relativenumber = true
@@ -26,4 +27,6 @@ vim.o.spelllang = "en_us"
 vim.o.lazyredraw = true
 vim.o.statusline = "%{expand('%:p:h:t')}/%{expand('%:t')}"
 vim.o.signcolumn = 'yes:1'
-vim.o.mouse = ''
+vim.o.mouse = NULL
+vim.o.cmdheight = 0
+

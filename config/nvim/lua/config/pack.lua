@@ -2,7 +2,7 @@
 --
 local gh = function(x) return 'https://github.com/' .. x end
 
--- TODO: Migrate the following plugsin as well?
+-- TODO: Migrate the following plugins as well?
 --     * [ ] 'nikinbaidar/vim-dadbod',
 --     * [ ] 'kristijanhusak/vim-dadbod-ui',
 -- })
@@ -36,10 +36,9 @@ vim.pack.add({
 
 vim.cmd.colorscheme("ayu-dark")
 vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
-vim.cmd[[ hi! SpellCap gui=None ]]
-
-vim.cmd [[
-let g:terminal_color_3 = '#0b0e14'
+vim.cmd[[ 
+    hi! SpellCap gui=None 
+    hi! IncSearch gui=reverse guifg=#ffa700 
 ]]
 
 require("mason").setup()
