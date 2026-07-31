@@ -25,6 +25,12 @@ local function recursive_tag()
 end
 
 return {
+    s({ trig = "mbl", desc="Math block", }, {
+        t({"$$", ""}),
+        i(1),
+        t({"", "$$"}),
+        i(2),
+    }),
 
     s({
         trig = "cbl(%a*)",

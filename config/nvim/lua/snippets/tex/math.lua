@@ -29,6 +29,7 @@ end
 
 return {
     parse("ity", "\\infty"),
+    parse({trig="\\argmax", desc="arguments of the maxima", snippetType="autosnippet"}, "\\arg \\max"),
 
     s({trig="(%a)([ij%d])([ji%d])", regTrig=true, snippetType="autosnippet", desc=""}, {
         X(1), t("_{"), X(2), X(3), t("}")
@@ -132,7 +133,7 @@ return {
 
     }),
 
-    s({trig="cas", desc=""}, {
+    s({trig="cas", desc="Cases"}, {
         t({"\\begin{cases}", "\t \\; " }),
         i(1), t(" & \\text{"), i(2), t({"} \\\\", "\t \\; "}),
         i(3), t(" & \\text{"), i(4, "otherwise"), t({"}", ""}),

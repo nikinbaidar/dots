@@ -84,21 +84,16 @@ return {
 
     ms({ "use", "up", "pac" }, {
         t("\\usepackage"),
-        m(1, "geo", "[margin=1in]"),
         i(2),
         t("{"), i(1),
-        m(1, "geo", "metry"),
-        m(1, "ams", "math"),
         t("}"),
     }),
 
-    s({trig="tit", desc="Make Title"}, {
+    s({trig="\\title", desc="Make Title"}, {
         t("\\title{"), i(1), t({"}", ""}),
         t("\\author{"), i(2, "Nikin Baidar"), t({"}", ""}),
         t("\\date{"), i(3, "\\today"), t("}"),
     }),
-
-    parse({trig="mktit", snippetType="autosnippet", desc="Maketitle"}, "\\maketitle"),
 
     s({trig="beg", desc="Begin an environment"}, {
         t"\\begin{", i(1), t"}", i(2), t{"", ""},
