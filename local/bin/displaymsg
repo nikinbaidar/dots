@@ -4,14 +4,13 @@ parsed=$(getopt -o m:d: -l msg:,delay: -- "$@") || exit 1
 
 eval set -- "$parsed"
 
-DisplayMessage() {
+function DisplayMessage() {
     tput civis
     printf '\n'
     while IFS= read -r line; do
         printf ' %s\n' "${line}"
     done <<< "$DISPLAY_MSG"
     sleep $delay
-    return 0
 }
 
 message="A quick brown fox and jumped over the lazy dog"
@@ -31,6 +30,8 @@ while [[ -n "$1" ]]; do
             shift 2 
             ;;
         *)
+            # WARN: This is only for backwards compatibility for some older
+            # scripts. Use the `--msg` and `--delay` flag for new ones.
             message="$1"
             shift
             ;;

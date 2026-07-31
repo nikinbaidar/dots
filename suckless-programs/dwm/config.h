@@ -54,6 +54,7 @@ static const Rule rules[] = {
     {"st-floating",               "spnotes",    NULL,     SPTAG(1), -1, 1, 1,    -1, },
     {"st-floating",               "spterm",     NULL,     SPTAG(2), -1, 1, 1,    -1, },
     {"Matplotlib",                NULL,         NULL,     0,        -1, 1, 1,    -1, },
+    {"matplotlib",                NULL,         NULL,     0,        -1, 1, 1,    -1, },
     {"Lehte",                     NULL,         NULL,     0,        -1, 1, 1,    -1, },
     {"Interactive User Input",    NULL,         NULL,     0,        -1, 1, 1,    -1, },
     {"satty",                     NULL,         NULL,     0,        -1, 1, 1,    -1, },
