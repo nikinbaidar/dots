@@ -48,6 +48,8 @@ function openFilePickerDialog() {
 
 CAPTURE=/tmp/screenshot.png
 
+[[ -f $CAPTURE ]] && rm $CAPTURE
+
 slop_args=(-n -c 0.5,0.5,0.5,0.7)
 [[ -x /usr/bin/picom ]] && slop_args+=(-l --bordersize=0)
 
