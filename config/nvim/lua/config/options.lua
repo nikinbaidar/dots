@@ -27,6 +27,6 @@ vim.o.spelllang = "en_us"
 vim.o.lazyredraw = true
 vim.o.statusline = "%{expand('%:p:h:t')}/%{expand('%:t')}"
 vim.o.signcolumn = 'yes:1'
-vim.o.mouse = NULL
+vim.o.mouse = ''
 vim.o.cmdheight = 0
 

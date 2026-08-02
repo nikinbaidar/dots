@@ -9,9 +9,6 @@ case $1 in
         ;;
     *) 
         if [[ -n "$(git status -s)" ]]; then
-            cd Extras
-            /home/nikin/notes/Extras/logreading.py
-            cd ..
             git add .
             git commit -m "syncnotes $(date +'%F %R')"
             git push

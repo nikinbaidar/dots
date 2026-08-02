@@ -1,5 +1,7 @@
--- See [documentation](https://neovim.io/doc/user/pack/#vim.pack)
---
+#!/usr/bin/env lua
+
+-- NOTE: See [documentation](https://neovim.io/doc/user/pack/#vim.pack)
+
 local gh = function(x) return 'https://github.com/' .. x end
 
 -- TODO: Migrate the following plugins as well?
@@ -28,18 +30,9 @@ vim.pack.add({
 
 --  NOTE: 
 -- * Execute `vim.pack.update()` to update all plugins with new changes.
--- * Execute `vim.pack.del({"vim-surround"})` to delete an installed package.
 
-
--- NOTE: If the setup of any of the above plugins include more than one line, then
+-- TODO: If the setup of any of the above plugins include more than one line, then
 -- place them inside `/config/plugin` otherwise place them directly below.
-
-vim.cmd.colorscheme("ayu-dark")
-vim.api.nvim_set_hl(0, "LineNr", {fg="gray", bg = "none"})
-vim.cmd[[ 
-    hi! SpellCap gui=None 
-    hi! IncSearch gui=reverse guifg=#ffa700 
-]]
 
 require("mason").setup()
 require("mini.pairs").setup()
@@ -47,7 +40,7 @@ require("mini.icons").setup()
 require("oil").setup()
 require("todo-comments").setup({signs=false})
 require("ibl").setup({scope={enabled=false}})
-
+require("plugins.ayu")
 require("plugins.luasnip")
 require("plugins.blink")
 require("plugins.fzf")
@@ -55,13 +48,13 @@ require("plugins.lsp")
 require("plugins.treesitter")
 require("plugins.otter")
 
--- WARN:
--- If you want to use regex transformations in LuaSnip snippets, you need to
--- build the `jsregexp` manually since vim.pack does not seem to provde a build
--- command.
+--  NOTE: On a new system:
+--  1. Install `jsregexp` if you want to use regex transformations with LuaSnip.
+--  1. Install rust on the host.
 --
--- TODO:
+-- WARN: You need to build the `jsregexp` manually since vim.pack does not to
+-- provide a build command.
 -- ```bash
--- cd /home/nikin/.local/share/nvim/site/pack/core/opt/LuaSnip
+-- cd $HOME/.local/share/nvim/site/pack/core/opt/LuaSnip
 -- make jsregexp
 -- ```

@@ -72,6 +72,7 @@ end
 
 
 function M.yank_code_fence()
+    vim.cmd(":normal! mh")
     local top, bottom = find_enclosing_fence()
 
     if not top then
@@ -95,6 +96,7 @@ function M.yank_code_fence()
         vim.fn.setreg("q", reg .. "\n")
     end
     vim.api.nvim_feedkeys(keys, "n", false)
+    vim.cmd(":normal! `h")
 end
 
 
