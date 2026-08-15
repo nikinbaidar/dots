@@ -2,32 +2,44 @@
 
 function show_definition() {
     local word
-
     word=$(xclip -o -selection clipboard | xargs)
 
     if [[ -n $word ]]; then
         local word_enc query rows cols width footer indent wrap_width pad
         word_enc=$(jq -rn --arg w "$word" '$w|@uri')
-        query=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc")
+        query=""
+        pad="  "
+
+        for attempt in {1..3}; do
+            if query=$(curl -fs --max-time 5 \
+                    "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc"); then
+                break
+            fi
+            if [[ $attempt -lt 3 ]]; then
+                sleep $((attempt))
+            fi
+        done
+
         if [[ -z $query ]]; then
             echo -e "${pad}Network error — could not reach dictionary API."
-        else 
-            rows=$(tput lines)
-            cols=$(tput cols)
-            width=$((cols - 4))
-            indent=4
-            wrap_width=$((width - indent))
-            pad="  "
+            read x
+            return
+        fi
 
-            tput civis
-            {
+        rows=$(tput lines)
+        cols=$(tput cols)
+        width=$((cols - 4))
+        indent=4
+        wrap_width=$((width - indent))
+
+        tput civis
+        {
             echo
             echo -e "${pad}${word,,}\n"
-            if echo "$query" | jq -e 'type == "object"' >/dev/null 2>&1; then
+            if ! echo "$query" | jq -e '.[0].meanings?' >/dev/null 2>&1; then
                 echo -e "${pad}No definitions found.\e[0m"
             else
-                echo "$query" | jq \
-                    -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
+                echo "$query" | jq -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
                 while IFS=$'\001' read -r pos def; do
                     echo "${pad}${pos^^}"
                     echo "$def" | fold -s -w "$wrap_width" | awk \
@@ -39,9 +51,8 @@ function show_definition() {
                     echo
                 done
             fi
-            } | most
-        fi
-
+        } | cat #less -X -K
+    read -n 1
     fi
 }
 
