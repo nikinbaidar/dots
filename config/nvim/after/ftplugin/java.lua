@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 --
 -- ░▀▀█░█▀█░█░█░█▀█░░░░█░░░█░█░█▀█
 -- ░░░█░█▀█░▀▄▀░█▀█░░░░█░░░█░█░█▀█
@@ -21,14 +22,9 @@ end,
 {desc = "Fix path of a local java packages."}
 )
 
-
-function RunJava()
-    vim.api.nvim_command('update!')
-    vim.api.nvim_command('below split')
-    vim.api.nvim_command('term java %')
+local function run_java()
+    vim.cmd("update")
+    vim.cmd('! java %')
 end
 
-vim.api.nvim_create_autocmd('BufEnter', {
-    pattern = '*.java',
-    command = 'nnoremap <leader>r :lua RunJava()<CR>'
-})
+vim.keymap.set("n", "<leader>r", run_java, {desc="Run Java", buffer=true})

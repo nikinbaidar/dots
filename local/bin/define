@@ -1,58 +1,80 @@
 #!/usr/bin/env bash
 
 function show_definition() {
-    local word
-    word=$(xclip -o -selection clipboard | xargs)
+    local word=$(xclip -o -selection clipboard | xargs)
+    local footer="press any key"
 
     if [[ -n $word ]]; then
         local word_enc query rows cols width footer indent wrap_width pad
+
         word_enc=$(jq -rn --arg w "$word" '$w|@uri')
         query=""
         pad="  "
 
         for attempt in {1..3}; do
-            if query=$(curl -fs --max-time 5 \
-                    "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc"); then
+            if query=$(curl -fs --max-time 5 "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc")
+            then
                 break
-            fi
-            if [[ $attempt -lt 3 ]]; then
-                sleep $((attempt))
             fi
         done
 
-        if [[ -z $query ]]; then
-            echo -e "${pad}Network error — could not reach dictionary API."
-            read x
-            return
-        fi
-
+        # Footer
         rows=$(tput lines)
         cols=$(tput cols)
+
+        tput sc
+        tput cup $((rows - 2)) $(((cols - ${#footer}) / 2))
+        echo -e "\e[90m${footer}\e[0m"
+        tput rc
+
+
+
+
+
         width=$((cols - 4))
         indent=4
         wrap_width=$((width - indent))
 
         tput civis
-        {
-            echo
-            echo -e "${pad}${word,,}\n"
-            if ! echo "$query" | jq -e '.[0].meanings?' >/dev/null 2>&1; then
-                echo -e "${pad}No definitions found.\e[0m"
-            else
-                echo "$query" | jq -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
-                while IFS=$'\001' read -r pos def; do
-                    echo "${pad}${pos^^}"
-                    echo "$def" | fold -s -w "$wrap_width" | awk \
-                        -v bullet="${pad}${pad}• " \
-                        -v cont="${pad}${pad}${pad}" '
-                        NR==1 { print bullet $0; next }
-                        { print cont $0 }
-                    '
-                    echo
-                done
+
+        if [[ -z $query ]]; then
+            echo -e "\n${pad}${word,,}\n"
+            tput cnorm
+            echo -en "${pad}No definitions found. "
+            read -p "Search cambridge? [N/y] " -n 1 ans
+            if [[ ${ans} == "y" ]]; then
+                if pgrep firefox > /dev/null; then
+                    firefox-developer-edition \
+                        "https://dictionary.cambridge.org/dictionary/english/${word,,}"
+                else
+                    echo sdjfklsdjfksd
+                    setsid -f firefox-developer-edition \
+                        "https://dictionary.cambridge.org/dictionary/english/${word,,}"
+                fi
             fi
-        } | cat #less -X -K
-    read -n 1
+            exit 0
+        else
+            {
+                echo
+                echo -e "${pad}${word,,}\n"
+                if ! echo "$query" | jq -e '.[0].meanings?' >/dev/null 2>&1; then
+                    echo -e "${pad}No definitions found.\e[0m"
+                else
+                    echo "$query" | jq -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
+                    while IFS=$'\001' read -r pos def; do
+                        echo "${pad}${pos^^}"
+                        echo "$def" | fold -s -w "$wrap_width" | awk \
+                            -v bullet="${pad}${pad}• " \
+                            -v cont="${pad}${pad}${pad}" '
+                            NR==1 { print bullet $0; next }
+                            { print cont $0 }
+                        '
+                        echo
+                    done
+                fi
+            } | cat #less -X -K
+            read -n 1
+        fi
     fi
 }
 

@@ -14,7 +14,7 @@ vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.confirm = false
 vim.opt.path:append("**,")
 vim.o.textwidth = 80
@@ -29,4 +29,3 @@ vim.o.statusline = "%{expand('%:p:h:t')}/%{expand('%:t')}"
 vim.o.signcolumn = 'yes:1'
 vim.o.mouse = ''
 vim.o.cmdheight = 0
-

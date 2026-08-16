@@ -16,7 +16,6 @@ function interactive_input() {
     
     # Footer
     rows=$(tput lines)
-
     tput sc
     tput cup $((rows - 2)) $(((cols - ${#footer}) / 2))
     echo -e "\e[90m${footer}\e[0m"

@@ -1,8 +1,9 @@
 
 return {
     parse({trig="hlw", desc="", snippetType="autosnippet"}, "Hello, World!"),
-    parse({trig="repo", desc="", snippetType="autosnippet"}, "repository"),
     parse({trig="dset", desc="", snippetType="autosnippet"}, "dataset"),
+    parse({trig="Dset", desc="", snippetType="autosnippet"}, "Dataset"),
+    parse({trig="w/o", desc="", snippetType="autosnippet"}, "without"),
     parse("~~", "≈"),
 
     s({trig="date", desc="Insert today's date"}, {

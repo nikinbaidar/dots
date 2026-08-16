@@ -27,6 +27,15 @@ local function ViewPDF()
     end
 end
 
+
+local function run_tex()
+    vim.cmd("update")
+    vim.cmd('! latexmk -pdf -silent %')
+end
+
+
+vim.keymap.set("n", "<leader>r", run_tex, {desc="Run tex", buffer=true})
+
 vim.b.spell = true
 
 vim.keymap.set('n', '<leader>v', ViewPDF, {silent=true, desc="View complied pdf"})
@@ -39,9 +48,4 @@ vim.api.nvim_create_user_command(
     end, {
     bang = true,
     desc = "Add bibliography to tex docs",
-})
-
-vim.api.nvim_create_autocmd({'BufEnter'}, {
-    pattern = '*.tex',
-    command = 'nnoremap <leader>r :call RunLatex()<CR>'
 })
