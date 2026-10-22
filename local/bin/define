@@ -1,111 +1,132 @@
 #!/usr/bin/env bash
 
-function show_definition() {
-    local word=$(xclip -o -selection clipboard | xargs)
-    local footer="press any key"
+readonly WIN_GEOM="80x30"
 
-    if [[ -n $word ]]; then
-        local word_enc query rows cols width footer indent wrap_width pad
+show_definition() {
+    local raw 
+    local word 
+    local body 
+    local cols 
+    local width 
+    local pad="  "
 
-        word_enc=$(jq -rn --arg w "$word" '$w|@uri')
-        query=""
-        pad="  "
+    raw=$(xclip -o -selection clipboard)
+    # Keeps only the first whitespace-separated token, stripped to letters,
+    # apostrophes and hyphens. Empty output means "no usable word".
+    word=${raw//[^[:alpha:]\'-]/}
+    [[ -z $word ]] && return 1
 
-        for attempt in {1..3}; do
-            if query=$(curl -fs --max-time 5 "https://api.dictionaryapi.dev/api/v2/entries/en/$word_enc")
-            then
-                break
+    cols=$(tput cols)
+    width=$(( cols - ${#pad} - 1 ))
+
+    body=$(dict -d wn "$word" 2>/dev/null | awk -v W="$width" -v P="$pad" '
+        BEGIN {
+            name["n"] = "noun";      name["v"] = "verb"
+            name["a"] = "adjective"; name["s"] = "adjective"
+            name["adj"] = "adjective"
+            name["r"] = "adverb";    name["adv"] = "adverb"
+        }
+        function emit(   n, i, w, vis, len, plen, dim, line) {
+            if (!inSense) return
+            plen = length(P) + 4
+            line = P sprintf("%-3s", lab) " "
+            len = plen; dim = 0
+            n = split(cur, words, " ")
+            for (i = 1; i <= n; i++) {
+                w = words[i]; vis = length(w)
+                if (len > plen && len + 1 + vis > W) {
+                    print line
+                    line = sprintf("%*s", plen, ""); len = plen
+                } else if (len > plen) {
+                    line = line " "; len++
+                }
+                line = line w
+                len += vis
+            }
+            print line
+            print ""
+            inSense = 0; cur = ""
+        }
+        /^[ \t]+((adj|adv|n|v|a|s|r) )?[0-9]+:/ {
+            emit()
+            match($0, /^[ \t]+((adj|adv|n|v|a|s|r) )?[0-9]+:/)
+            lab = substr($0, 1, RLENGTH)
+            gsub(/[: \t]+$/, "", lab); gsub(/^[ \t]+/, "", lab)
+            split(lab, parts, " ")
+            if (parts[1] in name) {
+                pos = name[parts[1]]
+                if (pos != curpos) {
+                    print P "\033[1;35m" pos "\033[0m"
+                    print ""
+                    curpos = pos
+                }
+                lab = parts[2]
+            } else {
+                lab = parts[1]
+            }
+            lab = lab "."
+            cur = substr($0, RLENGTH + 1)
+            inSense = 1
+            next
+        }
+        /^[ \t]+[^ \t]/ {
+            if (!inSense) next
+            t = $0; sub(/^[ \t]+/, "", t)
+            cur = cur " " t
+            next
+        }
+        { emit() }
+        END { emit() }
+    ')
+
+    if [[ -z $body ]]; then
+        clear
+        printf '\n%s\e[1;36m%s\e[0m\n\n' "$pad" "${word,,}"
+        printf '%sNo definition found in WordNet.\n\n' "$pad"
+        read -p "${pad}Search online? [N/y] " -n 1 ans
+        if [[ ${ans} == "y" ]]; then
+            if pgrep firefox > /dev/null; then
+                firefox-developer-edition \
+                    "https://dictionary.cambridge.org/dictionary/english/${raw,,}"
+            else
+                setsid -f firefox-developer-edition \
+                    "https://dictionary.cambridge.org/dictionary/english/${raw,,}"
             fi
-        done
-
-        # Footer
-        rows=$(tput lines)
-        cols=$(tput cols)
-
-        tput sc
-        tput cup $((rows - 2)) $(((cols - ${#footer}) / 2))
-        echo -e "\e[90m${footer}\e[0m"
-        tput rc
-
-
-
-
-
-        width=$((cols - 4))
-        indent=4
-        wrap_width=$((width - indent))
-
-        tput civis
-
-        if [[ -z $query ]]; then
-            echo -e "\n${pad}${word,,}\n"
-            tput cnorm
-            echo -en "${pad}No definitions found. "
-            read -p "Search cambridge? [N/y] " -n 1 ans
-            if [[ ${ans} == "y" ]]; then
-                if pgrep firefox > /dev/null; then
-                    firefox-developer-edition \
-                        "https://dictionary.cambridge.org/dictionary/english/${word,,}"
-                else
-                    echo sdjfklsdjfksd
-                    setsid -f firefox-developer-edition \
-                        "https://dictionary.cambridge.org/dictionary/english/${word,,}"
-                fi
-            fi
-            exit 0
-        else
-            {
-                echo
-                echo -e "${pad}${word,,}\n"
-                if ! echo "$query" | jq -e '.[0].meanings?' >/dev/null 2>&1; then
-                    echo -e "${pad}No definitions found.\e[0m"
-                else
-                    echo "$query" | jq -r '.[0].meanings[] | "\(.partOfSpeech)\u0001\(.definitions[0].definition)"' |
-                    while IFS=$'\001' read -r pos def; do
-                        echo "${pad}${pos^^}"
-                        echo "$def" | fold -s -w "$wrap_width" | awk \
-                            -v bullet="${pad}${pad}• " \
-                            -v cont="${pad}${pad}${pad}" '
-                            NR==1 { print bullet $0; next }
-                            { print cont $0 }
-                        '
-                        echo
-                    done
-                fi
-            } | cat #less -X -K
-            read -n 1
         fi
+        return 0
     fi
+
+    tput smcup
+    clear
+    {
+        printf '\n%s\e[1;36m%s\e[0m\n\n' "$pad" "${word,,}"
+        printf '%s\n' "$body"
+    } | less -R -X
+    tput rmcup
 }
 
 export -f show_definition
-
-old_clip=$(xclip -o -selection clipboard 2>/dev/null)
 
 wid=$(xdotool getmouselocation --shell | awk -F= '/WINDOW/{print $2}')
 wid=$(xprop -id "$wid" WM_CLASS | awk '{print $NF}')
 wid=${wid//\"/}
 
-echo $wid > /tmp/wid
 case "$wid" in
-    st*)
-        xdotool key --clearmodifiers yiw
+    st*|sioyek) 
+        # WARN: Clipboard preservation does not work with sioyek and st.
         ;;
     *)
+        xclip -o -selection clipboard > /tmp/clip.old
+        sleep 0.5
         xdotool key --clearmodifiers ctrl+c
         ;;
 esac
 
-sleep 0.5
-
-word="$(xclip -o -selection clipboard 2>/dev/null | tr -d '\n' | xargs)"
-
-[[ -z $word ]] && exit 0
-
-st -c "Lehte" -T "Lehte" -n "Terminal" -g 80x20 \
+st -c "Lehte" -T "Lehte" -n "Terminal" -g ${WIN_GEOM} \
     bash -c "show_definition"
 
 # Restore the user's previous clipboard contents so we don't clobber it.
-if [[ -n $old_clip ]]; then
-    printf '%s' "$old_clip" | xclip -selection clipboard
+if [[ -f /tmp/clip.old ]] then
+    xclip -selection clipboard < /tmp/clip.old
+    rm /tmp/clip.old
 fi
