@@ -18,7 +18,7 @@ done &
 
 udiskie &
 unclutter --timeout 1 --start-hidden --fork
-moncon --dual
+moncon --init
 xset -dpms && xset s off &
 keyd-application-mapper -d
 
