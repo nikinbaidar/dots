@@ -31,7 +31,7 @@ return {
     parse("ity", "\\infty"),
     parse({trig="\\argmax", desc="arguments of the maxima", snippetType="autosnippet"}, "\\arg \\max"),
 
-    s({trig="(%a)([ij%d])([ji%d])", regTrig=true, snippetType="autosnippet", desc=""}, {
+    s({trig="(%a)([ij%d])([ji%d])", regTrig=true, desc="Quick subscript"}, {
         X(1), t("_{"), X(2), X(3), t("}")
     }),
 

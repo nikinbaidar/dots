@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 
 local M = {}
-local keys = vim.api.nvim_replace_termcodes('<C-w>w"qpA<CR><C-\\><C-n><C-w>p', true, false, true)
+local keys = vim.api.nvim_replace_termcodes('<C-w>w"qpA<C-m><C-\\><C-n><C-w>p', true, false, true)
 
 local function find_enclosing_fence()
     local cur = vim.fn.line(".")
