@@ -3,17 +3,17 @@
 readonly WIN_GEOM="80x30"
 
 show_definition() {
-    local raw 
     local word 
     local body 
     local cols 
     local width 
     local pad="  "
 
-    raw=$(xclip -o -selection clipboard)
-    # Keeps only the first whitespace-separated token, stripped to letters,
-    # apostrophes and hyphens. Empty output means "no usable word".
-    word=${raw//[^[:alpha:]\'-]/}
+    word=$(xclip -o -selection clipboard)
+    word=${word,,}
+    word="${word#"${word%%[![:space:]]*}"}"
+    word="${word%"${word##*[![:space:]]}"}"
+
     [[ -z $word ]] && return 1
 
     cols=$(tput cols)
@@ -56,7 +56,7 @@ show_definition() {
             if (parts[1] in name) {
                 pos = name[parts[1]]
                 if (pos != curpos) {
-                    print P "\033[1;35m" pos "\033[0m"
+                    print P pos
                     print ""
                     curpos = pos
                 }
@@ -81,52 +81,43 @@ show_definition() {
 
     if [[ -z $body ]]; then
         clear
-        printf '\n%s\e[1;36m%s\e[0m\n\n' "$pad" "${word,,}"
+        printf '\n%s%s\n\n' "$pad" "${word,,}"
         printf '%sNo definition found in WordNet.\n\n' "$pad"
         read -p "${pad}Search online? [N/y] " -n 1 ans
         if [[ ${ans} == "y" ]]; then
-            if pgrep firefox > /dev/null; then
-                firefox-developer-edition \
-                    "https://dictionary.cambridge.org/dictionary/english/${raw,,}"
+            url="https://dictionary.cambridge.org/dictionary/english/${word}"
+            if pgrep firefox > /dev/null
+            then
+                firefox-developer-edition "$url"
             else
-                setsid -f firefox-developer-edition \
-                    "https://dictionary.cambridge.org/dictionary/english/${raw,,}"
+                setsid -f firefox-developer-edition "$url"
             fi
         fi
         return 0
     fi
-
+    # body+=$'\n\n\n'
     tput smcup
     clear
     {
-        printf '\n%s\e[1;36m%s\e[0m\n\n' "$pad" "${word,,}"
+        printf '\n%s%s\n\n' "$pad" "${word,,}"
         printf '%s\n' "$body"
-    } | less -R -X
+    } | less -RX
     tput rmcup
 }
 
 export -f show_definition
 
 wid=$(xdotool getmouselocation --shell | awk -F= '/WINDOW/{print $2}')
-wid=$(xprop -id "$wid" WM_CLASS | awk '{print $NF}')
-wid=${wid//\"/}
-
-case "$wid" in
-    st*|sioyek) 
-        # WARN: Clipboard preservation does not work with sioyek and st.
-        ;;
-    *)
-        xclip -o -selection clipboard > /tmp/clip.old
-        sleep 0.5
-        xdotool key --clearmodifiers ctrl+c
-        ;;
-esac
-
-st -c "Lehte" -T "Lehte" -n "Terminal" -g ${WIN_GEOM} \
-    bash -c "show_definition"
-
-# Restore the user's previous clipboard contents so we don't clobber it.
-if [[ -f /tmp/clip.old ]] then
-    xclip -selection clipboard < /tmp/clip.old
-    rm /tmp/clip.old
+class=$(xprop -id "$wid" WM_CLASS | awk '{print $NF}')
+class=${class//\"/}
+if [[ $class != st* ]]; then
+    # WARN: Clipboard preservation does not work with st.
+    saved=$(xclip -o -selection clipboard 2> /dev/null)
+    sleep 0.5
+    xdotool key --clearmodifiers ctrl+c
 fi
+
+st -c "Lehte" -T "Lehte" -n "Terminal" -g ${WIN_GEOM} bash -c "show_definition"
+
+# Restore saved clipboard
+[[ -n $saved ]] && printf '%s' "$saved" | xclip -selection clipboard
