@@ -95,13 +95,13 @@ show_definition() {
         fi
         return 0
     fi
-    # body+=$'\n\n\n'
+
     tput smcup
     clear
     {
         printf '\n%s%s\n\n' "$pad" "${word,,}"
         printf '%s\n' "$body"
-    } | less -RX
+    } | less -RXc
     tput rmcup
 }
 
