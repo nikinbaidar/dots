@@ -10,9 +10,12 @@ show_definition() {
     local pad="  "
 
     word=$(xclip -o -selection clipboard)
-    word=${word,,}
+    # NOTE: Remove surrounding white-space and trailing dots, commas and
+    # semicolons.
+    word="${word,,}"
     word="${word#"${word%%[![:space:]]*}"}"
     word="${word%"${word##*[![:space:]]}"}"
+    word="${word%[.,;]}"
 
     [[ -z $word ]] && return 1
 
@@ -113,8 +116,8 @@ class=${class//\"/}
 if [[ $class != st* ]]; then
     # WARN: Clipboard preservation does not work with st.
     saved=$(xclip -o -selection clipboard 2> /dev/null)
-    sleep 0.5
     xdotool key --clearmodifiers ctrl+c
+    sleep 0.20
 fi
 
 st -c "Lehte" -T "Lehte" -n "Terminal" -g ${WIN_GEOM} bash -c "show_definition"
