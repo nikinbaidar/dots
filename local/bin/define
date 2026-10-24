@@ -22,7 +22,7 @@ show_definition() {
     cols=$(tput cols)
     width=$(( cols - ${#pad} - 1 ))
 
-    body=$(dict -d wn "$word" 2>/dev/null | awk -v W="$width" -v P="$pad" '
+    body=$(dict -h 127.0.0.1 -d wn "$word" 2>/dev/null | awk -v W="$width" -v P="$pad" '
         BEGIN {
             name["n"] = "noun";      name["v"] = "verb"
             name["a"] = "adjective"; name["s"] = "adjective"
@@ -120,7 +120,7 @@ if [[ $class != st* ]]; then
     sleep 0.20
 fi
 
-st -c "Lehte" -T "Lehte" -n "Terminal" -g ${WIN_GEOM} bash -c "show_definition"
+st -c Lehte -T Lehte -n Terminal -g ${WIN_GEOM} bash -c show_definition
 
 # Restore saved clipboard
 [[ -n $saved ]] && printf '%s' "$saved" | xclip -selection clipboard
