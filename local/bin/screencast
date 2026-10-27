@@ -32,6 +32,21 @@ Options:
 EOF
 }
 
+get_device_name() {
+    pactl list "$1" | awk -v name="$2" '
+        /^[[:space:]]*Name: / {
+            n = $0
+            sub(/^[[:space:]]*Name: /, "", n)
+            found = (n == name)
+        }
+        found && /^[[:space:]]*Description: / {
+            sub(/^[[:space:]]*Description: /, "")
+            print
+            exit
+        }
+    '
+}
+
 
 watch_recording() {
     selection=$(fd -I -t f . "$SCREENCAST_DIR" -x basename | fzf) || exit 1
@@ -40,57 +55,61 @@ watch_recording() {
 
 
 start_recording () {
-    if [ -z "${filename}" ]
-    then
+    if [ -z "$filename" ]; then
         echo "Filename not specified. Aborting..."
-        exit 1
+        return 1
     fi
 
-    if [[ "$(basename -- "$filename")" != *.* ]]
-    then
-        filename="${filename}.mkv"
+    if [[ "$(basename -- "$filename")" != *.* ]]; then
+        filename="$filename.mkv"
     fi
 
     output="${SCREENCAST_DIR}/${filename}"
 
-    if [ -f "${output}" ]
-    then
-        read -r -p "'${output}' is an existing file. Do you want to overwrite it? [y/N]? " answer
-        case "${answer}" in
-            [yY]) ;;
-            *) exit 1;;
-        esac
+    if [[ -e "$output" ]]; then
+        read -r -p "'$output' already exists. Overwrite? [y/N]? " answer
+        [[ "$answer" =~ ^[yY]$  ]] || return 1
     fi
 
     read W H X Y <<< $(xrandr | awk '/ primary / { split($4,a,"[+x]"); print a[1], a[2], a[3], a[4] }')
 
-    sink="$(pactl info | grep 'Default Sink' | awk '{print $3}').monitor"
-    source="$(pactl info | grep 'Default Source' | awk '{print $3}')"
-
-    if [ -d "${metadata}" ]
-    then
+    if [ -d "$metadata" ]; then
         msg="Recording resumed"
     else
         mkdir -p "${metadata}"
         msg="Recording started"
     fi
 
-    echo title=${filename} > ${metadata}/info
-    echo resolution=${W}x${H} >> ${metadata}/info
-    echo filepath=${output} >> ${metadata}/info
+    local audio_sink="$(pactl get-default-sink)"
+    local audio_source="$(pactl get-default-source)"
+    local source_name=$(get_device_name sources $audio_source)
+    local sink_name=$(get_device_name sinks $audio_sink)
 
-    if [[ "$mode" == '1' ]]; then
-        echo source=${source} >> ${metadata}/info
-        echo sink=${sink} >> ${metadata}/info
+    printf 'title=%s\nresolution=%sx%s\nfilepath=%s\n' \
+        "$filename" "$W" "$H" "$output" > "$metadata/info"
+
+    if [ $mode = 1 ]; then
+        # WARN: This assumes if the source and sink are the same devices then it
+        # is a bluetooth device.
+        if [[ "$source_name" = "$sink_name" ]]; then
+            local mac_addr=${audio_source#bluez_input.}
+            local card=bluez_card.${mac_addr//:/_}
+            pactl set-card-profile $card headset-head-unit 
+            echo $card > $metadata/card
+            echo $source_name profile set to headset-head-unit
+            echo WARN: This does not guarantee audio. Do a screencast check first.
+        fi
+        echo source=${source_name} >> ${metadata}/info
+        echo sink=${sink_name} >> ${metadata}/info
         ffmpeg -y \
             -f x11grab \
             -r 30 \
             -s ${W}x${H} \
             -i :0.0+${X},${Y} \
             -f pulse \
-            -i "${source}" \
+            -i "${audio_source}" \
             -f pulse \
-            -i "${sink}" \
+            -i "${audio_sink}.monitor" \
             -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
             -map 0:v \
             -map "[a]" \
@@ -102,8 +121,10 @@ start_recording () {
             "${output}" \
             -hide_banner \
             -loglevel error &
+        echo $! > $metadata/pid.ffmpeg
     elif [[ "$mode" == 2 ]]; then
-        echo source=${source} >> ${metadata}/info
+        echo source=${source_name} >> ${metadata}/info
+        echo sink= >> ${metadata}/info
         ffmpeg -y \
             -f x11grab \
             -r 30 \
@@ -120,14 +141,16 @@ start_recording () {
             "${output}" \
             -hide_banner \
             -loglevel error &
+        echo $! > $metadata/pid.ffmpeg
     else
-        echo sink=${sink} >> ${metadata}/info
+        echo source= >> ${metadata}/info
+        echo sink=${sink_name} >> ${metadata}/info
         ffmpeg -y \
             -f x11grab \
             -r 30 \
             -s ${W}x${H} \
             -i :0.0+${X},${Y} \
-            -f pulse -i "${sink}" \
+            -f pulse -i "${sink}.monitor" \
             -map 0:v \
             -map 1:a \
             -c:v libx264 \
@@ -137,11 +160,12 @@ start_recording () {
             "${output}" \
             -hide_banner \
             -loglevel error &
+        echo $! > $metadata/pid.ffmpeg
     fi
 
     echo $(date +'%s') > ${metadata}/starttime
 
-    dm -msg "$msg"
+    dm --msg "$msg"
 
     if [[ -f $metadata/elapsedtime ]]; then
         screencast_rec_timer.sh $(cat $metadata/elapsedtime) &
@@ -150,7 +174,7 @@ start_recording () {
     fi
 
     REVERSETIMER_PID=$!
-    echo $REVERSETIMER_PID > $metadata/rec.pid
+    echo $REVERSETIMER_PID > $metadata/pid.recording_timer
 
 }
 
@@ -166,17 +190,17 @@ pause_recording() {
         echo $elapsed_time > $metadata/elapsedtime
         pkill ffmpeg
         while pgrep ffmpeg > /dev/null; do sleep 0.1; done
-        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
+        [[ -f $metadata/pid.recording_timer ]] && kill -HUP "$(cat "$metadata/pid.recording_timer")" >/dev/null 2>&1
 
-        dm -msg "Recording paused"
+        dm --msg "Recording paused"
 
         screencast_rec_timer.sh -P $(cat $metadata/elapsedtime) &
         REVERSETIMER_PID=$!
-        echo $REVERSETIMER_PID > $metadata/rec.pid
+        echo $REVERSETIMER_PID > $metadata/pid.recording_timer
 
         echo paused=true >> $metadata/info
     else
-        dm -msg "Nothing to pause"
+        dm --msg "Nothing to pause"
         exit 1
     fi
 }
@@ -189,33 +213,49 @@ resume_recording() {
         echo ${fp} >> ${metadata}/mergelist.txt
         filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1 | cut -d '_' -f 1)_$(date +'%s').mkv"
         grep -q 'source=' ${metadata}/info && mode=1 || mode=0
-        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
+        [[ -f $metadata/pid.recording_timer ]] && kill -HUP "$(cat "$metadata/pid.recording_timer")" >/dev/null 2>&1
         start_recording # again
     else
-        dm "Nothing to resume"
+        dm --msg "Nothing to resume"
         exit 1
     fi
 }
 
 
 stop_recording () {
-    if pgrep ffmpeg &> /dev/null
-    then
-        pkill ffmpeg
-        while pgrep ffmpeg > /dev/null; do sleep 0.1; done
-        [[ -f $metadata/rec.pid ]] && kill -HUP "$(cat "$metadata/rec.pid")" >/dev/null 2>&1
-        dm "Recording stopped"
+
+    if [[ ! -d $metadata ]]; then
+        dm --msg "Nothing to stop"
+        return 1
     fi
 
-    if [ -f ${metadata}/mergelist.txt ]
-    then
+    local ffmpeg_pid=$(<$metadata/pid.ffmpeg)
+    local recording_timer_pid=$(<$metadata/pid.recording_timer)
+
+    kill $ffmpeg_pid
+    echo finishing current screencast
+    # NOTE: Wait ffmpeg to close gracefully, wait till it finishes correctly and completely.
+    while kill -0 $ffmpeg_pid 2>/dev/null; do
+        sleep 0.5 
+    done
+
+
+    kill -HUP $recording_timer_pid
+    dm --msg "Recording stopped"
+
+    if [ -f $metadata/card ]; then
+        card=$(<$metadata/card)
+        pactl set-card-profile $card a2dp-sink
+        echo $card profile set to a2dp-sink
+    fi
+
+    if [ -f ${metadata}/mergelist.txt ]; then
         fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
         echo ${fp} >> ${metadata}/mergelist.txt
         sed -i "s|^|file '|; s|$|'|" ${metadata}/mergelist.txt
         fp="${SCREENCAST_DIR}/final_$(date +'%s').mkv"
         if ffmpeg -f concat -safe 0 -i ${metadata}/mergelist.txt \
-            -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error
-        then
+            -c copy -movflags +faststart "${fp}" -hide_banner -loglevel error; then
             filename=$(head -1 ${metadata}/mergelist.txt | cut -d ' ' -f 2)
             filename="${filename//[\"\']/}"
             sed 's/^file/rm/g' ${metadata}/mergelist.txt | bash
@@ -223,30 +263,23 @@ stop_recording () {
             echo "Recording saved to '`realpath ${filename}`'"
         else
             echo Concatnating files with ffmpeg has failed. May require manual intervention.
-            exit 1
+            return 1
         fi
     fi
-
-    if [ -d ${metadata} ]; then
-        rm -r ${metadata}
-    else
-        dm "Nothing to stop"
-    fi
+    rm -r $metadata
 }
 
 
 show_status() {
-    if [ -d ${metadata} ]
-    then
+    if [ -d ${metadata} ]; then
         cat ${metadata}/info
-        if [ -f ${metadata}/mergelist.txt ]
-        then
+        if [ -f ${metadata}/mergelist.txt ]; then
             echo
             echo --- MERGE LIST ---
             nl ${metadata}/mergelist.txt
         fi
     else
-        dm "Nothing to show"
+        dm --msg "Nothing to show"
         exit 1
     fi
 
@@ -324,6 +357,13 @@ while [ -n "$1" ]; do
             ;;
     esac
 done
+
+# declare -rA bluetooth_devices=(
+#   ["JBL Clip 4"]="F8:5C:7D:AC:31:F9"
+#   ["soundcore H30i"]="F4:B6:2D:08:0C:EA"
+#   ["WI-C100"]="74:B7:E6:29:ED:B2"
+#   ["soundcore Liberty 4 NC"]="E8:26:CF:26:98:1A"
+# )
 
 declare -A actions=(
     [begin]="start_recording"
