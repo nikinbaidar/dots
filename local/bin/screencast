@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -- $(getopt -o b:m:siprhw -l begin:,mode:,stop,pause,resume,info,help,watch -- "$@")
+set -- $(getopt -o b:m:eiprhw -l begin:,mode:,end,pause,resume,info,help,watch -- "$@")
 
 display_help() {
   cat << 'EOF'
@@ -26,7 +26,7 @@ Options:
 
   -r, --resume Resume a paused recording.
 
-  -s, --stop Kill all ffmpeg processes.
+  -e, --end  Kill ffmpeg.
 
   -w, --watch Watch a screencast.
 EOF
@@ -54,13 +54,19 @@ watch_recording() {
 }
 
 
-start_recording () {
+begin_recording () {
     if [ -z "$filename" ]; then
         echo "Filename not specified. Aborting..."
         return 1
     fi
 
+    local W H X Y ouput msg
+    local audio_sink audio_source source_name sink_name card
+    local ffmpeg_pid recording_timer_pid
+    local -a audio video
+
     if [[ "$(basename -- "$filename")" != *.* ]]; then
+        # NOTE: If the user does not provide an extension or a file format, use mkv.
         filename="$filename.mkv"
     fi
 
@@ -76,106 +82,73 @@ start_recording () {
     if [ -d "$metadata" ]; then
         msg="Recording resumed"
     else
-        mkdir -p "${metadata}"
+        mkdir -p "$metadata"
         msg="Recording started"
     fi
+    
+    audio_sink="$(pactl get-default-sink)"
+    audio_source="$(pactl get-default-source)"
+    source_name=$(get_device_name sources $audio_source)
+    sink_name=$(get_device_name sinks $audio_sink)
 
-    local audio_sink="$(pactl get-default-sink)"
-    local audio_source="$(pactl get-default-source)"
-    local source_name=$(get_device_name sources $audio_source)
-    local sink_name=$(get_device_name sinks $audio_sink)
+    case $mode in
+        1)
+            if [[ "$source_name" == "$sink_name" &&
+                  "$audio_source" == bluez_input.* &&
+                  "$audio_sink" == bluez_output.* ]]; then
 
-    printf 'title=%s\nresolution=%sx%s\nfilepath=%s\n' \
-        "$filename" "$W" "$H" "$output" > "$metadata/info"
 
-    if [ $mode = 1 ]; then
-        # WARN: This assumes if the source and sink are the same devices then it
-        # is a bluetooth device.
-        if [[ "$source_name" = "$sink_name" ]]; then
-            local mac_addr=${audio_source#bluez_input.}
-            local card=bluez_card.${mac_addr//:/_}
-            pactl set-card-profile $card headset-head-unit 
-            echo $card > $metadata/card
-            echo $source_name profile set to headset-head-unit
-            echo WARN: This does not guarantee audio. Do a screencast check first.
-        fi
-        echo source=${source_name} >> ${metadata}/info
-        echo sink=${sink_name} >> ${metadata}/info
-        ffmpeg -y \
-            -f x11grab \
-            -r 30 \
-            -s ${W}x${H} \
-            -i :0.0+${X},${Y} \
-            -f pulse \
-            -i "${audio_source}" \
-            -f pulse \
-            -i "${audio_sink}.monitor" \
-            -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
-            -map 0:v \
-            -map "[a]" \
-            -c:v libx264  \
-            -preset ultrafast \
-            -pix_fmt yuv420p \
-            -c:a aac \
-            -strict experimental \
-            "${output}" \
-            -hide_banner \
-            -loglevel error &
-        echo $! > $metadata/pid.ffmpeg
-    elif [[ "$mode" == 2 ]]; then
-        echo source=${source_name} >> ${metadata}/info
-        echo sink= >> ${metadata}/info
-        ffmpeg -y \
-            -f x11grab \
-            -r 30 \
-            -s ${W}x${H} \
-            -i :0.0+${X},${Y} \
-            -f pulse \
-            -i "${source}" \
-            -map 0:v \
-            -map 1:a \
-            -c:v libx264 \
-            -preset ultrafast \
-            -pix_fmt yuv420p \
-            -c:a aac \
-            "${output}" \
-            -hide_banner \
-            -loglevel error &
-        echo $! > $metadata/pid.ffmpeg
-    else
-        echo source= >> ${metadata}/info
-        echo sink=${sink_name} >> ${metadata}/info
-        ffmpeg -y \
-            -f x11grab \
-            -r 30 \
-            -s ${W}x${H} \
-            -i :0.0+${X},${Y} \
-            -f pulse -i "${sink}.monitor" \
-            -map 0:v \
-            -map 1:a \
-            -c:v libx264 \
-            -preset ultrafast \
-            -pix_fmt yuv420p \
-            -c:a aac \
-            "${output}" \
-            -hide_banner \
-            -loglevel error &
-        echo $! > $metadata/pid.ffmpeg
-    fi
+                # NOTE: This assumes both the source and the sink are one
+                # bluetooth device.
 
-    echo $(date +'%s') > ${metadata}/starttime
+                # WARN: Using one device as both the source and the sink
+                # requires using the HSP/HFP profile which is only ever suitable for
+                # calls, meetings. DO NOT RECORD MULTIMEDIA.
 
+                card="bluez_card.${audio_source#bluez_input.}"
+                card=${card//:/_}
+                pactl set-card-profile "$card" headset-head-unit &&
+                    echo WARNING:: Using HSP/HFP profile. Multimedia playback will suffer.
+            fi
+
+            audio=(-f pulse -i "${audio_source}" 
+                -f pulse -i "${audio_sink}.monitor" 
+                -filter_complex "[1:a][2:a]amerge=inputs=2[a]" 
+                -map 0:v -map "[a]")
+            ;;
+        2)
+            audio=(-f pulse -i ${audio_source} -map 0:v -map 1:a)
+            sink_name=""
+            ;;
+        *)
+            audio=(-f pulse -i "${audio_sink}.monitor" -map 0:v -map 1:a)
+            source_name=""
+            ;;
+    esac
+
+    video=(-f x11grab -r 30 -s "${W}x${H}" -i ":0.0+${X},${Y}")
+
+    ffmpeg -y "${video[@]}" "${audio[@]}" -c:v libx264  -preset ultrafast \
+        -pix_fmt yuv420p -c:a aac "${output}" -hide_banner -loglevel error &
+
+    ffmpeg_pid=$!
+
+    date +'%s' > "$metadata/starttime"
     dm --msg "$msg"
-
     if [[ -f $metadata/elapsedtime ]]; then
         screencast_rec_timer.sh $(cat $metadata/elapsedtime) &
     else
         screencast_rec_timer.sh &
     fi
 
-    REVERSETIMER_PID=$!
-    echo $REVERSETIMER_PID > $metadata/pid.recording_timer
+    recording_timer_pid=$!
 
+    ## Write Metadata
+    printf 'title=%s\nresolution=%sx%s\nfilepath=%s\nsource=%s\nsink=%s\n' \
+        "$filename" "$W" "$H" "$output" "$source_name" "$sink_name" > "$metadata/info"
+
+    echo $ffmpeg_pid > "$metadata/pid.ffmpeg"
+    echo $recording_timer_pid > "$metadata/pid.recording_timer"
 }
 
 
@@ -214,7 +187,7 @@ resume_recording() {
         filename="$(grep title= ${metadata}/info | cut -d '=' -f 2 | cut -d. -f1 | cut -d '_' -f 1)_$(date +'%s').mkv"
         grep -q 'source=' ${metadata}/info && mode=1 || mode=0
         [[ -f $metadata/pid.recording_timer ]] && kill -HUP "$(cat "$metadata/pid.recording_timer")" >/dev/null 2>&1
-        start_recording # again
+        begin_recording # again
     else
         dm --msg "Nothing to resume"
         exit 1
@@ -222,10 +195,10 @@ resume_recording() {
 }
 
 
-stop_recording () {
+end_recording () {
 
     if [[ ! -d $metadata ]]; then
-        dm --msg "Nothing to stop"
+        dm --msg "Nothing to end"
         return 1
     fi
 
@@ -234,20 +207,20 @@ stop_recording () {
 
     kill $ffmpeg_pid
     echo finishing current screencast
-    # NOTE: Wait ffmpeg to close gracefully, wait till it finishes correctly and completely.
+    # NOTE: Wait ffmpeg to close gracefully, wait till it finishes correctly and
+    # completely.
     while kill -0 $ffmpeg_pid 2>/dev/null; do
         sleep 0.5 
     done
 
-
     kill -HUP $recording_timer_pid
     dm --msg "Recording stopped"
 
-    if [ -f $metadata/card ]; then
-        card=$(<$metadata/card)
-        pactl set-card-profile $card a2dp-sink
-        echo $card profile set to a2dp-sink
-    fi
+    # if [ -f $metadata/card ]; then
+    #     card=$(<$metadata/card)
+    #     pactl set-card-profile $card a2dp-sink
+    #     echo $card profile set to a2dp-sink
+    # fi
 
     if [ -f ${metadata}/mergelist.txt ]; then
         fp=$(grep filepath ${metadata}/info | cut -d '=' -f 2)
@@ -289,8 +262,7 @@ show_status() {
 SCREENCAST_DIR="${HOME}/Videos/screencasts"
 metadata="/tmp/screencast.${USER}"
 
-if [ ! -d "${SCREENCAST_DIR}" ]
-then
+if [ ! -d "${SCREENCAST_DIR}" ]; then
     mkdir -p "${SCREENCAST_DIR}"
 fi
 
@@ -317,8 +289,8 @@ while [ -n "$1" ]; do
             shift 2 
             ;;
 
-        -s|--stop)   
-            set_action "stop"
+        -e|--end)   
+            set_action "end"
             shift 
             ;;
 
@@ -358,16 +330,9 @@ while [ -n "$1" ]; do
     esac
 done
 
-# declare -rA bluetooth_devices=(
-#   ["JBL Clip 4"]="F8:5C:7D:AC:31:F9"
-#   ["soundcore H30i"]="F4:B6:2D:08:0C:EA"
-#   ["WI-C100"]="74:B7:E6:29:ED:B2"
-#   ["soundcore Liberty 4 NC"]="E8:26:CF:26:98:1A"
-# )
-
 declare -A actions=(
-    [begin]="start_recording"
-    [stop]="stop_recording"
+    [begin]="begin_recording"
+    [end]="end_recording"
     [pause]="pause_recording"
     [resume]="resume_recording"
     [info]="show_status"
